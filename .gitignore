@@ -12,3 +12,4 @@ lab/hist.json
 lab/resp*.json
 lab/hist_extX.json
 lab/clean_X.json
+strategy/data_*.json
