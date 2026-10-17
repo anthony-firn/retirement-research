@@ -21,15 +21,16 @@ MAP = {  # ticker -> (underlying, leverage)
  "SHYSIM": ("SHY", 1), "BNDSIM": ("IEI", 1), "GLDSIM": ("GLD", 1), "UGLSIM": ("GLD", 2), "SLVSIM": ("SLV", 1), "KMLMSIM": ("KMLM", 1), "DBMFSIM": ("KMLM", 0.8),
  "UUPSIM": ("UUP", 1), "GSGSIM": ("CMD", 1), "REITSIM": ("REIT", 1), "GDESIM": ("GLD", 0.9),
 }
-names = sys.argv[1:] or ["S12"]
-print(f"{'scenario':42}" + "".join(f"{n:>10}" for n in names))
-for sc, mv in SC.items():
-    row = []
-    for n in names:
-        tot = 0.0
-        for t, w in PF[n]["alloc"].items():
-            u, lev = MAP[t]; r = max(-95.0, lev * mv[u])
-            if t == "GDESIM": r = 0.9 * mv["GLD"] + 0.9 * mv["SPX"]
-            tot += w / 100 * r
-        row.append(tot)
-    print(f"{sc:42}" + "".join(f"{x:+10.1f}" for x in row))
+if __name__ == "__main__":
+    names = sys.argv[1:] or ["S12"]
+    print(f"{'scenario':42}" + "".join(f"{n:>10}" for n in names))
+    for sc, mv in SC.items():
+        row = []
+        for n in names:
+            tot = 0.0
+            for t, w in PF[n]["alloc"].items():
+                u, lev = MAP[t]; r = max(-95.0, lev * mv[u])
+                if t == "GDESIM": r = 0.9 * mv["GLD"] + 0.9 * mv["SPX"]
+                tot += w / 100 * r
+            row.append(tot)
+        print(f"{sc:42}" + "".join(f"{x:+10.1f}" for x in row))
