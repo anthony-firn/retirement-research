@@ -763,5 +763,47 @@
   },
   "note": "S12.5 with managed futures split KMLM18/DBMF17 (implementation version; DBMFSIM limits backtests to 2000+)",
   "clean": true
+ },
+ "S12+": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "VBRSIM": 18,
+   "TYDSIM": 12,
+   "GLDSIM": 11,
+   "XLVSIM": 9,
+   "IEISIM": 9,
+   "TQQQSIM": 5,
+   "XLESIM": 1
+  },
+  "note": "Safer than S12 on every historical measure (full + each decade Ulcer/MDD, Sharpe, Calmar) with the same guard rails; worst analog ~equal. Seeds A/B and expanded universe converge.",
+  "clean": true
+ },
+ "S12-F5": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "GLDSIM": 19,
+   "XLVSIM": 15,
+   "TYDSIM": 11,
+   "XLESIM": 9,
+   "TQQQSIM": 5,
+   "IWCSIM": 4,
+   "SHYSIM": 2
+  },
+  "note": "~12% CAGR, guard rails + every forward scenario >= -5% (bond revolt hedge)",
+  "clean": true
+ },
+ "S12-F4": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "XLVSIM": 29,
+   "GLDSIM": 17,
+   "UUPSIM": 5,
+   "TQQQSIM": 5,
+   "TYDSIM": 5,
+   "VBRSIM": 3,
+   "IEFSIM": 1
+  },
+  "note": "~12% CAGR, guard rails + every forward scenario >= -4%",
+  "clean": true
  }
 }

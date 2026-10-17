@@ -176,3 +176,23 @@ Verified: `results/verify_sweet_final.log`.
 - Managed futures hits the 35% cap in every final. Implementation: split KMLM18/DBMF17 — testfol 2000–26
   improves Sharpe 0.834→0.883 (S12), 0.813→0.862 (S12.5) and Ulcer 3.65→3.20 / 3.81→3.39.
 - Expectation check: 2000–2026 CAGR is ~9.5–9.8% for S12/S12.5 (1988–99 lifts the full-period figure).
+
+## 2026-10-17 — round 8: safer than S12 at ~12%
+1. **Beat-S12 search** (`SAFETY=beat`): must beat S12 on full Sharpe/Calmar/Ulcer/MDD, every decade's Ulcer
+   and MDD, and the worst analog, under the same guard rails (analogs ≥ −8%, 2022 ≥ −3%, AI ≤ 15%), CAGR ≥ 11.9%.
+   Two seeds and the expanded universe all converge to **S12+** → effectively the optimum; it is better on
+   everything except the worst analog, which is a tie within the local/testfol gap.
+2. **Forward-looking stress** (`lab/stress_forward.py`, hypothetical 2026–27 moves: AI bust, oil stagflation,
+   bond revolt 10y→6.5%, deflationary recession, dollar crisis, soft landing). S12's weak spot: bond revolt −7.2%
+   (TYD 14%). `FWD_FLOOR` constraint gives **S12-F5** (all scenarios ≥ −5%); ≥ −4% costs too much history.
+
+| testfol 1988–2026 | Allocation | CAGR | MaxDD | Sharpe | Calmar | Ulcer | Worst yr | Worst analog | 2022 | 2018–26 CAGR/Sh | 2026 YTD | Bond revolt | Oil stagfl. | AI bust |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| S12 | KMLM35 VBR19 TYD14 GLD14 XLV9 TQQQ5 UUP3 GSG1 | 12.01 | −13.9 | 0.950 | 0.864 | 3.47 | −3.2 | −7.9 | +2.9 | 9.5/0.75 | +10.3 | −7.2 | −1.7 | −2.4 |
+| **S12+** | KMLM35 VBR18 TYD12 GLD11 XLV9 IEI9 TQQQ5 XLE1 | 11.90 | **−13.7** | **0.957** | **0.870** | **3.38** | −3.2 | **−7.7** | +2.8 | 9.1/0.73 | +10.2 | −6.8 | −1.9 | −2.6 |
+| **S12-F5** | KMLM35 GLD19 XLV15 TYD11 XLE9 TQQQ5 IWC4 SHY2 | 11.90 | −16.0 | 0.917 | 0.745 | 3.81 | −3.7 | −8.0 | **+8.5** | **11.0/0.86** | **+13.7** | **−5.0** | **+4.8** | **−1.5** |
+| S12-F4 | KMLM35 XLV29 GLD17 UUP5 TQQQ5 TYD5 VBR3 IEF1 | 11.89 | −18.6 | 0.901 | 0.641 | 4.05 | −6.3 | −7.9 | +7.1 | 11.0/0.89 | +12.1 | −3.8 | +2.0 | −2.0 |
+
+- S12+ = direct upgrade of S12 by history (swaps 2% TYD + some VBR/GLD for 9% IEI, i.e. less 3× duration).
+- S12-F5 = built for today's specific risks (more gold/energy/health care, less leveraged duration); best recent
+  decade and 2026 YTD, but weaker 1988–97 and slightly negative in the 2000–02 tech-bust analog (−1.1).
