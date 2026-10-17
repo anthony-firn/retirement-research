@@ -12,8 +12,18 @@ import regime as rg                      # episodes + scenario score (also impor
 g = rg.g
 TARGETS = [float(x) for x in os.environ.get("TARGETS", "8,9,10,11,12,13,14,15,16").split(",")]
 DEC_FRAC = float(os.environ.get("DEC_FRAC", "0.7"))
-SAFETY = os.environ.get("SAFETY", "absolute")   # "maxret": TARGETS are max-drawdown caps, maximise CAGR (decade-balanced) | "absolute": every period's Ulcer & MDD vs C1 FULL-period values | "drawdown": vs C1 same-decade values | "ratios": old
+SAFETY = os.environ.get("SAFETY", "absolute")   # "nowsafe": absolute + EP_FLOOR/EP22_FLOOR/AIX guard rails | "maxret": TARGETS are max-drawdown caps, maximise CAGR (decade-balanced) | "absolute": every period's Ulcer & MDD vs C1 FULL-period values | "drawdown": vs C1 same-decade values | "ratios": old
 B = g.B; T_CUR = [TARGETS[0]]
+# --- current-regime ("nowsafe") constraints --------------------------------------------------------------
+EP_FLOOR = float(os.environ.get("EP_FLOOR", "-100"))      # every analog episode return >= EP_FLOOR (%)
+EP22_FLOOR = float(os.environ.get("EP22_FLOOR", "-100"))  # 2022 inflation/war/rates episode >= this (%)
+AIX = float(os.environ.get("AIX", "1e9"))                 # cap on AI/mega-tech notional exposure (% of portfolio)
+AI_COEF = {"TQQQSIM": 3, "QLDSIM": 2, "TECLSIM": 3, "QQQSIM": 1, "XLKSIM": 1, "SPMOSIM": 0.6, "VUGSIM": 0.6,
+           "UPROSIM": 1.2, "SPXLSIM": 1.2, "SSOSIM": 0.8, "VTISIM": 0.35, "VVSIM": 0.4, "SPYSIM": 0.4, "NTSXSIM": 0.36,
+           "NTSDSIM": 0.3, "VTSIM": 0.25, "URTHSIM": 0.3, "XLCSIM": 0.5, "XLYSIM": 0.3, "GDESIM": 0.36}
+AIV = torch.tensor([AI_COEF.get(n, 0.0) for n in g.NAMES], device=g.DEV)
+I22 = [e[0] for e in rg.EPISODES].index("2022 inflation/war/rates")
+def ai_exposure(W): return (AIV.to(W.dtype)[:, None] * W).sum(0)
 
 def score(W, TT=None):
     T = T_CUR[0]; res = []
@@ -40,6 +50,12 @@ def score(W, TT=None):
             pen = pen + torch.where(m["cagr"] >= DEC_FRAC * T, 0.0, -5.0 + 0.5 * (m["cagr"] - DEC_FRAC * T))
         s = torch.stack(parts).min(0).values + pen
         if SAFETY != "ratios": s = s + 0.01 * f["sharpe"]                      # tie-break
+        if SAFETY == "nowsafe":                                                # current-economy guard rails
+            ep = rg.episodes(w, TT); worst = ep.min(0).values; e22 = ep[I22]; aix = ai_exposure(w)
+            s = s + torch.where(worst >= EP_FLOOR, 0.0, -20.0 + (worst - EP_FLOOR))
+            s = s + torch.where(e22 >= EP22_FLOOR, 0.0, -20.0 + (e22 - EP22_FLOOR))
+            s = s + torch.where(aix <= AIX, 0.0, -20.0 - 0.1 * (aix - AIX))
+            s = s + 0.005 * rg.scen(ep)                                        # tie-break: better in today's analogs
         res.append(torch.nan_to_num(s, nan=-1e9))
     return torch.cat(res)
 g.score = score
@@ -56,6 +72,7 @@ for nm in os.environ.get("SEEDS", "Safe-Now,C1-Now,C1,C2,FULL#1").split(","):
 
 if __name__ == "__main__":
     t0 = time.time(); rng = np.random.default_rng(g.SEED); out = []; prev = None
+    if SAFETY == "nowsafe": print(f"nowsafe: every episode >= {EP_FLOOR}%, 2022 >= {EP22_FLOOR}%, AI exposure <= {AIX}%", flush=True)
     print(f"frontier SAFETY={SAFETY} | {g.DEV} | {g.A} assets | targets {TARGETS} | decade floor {DEC_FRAC}xT | climbers {g.CLIMBERS} rounds {g.ROUNDS}", flush=True)
     for T in TARGETS:
         T_CUR[0] = T
@@ -82,8 +99,9 @@ if __name__ == "__main__":
             out.append(dict(target=T, rank=k + 1, alloc=alloc, safety=float(s64[k]), full=f,
                             decades={p: {m: float(M[i][m][k]) for m in ("cagr", "sharpe", "calmar", "ulcer", "mdd")} for i, p in enumerate(g.PLABEL[1:], 1)},
                             episodes=dict(zip([x[0] for x in rg.EPISODES], e.tolist())),
-                            scenario=float(rg.scen(torch.tensor(e[:, None], device=g.DEV, dtype=torch.float64))[0]), worst=float(e.min())))
+                            scenario=float(rg.scen(torch.tensor(e[:, None], device=g.DEV, dtype=torch.float64))[0]), worst=float(e.min()),
+                            ai_exposure=float(ai_exposure(Wt[:, k:k+1])[0])))
         b = out[-len(top)]; a = " ".join(f"{n.replace('SIM','')}{v}" for n, v in b["alloc"].items()); f = b["full"]
-        print(f"T={T:4.1f} safety {b['safety']:.3f} | {a:68} CAGR {f['cagr']:5.2f} MDD {f['mdd']:6.2f} Sh {f['sharpe']:.3f} Cal {f['calmar']:.3f} Ulc {f['ulcer']:.3f} | worst analog {b['worst']:+.1f} ({time.time()-t0:.0f}s)", flush=True)
+        print(f"T={T:4.1f} safety {b['safety']:.3f} | {a:68} CAGR {f['cagr']:5.2f} MDD {f['mdd']:6.2f} Sh {f['sharpe']:.3f} Cal {f['calmar']:.3f} Ulc {f['ulcer']:.3f} | worst analog {b['worst']:+.1f} 2022 {b['episodes']['2022 inflation/war/rates']:+.1f} AI {b['ai_exposure']:.0f}% ({time.time()-t0:.0f}s)", flush=True)
         json.dump(dict(targets=TARGETS, dec_frac=DEC_FRAC, base=g.BASE, base_metrics=B, episodes=rg.EPISODES, results=out), open(g.OUT, "w"), indent=1)
     print(f"done {time.time()-t0:.0f}s -> {g.OUT}")
