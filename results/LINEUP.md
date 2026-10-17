@@ -62,3 +62,20 @@ Built from existing verified results — no new searches. Definitions in `portfo
 - 9–11% and 14–15% only have historically-optimised (E) versions; they are more exposed to a bond revolt.
 - Since 2000, realised CAGRs are roughly 2–2.5 pts below the full-period figures (1988–99 was exceptionally strong).
 - Leveraged ETFs and KMLM are simulated before inception; history was used to choose these. Not financial advice.
+
+## Beyond E20 — the ceiling (testfol-verified)
+| Portfolio | Allocation | CAGR | Max DD | Sharpe | Ulcer | Worst yr |
+|---|---|---|---|---|---|---|
+| E21 | TQQQ28 VBR28 TYD24 TMF11 XLE7 KMLM2 | 20.99 | −54.7 | 0.773 | 16.1 | −38.0 |
+| E22 | TQQQ32 TYD21 VBR17 TMF15 XLE12 REIT3 | 21.99 | −61.9 | 0.762 | 18.6 | −40.0 |
+| E23 | TQQQ35 TMF25 XLE18 VBR14 TYD8 | 23.00 | −69.0 | 0.754 | 21.4 | −39.0 |
+| E24 | TQQQ35 TMF29 XLE28 TECL6 VBR1 UPRO1 | 23.99 | −78.5 | 0.733 | 27.0 | −42.3 |
+| **Ceiling** | TQQQ35 TECL22 TMF22 XLE21 | **24.81** | −89.8 | 0.680 | 39.5 | −53.0 |
+| TQQQ alone | TQQQ100 | 14.58 | −99.98 | 0.524 | 80.4 | −91.9 |
+| QQQ alone | QQQ100 | 14.93 | −83.0 | 0.555 | 36.8 | −41.7 |
+| VTI alone | VTI100 | 11.55 | −55.4 | 0.539 | 13.5 | −37.0 |
+
+- ~24.8% CAGR is the physical ceiling under the rules (35% cap, ≤ 8 holdings, yearly rebalance), with or
+  without the decade floor. More leverage *lowers* return (volatility drag): TQQQ alone earns only 14.6%.
+- The ceiling works only by rebalancing between uncorrelated 3× sleeves (Nasdaq, tech, long Treasuries)
+  plus energy — and still loses 77–83% in a 2000–02 tech bust and ~46% in 2022.
