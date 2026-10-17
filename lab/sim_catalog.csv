@@ -1,0 +1,129 @@
+ticker,name,category,subcategory,coverage,source,assumption
+XLBSIM,Materials sector,Equities,US sectors,1926-present,"Fama-French Chems industry portfolio, then XLB.",Chems industry return minus 0.09% p.a. before XLB.
+XLCSIM,Communication services sector,Equities,US sectors,1926-present,"Fama-French Telcm industry portfolio, then XLC.",Telcm industry return minus 0.09% p.a. before XLC.
+XLESIM,Energy sector,Equities,US sectors,1926-present,"Fama-French Energy industry portfolio, then XLE.",Energy industry return minus 0.09% p.a. before XLE.
+XLFSIM,Financials sector,Equities,US sectors,1926-present,"Fama-French Money industry portfolio, then XLF.",Money industry return minus 0.09% p.a. before XLF.
+XLISIM,Industrials sector,Equities,US sectors,1926-present,"Fama-French Manuf industry portfolio, then XLI.",Manuf industry return minus 0.09% p.a. before XLI.
+XLKSIM,Technology sector,Equities,US sectors,1926-present,"Fama-French BusEq industry portfolio, then XLK.",BusEq industry return minus 0.09% p.a. before XLK.
+XLPSIM,Consumer staples sector,Equities,US sectors,1926-present,"Fama-French NoDur industry portfolio, then XLP.",NoDur industry return minus 0.09% p.a. before XLP.
+XLUSIM,Utilities sector,Equities,US sectors,1926-present,"Fama-French Utils industry portfolio, then XLU.",Utils industry return minus 0.09% p.a. before XLU.
+XLVSIM,Health care sector,Equities,US sectors,1926-present,"Fama-French Hlth industry portfolio, then XLV.",Hlth industry return minus 0.09% p.a. before XLV.
+XLYSIM,Consumer discretionary sector,Equities,US sectors,1926-present,"Average of Fama-French Durbl and Shops industry portfolios, then XLY.",Average industry return minus 0.09% p.a. before XLY.
+UPROSIM,Simulated UPRO / 3x S&P 500,LETF,Leveraged ETF proxies,1885-present,"Custom 3x SPYSIM model before UPRO inception, then UPRO.","Pre-inception segment uses 3x daily SPYSIM with EFFRX financing, 1.115x swap exposure, 0.42% spread, and 0.95% ER."
+SPYUSIM,Simulated SPYU / 4x S&P 500,LETF,Leveraged ETF proxies,1885-present,"Custom 4x SPYSIM model before SPYU inception, then SPYU.","Pre-inception segment uses 4x daily SPYSIM with EFFRX financing, 1x swap exposure, 4.794% spread, and 0.95% ER."
+SPXLSIM,Simulated SPXL / 3x S&P 500,LETF,Leveraged ETF proxies,1885-present,"Custom 3x SPYSIM model before SPXL inception, then SPXL.","Pre-inception segment uses 3x daily SPYSIM with EFFRX financing, 1.038x swap exposure, 0.51% spread, and 0.94% ER."
+SSOSIM,Simulated SSO / 2x S&P 500,LETF,Leveraged ETF proxies,1885-present,"Custom 2x SPYSIM model before SSO inception, then SSO.","Pre-inception segment uses 2x daily SPYSIM with EFFRX financing, 1.064x swap exposure, 0.43% spread, and 0.87% ER."
+SPXUSIM,Simulated SPXU / -3x S&P 500,LETF,Leveraged ETF proxies,1885-present,"Custom -3x SPYSIM model before SPXU inception, then SPXU.","Pre-inception segment uses -3x daily SPYSIM with EFFRX financing, 1.047x swap exposure, -0.21% spread, and 0.90% ER."
+SDSSIM,Simulated SDS / -2x S&P 500,LETF,Leveraged ETF proxies,1885-present,"Custom -2x SPYSIM model before SDS inception, then SDS.","Pre-inception segment uses -2x daily SPYSIM with EFFRX financing, 1.029x swap exposure, -0.22% spread, and 0.91% ER."
+TQQQSIM,Simulated TQQQ / 3x Nasdaq 100,LETF,Leveraged ETF proxies,1986-present,"Custom 3x QQQSIM model before TQQQ inception, then TQQQ.","Pre-inception segment uses 3x daily QQQSIM with EFFRX financing, 1.056x swap exposure, 0.52% spread, 0.95% ER, and 0.20% UE."
+QLDSIM,Simulated QLD / 2x Nasdaq 100,LETF,Leveraged ETF proxies,1986-present,"Custom 2x QQQSIM model before QLD inception, then QLD.","Pre-inception segment uses 2x daily QQQSIM with EFFRX financing, 1.036x swap exposure, 0.63% spread, 0.95% ER, and 0.20% UE."
+SQQQSIM,Simulated SQQQ / -3x Nasdaq 100,LETF,Leveraged ETF proxies,1986-present,"Custom -3x QQQSIM model before SQQQ inception, then SQQQ.","Pre-inception segment uses -3x daily QQQSIM with EFFRX financing, 1.033x swap exposure, -0.41% spread, 0.95% ER, and 0.20% UE."
+UDOWSIM,Simulated UDOW / 3x Dow 30,LETF,Leveraged ETF proxies,1998-present,"Custom 3x DIA model before UDOW inception, then UDOW.","Pre-inception segment uses 3x daily DIA with EFFRX financing, 1.092x swap exposure, 0.431% spread, 0.95% ER, and 0.16% UE."
+DDMSIM,Simulated DDM / 2x Dow 30,LETF,Leveraged ETF proxies,1998-present,"Custom 2x DIA model before DDM inception, then DDM.","Pre-inception segment uses 2x daily DIA with EFFRX financing, 1.086x swap exposure, 0.322% spread, 0.95% ER, and 0.16% UE."
+SOXLSIM,Simulated SOXL / 3x semiconductors,LETF,Leveraged ETF proxies,2001-present,"Custom 3x SOXX model before SOXL inception, then SOXL.","Pre-inception segment uses 3x daily SOXX with EFFRX financing, 1.102x swap exposure, 0.941% spread, 0.95% ER, and 0.34% UE."
+TECLSIM,Simulated TECL / 3x technology sector,LETF,Leveraged ETF proxies,1926-present,"Custom 3x XLKSIM model before TECL inception, then TECL.","Pre-inception segment uses 3x daily XLKSIM with EFFRX financing, 1x swap exposure, 0.706% spread, 0.95% ER, and 0.09% UE."
+KORUSIM,Simulated KORU / 3x South Korea equities,LETF,Leveraged ETF proxies,2000-present,"Custom 3x EWY model before KORU inception, then KORU.","Pre-inception segment uses 3x daily EWY with EFFRX financing, 1x swap exposure, 1.029% spread, and 1.32% ER."
+YINNSIM,Simulated YINN / 3x China large cap,LETF,Leveraged ETF proxies,2004-present,"Custom 3x FXI model before YINN inception, then YINN.","Pre-inception segment uses 3x daily FXI with EFFRX financing, 1.132x swap exposure, 0.589% spread, and 1.34% ER."
+UMDDSIM,Simulated UMDD / 3x S&P MidCap 400,LETF,Leveraged ETF proxies,1991-present,"Custom 3x MDYSIM model before UMDD inception, then UMDD.","Pre-inception segment uses 3x daily MDYSIM with EFFRX financing, 1.182x swap exposure, 0.102% spread, and 0.95% ER."
+MIDUSIM,Simulated MIDU / 3x S&P MidCap 400,LETF,Leveraged ETF proxies,1991-present,"Custom 3x MDYSIM model before MIDU inception, then MIDU.","Pre-inception segment uses 3x daily MDYSIM with EFFRX financing, 1.046x swap exposure, 0.398% spread, and 0.95% ER."
+MVVSIM,Simulated MVV / 2x S&P MidCap 400,LETF,Leveraged ETF proxies,1991-present,"Custom 2x MDYSIM model before MVV inception, then MVV.","Pre-inception segment uses 2x daily MDYSIM with EFFRX financing, 1.151x swap exposure, 0.241% spread, and 0.95% ER."
+URTYSIM,Simulated URTY / 3x Russell 2000,LETF,Leveraged ETF proxies,1978-present,"Custom 3x IWMSIM model before URTY inception, then URTY.","Pre-inception segment uses 3x daily IWMSIM with EFFRX financing, 1.108x swap exposure, 0.645% spread, and 0.95% ER."
+UWMSIM,Simulated UWM / 2x Russell 2000,LETF,Leveraged ETF proxies,1978-present,"Custom 2x IWMSIM model before UWM inception, then UWM.","Pre-inception segment uses 2x daily IWMSIM with EFFRX financing, 1.109x swap exposure, 0.587% spread, and 0.95% ER."
+TNASIM,Simulated TNA / 3x Russell 2000,LETF,Leveraged ETF proxies,1978-present,"Custom 3x IWMSIM model before TNA inception, then TNA.","Pre-inception segment uses 3x daily IWMSIM with EFFRX financing, 1.003x swap exposure, 0.877% spread, and 0.95% ER."
+UBTSIM,Simulated UBT / 2x long Treasuries,LETF,Leveraged ETF proxies,1962-present,"Custom 2x TLTSIM model before UBT inception, then UBT.","Pre-inception segment uses 2x daily TLTSIM with EFFRX financing, 1.045x swap exposure, 0% spread, 0.95% ER, and 0.15% UE."
+TYDSIM,Simulated TYD / 3x 7-10 year Treasuries,LETF,Leveraged ETF proxies,1962-present,"Custom 3x IEFSIM model before TYD inception, then TYD.","Pre-inception segment uses 3x daily IEFSIM with EFFRX financing, 1.135x swap exposure, 0% spread, 0.95% ER, and 0.15% UE."
+TMFSIM,Simulated TMF / 3x long Treasuries,LETF,Leveraged ETF proxies,1962-present,"Custom 3x TLTSIM model before TMF inception, then TMF.","Pre-inception segment uses 3x daily TLTSIM with EFFRX financing, 1.184x swap exposure, 0.14% spread, and 0.90% ER."
+UGLSIM,Simulated UGL / 2x gold,LETF,Leveraged ETF proxies,1968-present,"Custom 2x GLDSIM model before UGL inception, then UGL.","Pre-inception segment uses 2x daily GLDSIM with EFFRX financing, 1.032x swap exposure, 2.221% spread, and 0.95% ER."
+CASHX,3-month Treasury bill cash return,Cash,Cash equivalents,1885-present,"Shiller rate proxy, Fama-French risk-free rate, then 3-month T-bill rate.","Cash substitute; unlike most presets, dividend reinvestment choice matters."
+CASHCAD,Canada short-term cash return,Cash,International cash proxies,1956-present,FRED/OECD Canada 3-month interbank rate.,CAD cash proxy; dividend reinvestment choice matters.
+CASHEUR,Euro Area short-term cash return,Cash,International cash proxies,1960-present,"FRED/OECD Euro Area 3-month interbank rate, backfilled with Germany 3-month interbank rate.",EUR cash proxy; dividend reinvestment choice matters.
+CASHGBP,United Kingdom short-term cash return,Cash,International cash proxies,1957-present,FRED/OECD United Kingdom 3-month interbank rate.,GBP cash proxy; dividend reinvestment choice matters.
+CASHJPY,Japan short-term cash return,Cash,International cash proxies,1955-present,"FRED/OECD Japan 3-month interbank rate, backfilled with Japan Treasury bill rate.",JPY cash proxy; dividend reinvestment choice matters.
+CASHAUD,Australia short-term cash return,Cash,International cash proxies,1968-present,FRED/OECD Australia 3-month interbank rate.,AUD cash proxy; dividend reinvestment choice matters.
+CASHCHF,Switzerland short-term cash return,Cash,International cash proxies,1972-present,"FRED/OECD Switzerland 3-month interbank rate, backfilled with Swiss call money rate.",CHF cash proxy; dividend reinvestment choice matters.
+EFFRX,Effective Federal Funds Rate cash return,Cash,Cash equivalents,1885-present,"Shiller rate proxy, Fama-French risk-free rate, then Federal Funds Effective Rate.",Alternative cash return series; dividend reinvestment choice matters.
+ZEROX,Zero-return series,Cash,Utility series,Full supported calendar,Internal preset.,Flat zero-return reference series.
+INFLATION,US Consumer Price Index,Macro,Inflation,1885-present,"Shiller CPI, then unadjusted CPI-U.",Monthly CPI is pinned to month-end and interpolated for daily use.
+INFLCAD,Canada Consumer Price Index,Macro,Inflation,1914-present,"FRED/OECD Canada CPI, all items, not seasonally adjusted.",Monthly CPI is pinned to month-end and interpolated for daily use.
+INFLEUR,Euro Area Harmonized Index of Consumer Prices,Macro,Inflation,1955-present,"FRED Euro Area HICP, backfilled with FRED/OECD Germany CPI, all items, not seasonally adjusted.","Monthly index values are rebased, pinned to month-end, and interpolated for daily use."
+INFLGBP,United Kingdom Consumer Price Index,Macro,Inflation,1955-present,"FRED/OECD United Kingdom CPI, all items, not seasonally adjusted.",Monthly CPI is pinned to month-end and interpolated for daily use.
+INFLJPY,Japan Consumer Price Index,Macro,Inflation,1955-2021,"FRED/OECD Japan CPI, all items, not seasonally adjusted.",Monthly CPI is pinned to month-end and interpolated for daily use.
+INFLAUD,Australia Consumer Price Index,Macro,Inflation,1948-present,"FRED/OECD Australia CPI, all items, not seasonally adjusted.",Quarterly CPI is pinned to quarter-end and interpolated for daily use.
+INFLCHF,Switzerland Consumer Price Index,Macro,Inflation,1955-present,"FRED/OECD Switzerland CPI, all items, not seasonally adjusted.",Monthly CPI is pinned to month-end and interpolated for daily use.
+SPYSIM,Simulated SPY / S&P 500 total return,Equities,US broad market,1885-present,"Schwert US stock data, S&P 500 index data, Shiller dividends, then SPY.",SPY live segment is adjusted by +0.0945% p.a. to approximate 0% ER.
+OEFSIM,Simulated OEF / S&P 100,Equities,US large cap,1989-present,"S&P 100 Total Return Index, then OEF.",OEF live segment is adjusted by +0.20% p.a. to approximate 0% ER.
+MDYSIM,Simulated MDY / S&P MidCap 400,Equities,US mid cap,1991-present,"S&P 400 Total Return Index, then MDY.",MDY live segment is adjusted by +0.24% p.a. to approximate 0% ER.
+IJRSIM,Simulated IJR / S&P SmallCap 600,Equities,US small cap,1994-present,"S&P 600 Total Return Index, then IJR.",IJR live segment is adjusted by +0.06% p.a. to approximate 0% ER.
+IWMSIM,Simulated IWM / Russell 2000,Equities,US small cap,1978-present,"Russell 2000 Total Return Index, then IWM.",IWM live segment is adjusted by +0.19% p.a. to approximate 0% ER.
+SPMOSIM,Simulated SPMO / S&P 500 Momentum,Equities,US momentum,1972-present,"S&P 500 Momentum index backfill, then SPMO.",Historical segment subtracts 0.13% p.a. to match SPMO economics.
+XMMOSIM,Simulated XMMO / S&P MidCap Momentum,Equities,US momentum,1991-present,"S&P MidCap Momentum index backfill, then XMMO.",Historical segment subtracts 0.35% p.a.; post-2019 XMMO methodology is simulated before live availability.
+USMVSIM,Simulated USMV / minimum volatility,Equities,US minimum volatility,1988-present,"MSCI USA Minimum Volatility Index, then USMV.",Historical segment subtracts 0.15% p.a.
+SCHDSIM,Simulated SCHD / US dividend equity,Equities,US dividend,1999-present,"Dow Jones U.S. Dividend 100 Total Return Index, then SCHD.",Historical segment subtracts 0.06% p.a.
+SCHYSIM,Simulated SCHY / international dividend equity,Equities,International dividend,2005-present,"Dow Jones International Dividend 100 Index (Net), then SCHY.",Historical segment subtracts 0.08% p.a.
+NOBLSIM,Simulated NOBL / US dividend aristocrats,Equities,US dividend,1991-present,"S&P 500 Dividend Aristocrats Total Return Index, then NOBL.",Historical segment subtracts 0.35% p.a.
+XYLDSIM,Simulated PBP / S&P 500 covered call,Alternatives,Covered call,1988-present,"BXM Total Return Index, then PBP.",Historical segment subtracts 0.60% p.a.; identical to PBPSIM.
+PBPSIM,Simulated PBP / S&P 500 covered call,Alternatives,Covered call,1988-present,"BXM Total Return Index, then PBP.",Historical segment subtracts 0.60% p.a.; identical to XYLDSIM.
+QYLDSIM,Simulated QYLD / Nasdaq 100 covered call,Alternatives,Covered call,1994-present,"BXNT Total Return Index, then QYLD.",Historical segment subtracts 0.60% p.a.
+RYLDSIM,Simulated RYLD / Russell 2000 covered call,Alternatives,Covered call,2006-present,"BXR Total Return Index, then RYLD.",Historical segment subtracts 0.60% p.a.
+DJIASIM,Simulated DJIA / Dow 30 covered call,Alternatives,Covered call,1997-present,"BXDE Total Return Index, then DJIA.",Historical segment subtracts 0.60% p.a.
+XYLGSIM,Simulated XYLG / S&P 500 covered call and growth,Alternatives,Covered call,1990-present,"BXMH Total Return Index, then XYLG.",Historical segment subtracts 0.35% p.a.
+QYLGSIM,Simulated QYLG / Nasdaq 100 covered call and growth,Alternatives,Covered call,2013-present,"BXNH Total Return Index, then QYLG.",Historical segment subtracts 0.35% p.a.
+RYOCXSIM,Rydex Nasdaq-100 backfill,Equities,Backfill building block,1994-present,"RYOCX historical data, then live-compatible continuation.",Used as a backfill input for QQQSIM.
+VXUSSIM,Simulated VXUS / total ex-US market,Equities,International broad market,1970-present,"MSCI World ex USA net return, VGTSX backfill, then VXUS.",Backfills are adjusted to approximate VXUS economics.
+EFASIM,Simulated EFA / EAFE,Equities,International developed,1970-present,"MSCI EAFE net total return index, then EFA.",EFA live segment is adjusted by +0.32% p.a. before live data.
+VEASIM,Simulated VEA / developed ex-US,Equities,International developed,1970-present,"MSCI EAFE net total return index, VTMGX backfill, then VEA.",Backfills are adjusted to approximate VEA economics.
+URTHSIM,Simulated URTH / MSCI World,Equities,Global developed,1970-present,"VTI/EAFE-style market-cap blend, MSCI World Net Return Index, then URTH.",URTH live segment uses a 0.24% p.a. expense adjustment.
+VWOSIM,Simulated VWO / emerging markets,Equities,Emerging markets,1994-present,"VEIEX backfill, then VWO.",VEIEX backfill is adjusted by the historical ER gap.
+VSSSIM,Simulated VSS / international small cap,Equities,International small cap,1995-present,"DISVX backfill, then VSS.",DISVX backfill is adjusted by the historical ER gap.
+EFVSIM,Simulated EFV / international value,Equities,International value,1995-present,"DFIVX backfill, then EFV.",Backfilled international value series.
+VTISIM,Simulated VTI / total US market,Equities,US total market,1926-present,"Fama-French Rm-Rf plus Rf, VTSMX backfill, then VTI.",Backfills are adjusted to approximate VTI economics.
+VTSIM,Simulated VT / total world market,Equities,Global market,1970-present,"VTISIM and VXUSSIM at market-cap weights, then VT.",VT live segment is adjusted by +0.08% p.a. to approximate 0% ER.
+VVSIM,Simulated US large-cap blend,Equities,US size and style,1926-present,"Fama-French large-cap blend, then SPY, then VV.",SPY segment is adjusted by +0.09% p.a.; VV live segment by +0.03% p.a.
+VTVSIM,Simulated US large-cap value,Equities,US size and style,1926-present,"Fama-French large-cap value, then VTV.",VTV live segment is adjusted by +0.04% p.a.
+VUGSIM,Simulated US large-cap growth,Equities,US size and style,1926-present,"Fama-French large-cap growth, then VUG.",VUG live segment is adjusted by +0.04% p.a.
+VOSIM,Simulated US mid-cap blend,Equities,US size and style,1926-present,"Fama-French mid-cap blend, then VO.",VO live segment is adjusted by +0.04% p.a.
+VOESIM,Simulated US mid-cap value,Equities,US size and style,1926-present,"Fama-French mid-cap value, then VOE.",VOE live segment is adjusted by +0.07% p.a.
+VOTSIM,Simulated US mid-cap growth,Equities,US size and style,1926-present,"Fama-French mid-cap growth, then VOT.",VOT live segment is adjusted by +0.07% p.a.
+VBSIM,Simulated US small-cap blend,Equities,US size and style,1926-present,"Fama-French small-cap blend, then VB.",VB live segment is adjusted by +0.05% p.a.
+VBRSIM,Simulated US small-cap value,Equities,US size and style,1926-present,"Fama-French small-cap value, then VBR.",VBR live segment is adjusted by +0.07% p.a.
+VBKSIM,Simulated US small-cap growth,Equities,US size and style,1926-present,"Fama-French small-cap growth, then VBK.",VBK live segment is adjusted by +0.07% p.a.
+IWCSIM,Simulated US micro-cap blend,Equities,US size and style,1926-present,"Fama-French tiny-cap blend, then IWC.",IWC live segment is adjusted by +0.60% p.a.
+WOODSIM,Simulated WOOD / global timber and forestry,Equities,Global timber and forestry,2007-present,"S&P Global Timber & Forestry Total Return Index, then WOOD.",Historical segment subtracts 0.39% p.a.; live WOOD returns are unchanged.
+BNDSIM,Simulated BND / total US bond market,Fixed income,Treasuries,1986-present,"VBMFX backfill, then BND.",VBMFX backfill is adjusted by -0.12% p.a.
+SHYSIM,Simulated SHY / 1-3 year Treasuries,Fixed income,Treasuries,1962-present,"2-year Treasury yield model, then SHY.",Synthetic bond segment uses 0.15% p.a. expense assumption.
+IEISIM,Simulated IEI / 3-7 year Treasuries,Fixed income,Treasuries,1962-present,"5-year Treasury yield model, then IEI.",Synthetic bond segment uses 0.15% p.a. expense assumption.
+IEFSIM,Simulated IEF / 7-10 year Treasuries,Fixed income,Treasuries,1962-present,"10-year Treasury yield model, then IEF.",Synthetic bond segment uses 0.15% p.a. expense assumption.
+TLTSIM,Simulated TLT / long Treasuries,Fixed income,Treasuries,1962-present,"20-year and 30-year Treasury yield model, then TLT.",Synthetic bond segment uses 0.15% p.a. expense assumption.
+ZROZSIM,Simulated ZROZ / long Treasury STRIPS,Fixed income,Treasury STRIPS,1962-present,"20-year and 30-year Treasury yield model, then ZROZ.",Zero-coupon synthetic segment uses 0.15% p.a. expense assumption.
+TIPSIM,Simulated TIP / US TIPS,Fixed income,Inflation-linked bonds,2000-present,"VIPSX backfill, then TIP.",Backfilled TIPS series.
+STIPSIM,Simulated STIP / short-term TIPS,Fixed income,Inflation-linked bonds,2003-present,"5-year TIPS yield model, then STIP.",Synthetic segment uses 0.03% p.a. expense assumption.
+LTPZSIM,Simulated LTPZ / long-term TIPS,Fixed income,Inflation-linked bonds,2003-present,"20-year and 30-year TIPS yield model, then LTPZ.",Synthetic segment uses 0.20% p.a. expense assumption.
+VCITSIM,Simulated VCIT / intermediate corporate bonds,Fixed income,Corporate bonds,2009-present,"BofA corporate yield series model, then VCIT.",Synthetic segment uses 0.03% p.a. expense assumption.
+REITSIM,Simulated US REITs,Alternatives,Real estate,1926-present,"Fama-French real estate portfolio, STMDX, DFREX, then VNQ.",Fama-French segment subtracts 0.13% p.a.
+GLDSIM,Gold,Alternatives,Commodities,1968-present,"LBMA Gold Price at 3PM, then GLD.",GLD live segment is adjusted by +0.40% p.a. to approximate 0% ER.
+SLVSIM,Silver,Alternatives,Commodities,1968-present,"LBMA Silver Price at 3PM, then SLV.",SLV live segment is adjusted by +0.50% p.a. to approximate 0% ER.
+GSGSIM,S&P GSCI commodities,Alternatives,Commodities,1979-present,"S&P GSCI Total Return Index, then GSG.",Historical segment subtracts 0.75% p.a.
+KMLMSIM,Simulated KMLM / managed futures,Alternatives,Managed futures,1988-present,"KFA MLM Index, then KMLM.",Historical segment subtracts 0.90% p.a.
+DBMFSIM,Simulated DBMF / managed futures,Alternatives,Managed futures,2000-present,"SG CTA Index, then DBMF.",SG CTA segment adds 2.5% p.a. fee adjustment and subtracts 0.85% p.a.
+BTALSIM,Simulated BTAL / anti-beta market neutral,Alternatives,Market neutral,2001-present,"DJTMNABT index, then BTAL.",Historical segment subtracts 2.0% p.a.
+CLSESIM,Simulated CLSE / long-short equity,Alternatives,Long-short equity,2009-present,"MARNX adjusted-close history from Tiingo, then CLSE.",MARNX fund returns before live CLSE ETF returns; no additional expense adjustment.
+SVIXSIM,Simulated SVIX / short volatility,Alternatives,Volatility,2005-present,"Six Figure Investing short-volatility backtest, then SVIX.",Live SVIX economics after launch; short volatility is path-dependent and high risk.
+UVIXSIM,Simulated UVIX / long volatility,Alternatives,Volatility,2005-present,"Six Figure Investing long-volatility backtest, then UVIX.",Live UVIX economics after launch; long volatility is path-dependent and high risk.
+VIXMSIM,Simulated VIXM / mid-term VIX futures,Alternatives,Volatility,2005-present,"Synthetic VIXM model, then VIXM.",Synthetic segment is model-derived until live ETF history is available.
+ZVOLSIM,Simulated ZVOL / volatility risk premium,Alternatives,Volatility,2004-present,"Six Figure Investing SPVXMPI-derived backtest, then ZVOL.",Live ZVOL economics after launch; volatility products are path-dependent.
+VIXSIM,CBOE Volatility Index,Alternatives,Volatility index,1990-present,FRED VIXCLS.,"Index level return series, not an investable VIX futures product."
+BTCSIM,Bitcoin,Alternatives,Crypto,2010-present,"FirstRate Data bitcoin price, then IBIT.",IBIT live segment is adjusted by +0.25% p.a. to approximate spot bitcoin.
+ETHSIM,Ethereum,Alternatives,Crypto,2016-present,"FirstRate Data ethereum price, then ETHA.",ETHA live segment is adjusted by +0.25% p.a. to approximate spot ethereum.
+CAOSSIM,Simulated CAOS,Alternatives,Options strategy,2013-present,"AVOLX backfill, then CAOS.",Backfilled options-strategy proxy.
+FNGUSIM,Simulated FNGU,Alternatives,Leveraged thematic equity,2018-present,"FNGA backfill, then FNGU.",Backfilled leveraged FANG-style product.
+MCISIM,MCI managed futures,Fixed income,Corporate bonds,1980-present,"MCI fund disclosures, then MCI.",Disclosure-derived early history.
+MTUMSIM,Simulated MTUM / US momentum,Equities,US momentum,1994-present,"MSCI USA Momentum Total Return Index, then MTUM.",Historical segment subtracts 0.15% p.a.
+GDESIM,Simulated GDE / gold plus equities stack,Alternatives,Return stacking,1968-present,"90% SPYSIM + 90% GLDSIM - 80% CASHX simulation, then GDE.","Quarterly rebalance, 5% bands, and 0.20% annual expenses before live GDE."
+GDMNSIM,Simulated GDMN / gold plus gold miners stack,Alternatives,Return stacking,2006-present,"90% GLD + 90% GDX - 80% CASHX simulation, then GDMN.",Historical portfolio rebalanced with 5% bands; no additional expense adjustment.
+RSSBSIM,Simulated RSSB / global stocks plus bonds stack,Alternatives,Return stacking,1969-present,"testfolio simulated portfolio backfill, then RSSB.",Backfill uses the published testfolio portfolio recipe before live RSSB.
+RSSTSIM,Simulated RSST / US stocks plus managed futures stack,Alternatives,Return stacking,2000-present,"Historical simulated strategy series, then RSST.",No additional expense-ratio adjustment is applied.
+RSITSIM,Simulated RSIT / international stocks plus managed futures stack,Alternatives,Return stacking,2000-present,"Historical simulated strategy series, then RSIT.",No additional expense-ratio adjustment is applied.
+RSBTSIM,Simulated RSBT / bonds plus managed futures stack,Alternatives,Return stacking,2000-present,"Historical simulated strategy series, then RSBT.",No additional expense-ratio adjustment is applied.
+NTSDSIM,Simulated NTSD / US and developed ex-US stack,Equities,Leveraged equities,1969-present,"90% SPYSIM + 60% EAF-style exposure - 50% CASHX simulation, then NTSD.","Quarterly rebalance, 5% bands, and 0.35% annual expenses before live NTSD."
+NTSXSIM,Simulated NTSX / US stock-bond stack,Alternatives,Return stacking,1962-present,"testfolio simulated portfolio backfill, then NTSX.",Backfill uses the published testfolio portfolio recipe before live NTSX.
+NTSISIM,Simulated NTSI / international stock-bond stack,Alternatives,Return stacking,1969-present,"testfolio simulated portfolio backfill, then NTSI.",Backfill uses the published testfolio portfolio recipe before live NTSI.
