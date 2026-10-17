@@ -1,0 +1,11 @@
+frontier | cuda | 67 assets | targets [8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0] | decade floor 0.7xT | climbers 768 rounds 8
+T= 8.0 safety 0.974 | VWINX23 KMLM20 SHY17 UUP14 GLD10 IEI9 QLD6 XLP1                      CAGR  8.19 MDD  -9.10 Sh 0.968 Cal 0.900 Ulc 1.851 | worst analog -4.2 (169s)
+T= 9.0 safety 0.854 | IEI23 KMLM22 VWINX22 UUP9 GLD9 SPMO9 QLD5 SHY1                       CAGR  9.02 MDD -10.31 Sh 0.968 Cal 0.874 Ulc 2.180 | worst analog -5.4 (321s)
+T=10.0 safety 0.711 | KMLM24 VWINX24 IEI20 SPMO10 GLD9 UUP6 TQQQ4 VWELX3                   CAGR 10.00 MDD -12.01 Sh 0.969 Cal 0.833 Ulc 2.551 | worst analog -7.3 (473s)
+T=11.0 safety 0.599 | IEI34 KMLM26 VBR10 GLD9 XLV7 SPMO7 TQQQ5 XLE2                        CAGR 11.01 MDD -14.40 Sh 0.948 Cal 0.764 Ulc 3.017 | worst analog -9.0 (630s)
+T=12.0 safety 0.513 | KMLM35 VBR19 GLD14 UUP8 XLV7 TYD6 SPMO6 TQQQ5                        CAGR 12.02 MDD -17.62 Sh 0.922 Cal 0.682 Ulc 3.639 | worst analog -10.3 (794s)
+T=13.0 safety 0.444 | KMLM29 VBR15 XLV13 GLD12 TYD11 SPMO10 TQQQ5 XLE5                     CAGR 13.01 MDD -20.28 Sh 0.924 Cal 0.642 Ulc 4.151 | worst analog -14.2 (952s)
+T=14.0 safety 0.386 | KMLM35 VBR21 GLD14 XLV10 TQQQ8 TYD8 XLE3 QLD1                        CAGR 14.01 MDD -23.15 Sh 0.917 Cal 0.605 Ulc 4.785 | worst analog -14.8 (1118s)
+T=15.0 safety 0.338 | KMLM33 VBR20 TYD14 TQQQ10 XLV8 XLE6 GLD5 GDE4                        CAGR 15.00 MDD -26.30 Sh 0.915 Cal 0.570 Ulc 5.402 | worst analog -17.0 (1294s)
+T=16.0 safety 0.292 | KMLM28 VBR17 TYD16 TQQQ12 XLV11 XLE10 GDE3 VGPMX3                    CAGR 16.01 MDD -29.86 Sh 0.889 Cal 0.536 Ulc 6.367 | worst analog -22.3 (1473s)
+done 1473s -> frontier.json
