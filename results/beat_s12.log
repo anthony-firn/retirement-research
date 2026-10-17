@@ -1,0 +1,31 @@
+######## ETFs, seed A
+nowsafe: every episode >= -8.0%, 2022 >= -3.0%, AI exposure <= 15.0%
+frontier SAFETY=beat | cuda | 56 assets | targets [11.9] | decade floor 0.7xT | climbers 1536 rounds 12
+T=11.9 safety 0.981 | KMLM35 VBR18 TYD12 GLD11 XLV9 IEI9 TQQQ5 XLE1                        CAGR 11.90 MDD -13.66 Sh 0.953 Cal 0.871 Ulc 3.384 | worst analog -7.7 2022 +2.8 AI 15% (664s)
+done 664s -> beat_s12_a.json
+
+######## ETFs, seed B
+scenario                                         S12
+AI bust (Nasdaq -45%, yields -100bp)            -2.4
+Oil stagflation (Brent $150, 10y +100bp)        -1.7
+Bond revolt (10y -> 6.5%, stocks -15%)          -7.2
+Deflationary recession (Fed -200bp)             -3.1
+Dollar crisis / debasement                      +3.1
+Soft landing, AI keeps going                    +7.2
+nowsafe: every episode >= -8.0%, 2022 >= -3.0%, AI exposure <= 15.0%
+frontier SAFETY=beat | cuda | 56 assets | targets [11.9] | decade floor 0.7xT | climbers 1536 rounds 12
+T=11.9 safety 0.981 | KMLM35 VBR18 TYD12 GLD11 XLV9 IEI9 TQQQ5 XLE1                        CAGR 11.90 MDD -13.66 Sh 0.953 Cal 0.871 Ulc 3.384 | worst analog -7.7 2022 +2.8 AI 15% (680s)
+done 680s -> beat_s12_b.json
+
+######## ETFs + SPXL/URTY/TNA/SPY
+scenario                                         S12
+AI bust (Nasdaq -45%, yields -100bp)            -2.4
+Oil stagflation (Brent $150, 10y +100bp)        -1.7
+Bond revolt (10y -> 6.5%, stocks -15%)          -7.2
+Deflationary recession (Fed -200bp)             -3.1
+Dollar crisis / debasement                      +3.1
+Soft landing, AI keeps going                    +7.2
+nowsafe: every episode >= -8.0%, 2022 >= -3.0%, AI exposure <= 15.0%
+frontier SAFETY=beat | cuda | 60 assets | targets [11.9] | decade floor 0.7xT | climbers 1536 rounds 12
+T=11.9 safety 0.981 | KMLM35 VBR18 TYD12 GLD11 IEI9 XLV9 TQQQ5 XLE1                        CAGR 11.92 MDD -13.66 Sh 0.954 Cal 0.872 Ulc 3.384 | worst analog -7.7 2022 +2.8 AI 15% (708s)
+done 708s -> beat_s12_x.json
