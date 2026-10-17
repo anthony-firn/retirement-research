@@ -1,7 +1,7 @@
 """Return/safety efficient frontier on the GPU.
 
 For each target CAGR T: maximise SAFETY subject to CAGR >= T (full period) and every decade CAGR >= DEC_FRAC*T.
-SAFETY (default "drawdown") = min over { Ulcer and MaxDD ratios vs C1, full period and each decade } + 0.01*Sharpe
+SAFETY (default "absolute": every period's Ulcer & MDD vs C1 full-period values; "drawdown": vs C1 same-decade) = min over { Ulcer and MaxDD ratios vs C1, full period and each decade } + 0.01*Sharpe
        ("ratios" = old: Sharpe/Calmar/Ulcer/MDD full + decade Sharpe/Calmar/Ulcer)   (1.0 = as safe as C1 everywhere)
 Climbers for each target are warm-started from the previous target's best portfolios.
 Env: TARGETS="8,9,...", DEC_FRAC (0.7), CLIMBERS, ROUNDS, HIST, EXCLUDE, OUT.  Run from lab/.
@@ -12,7 +12,7 @@ import regime as rg                      # episodes + scenario score (also impor
 g = rg.g
 TARGETS = [float(x) for x in os.environ.get("TARGETS", "8,9,10,11,12,13,14,15,16").split(",")]
 DEC_FRAC = float(os.environ.get("DEC_FRAC", "0.7"))
-SAFETY = os.environ.get("SAFETY", "drawdown")   # "drawdown": Ulcer+MDD ratios vs C1 (full + each decade) | "ratios": Sharpe/Calmar/Ulcer/MDD (old)
+SAFETY = os.environ.get("SAFETY", "absolute")   # "absolute": every period's Ulcer & MDD vs C1 FULL-period values | "drawdown": vs C1 same-decade values | "ratios": old
 B = g.B; T_CUR = [TARGETS[0]]
 
 def score(W, TT=None):
@@ -25,8 +25,9 @@ def score(W, TT=None):
         else:
             parts = [b["ulcer"] / f["ulcer"], b["mdd"] / f["mdd"]]
         for m, bq in zip(M[1:], B[1:]):
+            ref = b if SAFETY == "absolute" else bq                    # absolute: fixed yardstick = C1 full period
             parts += ([m["sharpe"] / bq["sharpe"], m["calmar"] / bq["calmar"], bq["ulcer"] / m["ulcer"]] if SAFETY == "ratios"
-                      else [bq["ulcer"] / m["ulcer"], bq["mdd"] / m["mdd"]])
+                      else [ref["ulcer"] / m["ulcer"], ref["mdd"] / m["mdd"]])
             pen = pen + torch.where(m["cagr"] >= DEC_FRAC * T, 0.0, -5.0 + 0.5 * (m["cagr"] - DEC_FRAC * T))
         s = torch.stack(parts).min(0).values + pen
         if SAFETY != "ratios": s = s + 0.01 * f["sharpe"]                      # tie-break
@@ -34,13 +35,24 @@ def score(W, TT=None):
     return torch.cat(res)
 g.score = score
 
+_PF = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "results", "portfolios.json")))
+SEED_PF = {}
+for nm in ("Safe-Now", "C1-Now", "C1", "C2", "FULL#1"):
+    a = _PF[nm]["alloc"]
+    if all(k in g.NAMES for k in a):
+        v = torch.zeros(g.A, dtype=torch.long, device=g.DEV)
+        for k, x in a.items(): v[g.NAMES.index(k)] = x
+        SEED_PF[nm] = v
+
 if __name__ == "__main__":
     t0 = time.time(); rng = np.random.default_rng(g.SEED); out = []; prev = None
     print(f"frontier SAFETY={SAFETY} | {g.DEV} | {g.A} assets | targets {TARGETS} | decade floor {DEC_FRAC}xT | climbers {g.CLIMBERS} rounds {g.ROUNDS}", flush=True)
     for T in TARGETS:
         T_CUR[0] = T
         W = g.random_start(g.CLIMBERS, rng); W[0] = g.base_vec()[:, 0].long().to(g.DEV)
-        if prev is not None: W[1:1 + len(prev)] = prev                       # warm start
+        for k, nm in enumerate(SEED_PF, 1):                                 # seed known good portfolios
+            W[k] = SEED_PF[nm]
+        if prev is not None: W[1 + len(SEED_PF):1 + len(SEED_PF) + len(prev)] = prev[:g.CLIMBERS - 1 - len(SEED_PF)]   # warm start
         sc = score(W.T.to(torch.float32)); W, sc = g.climb(W, sc)
         for r in range(g.ROUNDS):
             Wp = g.perturb(W, rng); sp = score(Wp.T.to(torch.float32)); Wp, sp = g.climb(Wp, sp)
