@@ -1,0 +1,83 @@
+=== C1: IEI 34 KMLM 20 UUP 13 GLD 11 SPMO 11 XLP 5 QLD 3 XLE 3
+  C1                                 CAGR  8.30  vol  5.53  MDD  -9.06  Sharpe 0.932  Calmar 0.917  Ulcer 2.015 | decade Sharpe 1.04 0.76 0.96 0.95
+  FULL#1                             CAGR  8.29  vol  6.02  MDD  -9.80  Sharpe 0.859  Calmar 0.846  Ulcer 2.425 | decade Sharpe 0.99 0.66 0.87 0.91
+
+1) EACH HOLDING ON ITS OWN, 1988-2026
+  IEI     34%   CAGR  4.91  vol  4.06  MDD -14.60  Sharpe 0.468  Calmar 0.336  Ulcer 3.255
+  KMLM    20%   CAGR  7.67  vol 14.21  MDD -32.00  Sharpe 0.382  Calmar 0.240  Ulcer 16.093
+  UUP     13%   CAGR  2.73  vol  8.34  MDD -35.19  Sharpe 0.008  Calmar 0.078  Ulcer 18.282
+  GLD     11%   CAGR  5.70  vol 16.12  MDD -47.74  Sharpe 0.240  Calmar 0.119  Ulcer 24.739
+  SPMO    11%   CAGR 13.76  vol 19.83  MDD -61.95  Sharpe 0.600  Calmar 0.222  Ulcer 23.089
+  XLP      5%   CAGR 10.14  vol 14.99  MDD -35.89  Sharpe 0.521  Calmar 0.283  Ulcer 9.098
+  QLD      3%   CAGR 18.28  vol 51.17  MDD -98.89  Sharpe 0.526  Calmar 0.185  Ulcer 64.743
+  XLE      3%   CAGR 10.48  vol 25.58  MDD -71.26  Sharpe 0.402  Calmar 0.147  Ulcer 19.855
+
+2) MONTHLY CORRELATIONS
+           IEI   KMLM    UUP    GLD   SPMO    XLP    QLD    XLE    VTI
+  IEI     1.00   0.09  -0.21   0.18  -0.01   0.14  -0.05  -0.14  -0.04
+  KMLM    0.09   1.00   0.10   0.06  -0.18  -0.15  -0.22  -0.11  -0.27
+  UUP    -0.21   0.10   1.00  -0.39  -0.15  -0.15  -0.09  -0.23  -0.20
+  GLD     0.18   0.06  -0.39   1.00  -0.00   0.01  -0.03   0.09   0.01
+  SPMO   -0.01  -0.18  -0.15  -0.00   1.00   0.52   0.82   0.43   0.87
+  XLP     0.14  -0.15  -0.15   0.01   0.52   1.00   0.40   0.36   0.64
+  QLD    -0.05  -0.22  -0.09  -0.03   0.82   0.40   1.00   0.34   0.86
+  XLE    -0.14  -0.11  -0.23   0.09   0.43   0.36   0.34   1.00   0.57
+  VTI    -0.04  -0.27  -0.20   0.01   0.87   0.64   0.86   0.57   1.00
+
+3) WHO CARRIES THE RISK, WHO EARNS THE RETURN
+  IEI    weight   34%   risk share    4.9%   return share   24.1%
+  KMLM   weight   20%   risk share   23.3%   return share   21.8%
+  UUP    weight   13%   risk share    0.9%   return share    5.2%
+  GLD    weight   11%   risk share   11.8%   return share    9.0%
+  SPMO   weight   11%   risk share   28.3%   return share   20.9%
+  XLP    weight    5%   risk share    6.9%   return share    7.1%
+  QLD    weight    3%   risk share   17.6%   return share    7.4%
+  XLE    weight    3%   risk share    6.3%   return share    4.4%
+  weighted-avg holding vol 12.32%  vs portfolio vol 5.53%  -> diversification ratio 2.23x
+  weighted-avg holding CAGR 7.07%  vs portfolio CAGR 8.30%  -> rebalancing bonus +1.23 pts/yr
+
+4) REMOVE ONE HOLDING (others scaled up)        dCAGR   dMDD  dSharpe dCalmar  dUlcer
+  -IEI                                        +1.61 -12.64   -0.097  -0.460  +2.439
+  -KMLM                                       -0.13  -0.99   -0.096  -0.103  +0.391
+  -UUP                                        +0.77  -0.98   -0.007  -0.013  +0.423
+  -GLD                                        +0.13  -3.17   -0.013  -0.227  +0.351
+  -SPMO                                       -0.86  +0.52   -0.051  -0.045  +0.189
+  -XLP                                        -0.13  +0.92   -0.019  +0.088  +0.028
+  -QLD                                        -0.88  +0.41   -0.052  -0.058  -0.012
+  -XLE                                        -0.14  +0.79   -0.007  +0.071  +0.031
+
+5) STEP BY STEP FROM FULL#1 TO C1
+  FULL#1                             CAGR  8.29  vol  6.02  MDD  -9.80  Sharpe 0.859  Calmar 0.846  Ulcer 2.425 | decade Sharpe 0.99 0.66 0.87 0.91
+  a) SHY25+ZROZ5 -> IEI30            CAGR  8.31  vol  5.94  MDD  -8.87  Sharpe 0.872  Calmar 0.937  Ulcer 2.261 | decade Sharpe 1.00 0.68 0.88 0.94
+  b) XLV5 -> XLP5                    CAGR  8.18  vol  5.82  MDD  -8.76  Sharpe 0.870  Calmar 0.934  Ulcer 2.264 | decade Sharpe 1.00 0.68 0.88 0.93
+  c) SPMO-9 -> QLD3 +IEI4 +UUP2      CAGR  8.17  vol  5.55  MDD  -8.19  Sharpe 0.907  Calmar 0.998  Ulcer 2.110 | decade Sharpe 0.95 0.76 0.96 0.95
+  d) GLD-4 -> XLE3 +UUP1  (= C1)     CAGR  8.30  vol  5.53  MDD  -9.06  Sharpe 0.932  Calmar 0.917  Ulcer 2.015 | decade Sharpe 1.04 0.76 0.96 0.95
+
+6) WHY IEI? swap the 34% bond sleeve
+  bond sleeve = SHY                  CAGR  7.93  vol  5.44  MDD -10.52  Sharpe 0.883  Calmar 0.754  Ulcer 2.141 | decade Sharpe 1.03 0.70 0.85 0.97
+  bond sleeve = IEI                  CAGR  8.30  vol  5.53  MDD  -9.06  Sharpe 0.932  Calmar 0.917  Ulcer 2.015 | decade Sharpe 1.04 0.76 0.96 0.95
+  bond sleeve = IEF                  CAGR  8.50  vol  5.76  MDD  -9.47  Sharpe 0.929  Calmar 0.898  Ulcer 2.209 | decade Sharpe 1.03 0.76 1.01 0.90
+  bond sleeve = BND                  CAGR  8.40  vol  5.77  MDD -10.31  Sharpe 0.911  Calmar 0.815  Ulcer 2.155 | decade Sharpe 1.03 0.74 0.97 0.89
+  bond sleeve = TLT                  CAGR  8.77  vol  6.80  MDD -11.99  Sharpe 0.832  Calmar 0.731  Ulcer 3.123 | decade Sharpe 0.99 0.73 0.93 0.65
+
+7) WHY A 2x SLEEVE? replace QLD3 with unlevered QQQ (takes room from IEI)
+  C1 (QLD 3)                         CAGR  8.30  vol  5.53  MDD  -9.06  Sharpe 0.932  Calmar 0.917  Ulcer 2.015 | decade Sharpe 1.04 0.76 0.96 0.95
+  QQQ 6, IEI 31 (same Nasdaq exposure) CAGR  8.19  vol  5.48  MDD -10.35  Sharpe 0.921  Calmar 0.791  Ulcer 2.108 | decade Sharpe 1.06 0.72 0.94 0.96
+  no leverage: SPMO +3               CAGR  7.67  vol  5.09  MDD  -8.31  Sharpe 0.893  Calmar 0.923  Ulcer 1.944 | decade Sharpe 1.06 0.72 0.87 0.90
+  TQQQ 2 instead                     CAGR  8.42  vol  5.59  MDD  -8.09  Sharpe 0.942  Calmar 1.040  Ulcer 1.953 | decade Sharpe 1.03 0.80 0.98 0.95
+
+8) CRISES (% over each US-stock drawdown)
+  episode              VTI     C1 FULL#1 |   IEI  KMLM   UUP   GLD  SPMO   XLP   QLD   XLE
+  1990 Gulf War      -20.8   -1.2   -1.0 |   1.6  16.2  -6.9   6.7 -19.3 -15.8 -57.1  -4.1
+  1994 bond crash     -5.1    1.5    1.6 |  -5.6  27.6  -4.6   1.6  -7.5   2.0 -16.1  -1.5
+  1998 LTCM          -22.0   -3.3   -3.1 |   6.1   7.3  -6.5   2.2 -21.8 -13.6 -43.6  -5.6
+  2000-02 dot-com    -48.0    1.6   -0.7 |  35.4  24.9   9.8  12.0 -58.6   1.2 -98.7 -23.8
+  2008 GFC           -55.4    8.6    8.1 |  16.5  63.9  11.9  24.6 -46.8 -28.5 -82.2 -47.9
+  2011 Euro crisis   -20.3   -0.3    0.8 |   6.1   3.0   7.6   5.8 -19.4  -6.0 -27.3 -29.2
+  2015-16 selloff    -15.0    4.0    4.4 |   3.4  27.4  -1.1   3.2  -9.1   1.8 -25.7 -31.5
+  2018 Q4            -20.0   -3.4   -3.7 |   2.3   3.3   3.8   5.1 -22.3 -10.5 -41.0 -27.2
+  2020 Covid         -35.0   -3.5   -3.5 |   4.4  15.8   4.0  -3.6 -30.9 -24.1 -51.5 -56.0
+  2022 rate shock    -25.3    4.7    3.3 | -11.0  49.6  18.1  -8.8 -18.0 -10.8 -61.9  44.7
+
+9) CALENDAR YEARS  C1: positive 36/40, worst -1.8% (2002), best 24.0%   |   FULL#1: positive 37/40, worst -1.6%
+  worst 5 years for C1: 2002 -1.8% (VTI -20.5%), 2001 -1.2% (VTI -11.1%), 2018 -0.3% (VTI -5.2%), 1987 0.0% (VTI 0.0%), 2012 2.1% (VTI 16.5%)

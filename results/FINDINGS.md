@@ -50,3 +50,26 @@ C1 decade Sharpe vs FULL#1: 1.06/1.01 · 0.77/0.67 · 0.98/0.89 · 0.95/0.91 (Ul
 The clean winners beat even the modifier-based R1 on Sharpe, Calmar, Ulcer and MDD.
 What changed vs FULL#1: SHY → IEI (a bit more duration), more UUP, less SPMO, tiny 2–3× leveraged
 equity sleeve, small sector tilts (XLP/XLE or XLF/GSG).
+
+## Why C1 works (full output: `results/C1_breakdown.txt`, script `lab/analyze_portfolio.py`)
+1. **Four uncorrelated defenders + a small growth sleeve.** IEI/KMLM/UUP/GLD are 78% of weight but
+   41% of risk; SPMO/QLD/XLP/XLE are 22% of weight but 59% of risk. Pairwise monthly correlations
+   among the defenders are −0.39…+0.18; KMLM −0.27 and UUP −0.20 vs US stocks.
+2. **Diversification ratio 2.23×**: average holding vol 12.3% → portfolio vol 5.5%.
+3. **Rebalancing bonus +1.23 pts/yr**: portfolio CAGR 8.30% vs 7.07% weighted average of holdings.
+4. **Every crisis covered by something**: deflationary crashes → IEI (+35% 2000–02, +17% 2008);
+   inflation/rate shocks → KMLM (+50%), UUP (+18%), XLE (+45%) in 2022; KMLM positive in all 10
+   US-stock drawdowns since 1990. C1 never lost more than 3.5% in any of them.
+5. **IEI is the duration sweet spot**: SHY too short (MDD −10.5), TLT too long (2018–26 Sharpe 0.65).
+   Removing IEI: MDD −9.1 → −21.7. It is 5% of risk but 24% of return.
+6. **Small 2× sleeve beats a bigger unlevered one**: QLD 3% vs QQQ 6% → Calmar 0.92 vs 0.79.
+   Yearly rebalancing caps the damage (QLD −99% in 2000–02, C1 still +1.6%) and frees capital for IEI.
+   TQQQ 2% instead of QLD 3% is better still on full period (Sharpe 0.942, Calmar 1.04) but just
+   misses decade 1.
+7. **Path FULL#1 → C1**: SHY+ZROZ→IEI gives most of the Calmar/MDD gain (0.846→0.937); the
+   leverage-sleeve step gives most of the Sharpe/Ulcer gain (0.870→0.907, 2.26→2.11); GLD→XLE/UUP
+   adds the last Sharpe/Ulcer and fixes decade 1.
+8. Result: 36 of 39 full calendar years positive; worst year −1.8% (2002, VTI −20.5%).
+- **Fragile bits**: XLP 5% and XLE 3% are small tilts — removing either barely matters (Calmar even
+  improves), so treat them as noise-level. The structural parts are IEI, KMLM, UUP, GLD and the small
+  leveraged equity sleeve. KMLM (launched 2020) and QLD (2006) are simulated before inception.
