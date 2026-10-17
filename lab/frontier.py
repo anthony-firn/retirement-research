@@ -23,6 +23,20 @@ AI_COEF = {"TQQQSIM": 3, "QLDSIM": 2, "TECLSIM": 3, "QQQSIM": 1, "XLKSIM": 1, "S
            "NTSDSIM": 0.3, "VTSIM": 0.25, "URTHSIM": 0.3, "XLCSIM": 0.5, "XLYSIM": 0.3, "GDESIM": 0.36}
 AIV = torch.tensor([AI_COEF.get(n, 0.0) for n in g.NAMES], device=g.DEV)
 I22 = [e[0] for e in rg.EPISODES].index("2022 inflation/war/rates")
+# forward-looking hypothetical scenarios (lab/stress_forward.py): linear in weights -> (S, A) matrix
+FWD_FLOOR = float(os.environ.get("FWD_FLOOR", "-100"))
+import stress_forward as sf
+_rows = []
+for _sc, _mv in sf.SC.items():
+    _r = []
+    for n in g.NAMES:
+        if n == "GDESIM": _r.append(0.9 * _mv["GLD"] + 0.9 * _mv["SPX"])
+        elif n in sf.MAP: u, lev = sf.MAP[n]; _r.append(max(-95.0, lev * _mv[u]))
+        else: _r.append(float("nan"))                     # unknown mapping -> excluded via penalty
+    _rows.append(_r)
+FWD = torch.tensor(_rows, device=g.DEV)                   # (S, A) percent moves
+FWD_OK = torch.isfinite(FWD).all(0)                       # assets with a forward mapping
+def fwd_returns(W): return (torch.nan_to_num(FWD).to(W.dtype) @ W) / 100.0          # (S, n)
 def ai_exposure(W): return (AIV.to(W.dtype)[:, None] * W).sum(0)
 
 def score(W, TT=None):
@@ -59,6 +73,9 @@ def score(W, TT=None):
             s = s + torch.where(worst >= EP_FLOOR, 0.0, -20.0 + (worst - EP_FLOOR))
             s = s + torch.where(e22 >= EP22_FLOOR, 0.0, -20.0 + (e22 - EP22_FLOOR))
             s = s + torch.where(aix <= AIX, 0.0, -20.0 - 0.1 * (aix - AIX))
+            if FWD_FLOOR > -100:
+                fw = fwd_returns(w).min(0).values; unk = (w[~FWD_OK] > 0).any(0)
+                s = s + torch.where(fw >= FWD_FLOOR, 0.0, -20.0 + (fw - FWD_FLOOR)) - 50.0 * unk.to(s.dtype)
             s = s + 0.005 * rg.scen(ep)                                        # tie-break: better in today's analogs
         res.append(torch.nan_to_num(s, nan=-1e9))
     return torch.cat(res)
@@ -104,7 +121,8 @@ if __name__ == "__main__":
                             decades={p: {m: float(M[i][m][k]) for m in ("cagr", "sharpe", "calmar", "ulcer", "mdd")} for i, p in enumerate(g.PLABEL[1:], 1)},
                             episodes=dict(zip([x[0] for x in rg.EPISODES], e.tolist())),
                             scenario=float(rg.scen(torch.tensor(e[:, None], device=g.DEV, dtype=torch.float64))[0]), worst=float(e.min()),
-                            ai_exposure=float(ai_exposure(Wt[:, k:k+1])[0])))
+                            ai_exposure=float(ai_exposure(Wt[:, k:k+1])[0]),
+                            forward=dict(zip(sf.SC.keys(), fwd_returns(Wt[:, k:k+1])[:, 0].tolist()))))
         b = out[-len(top)]; a = " ".join(f"{n.replace('SIM','')}{v}" for n, v in b["alloc"].items()); f = b["full"]
         print(f"T={T:4.1f} safety {b['safety']:.3f} | {a:68} CAGR {f['cagr']:5.2f} MDD {f['mdd']:6.2f} Sh {f['sharpe']:.3f} Cal {f['calmar']:.3f} Ulc {f['ulcer']:.3f} | worst analog {b['worst']:+.1f} 2022 {b['episodes']['2022 inflation/war/rates']:+.1f} AI {b['ai_exposure']:.0f}% ({time.time()-t0:.0f}s)", flush=True)
         json.dump(dict(targets=TARGETS, dec_frac=DEC_FRAC, base=g.BASE, base_metrics=B, episodes=rg.EPISODES, results=out), open(g.OUT, "w"), indent=1)
