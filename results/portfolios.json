@@ -1,0 +1,66 @@
+{
+ "Original": {
+  "alloc": {
+   "VTISIM": 30,
+   "BNDSIM": 10,
+   "BIL": 5,
+   "GLDSIM": 22,
+   "TBF": 10,
+   "DBMFSIM": 23
+  },
+  "note": "User's starting portfolio (real BIL/TBF -> testfol starts 2009-08-20)",
+  "clean": true
+ },
+ "Current": {
+  "alloc": {
+   "VTISIM": 30,
+   "KMLMSIM": 23,
+   "GLDSIM": 22,
+   "BNDSIM": 10,
+   "TLTSIM?L=-1&E=0.9": 10,
+   "TBILL?E=0.14": 5
+  },
+  "note": "Original with KMLM for DBMF and modifier proxies for TBF/BIL so it runs from 1988",
+  "clean": false
+ },
+ "Current+": {
+  "alloc": {
+   "VTISIM": 25,
+   "KMLMSIM": 23,
+   "GLDSIM": 22,
+   "BNDSIM": 10,
+   "TLTSIM?L=-1&E=0.9": 10,
+   "UUPSIM": 5,
+   "ZROZSIM": 5
+  },
+  "note": "Current with VTI-5 -> ZROZ, BIL-5 -> UUP (greedy all-decades tweak)",
+  "clean": false
+ },
+ "FULL#1": {
+  "alloc": {
+   "SHYSIM": 25,
+   "KMLMSIM": 20,
+   "SPMOSIM": 20,
+   "GLDSIM": 15,
+   "UUPSIM": 10,
+   "XLVSIM": 5,
+   "ZROZSIM": 5
+  },
+  "note": "Best of 28-ETF search (DBMF10+KMLM10 merged to KMLM20 for 1988 run). Benchmark for clean searches.",
+  "clean": true
+ },
+ "R1": {
+  "alloc": {
+   "IEFSIM": 33,
+   "KMLMSIM": 20,
+   "GLDSIM": 12,
+   "SPMOSIM": 10,
+   "UUPSIM": 8,
+   "TLTSIM?L=-1&E=0.9": 7,
+   "VOESIM": 6,
+   "QLDSIM": 4
+  },
+  "note": "Beat FULL#1 every metric + every decade on testfol \u2014 but uses TBF modifier proxy (disallowed)",
+  "clean": false
+ }
+}
