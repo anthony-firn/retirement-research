@@ -26,7 +26,12 @@ DEV = torch.device(os.environ.get("DEVICE", "cuda" if torch.cuda.is_available() 
 CHUNK = int(os.environ.get("CHUNK", "6000"))          # portfolios per GPU batch (memory bound)
 
 # ---------------------------------------------------------------- data
-H = json.load(open(HIST)); NAMES = H["names"]; A = len(NAMES)
+H = json.load(open(HIST))
+EXCLUDE = set(filter(None, os.environ.get("EXCLUDE", "").split(",")))      # e.g. EXCLUDE=MCISIM,VWEHX
+if EXCLUDE:
+    keep = [i for i, n in enumerate(H["names"]) if n not in EXCLUDE]
+    H["names"] = [H["names"][i] for i in keep]; H["v"] = [H["v"][i] for i in keep]
+NAMES = H["names"]; A = len(NAMES)
 P = np.array(H["v"], dtype=np.float64).T; RF = np.array(H["rf"], dtype=np.float64)
 years = np.array([dt.datetime.fromtimestamp(x, dt.UTC).year for x in H["t"]])
 T = len(years)
