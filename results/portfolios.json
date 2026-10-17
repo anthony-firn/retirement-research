@@ -257,5 +257,220 @@
   },
   "note": "ETF-only efficient frontier, safest at CAGR>=15% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 14.99, MDD -25.81, Sharpe 0.860, Ulcer 5.65",
   "clean": true
+ },
+ "E12.5": {
+  "alloc": {
+   "TYDSIM": 23,
+   "KMLMSIM": 20,
+   "VBRSIM": 20,
+   "XLVSIM": 14,
+   "GLDSIM": 9,
+   "TQQQSIM": 5,
+   "XLESIM": 5,
+   "UUPSIM": 4
+  },
+  "note": "ETF-only frontier, safest at CAGR>=12.5%. testfol: CAGR 12.51, MDD -15.59, Sharpe 0.936, Ulcer 3.42",
+  "clean": true
+ },
+ "E13.5": {
+  "alloc": {
+   "TYDSIM": 25,
+   "KMLMSIM": 19,
+   "VBRSIM": 18,
+   "GLDSIM": 10,
+   "XLVSIM": 10,
+   "TQQQSIM": 7,
+   "XLESIM": 7,
+   "REITSIM": 4
+  },
+  "note": "ETF-only frontier, safest at CAGR>=13.5%. testfol: CAGR 13.50, MDD -18.75, Sharpe 0.920, Ulcer 4.07",
+  "clean": true
+ },
+ "E14.5": {
+  "alloc": {
+   "TYDSIM": 31,
+   "KMLMSIM": 17,
+   "REITSIM": 14,
+   "XLESIM": 13,
+   "TQQQSIM": 10,
+   "VBRSIM": 9,
+   "GLDSIM": 5,
+   "XLBSIM": 1
+  },
+  "note": "ETF-only frontier, safest at CAGR>=14.5%. testfol: CAGR 14.49, MDD -23.43, Sharpe 0.878, Ulcer 5.14",
+  "clean": true
+ },
+ "E16": {
+  "alloc": {
+   "TYDSIM": 35,
+   "XLESIM": 19,
+   "REITSIM": 16,
+   "TQQQSIM": 13,
+   "VBRSIM": 11,
+   "KMLMSIM": 5,
+   "UGLSIM": 1
+  },
+  "note": "ETF-only frontier, safest at CAGR>=16%. testfol: CAGR 16.00, MDD -32.31, Sharpe 0.817, Ulcer 7.09",
+  "clean": true
+ },
+ "E17": {
+  "alloc": {
+   "TYDSIM": 35,
+   "VBRSIM": 25,
+   "XLESIM": 15,
+   "TQQQSIM": 15,
+   "REITSIM": 8,
+   "KMLMSIM": 2
+  },
+  "note": "ETF-only frontier, safest at CAGR>=17%. testfol: CAGR 16.99, MDD -35.40, Sharpe 0.807, Ulcer 8.25",
+  "clean": true
+ },
+ "E18": {
+  "alloc": {
+   "TYDSIM": 30,
+   "VBRSIM": 30,
+   "TQQQSIM": 18,
+   "XLESIM": 8,
+   "REITSIM": 7,
+   "KMLMSIM": 4,
+   "TMFSIM": 3
+  },
+  "note": "ETF-only frontier, safest at CAGR>=18%. testfol: CAGR 17.99, MDD -37.62, Sharpe 0.803, Ulcer 10.04",
+  "clean": true
+ },
+ "E19": {
+  "alloc": {
+   "VBRSIM": 33,
+   "TYDSIM": 32,
+   "TQQQSIM": 21,
+   "XLESIM": 8,
+   "TMFSIM": 4,
+   "REITSIM": 2
+  },
+  "note": "ETF-only frontier, safest at CAGR>=19%. testfol: CAGR 18.99, MDD -39.87, Sharpe 0.787, Ulcer 12.04",
+  "clean": true
+ },
+ "E20": {
+  "alloc": {
+   "VBRSIM": 35,
+   "TQQQSIM": 24,
+   "TYDSIM": 23,
+   "TMFSIM": 10,
+   "XLESIM": 6,
+   "KMLMSIM": 2
+  },
+  "note": "ETF-only frontier, safest at CAGR>=20%. testfol: CAGR 19.99, MDD -47.69, Sharpe 0.781, Ulcer 13.99",
+  "clean": true
+ },
+ "E21": {
+  "alloc": {
+   "TQQQSIM": 28,
+   "VBRSIM": 28,
+   "TYDSIM": 24,
+   "TMFSIM": 11,
+   "XLESIM": 7,
+   "KMLMSIM": 2
+  },
+  "note": "ETF-only frontier, safest at CAGR>=21%. testfol: CAGR 20.99, MDD -54.69, Sharpe 0.773, Ulcer 16.08",
+  "clean": true
+ },
+ "E22": {
+  "alloc": {
+   "TQQQSIM": 32,
+   "TYDSIM": 21,
+   "VBRSIM": 17,
+   "TMFSIM": 15,
+   "XLESIM": 12,
+   "REITSIM": 3
+  },
+  "note": "ETF-only frontier, safest at CAGR>=22%. testfol: CAGR 21.99, MDD -61.88, Sharpe 0.762, Ulcer 18.58",
+  "clean": true
+ },
+ "E23": {
+  "alloc": {
+   "TQQQSIM": 35,
+   "TMFSIM": 25,
+   "XLESIM": 18,
+   "VBRSIM": 14,
+   "TYDSIM": 8
+  },
+  "note": "ETF-only frontier, safest at CAGR>=23%. testfol: CAGR 23.00, MDD -69.05, Sharpe 0.754, Ulcer 21.40",
+  "clean": true
+ },
+ "E24": {
+  "alloc": {
+   "TQQQSIM": 35,
+   "TMFSIM": 29,
+   "XLESIM": 28,
+   "TECLSIM": 6,
+   "VBRSIM": 1,
+   "UPROSIM": 1
+  },
+  "note": "ETF-only frontier, safest at CAGR>=24%. testfol: CAGR 23.99, MDD -78.50, Sharpe 0.733, Ulcer 26.97",
+  "clean": true
+ },
+ "M25": {
+  "alloc": {
+   "TYDSIM": 35,
+   "VBRSIM": 24,
+   "TQQQSIM": 14,
+   "KMLMSIM": 13,
+   "XLESIM": 9,
+   "GLDSIM": 3,
+   "REITSIM": 1,
+   "QLDSIM": 1
+  },
+  "note": "Max CAGR with every-period max drawdown <= 25% (decade CAGR >= 0.7x). testfol: CAGR 16.52, MDD -24.95, Sharpe 0.858, Ulcer 7.16",
+  "clean": true
+ },
+ "M30": {
+  "alloc": {
+   "TYDSIM": 30,
+   "VBRSIM": 27,
+   "TQQQSIM": 16,
+   "XLESIM": 10,
+   "KMLMSIM": 8,
+   "TMFSIM": 4,
+   "GDESIM": 3,
+   "REITSIM": 2
+  },
+  "note": "Max CAGR with every-period max drawdown <= 30% (decade CAGR >= 0.7x). testfol: CAGR 17.43, MDD -29.97, Sharpe 0.830, Ulcer 8.65",
+  "clean": true
+ },
+ "M35": {
+  "alloc": {
+   "TYDSIM": 34,
+   "VBRSIM": 31,
+   "TQQQSIM": 19,
+   "XLESIM": 8,
+   "KMLMSIM": 6,
+   "TMFSIM": 2
+  },
+  "note": "Max CAGR with every-period max drawdown <= 35% (decade CAGR >= 0.7x). testfol: CAGR 18.31, MDD -34.99, Sharpe 0.814, Ulcer 10.23",
+  "clean": true
+ },
+ "M40": {
+  "alloc": {
+   "VBRSIM": 35,
+   "TYDSIM": 31,
+   "TQQQSIM": 21,
+   "XLESIM": 5,
+   "KMLMSIM": 4,
+   "TMFSIM": 3,
+   "VOESIM": 1
+  },
+  "note": "Max CAGR with every-period max drawdown <= 40% (decade CAGR >= 0.7x). testfol: CAGR 18.97, MDD -39.98, Sharpe 0.796, Ulcer 11.84",
+  "clean": true
+ },
+ "M50": {
+  "alloc": {
+   "VBRSIM": 32,
+   "TYDSIM": 29,
+   "TQQQSIM": 26,
+   "TMFSIM": 8,
+   "XLESIM": 5
+  },
+  "note": "Max CAGR with every-period max drawdown <= 50% (decade CAGR >= 0.7x). testfol: CAGR 20.37, MDD -49.88, Sharpe 0.772, Ulcer 15.00",
+  "clean": true
  }
 }

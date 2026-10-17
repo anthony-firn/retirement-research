@@ -117,3 +117,37 @@ normalisation rated a riskier portfolio above Safe-Now.)
 - Caveat: these are *historically* safest. They lean on Treasuries (including 3× TYD at 12%+), which benefited
   from 1988–2020 falling rates; in rate-shock analogs (2022, 2023) they lose where C1-Now gains, and their
   2018–26 Sharpe (0.59–0.78) is below C1 (0.95). Leveraged ETFs (TYD, TQQQ, TMF, UGL) are simulated pre-inception.
+
+## 2026-10-17 — round 6: pushing the frontier higher (fill 12.5–14.5%, 16–26%, drawdown-capped max return)
+Verified on testfol: `results/verify_frontier_hi.log`, `results/verify_maxret.log`.
+
+**Safest-at-target (E, Ulcer/MDD safety):**
+| Target | Allocation | CAGR | MaxDD | Sharpe | Ulcer | Worst yr | 2018–26 CAGR |
+|---|---|---|---|---|---|---|---|
+| 12.5% | TYD23 KMLM20 VBR20 XLV14 GLD9 TQQQ5 XLE5 UUP4 | 12.51 | −15.6 | 0.936 | 3.42 | −6.4 | 9.0 |
+| 13.5% | TYD25 KMLM19 VBR18 GLD10 XLV10 TQQQ7 XLE7 REIT4 | 13.50 | −18.8 | 0.920 | 4.07 | −9.1 | 9.9 |
+| 14.5% | TYD31 KMLM17 REIT14 XLE13 TQQQ10 VBR9 GLD5 XLB1 | 14.49 | −23.4 | 0.878 | 5.14 | −12.5 | 10.2 |
+| 16% | TYD35 XLE19 REIT16 TQQQ13 VBR11 KMLM5 UGL1 | 16.00 | −32.3 | 0.817 | 7.09 | −17.0 | 11.6 |
+| 18% | TYD30 VBR30 TQQQ18 XLE8 REIT7 KMLM4 TMF3 | 17.99 | −37.6 | 0.803 | 10.0 | −27.7 | 12.6 |
+| 20% | VBR35 TQQQ24 TYD23 TMF10 XLE6 KMLM2 | 19.99 | −47.7 | 0.781 | 14.0 | −35.0 | 14.1 |
+| 22% | TQQQ32 TYD21 VBR17 TMF15 XLE12 REIT3 | 21.99 | −61.9 | 0.762 | 18.6 | −40.0 | 16.5 |
+| 24% | TQQQ35 TMF29 XLE28 TECL6 VBR1 UPRO1 | 23.99 | −78.5 | 0.733 | 27.0 | −42.3 | 21.9 |
+- **25% is infeasible** under the rules (best 24.7%, MDD −86%); search stopped at 26%.
+
+**Max CAGR under a max-drawdown cap (M, every period incl. each decade):**
+| Cap | Allocation | CAGR | MaxDD | Sharpe | Calmar | Ulcer | Worst yr |
+|---|---|---|---|---|---|---|---|
+| 25% | TYD35 VBR24 TQQQ14 KMLM13 XLE9 GLD3 REIT1 QLD1 | 16.52 | −25.0 | 0.858 | 0.66 | 7.16 | −19.6 |
+| 30% | TYD30 VBR27 TQQQ16 XLE10 KMLM8 TMF4 GDE3 REIT2 | 17.43 | −30.0 | 0.830 | 0.58 | 8.65 | −23.3 |
+| 35% | TYD34 VBR31 TQQQ19 XLE8 KMLM6 TMF2 | 18.31 | −35.0 | 0.814 | 0.52 | 10.2 | −27.1 |
+| 40% | VBR35 TYD31 TQQQ21 XLE5 KMLM4 TMF3 VOE1 | 18.97 | −40.0 | 0.796 | 0.47 | 11.8 | −31.1 |
+| 50% | VBR32 TYD29 TQQQ26 TMF8 XLE5 | 20.37 | −49.9 | 0.772 | 0.41 | 15.0 | −38.7 |
+
+- M25 beats E15/E16 on CAGR and MaxDD (16.5% at −25%) but has higher Ulcer and a −19.6% worst year:
+  the E curve minimises time-under-water (Ulcer), the M curve minimises the single worst drop.
+- Above ~15%, return comes from leverage: 3× Treasuries (TYD/TMF at the 35% cap) + 3× Nasdaq
+  (TQQQ 14→35%) + small-cap value. Diversifiers (KMLM, GLD, XLV) are squeezed out.
+- **2022 is the worst year for every high-return portfolio** (TYD/TMF and TQQQ fell together when
+  stock–bond correlation turned positive) — the same regime as today (see MARKET_2026-10.md).
+- 2018–26 decade Sharpe ≈ 0.56–0.62 for all points ≥ 15% vs ~1.0 in 2008–17: the leverage engine
+  worked best in the falling-rate era.
