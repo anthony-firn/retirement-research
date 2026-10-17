@@ -8,7 +8,9 @@ LO, HI = float(os.environ.get("TMIN", "6")), float(os.environ.get("TMAX", "15"))
 picked = {}
 for path in (sys.argv[1:] or ["frontier.json"]):            # files containing "etf" -> E<target>, else F<target>
     F = json.load(open(path)); EP = F["episodes"]; bn = os.path.basename(path)
-    pre = "M" if "maxret" in bn else ("E" if "etf" in bn else "F")      # M<cap> = max CAGR with |MDD| <= cap
+    import re
+    mv = re.search(r"sweet_(v\d+)", bn)
+    pre = (mv.group(1).upper() + "-") if mv else ("M" if "maxret" in bn else ("E" if "etf" in bn else "F"))   # M<cap> = max CAGR with |MDD| <= cap
     for r in F["results"]:
         if r["rank"] == 1 and (pre == "M" or LO <= r["target"] <= HI): picked[(pre, r["target"])] = r["alloc"]
 for (pre, tgt) in sorted(picked): P[f"{pre}{tgt:g}"] = picked[(pre, tgt)]
