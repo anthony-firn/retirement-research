@@ -109,7 +109,7 @@ def run(P_, d0=0, d1=None, keep_tiers=False):
     rate_on = torch.zeros(N, dtype=torch.bool, device=DEV)
     mdd = torch.zeros(N, device=DEV); ulc = torch.zeros(N, device=DEV); s1 = torch.zeros(N, device=DEV); s2 = torch.zeros(N, device=DEV)
     switches = torch.zeros(N, device=DEV); worst_day = torch.zeros(N, device=DEV); ar = torch.arange(N, device=DEV)
-    tiers_hist = [] if keep_tiers else None
+    tiers_hist, navs_hist, rate_hist = [], [], []
     zero = torch.zeros(N, device=DEV)
     for d in range(d0, d1):
         if d > d0:                                                    # return on the position decided yesterday
@@ -141,13 +141,13 @@ def run(P_, d0=0, d1=None, keep_tiers=False):
         if d == d0: new = target
         nav = nav * (1 - COST * delta); switches += (delta > 0).float(); cur = new
         held = cur
-        if keep_tiers: tiers_hist.append(cur.clone())
+        if keep_tiers: tiers_hist.append(cur.clone()); navs_hist.append(nav.clone()); rate_hist.append(rate_on.clone())
     n = d1 - d0; yrs = n / 252
     cagr = (nav ** (1 / yrs) - 1) * 100
     mean = s1 / n; var = (s2 / n - mean ** 2).clamp(min=1e-12); sharpe = mean * 252 / (var.sqrt() * math.sqrt(252))
     out = dict(cagr=cagr, mdd=mdd * 100, ulcer=(ulc / n).sqrt(), sharpe=sharpe, calmar=cagr / (mdd * 100).clamp(min=1e-6),
                switches=switches / yrs, worst_day=worst_day * 100)
-    if keep_tiers: out["tiers"] = torch.stack(tiers_hist)
+    if keep_tiers: out["tiers"] = torch.stack(tiers_hist); out["nav"] = torch.stack(navs_hist); out["rate_on"] = torch.stack(rate_hist)
     return out
 
 def static(tier_name, d0=0, d1=None):
