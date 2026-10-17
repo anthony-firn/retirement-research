@@ -1,13 +1,16 @@
 """Verify the efficient frontier on testfol.io: rank-1 portfolio per target, plus C1 / C1-Now / Safe-Now.
 Full continuous 1987-12-31 -> today, each decade as its own run, scenario episodes + 2026 YTD from testfol history.
-Usage: python3 verify_frontier.py frontier.json"""
+Usage: python3 verify_frontier.py frontier.json frontier_lo.json frontier_etf.json   (env TMIN/TMAX, OUT)"""
 import json, sys, os, time, urllib.request, datetime as dt, numpy as np
-F = json.load(open(sys.argv[1] if len(sys.argv) > 1 else "frontier.json"))
 PF = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "results", "portfolios.json")))
-EP = F["episodes"]
 P = {n: PF[n]["alloc"] for n in ("Safe-Now", "C1", "C1-Now")}
-for r in F["results"]:
-    if r["rank"] == 1: P[f"F{r['target']:g}"] = r["alloc"]
+LO, HI = float(os.environ.get("TMIN", "6")), float(os.environ.get("TMAX", "15"))
+picked = {}
+for path in (sys.argv[1:] or ["frontier.json"]):            # files containing "etf" -> E<target>, else F<target>
+    F = json.load(open(path)); EP = F["episodes"]; pre = "E" if "etf" in os.path.basename(path) else "F"
+    for r in F["results"]:
+        if r["rank"] == 1 and LO <= r["target"] <= HI: picked[(pre, r["target"])] = r["alloc"]
+for (pre, tgt) in sorted(picked): P[f"{pre}{tgt:g}"] = picked[(pre, tgt)]
 
 def call(start, end, names):
     body = {"start_date": start, "end_date": end, "start_val": 10000, "adj_inflation": False, "cashflow": 0, "cashflow_freq": "Yearly", "rolling_window": 60,
@@ -32,7 +35,6 @@ for w, a, b in WIN:
                 out[n]["episodes"] = dict(zip([x[0] for x in EP], e.tolist())); out[n]["worst"] = float(e.min())
                 out[n]["scenario"] = float((wt * e).sum() + 0.5 * e.min()); out[n]["ytd"] = (v[-1] / v[iy] - 1) * 100
                 out[n]["ytd_dd"] = (seg / np.maximum.accumulate(seg) - 1).min() * 100
-                ann = {r[0]: r[1] for r in []}
         if w == "full":
             for k, n in enumerate(grp):
                 yrs = {r[0]: r[1 + 2 * k] for r in d["annual_returns"]}
@@ -50,4 +52,4 @@ for n in names: print(f"{n:9} " + "  ".join(f"{w}: {out[n][w]['cagr']:5.2f}/{out
 print("\nScenario episodes (%)")
 print(f"{'episode':28}" + "".join(f"{n:>9}" for n in names))
 for e, *_ in EP: print(f"{e:28}" + "".join(f"{out[n]['episodes'][e]:9.1f}" for n in names))
-json.dump(dict(portfolios=P, testfol=out), open("verify_frontier.json", "w"), indent=1)
+json.dump(dict(portfolios=P, testfol=out), open(os.environ.get("OUT", "verify_frontier.json"), "w"), indent=1)
