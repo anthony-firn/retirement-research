@@ -16,7 +16,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DEV = torch.device(os.environ.get("DEVICE", "cuda" if torch.cuda.is_available() else "cpu"))
 LADDER = ["MinRisk", "Safe-Now", "C1-Now", "E9", "E10", "S12+", "S12.5", "S13", "S13.5", "E14", "E15", "M25", "M30", "M35", "E20", "E22", "E24"]
 HEDGED = {"E9": "C1-Now", "E10": "C1-Now", "S12+": "S12-F5", "S12.5": "S12-F5"}      # rate-shock twins
-COST = float(os.environ.get("COST", "0.001"))                                    # 0.10% per switch
+COST = float(os.environ.get("COST", "0.001"))                                    # 0.10% of NAV per full tier moved
 
 # ------------------------------------------------------------------ data
 P = json.load(open(os.path.join(ROOT, "data_portfolios.json"))); I = json.load(open(os.path.join(ROOT, "data_indicators.json")))
@@ -65,21 +65,22 @@ RF = align("TBILL"); RFD = torch.tensor(np.r_[0, RF[1:] / RF[:-1] - 1], device=D
 
 # ------------------------------------------------------------------ parameter space
 SPACE = dict(
-    B=list(range(K)),                         # strategic max tier index
+    B=[x / 2 for x in range(2 * (K - 1) + 1)],   # strategic max tier (half-tier steps; fractional = blend of two tiers)
     L=[5, 8, 10, 12, 15, 20, 25, 30, 40, 50],  # loss budget % (drawdown governor)
     M=[0.5, 1.0, 1.5, 2.0, 3.0],              # stress multiplier (higher = more cautious)
     WEEKF=[1.0, 1.5, 2.0, 99.0],              # stress = max(day, week/WEEKF); 99 ~ ignore week
-    DECAY=[0.0, 0.0005, 0.001, 0.002, 0.004], # peak decay per day (0 = all-time high; 0.002 ~ budget refills over ~2y)
+    DECAY=[0.0, 0.0005, 0.001, 0.002, 0.004], # peak decay per day (0 = all-time high)
     SMA=[-1, 0, 1, 2, 3, 4],                  # index into SMA_N, -1 = off
-    S_TREND=[0, 1, 2, 3, 4, 6],
+    S_TREND=[0, 0.5, 1, 2, 3, 4, 6],
     VOL=[0, 20, 25, 30, 40],                  # realised-vol threshold (0 = off)
-    S_VOL=[0, 1, 2, 3, 4, 6],
+    S_VOL=[0, 0.5, 1, 2, 3, 4, 6],
     VIXL=[0, 25, 30, 35, 45],                 # VIX threshold (0 = off)
-    S_VIX=[0, 1, 2, 3, 4],
+    S_VIX=[0, 0.5, 1, 2, 3, 4],
     RATE=[0, -2, -3, -4, -6],                 # IEF 63d return threshold % (0 = off)
-    S_RATE=[0, 1, 2],
+    S_RATE=[0, 0.5, 1, 2],
     HEDGE=[0, 1],                             # swap to rate-hedged twin during rate shock
     H=[0, 5, 10, 20, 40, 60],                 # re-risk delay (days)
+    DB=[0.0, 0.25, 0.5, 1.0],                 # deadband for moving UP (tiers); moves down always execute
 )
 KEYS = list(SPACE)
 
@@ -92,47 +93,54 @@ def sample(n, g, fixed=None):
 def decode(P_, i): return {k: SPACE[k][int(P_[k][i])] for k in KEYS}
 
 def run(P_, d0=0, d1=None, keep_tiers=False):
-    """Simulate all strategies in P_ (dict of index tensors) over days [d0, d1). Returns metrics dict of (N,) tensors."""
+    """Simulate all strategies in P_ (dict of index tensors) over days [d0, d1). Tier is continuous:
+    x = lo + f holds (1-f) of tier lo and f of tier lo+1. Returns metrics dict of (N,) tensors."""
     d1 = d1 or T; N = len(P_["B"]); f32 = torch.float32
     val = lambda k: torch.tensor(SPACE[k], device=DEV, dtype=f32)[P_[k]]
-    B = P_["B"]; L = val("L"); M = val("M"); WF = val("WEEKF"); DEC = val("DECAY")
-    smai = torch.tensor(SPACE["SMA"], device=DEV)[P_["SMA"]]; st = val("S_TREND").long()
-    vth = val("VOL"); sv = val("S_VOL").long(); xth = val("VIXL"); sx = val("S_VIX").long()
-    rth = val("RATE"); sr = val("S_RATE").long(); hedge = P_["HEDGE"].bool(); H = val("H")
+    B = val("B"); L = val("L"); M = val("M"); WF = val("WEEKF"); DEC = val("DECAY")
+    smai = torch.tensor(SPACE["SMA"], device=DEV)[P_["SMA"]]; st = val("S_TREND")
+    vth = val("VOL"); sv = val("S_VOL"); xth = val("VIXL"); sx = val("S_VIX")
+    rth = val("RATE"); sr = val("S_RATE"); hedge = P_["HEDGE"].bool(); H = val("H"); DB = val("DB")
     stress = torch.maximum(SDAY[None, :K], SWEEK[None, :K] / WF[:, None]) * M[:, None]       # (N, K)
     stress = torch.cummax(stress, 1).values                                                   # monotone along the ladder
-    nav = torch.ones(N, device=DEV); peak = torch.ones(N, device=DEV)
-    cur = torch.zeros(N, dtype=torch.long, device=DEV); pend = torch.zeros(N, device=DEV)    # held tier, days target>cur
-    held = torch.zeros(N, dtype=torch.long, device=DEV)                                        # tier actually invested (1-day lag)
+    s_next = torch.cat([stress[:, 1:], stress[:, -1:] + 1e9], 1)
+    nav = torch.ones(N, device=DEV); peak = torch.ones(N, device=DEV); hw = torch.ones(N, device=DEV)
+    cur = torch.zeros(N, device=DEV); pend = torch.zeros(N, device=DEV); held = torch.zeros(N, device=DEV)
+    rate_on = torch.zeros(N, dtype=torch.bool, device=DEV)
     mdd = torch.zeros(N, device=DEV); ulc = torch.zeros(N, device=DEV); s1 = torch.zeros(N, device=DEV); s2 = torch.zeros(N, device=DEV)
-    switches = torch.zeros(N, device=DEV); worst_day = torch.zeros(N, device=DEV)
-    ar = torch.arange(N, device=DEV); tiers_hist = [] if keep_tiers else None
+    switches = torch.zeros(N, device=DEV); worst_day = torch.zeros(N, device=DEV); ar = torch.arange(N, device=DEV)
+    tiers_hist = [] if keep_tiers else None
+    zero = torch.zeros(N, device=DEV)
     for d in range(d0, d1):
-        # 1) today's return on yesterday-decided, today-executed position
-        if d > d0:
-            idx = torch.where(hedge & rate_on, HIDX[held], held) if d > d0 + 1 else held
-            r = RT[d][idx]; nav = nav * (1 + r); s1 += r - RFD[d]; s2 += (r - RFD[d]) ** 2; worst_day = torch.minimum(worst_day, r)
-        peak = torch.maximum(nav, peak * (1 - DEC)); peak = torch.maximum(peak, nav)
-        dd = 1 - nav / torch.maximum(peak, nav)                       # current drawdown (fraction)
-        # all-time drawdown for metrics
-        if d == d0: hw = nav.clone()
+        if d > d0:                                                    # return on the position decided yesterday
+            lo = held.floor().long().clamp(0, K - 1); hi = (lo + 1).clamp(max=K - 1); f = held - lo.float()
+            lo_i = torch.where(hedge & rate_on, HIDX[lo], lo); hi_i = torch.where(hedge & rate_on, HIDX[hi], hi)
+            r = (1 - f) * RT[d][lo_i] + f * RT[d][hi_i]
+            nav = nav * (1 + r); s1 += r - RFD[d]; s2 += (r - RFD[d]) ** 2; worst_day = torch.minimum(worst_day, r)
+        peak = torch.maximum(nav, peak * (1 - DEC)); dd = 1 - nav / peak
         hw = torch.maximum(hw, nav); ddm = 1 - nav / hw; mdd = torch.maximum(mdd, ddm); ulc += (ddm * 100) ** 2
-        # 2) decision at close d
+        # decision at close d: governor (continuous)
         cushion = (L - dd * 100).clamp(min=0)
-        gov = ((stress <= cushion[:, None]).long().sum(1) - 1).clamp(min=0)               # highest affordable tier (monotone stress)
-        steps = torch.zeros(N, dtype=torch.long, device=DEV)
+        k = ((stress <= cushion[:, None]).long().sum(1) - 1)
+        kc = k.clamp(min=0); s_k = stress[ar, kc]; s_n = s_next[ar, kc]
+        frac = ((cushion - s_k) / (s_n - s_k).clamp(min=1e-6)).clamp(0, 1)
+        gov = torch.where(k < 0, zero, (kc.float() + frac).clamp(max=K - 1))
+        steps = zero.clone()
         trend = torch.where(smai >= 0, SMA_FLAGS[smai.clamp(min=0), d], torch.zeros(N, dtype=torch.bool, device=DEV))
-        steps += torch.where(trend, st, 0)
-        steps += torch.where((vth > 0) & (RVOL[d] > vth), sv, 0)
-        steps += torch.where((xth > 0) & (VIXT[d] > xth), sx, 0)
+        steps += torch.where(trend, st, zero)
+        steps += torch.where((vth > 0) & (RVOL[d] > vth), sv, zero)
+        steps += torch.where((xth > 0) & (VIXT[d] > xth), sx, zero)
         rate_on = (rth < 0) & (IEF63[d] < rth)
-        steps += torch.where(rate_on, sr, 0)
-        target = (torch.minimum(B, gov) - steps).clamp(min=0)
-        up = target > cur; pend = torch.where(up, pend + 1, torch.zeros_like(pend))
-        new = torch.where(target < cur, target, torch.where(up & (pend >= H), target, cur))
-        changed = new != cur
-        nav = nav * (1 - COST * changed.float()); switches += changed.float(); cur = new
-        held = cur                                                                         # executes at next close
+        steps += torch.where(rate_on, sr, zero)
+        target = (torch.minimum(B, gov) - steps).clamp(0, K - 1)
+        down = target < cur - 0.02
+        up = target > cur + torch.maximum(DB, torch.full_like(DB, 0.02))
+        pend = torch.where(up, pend + 1, zero)
+        new = torch.where(down, target, torch.where(up & (pend >= H), target, cur))
+        delta = (new - cur).abs() if d > d0 else zero                # first allocation is free (start invested)
+        if d == d0: new = target
+        nav = nav * (1 - COST * delta); switches += (delta > 0).float(); cur = new
+        held = cur
         if keep_tiers: tiers_hist.append(cur.clone())
     n = d1 - d0; yrs = n / 252
     cagr = (nav ** (1 / yrs) - 1) * 100
