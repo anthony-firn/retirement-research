@@ -3,13 +3,14 @@ Full continuous 1987-12-31 -> today, each decade as its own run, scenario episod
 Usage: python3 verify_frontier.py frontier.json frontier_lo.json frontier_etf.json   (env TMIN/TMAX, OUT)"""
 import json, sys, os, time, urllib.request, datetime as dt, numpy as np
 PF = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "results", "portfolios.json")))
-P = {n: PF[n]["alloc"] for n in ("Safe-Now", "C1", "C1-Now")}
+P = {n: PF[n]["alloc"] for n in os.environ.get("REFS", "Safe-Now,C1,C1-Now").split(",") if n}
 LO, HI = float(os.environ.get("TMIN", "6")), float(os.environ.get("TMAX", "15"))
 picked = {}
 for path in (sys.argv[1:] or ["frontier.json"]):            # files containing "etf" -> E<target>, else F<target>
-    F = json.load(open(path)); EP = F["episodes"]; pre = "E" if "etf" in os.path.basename(path) else "F"
+    F = json.load(open(path)); EP = F["episodes"]; bn = os.path.basename(path)
+    pre = "M" if "maxret" in bn else ("E" if "etf" in bn else "F")      # M<cap> = max CAGR with |MDD| <= cap
     for r in F["results"]:
-        if r["rank"] == 1 and LO <= r["target"] <= HI: picked[(pre, r["target"])] = r["alloc"]
+        if r["rank"] == 1 and (pre == "M" or LO <= r["target"] <= HI): picked[(pre, r["target"])] = r["alloc"]
 for (pre, tgt) in sorted(picked): P[f"{pre}{tgt:g}"] = picked[(pre, tgt)]
 
 def call(start, end, names):

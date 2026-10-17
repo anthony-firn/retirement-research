@@ -12,11 +12,20 @@ import regime as rg                      # episodes + scenario score (also impor
 g = rg.g
 TARGETS = [float(x) for x in os.environ.get("TARGETS", "8,9,10,11,12,13,14,15,16").split(",")]
 DEC_FRAC = float(os.environ.get("DEC_FRAC", "0.7"))
-SAFETY = os.environ.get("SAFETY", "absolute")   # "absolute": every period's Ulcer & MDD vs C1 FULL-period values | "drawdown": vs C1 same-decade values | "ratios": old
+SAFETY = os.environ.get("SAFETY", "absolute")   # "maxret": TARGETS are max-drawdown caps, maximise CAGR (decade-balanced) | "absolute": every period's Ulcer & MDD vs C1 FULL-period values | "drawdown": vs C1 same-decade values | "ratios": old
 B = g.B; T_CUR = [TARGETS[0]]
 
 def score(W, TT=None):
     T = T_CUR[0]; res = []
+    if SAFETY == "maxret":                                               # T = max-drawdown cap in % (e.g. 40)
+        for i in range(0, W.shape[1], g.CHUNK):
+            M = g.metrics(W[:, i:i + g.CHUNK], TT); f = M[0]
+            dec = torch.stack([m["cagr"] for m in M[1:]]).min(0).values
+            s = torch.minimum(f["cagr"], dec / DEC_FRAC)
+            worst_dd = torch.stack([m["mdd"] for m in M]).min(0).values
+            s = s + torch.where(worst_dd >= -T, 0.0, -100.0 + (worst_dd + T))
+            res.append(torch.nan_to_num(s + 0.01 * f["sharpe"], nan=-1e9))
+        return torch.cat(res)
     for i in range(0, W.shape[1], g.CHUNK):
         w = W[:, i:i + g.CHUNK]; M = g.metrics(w, TT); f, b = M[0], B[0]
         pen = torch.where(f["cagr"] >= T, 0.0, -10.0 + (f["cagr"] - T))
@@ -37,7 +46,8 @@ g.score = score
 
 _PF = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "results", "portfolios.json")))
 SEED_PF = {}
-for nm in ("Safe-Now", "C1-Now", "C1", "C2", "FULL#1"):
+for nm in os.environ.get("SEEDS", "Safe-Now,C1-Now,C1,C2,FULL#1").split(","):
+    if nm not in _PF: continue
     a = _PF[nm]["alloc"]
     if all(k in g.NAMES for k in a):
         v = torch.zeros(g.A, dtype=torch.long, device=g.DEV)
