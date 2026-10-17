@@ -118,5 +118,144 @@
   },
   "note": "Oct-2026 safe+sharp: CAGR>=6.5, no analog episode worse than -3%, max Sharpe/Calmar/Ulcer/MDD. ETF-only (no high-yield/private-credit exposure).",
   "clean": true
+ },
+ "E6": {
+  "alloc": {
+   "SHYSIM": 35,
+   "IEISIM": 24,
+   "UUPSIM": 13,
+   "VOESIM": 10,
+   "GLDSIM": 6,
+   "KMLMSIM": 6,
+   "XLVSIM": 5,
+   "TECLSIM": 1
+  },
+  "note": "ETF-only efficient frontier, safest at CAGR>=6% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 6.30, MDD -4.12, Sharpe 0.967, Ulcer 0.89",
+  "clean": true
+ },
+ "E7": {
+  "alloc": {
+   "SHYSIM": 32,
+   "IEISIM": 26,
+   "UUPSIM": 12,
+   "VOESIM": 9,
+   "KMLMSIM": 7,
+   "XLVSIM": 7,
+   "GLDSIM": 5,
+   "TQQQSIM": 2
+  },
+  "note": "ETF-only efficient frontier, safest at CAGR>=7% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 7.13, MDD -4.79, Sharpe 0.993, Ulcer 1.10",
+  "clean": true
+ },
+ "E8": {
+  "alloc": {
+   "SHYSIM": 34,
+   "IEISIM": 33,
+   "XLVSIM": 11,
+   "KMLMSIM": 10,
+   "XLESIM": 4,
+   "XLYSIM": 3,
+   "TQQQSIM": 3,
+   "GLDSIM": 2
+  },
+  "note": "ETF-only efficient frontier, safest at CAGR>=8% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 8.08, MDD -5.67, Sharpe 0.977, Ulcer 1.41",
+  "clean": true
+ },
+ "E9": {
+  "alloc": {
+   "IEISIM": 35,
+   "SHYSIM": 24,
+   "XLVSIM": 12,
+   "KMLMSIM": 10,
+   "XLESIM": 8,
+   "GLDSIM": 6,
+   "TQQQSIM": 4,
+   "TMFSIM": 1
+  },
+  "note": "ETF-only efficient frontier, safest at CAGR>=9% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 9.00, MDD -8.20, Sharpe 0.954, Ulcer 1.81",
+  "clean": true
+ },
+ "E10": {
+  "alloc": {
+   "IEFSIM": 31,
+   "IEISIM": 18,
+   "KMLMSIM": 14,
+   "XLVSIM": 13,
+   "GLDSIM": 8,
+   "VBRSIM": 7,
+   "XLESIM": 5,
+   "TQQQSIM": 4
+  },
+  "note": "ETF-only efficient frontier, safest at CAGR>=10% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 10.00, MDD -9.95, Sharpe 0.975, Ulcer 2.19",
+  "clean": true
+ },
+ "E11": {
+  "alloc": {
+   "IEISIM": 27,
+   "KMLMSIM": 18,
+   "XLVSIM": 15,
+   "TYDSIM": 13,
+   "VBRSIM": 11,
+   "GLDSIM": 6,
+   "XLESIM": 6,
+   "TQQQSIM": 4
+  },
+  "note": "ETF-only efficient frontier, safest at CAGR>=11% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 11.00, MDD -12.05, Sharpe 0.961, Ulcer 2.67",
+  "clean": true
+ },
+ "E12": {
+  "alloc": {
+   "TYDSIM": 18,
+   "KMLMSIM": 17,
+   "XLVSIM": 16,
+   "IEISIM": 14,
+   "VBRSIM": 13,
+   "GLDSIM": 11,
+   "XLESIM": 6,
+   "TQQQSIM": 5
+  },
+  "note": "ETF-only efficient frontier, safest at CAGR>=12% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 11.99, MDD -14.42, Sharpe 0.939, Ulcer 3.19",
+  "clean": true
+ },
+ "E13": {
+  "alloc": {
+   "VBRSIM": 21,
+   "TYDSIM": 20,
+   "KMLMSIM": 19,
+   "XLVSIM": 19,
+   "GLDSIM": 9,
+   "TQQQSIM": 5,
+   "XLESIM": 5,
+   "ZROZSIM": 2
+  },
+  "note": "ETF-only efficient frontier, safest at CAGR>=13% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 12.99, MDD -17.05, Sharpe 0.924, Ulcer 3.67",
+  "clean": true
+ },
+ "E14": {
+  "alloc": {
+   "TYDSIM": 30,
+   "VBRSIM": 20,
+   "KMLMSIM": 17,
+   "XLESIM": 12,
+   "TQQQSIM": 8,
+   "GLDSIM": 6,
+   "XLVSIM": 4,
+   "REITSIM": 3
+  },
+  "note": "ETF-only efficient frontier, safest at CAGR>=14% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 14.01, MDD -21.11, Sharpe 0.899, Ulcer 4.51",
+  "clean": true
+ },
+ "E15": {
+  "alloc": {
+   "TYDSIM": 31,
+   "VBRSIM": 22,
+   "XLESIM": 15,
+   "KMLMSIM": 13,
+   "TQQQSIM": 10,
+   "REITSIM": 7,
+   "UGLSIM": 2
+  },
+  "note": "ETF-only efficient frontier, safest at CAGR>=15% (absolute Ulcer/MDD safety in every decade). testfol: CAGR 14.99, MDD -25.81, Sharpe 0.860, Ulcer 5.65",
+  "clean": true
  }
 }

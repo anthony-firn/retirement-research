@@ -1,0 +1,10 @@
+######## mixed universe, 6-7%
+frontier | cuda | 67 assets | targets [6.0, 7.0] | decade floor 0.7xT | climbers 768 rounds 8
+T= 6.0 safety 1.002 | SHY35 KMLM15 VWINX13 UUP12 GLD11 QQQ8 XLV5 GSG1                      CAGR  7.15 MDD  -6.95 Sh 0.946 Cal 1.029 Ulc 1.420 | worst analog -3.3 (169s)
+T= 7.0 safety 1.000 | IEI34 KMLM20 UUP13 GLD11 SPMO11 XLP5 QLD3 XLE3                       CAGR  8.30 MDD  -9.06 Sh 0.932 Cal 0.917 Ulc 2.015 | worst analog -4.3 (315s)
+done 315s -> frontier_lo.json
+
+######## ETF-only universe, 6-15%
+frontier | cuda | 56 assets | targets [6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0] | decade floor 0.7xT | climbers 768 rounds 8
+T= 6.0 safety 1.003 | SHY30 IEI16 KMLM15 UUP11 QQQ10 GLD9 XLV6 XLE3                        CAGR  7.32 MDD  -7.75 Sh 0.947 Cal 0.944 Ulc 1.477 | worst analog -3.2 (147s)
+T= 7.0 safety 1.001 | IEI35 KMLM18 UUP13 GLD11 QQQ7 XLP6 SPMO6 XLE4                        CAGR  7.88 MDD  -8.32 Sh 0.938 Cal 0.947 Ulc 1.779 | worst analog -3.8 (275s)

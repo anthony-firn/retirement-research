@@ -90,3 +90,30 @@ Excluded: MCISIM (Barings Corporate Investors = private credit), VWEHX (high yie
   Cost: −0.3 pts CAGR, Sharpe −0.02, Ulcer +0.10. Calmar and MDD improve.
 - Safe-Now: 68% Treasuries (SHY+IEI, yielding ~4–5% today) + 10% KMLM + small value/staples/gold/dollar
   + 2% TQQQ. Weak spot = rate shocks (2022 −2.7, 2023 −2.3) — exactly today's regime — but losses stay small.
+
+## 2026-10-17 — round 5: return vs safety guide (ETF-only efficient frontier, 6–15% CAGR)
+`lab/frontier.py` (SAFETY=absolute): for each target CAGR, maximise the worst of {Ulcer, MaxDD} over the
+full period **and every decade**, measured against C1's full-period values; every decade must earn ≥ 0.7×target.
+Same rules (testfol 1988–2026 continuous, ≤8 ETFs, ≤35%, no modifiers). Verified: `results/verify_frontier_etf.log`.
+(Two earlier definitions were discarded: ratios-vs-C1 returned C1 itself at 7%; same-decade drawdown
+normalisation rated a riskier portfolio above Safe-Now.)
+
+| Target | Allocation | CAGR | Vol | MaxDD | Sharpe | Calmar | Ulcer | Worst yr | 2018–26 CAGR / Sharpe |
+|---|---|---|---|---|---|---|---|---|---|
+| 6% | SHY35 IEI24 UUP13 VOE10 GLD6 KMLM6 XLV5 TECL1 | 6.30 | 3.3 | −4.1 | 0.967 | 1.53 | 0.89 | −2.2 | 5.1 / 0.72 |
+| 7% | SHY32 IEI26 UUP12 VOE9 KMLM7 XLV7 GLD5 TQQQ2 | 7.13 | 4.0 | −4.8 | 0.993 | 1.49 | 1.10 | −2.9 | 5.6 / 0.75 |
+| 8% | SHY34 IEI33 XLV11 KMLM10 XLE4 XLY3 TQQQ3 GLD2 | 8.08 | 5.1 | −5.7 | 0.977 | 1.43 | 1.41 | −2.5 | 6.1 / 0.70 |
+| 9% | IEI35 SHY24 XLV12 KMLM10 XLE8 GLD6 TQQQ4 TMF1 | 9.00 | 6.1 | −8.2 | 0.954 | 1.10 | 1.81 | −1.0 | 7.4 / 0.78 |
+| 10% | IEF31 IEI18 KMLM14 XLV13 GLD8 VBR7 XLE5 TQQQ4 | 10.00 | 7.0 | −10.0 | 0.975 | 1.01 | 2.19 | −3.1 | 7.9 / 0.74 |
+| 11% | IEI27 KMLM18 XLV15 TYD13 VBR11 GLD6 XLE6 TQQQ4 | 11.00 | 8.1 | −12.1 | 0.961 | 0.91 | 2.67 | −3.4 | 7.9 / 0.66 |
+| 12% | TYD18 KMLM17 XLV16 IEI14 VBR13 GLD11 XLE6 TQQQ5 | 11.99 | 9.4 | −14.4 | 0.939 | 0.83 | 3.19 | −5.7 | 9.1 / 0.69 |
+| 13% | VBR21 TYD20 KMLM19 XLV19 GLD9 TQQQ5 XLE5 ZROZ2 | 12.99 | 10.6 | −17.1 | 0.924 | 0.76 | 3.67 | −6.8 | 9.4 / 0.64 |
+| 14% | TYD30 VBR20 KMLM17 XLE12 TQQQ8 GLD6 XLV4 REIT3 | 14.01 | 12.1 | −21.1 | 0.899 | 0.66 | 4.51 | −9.2 | 9.8 / 0.61 |
+| 15% | TYD31 VBR22 XLE15 KMLM13 TQQQ10 REIT7 UGL2 | 14.99 | 13.9 | −25.8 | 0.860 | 0.58 | 5.65 | −11.8 | 10.7 / 0.59 |
+
+- Sweet spot 7–10%: Sharpe ≈ 0.95–0.99 throughout. Each step above 11% costs ~3–4.5 pts of max drawdown.
+- How return is bought: Treasuries shift from SHY/IEI → IEF → 3× TYD; equity from defensive (XLV/VOE) →
+  small-cap value VBR + TQQQ 4→10%; energy XLE grows; KMLM stays 6–19% throughout.
+- Caveat: these are *historically* safest. They lean on Treasuries (including 3× TYD at 12%+), which benefited
+  from 1988–2020 falling rates; in rate-shock analogs (2022, 2023) they lose where C1-Now gains, and their
+  2018–26 Sharpe (0.59–0.78) is below C1 (0.95). Leveraged ETFs (TYD, TQQQ, TMF, UGL) are simulated pre-inception.
