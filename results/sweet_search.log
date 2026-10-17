@@ -24,3 +24,9 @@ T=12.5 safety -10.428 | KMLM35 XLV33 TYD16 GLD7 TQQQ3 VBR3 GDE2 SLV1            
 T=13.0 safety -10.915 | KMLM35 XLV35 TYD17 UGL6 TQQQ3 GDE2 XLE1 VBR1                         CAGR 11.79 MDD -15.87 Sh 0.865 Cal 0.743 Ulc 4.371 | worst analog -6.0 2022 +2.8 AI 10% (619s)
 T=13.5 safety -11.464 | KMLM35 XLV34 TYD14 UGL8 TQQQ3 GDE2 VBR2 ZROZ2                        CAGR 11.74 MDD -15.76 Sh 0.856 Cal 0.745 Ulc 4.471 | worst analog -6.0 2022 +2.3 AI 10% (815s)
 done 815s -> sweet_v3.json
+nowsafe: every episode >= -8.0%, 2022 >= -3.0%, AI exposure <= 15.0%
+frontier SAFETY=nowsafe | cuda | 56 assets | targets [12.0, 12.5, 13.0] | decade floor 0.7xT | climbers 768 rounds 8
+T=12.0 safety 0.444 | KMLM35 VBR16 GLD12 TYD11 XLV11 IEF8 TQQQ5 XLE2                       CAGR 12.01 MDD -14.54 Sh 0.951 Cal 0.825 Ulc 3.468 | worst analog -8.0 2022 +3.5 AI 15% (227s)
+T=12.5 safety 0.380 | KMLM35 TYD18 XLV17 VBR14 GLD8 TQQQ5 XLE2 XLP1                        CAGR 12.50 MDD -15.42 Sh 0.947 Cal 0.811 Ulc 3.700 | worst analog -8.0 2022 +1.7 AI 15% (427s)
+T=13.0 safety -9.970 | KMLM35 XLV35 TYD10 UGL6 TQQQ5 TMF4 VBR4 VTV1                         CAGR 12.77 MDD -20.25 Sh 0.882 Cal 0.631 Ulc 4.701 | worst analog -8.0 2022 +1.0 AI 15% (628s)
+done 628s -> /home/anthony/Dev/Investment/lab/sweet_v4.json

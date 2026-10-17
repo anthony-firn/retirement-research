@@ -472,5 +472,210 @@
   },
   "note": "Max CAGR with every-period max drawdown <= 50% (decade CAGR >= 0.7x). testfol: CAGR 20.37, MDD -49.88, Sharpe 0.772, Ulcer 15.00",
   "clean": true
+ },
+ "V1-12": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "VBRSIM": 15,
+   "TYDSIM": 14,
+   "GLDSIM": 12,
+   "XLPSIM": 8,
+   "SPMOSIM": 7,
+   "TQQQSIM": 5,
+   "UUPSIM": 4
+  },
+  "note": "Sweet-spot nowsafe search V1 target 12% (local sim CAGR 12.01, MDD -15.89, worst analog -8.0, AI 19%)",
+  "clean": true
+ },
+ "V1-12.5": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "GLDSIM": 16,
+   "TYDSIM": 14,
+   "XLPSIM": 10,
+   "VBRSIM": 10,
+   "TQQQSIM": 7,
+   "XLESIM": 5,
+   "UUPSIM": 3
+  },
+  "note": "Sweet-spot nowsafe search V1 target 12.5% (local sim CAGR 12.51, MDD -17.53, worst analog -8.0, AI 21%)",
+  "clean": true
+ },
+ "V1-13": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "TYDSIM": 17,
+   "GLDSIM": 15,
+   "XLPSIM": 9,
+   "XLESIM": 9,
+   "TQQQSIM": 8,
+   "SLVSIM": 4,
+   "SPMOSIM": 3
+  },
+  "note": "Sweet-spot nowsafe search V1 target 13% (local sim CAGR 13.01, MDD -19.78, worst analog -7.9, AI 26%)",
+  "clean": true
+ },
+ "V1-13.5": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "GLDSIM": 22,
+   "TYDSIM": 19,
+   "TQQQSIM": 10,
+   "XLESIM": 6,
+   "GDESIM": 4,
+   "GSGSIM": 3,
+   "XLPSIM": 1
+  },
+  "note": "Sweet-spot nowsafe search V1 target 13.5% (local sim CAGR 13.47, MDD -20.07, worst analog -8.0, AI 31%)",
+  "clean": true
+ },
+ "V2-12": {
+  "alloc": {
+   "KMLMSIM": 33,
+   "GLDSIM": 25,
+   "TYDSIM": 14,
+   "XLPSIM": 11,
+   "XLESIM": 7,
+   "TQQQSIM": 6,
+   "QQQSIM": 3,
+   "SPMOSIM": 1
+  },
+  "note": "Sweet-spot nowsafe search V2 target 12% (local sim CAGR 12.03, MDD -17.05, worst analog -6.0, AI 22%)",
+  "clean": true
+ },
+ "V2-12.5": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "GLDSIM": 25,
+   "XLVSIM": 21,
+   "TYDSIM": 12,
+   "TQQQSIM": 7
+  },
+  "note": "Sweet-spot nowsafe search V2 target 12.5% (local sim CAGR 12.52, MDD -16.36, worst analog -6.0, AI 21%)",
+  "clean": true
+ },
+ "V2-13": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "GLDSIM": 31,
+   "TYDSIM": 11,
+   "XLVSIM": 9,
+   "TQQQSIM": 8,
+   "XLPSIM": 4,
+   "XLESIM": 2
+  },
+  "note": "Sweet-spot nowsafe search V2 target 13% (local sim CAGR 12.51, MDD -16.58, worst analog -6.0, AI 24%)",
+  "clean": true
+ },
+ "V2-13.5": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "GLDSIM": 31,
+   "TYDSIM": 11,
+   "XLVSIM": 9,
+   "TQQQSIM": 8,
+   "XLPSIM": 4,
+   "XLESIM": 2
+  },
+  "note": "Sweet-spot nowsafe search V2 target 13.5% (local sim CAGR 12.51, MDD -16.58, worst analog -6.0, AI 24%)",
+  "clean": true
+ },
+ "V3-12": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "XLVSIM": 35,
+   "TYDSIM": 17,
+   "GLDSIM": 5,
+   "SLVSIM": 2,
+   "QLDSIM": 2,
+   "TQQQSIM": 2,
+   "XLESIM": 2
+  },
+  "note": "Sweet-spot nowsafe search V3 target 12% (local sim CAGR 11.73, MDD -16.57, worst analog -6.0, AI 10%)",
+  "clean": true
+ },
+ "V3-12.5": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "XLVSIM": 33,
+   "TYDSIM": 16,
+   "GLDSIM": 7,
+   "TQQQSIM": 3,
+   "VBRSIM": 3,
+   "GDESIM": 2,
+   "SLVSIM": 1
+  },
+  "note": "Sweet-spot nowsafe search V3 target 12.5% (local sim CAGR 11.75, MDD -15.65, worst analog -6.0, AI 10%)",
+  "clean": true
+ },
+ "V3-13": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "XLVSIM": 35,
+   "TYDSIM": 17,
+   "UGLSIM": 6,
+   "TQQQSIM": 3,
+   "GDESIM": 2,
+   "XLESIM": 1,
+   "VBRSIM": 1
+  },
+  "note": "Sweet-spot nowsafe search V3 target 13% (local sim CAGR 11.79, MDD -15.87, worst analog -6.0, AI 10%)",
+  "clean": true
+ },
+ "V3-13.5": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "XLVSIM": 34,
+   "TYDSIM": 14,
+   "UGLSIM": 8,
+   "TQQQSIM": 3,
+   "GDESIM": 2,
+   "VBRSIM": 2,
+   "ZROZSIM": 2
+  },
+  "note": "Sweet-spot nowsafe search V3 target 13.5% (local sim CAGR 11.74, MDD -15.76, worst analog -6.0, AI 10%)",
+  "clean": true
+ },
+ "V4-12": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "VBRSIM": 16,
+   "GLDSIM": 12,
+   "TYDSIM": 11,
+   "XLVSIM": 11,
+   "IEFSIM": 8,
+   "TQQQSIM": 5,
+   "XLESIM": 2
+  },
+  "note": "Sweet-spot nowsafe search V4 target 12% (local sim CAGR 12.01, MDD -14.54, worst analog -8.0, AI 15%)",
+  "clean": true
+ },
+ "V4-12.5": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "TYDSIM": 18,
+   "XLVSIM": 17,
+   "VBRSIM": 14,
+   "GLDSIM": 8,
+   "TQQQSIM": 5,
+   "XLESIM": 2,
+   "XLPSIM": 1
+  },
+  "note": "Sweet-spot nowsafe search V4 target 12.5% (local sim CAGR 12.50, MDD -15.42, worst analog -8.0, AI 15%)",
+  "clean": true
+ },
+ "V4-13": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "XLVSIM": 35,
+   "TYDSIM": 10,
+   "UGLSIM": 6,
+   "TQQQSIM": 5,
+   "TMFSIM": 4,
+   "VBRSIM": 4,
+   "VTVSIM": 1
+  },
+  "note": "Sweet-spot nowsafe search V4 target 13% (local sim CAGR 12.77, MDD -20.25, worst analog -8.0, AI 15%)",
+  "clean": true
  }
 }
