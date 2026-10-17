@@ -19,8 +19,20 @@ MAP = {  # ticker -> (underlying, leverage)
  "VBRSIM": ("SV", 1), "VOESIM": ("MID", 1), "IWMSIM": ("SV", 1.1), "XLVSIM": ("HC", 1), "XLPSIM": ("STP", 1), "XLESIM": ("NRG", 1), "XLYSIM": ("SPX", 1.2),
  "IEISIM": ("IEI", 1), "IEFSIM": ("IEF", 1), "TYDSIM": ("IEF", 3), "TLTSIM": ("LT", 1), "ZROZSIM": ("LT", 1.6), "TMFSIM": ("LT", 3), "UBTSIM": ("LT", 2),
  "SHYSIM": ("SHY", 1), "BNDSIM": ("IEI", 1), "GLDSIM": ("GLD", 1), "UGLSIM": ("GLD", 2), "SLVSIM": ("SLV", 1), "KMLMSIM": ("KMLM", 1), "DBMFSIM": ("KMLM", 0.8),
- "UUPSIM": ("UUP", 1), "GSGSIM": ("CMD", 1), "REITSIM": ("REIT", 1), "GDESIM": ("GLD", 0.9),
+ "UUPSIM": ("UUP", 1), "GSGSIM": ("CMD", 1), "REITSIM": ("REIT", 1),
+ # approximations for the rest of the universe
+ "XLBSIM": ("SPX", 1.1), "XLFSIM": ("SPX", 1.2), "XLISIM": ("SPX", 1.1), "XLCSIM": ("NDX", 0.8), "XLUSIM": ("STP", 1.2),
+ "VUGSIM": ("NDX", 0.9), "VOSIM": ("MID", 1), "VOTSIM": ("MID", 1.1), "VBSIM": ("SV", 1.05), "VBKSIM": ("SV", 1.1), "IWCSIM": ("SV", 1.2),
+ "VEASIM": ("SPX", 0.9), "EFASIM": ("SPX", 0.9), "VXUSSIM": ("SPX", 0.9), "URTHSIM": ("SPX", 0.95), "VTSIM": ("SPX", 0.95),
+ "UWMSIM": ("SV", 2), "URTYSIM": ("SV", 3), "TNASIM": ("SV", 3),
+ # stacked / multi-asset funds: list of (underlying, exposure)
+ "GDESIM": [("GLD", 0.9), ("SPX", 0.9)], "NTSXSIM": [("SPX", 0.9), ("IEF", 0.6)], "NTSISIM": [("SPX", 0.9), ("IEF", 0.6)],
+ "NTSDSIM": [("SPX", 0.9), ("IEF", 0.6)], "RSSBSIM": [("SPX", 1.0), ("IEI", 1.0)],
 }
+def move(t, mv):
+    m = MAP[t]
+    if isinstance(m, list): return max(-95.0, sum(e * mv[u] for u, e in m))
+    u, lev = m; return max(-95.0, lev * mv[u])
 if __name__ == "__main__":
     names = sys.argv[1:] or ["S12"]
     print(f"{'scenario':42}" + "".join(f"{n:>10}" for n in names))
@@ -29,8 +41,6 @@ if __name__ == "__main__":
         for n in names:
             tot = 0.0
             for t, w in PF[n]["alloc"].items():
-                u, lev = MAP[t]; r = max(-95.0, lev * mv[u])
-                if t == "GDESIM": r = 0.9 * mv["GLD"] + 0.9 * mv["SPX"]
-                tot += w / 100 * r
+                tot += w / 100 * move(t, mv)
             row.append(tot)
         print(f"{sc:42}" + "".join(f"{x:+10.1f}" for x in row))

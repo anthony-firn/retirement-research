@@ -30,9 +30,7 @@ _rows = []
 for _sc, _mv in sf.SC.items():
     _r = []
     for n in g.NAMES:
-        if n == "GDESIM": _r.append(0.9 * _mv["GLD"] + 0.9 * _mv["SPX"])
-        elif n in sf.MAP: u, lev = sf.MAP[n]; _r.append(max(-95.0, lev * _mv[u]))
-        else: _r.append(float("nan"))                     # unknown mapping -> excluded via penalty
+        _r.append(sf.move(n, _mv) if n in sf.MAP else float("nan"))   # unknown mapping -> excluded via penalty
     _rows.append(_r)
 FWD = torch.tensor(_rows, device=g.DEV)                   # (S, A) percent moves
 FWD_OK = torch.isfinite(FWD).all(0)                       # assets with a forward mapping
