@@ -66,7 +66,7 @@ RF = align("TBILL"); RFD = torch.tensor(np.r_[0, RF[1:] / RF[:-1] - 1], device=D
 # ------------------------------------------------------------------ parameter space
 SPACE = dict(
     B=[x / 2 for x in range(2 * (K - 1) + 1)],   # strategic max tier (half-tier steps; fractional = blend of two tiers)
-    L=[5, 8, 10, 12, 15, 20, 25, 30, 40, 50],  # loss budget % (drawdown governor)
+    L=[4, 5, 6, 8, 10, 12, 13, 15, 18, 20, 23, 25, 28, 30, 35, 38, 40, 45, 48, 50],  # loss budget % (drawdown governor)
     M=[0.5, 1.0, 1.5, 2.0, 3.0],              # stress multiplier (higher = more cautious)
     WEEKF=[1.0, 1.5, 2.0, 99.0],              # stress = max(day, week/WEEKF); 99 ~ ignore week
     DECAY=[0.0, 0.0005, 0.001, 0.002, 0.004], # peak decay per day (0 = all-time high)

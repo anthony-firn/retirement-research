@@ -1,0 +1,20 @@
+95040 tier+breaker policies
+  fold 1988-1997 done
+  fold 1998-2007 done
+  fold 2008-2017 done
+  fold 2018-2026 done
+  fold full done
+  fold is done
+  fold oos done
+
+budget | policy (all decades)                                       | full CAGR/MDD | 2007-26 | walk-forward pick (IS) -> 2007-26
+    6% | MinRisk, breaker 5% (x1.0, wk/1.0), re-entry 0d, band 0.0  |  5.47/  3.5 |  3.99/  3.0 | MinRisk, breaker 5% (x1.0, wk/1.0), re-e ->  3.99/  3.0
+    8% | C1-Now, breaker 5% (x1.0, wk/1.5), re-entry 20d, band 1.0  |  6.82/  5.3 |  4.89/  4.6 | C1-Now, breaker 5% (x1.0, wk/1.5), re-en ->  4.79/  5.0
+   10% | E9, breaker 8% (x1.0, wk/1.5), re-entry 5d, band 0.25      |  7.71/  7.4 |  6.07/  7.4 | E9, breaker 8% (x1.0, wk/1.0), re-entry  ->  6.05/  6.5
+   12% | 50% E9 + 50% E10, breaker 10% (x1.0, wk/1.5), re-entry 0d, band 0.25 |  8.93/  7.8 |  7.32/  7.8 | E9, breaker 10% (x1.0, wk/1.5), re-entry ->  6.90/  7.5
+   15% | S12+, breaker 12% (x1.0, wk/1.5), re-entry 5d, band 1.0    |  8.99/ 10.9 |  8.24/  9.9 | 50% E10 + 50% S12+, breaker 12% (x1.0, w ->  8.36/  9.2
+   20% | 50% S12.5 + 50% S13, breaker 15% (x1.0, wk/1.5), re-entry 10d, band 0.25 | 11.39/ 13.1 |  9.96/ 11.7 | 50% S12+ + 50% S12.5, breaker 15% (x1.0, ->  9.29/ 11.8
+   25% | E14, breaker 20% (x1.0, wk/1.0), re-entry 10d, band 1.0    | 12.50/ 17.4 | 12.27/ 13.2 | E14, breaker 20% (x1.0, wk/1.5), re-entr ->  7.37/ 18.8
+   30% | 50% S13.5 + 50% E14, breaker 25% (x1.5, wk/1.0), re-entry 5d, band 1.0 | 13.62/ 19.4 | 12.37/ 15.1 | 50% E15 + 50% M25, breaker 25% (x1.0, wk ->  9.51/ 20.9
+   40% | 50% S13.5 + 50% E14, breaker 25% (x1.5, wk/1.0), re-entry 5d, band 1.0 | 13.62/ 19.4 | 12.37/ 15.1 | M30, breaker 30% (x1.0, wk/1.0), re-entr ->  9.78/ 25.0
+   50% | 50% M30 + 50% M35, breaker 40% (x1.0, wk/1.5), re-entry 10d, band 0.5 | 17.32/ 32.2 | 14.86/ 31.0 | 50% M35 + 50% E20, breaker 40% (x1.0, wk -> 10.18/ 36.3
