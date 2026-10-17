@@ -1,0 +1,25 @@
+testfol 1987-12-31 -> 2026-10-15 limiting=KMLMSIM
+testfol 1987-12-31 -> 2026-10-15 limiting=KMLMSIM
+
+         allocation                                                       CAGR   MDD   Sharpe Calmar Ulcer | scen  worst | 2026YTD  ytdDD
+C1       IEI34 KMLM20 UUP13 GLD11 SPMO11 XLP5 QLD3 XLE3                    8.30  -9.09 0.937 0.913 2.015 | -1.54  -4.3 |   +9.3   -3.5
+FULL#1   SHY25 KMLM20 SPMO20 GLD15 UUP10 XLV5 ZROZ5                        8.29  -9.79 0.862 0.847 2.422 | -2.35  -4.8 |   +8.9   -4.8
+now#1    IEI35 KMLM22 GLD14 UUP12 XLE6 XLP5 XLV4 TQQQ2                     8.01  -8.27 0.916 0.968 2.113 | +2.43  -2.8 |   +9.2   -4.1
+now#2    IEI35 KMLM21 GLD14 XLV13 UUP12 TQQQ2 GSG2 TYD1                    8.04  -8.91 0.920 0.902 2.104 | +2.31  -2.5 |   +7.7   -4.2
+safe#1   SHY35 IEI23 FKINX12 VWINX10 KMLM10 UUP6 GLD2 TQQQ2                6.77  -5.08 1.100 1.332 1.062 | -0.52  -3.0 |   +3.9   -1.8
+safe#2   SHY33 IEI25 FKINX13 KMLM10 VWINX9 UUP6 GLD2 TQQQ2                 6.79  -5.18 1.100 1.311 1.079 | -0.56  -3.0 |   +3.8   -1.8
+safe_etf#1 SHY35 IEI33 KMLM10 VBR7 UUP6 XLP4 GLD3 TQQQ2                      6.83  -4.59 1.051 1.487 1.097 | +0.14  -2.7 |   +4.3   -2.3
+safe_etf#2 SHY35 IEI34 KMLM10 VBR7 UUP6 GLD3 XLV3 TQQQ2                      6.84  -4.61 1.051 1.485 1.102 | +0.18  -2.7 |   +4.2   -2.2
+
+Scenario episode returns (%), testfol daily data:
+episode                            C1   FULL#1    now#1    now#2   safe#1   safe#2safe_etf#1safe_etf#2
+1990 Gulf War oil shock          -1.1     -0.9      1.2      1.5     -0.9     -0.9     -0.9     -0.7
+1994 Fed hikes / bond crash       1.5      1.6      2.9      2.5     -1.3     -1.4     -0.6     -0.6
+2000-02 tech bubble burst         1.7     -0.7     12.1     12.9     14.8     14.9     15.6     15.2
+2007-09 credit crisis             8.5      8.1     13.6     13.5      2.2      2.1      5.6      5.7
+2013 taper tantrum               -1.0     -1.0     -1.0     -0.7     -0.9     -1.0     -0.7     -0.4
+2018 Q4 Fed + tech               -3.4     -3.7     -1.9     -1.5     -1.8     -1.8     -2.0     -2.0
+2020 Covid crash                 -3.5     -3.5     -2.3     -1.2     -3.0     -3.0     -2.1     -1.9
+2022 inflation/war/rates          4.7      3.3      8.3      4.8     -2.8     -2.9     -2.7     -2.7
+2023 10y to 5%                   -0.4      0.3     -0.9     -1.0     -2.2     -2.3     -2.3     -2.1
+2025 tariff shock                -4.3     -4.8     -2.8     -2.5     -2.0     -1.9     -2.0     -2.1

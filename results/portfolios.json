@@ -90,5 +90,33 @@
   },
   "note": "GPU search runner-up (clean). Best Calmar and max drawdown; beats FULL#1 everywhere.",
   "clean": true
+ },
+ "C1-Now": {
+  "alloc": {
+   "IEISIM": 35,
+   "KMLMSIM": 22,
+   "GLDSIM": 14,
+   "UUPSIM": 12,
+   "XLESIM": 6,
+   "XLPSIM": 5,
+   "XLVSIM": 4,
+   "TQQQSIM": 2
+  },
+  "note": "Oct-2026 regime tune of C1: keeps >=95% of C1 full-history quality, best in AI-bust/oil-war/rate-shock/credit analog episodes. Drops SPMO/QLD (AI-crowded) for XLE/XLV/GLD.",
+  "clean": true
+ },
+ "Safe-Now": {
+  "alloc": {
+   "SHYSIM": 35,
+   "IEISIM": 33,
+   "KMLMSIM": 10,
+   "VBRSIM": 7,
+   "UUPSIM": 6,
+   "XLPSIM": 4,
+   "GLDSIM": 3,
+   "TQQQSIM": 2
+  },
+  "note": "Oct-2026 safe+sharp: CAGR>=6.5, no analog episode worse than -3%, max Sharpe/Calmar/Ulcer/MDD. ETF-only (no high-yield/private-credit exposure).",
+  "clean": true
  }
 }

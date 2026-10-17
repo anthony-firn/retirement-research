@@ -1,0 +1,5 @@
+######## vs C1: expanded universe (ETFs + funds + extra LETFs)
+device cuda | 70 assets | 9771 days | climbers 2048 | rounds 20 | periods ['full', '1988-1997', '1997-2007', '2007-2017', '2017-2026']
+  initial climb done  best 1.0113  (180.0s)
+  round 1/20  best 1.0113  improved 1060 climbers  (217.9s)
+  round 2/20  best 1.0119  improved 873 climbers  (562.7s)

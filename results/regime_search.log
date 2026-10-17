@@ -1,0 +1,68 @@
+######## MODE=now  (C1 quality, best in today's scenarios)
+MODE=now | cuda | 68 assets | climbers 1024 rounds 10
+C1 episodes: 1990 -1.2 | 1994 +1.5 | 2000-02 +1.6 | 2007-09 +8.6 | 2013 -1.0 | 2018 -3.4 | 2020 -3.5 | 2022 +4.7 | 2023 -0.4 | 2025 -4.3  -> scenario score -1.56
+  initial climb best 0.967 (1294s)
+  round 1/10 best 1.950 (1324s)
+  round 2/10 best 1.950 (1350s)
+  round 3/10 best 1.950 (1376s)
+  round 4/10 best 2.245 (1402s)
+  round 5/10 best 2.245 (1427s)
+  round 6/10 best 2.410 (1452s)
+  round 7/10 best 2.410 (1478s)
+  round 8/10 best 2.410 (1503s)
+  round 9/10 best 2.410 (1528s)
+  round 10/10 best 2.410 (1553s)
+#1 IEI35 KMLM22 GLD14 UUP12 XLE6 XLP5 XLV4 TQQQ2                      CAGR  8.01 MDD  -8.33 Sh 0.910 Cal 0.962 Ulc 2.111 | scen +2.41 worst -2.8
+#2 IEI35 KMLM21 GLD14 XLV13 UUP12 TQQQ2 GSG2 TYD1                     CAGR  8.05 MDD  -8.95 Sh 0.914 Cal 0.899 Ulc 2.101 | scen +2.29 worst -2.5
+#3 IEI35 KMLM22 UUP16 GLD12 XLV7 TQQQ3 GSG3 TYD2                      CAGR  8.05 MDD  -8.56 Sh 0.913 Cal 0.941 Ulc 2.100 | scen +2.25 worst -2.8
+#4 IEI35 KMLM23 UUP14 GLD12 VWINX7 XLV4 TQQQ3 GSG2                    CAGR  8.01 MDD  -8.09 Sh 0.923 Cal 0.990 Ulc 2.081 | scen +2.20 worst -2.8
+#5 IEI35 KMLM23 UUP15 GLD11 XLP7 GSG4 TQQQ3 XLV2                      CAGR  8.01 MDD  -7.78 Sh 0.914 Cal 1.030 Ulc 2.099 | scen +2.16 worst -3.1
+#6 IEI35 KMLM23 UUP11 GLD11 XLV11 XLE6 TECL2 TYD1                     CAGR  8.04 MDD  -8.68 Sh 0.899 Cal 0.927 Ulc 2.093 | scen +1.95 worst -3.2
+#7 IEI35 KMLM23 UUP15 XLV9 GLD9 GDE4 GSG3 TQQQ2                       CAGR  8.01 MDD  -8.57 Sh 0.906 Cal 0.935 Ulc 2.093 | scen +1.85 worst -3.3
+#8 KMLM24 IEI23 VWINX17 UUP17 GLD11 GSG4 TQQQ3 TYD1                   CAGR  8.04 MDD  -7.89 Sh 0.911 Cal 1.020 Ulc 2.115 | scen +1.76 worst -3.6
+done 1553s -> regime_now.json
+######## MODE=safe (safe + sharp for today)
+MODE=safe | cuda | 68 assets | climbers 1024 rounds 10
+C1 episodes: 1990 -1.2 | 1994 +1.5 | 2000-02 +1.6 | 2007-09 +8.6 | 2013 -1.0 | 2018 -3.4 | 2020 -3.5 | 2022 +4.7 | 2023 -0.4 | 2025 -4.3  -> scenario score -1.56
+  initial climb best 1.165 (108s)
+  round 1/10 best 1.169 (132s)
+  round 2/10 best 1.169 (154s)
+  round 3/10 best 1.169 (175s)
+  round 4/10 best 1.169 (196s)
+  round 5/10 best 1.169 (216s)
+  round 6/10 best 1.169 (238s)
+  round 7/10 best 1.169 (259s)
+  round 8/10 best 1.170 (280s)
+  round 9/10 best 1.170 (300s)
+  round 10/10 best 1.170 (321s)
+#1 SHY35 IEI23 FKINX12 VWINX10 KMLM10 UUP6 GLD2 TQQQ2                 CAGR  6.77 MDD  -5.09 Sh 1.091 Cal 1.330 Ulc 1.064 | scen -0.54 worst -3.0
+#2 SHY33 IEI25 FKINX13 KMLM10 VWINX9 UUP6 GLD2 TQQQ2                  CAGR  6.80 MDD  -5.18 Sh 1.090 Cal 1.311 Ulc 1.080 | scen -0.58 worst -3.0
+#3 SHY35 IEI21 VWINX11 FKINX11 KMLM10 UUP7 GLD3 TQQQ2                 CAGR  6.77 MDD  -5.00 Sh 1.090 Cal 1.355 Ulc 1.046 | scen -0.50 worst -3.0
+#4 SHY35 IEI24 FKINX14 KMLM10 VWINX7 UUP6 GLD2 TQQQ2                  CAGR  6.75 MDD  -5.22 Sh 1.090 Cal 1.293 Ulc 1.056 | scen -0.49 worst -2.9
+#5 SHY35 IEI22 FKINX13 KMLM10 VWINX8 UUP7 GLD3 TQQQ2                  CAGR  6.75 MDD  -5.05 Sh 1.090 Cal 1.335 Ulc 1.040 | scen -0.46 worst -2.9
+#6 SHY35 IEI22 FKINX14 KMLM11 VWINX8 UUP6 GLD2 TQQQ2                  CAGR  6.82 MDD  -5.39 Sh 1.089 Cal 1.264 Ulc 1.073 | scen -0.47 worst -3.0
+#7 SHY34 IEI22 VWINX12 FKINX11 KMLM11 UUP6 GLD2 TQQQ2                 CAGR  6.85 MDD  -5.09 Sh 1.088 Cal 1.344 Ulc 1.085 | scen -0.42 worst -3.0
+#8 SHY34 IEI22 VWINX14 KMLM10 FKINX9 UUP7 GLD2 TQQQ2                  CAGR  6.78 MDD  -5.09 Sh 1.087 Cal 1.333 Ulc 1.064 | scen -0.47 worst -3.0
+done 321s -> regime_safe.json
+MODE=safe | cuda | 56 assets | climbers 1024 rounds 10
+C1 episodes: 1990 -1.2 | 1994 +1.5 | 2000-02 +1.6 | 2007-09 +8.6 | 2013 -1.0 | 2018 -3.4 | 2020 -3.5 | 2022 +4.7 | 2023 -0.4 | 2025 -4.3  -> scenario score -1.56
+  initial climb best 1.120 (94s)
+  round 1/10 best 1.120 (115s)
+  round 2/10 best 1.120 (135s)
+  round 3/10 best 1.120 (153s)
+  round 4/10 best 1.120 (173s)
+  round 5/10 best 1.120 (191s)
+  round 6/10 best 1.120 (208s)
+  round 7/10 best 1.120 (226s)
+  round 8/10 best 1.120 (244s)
+  round 9/10 best 1.120 (262s)
+  round 10/10 best 1.120 (279s)
+#1 SHY35 IEI33 KMLM10 VBR7 UUP6 XLP4 GLD3 TQQQ2                       CAGR  6.83 MDD  -4.59 Sh 1.043 Cal 1.489 Ulc 1.099 | scen +0.13 worst -2.7
+#2 SHY35 IEI34 KMLM10 VBR7 UUP6 GLD3 XLV3 TQQQ2                       CAGR  6.84 MDD  -4.62 Sh 1.042 Cal 1.482 Ulc 1.103 | scen +0.16 worst -2.7
+#3 SHY35 IEI32 KMLM10 VBR8 UUP6 XLV5 GLD3 TQQQ1                       CAGR  6.57 MDD  -4.38 Sh 1.040 Cal 1.501 Ulc 0.999 | scen +1.07 worst -2.1
+#4 SHY35 IEI32 KMLM10 VBR8 UUP6 XLV4 GLD3 QLD2                        CAGR  6.58 MDD  -4.39 Sh 1.036 Cal 1.500 Ulc 1.017 | scen +0.48 worst -2.3
+#5 SHY35 IEI32 KMLM10 VBR7 UUP6 XLP4 QLD3 GLD3                        CAGR  6.71 MDD  -4.52 Sh 1.036 Cal 1.483 Ulc 1.081 | scen -0.28 worst -2.8
+#6 SHY35 IEI34 KMLM13 VBR7 XLP3 GLD3 XLV3 TQQQ2                       CAGR  7.24 MDD  -5.18 Sh 1.035 Cal 1.400 Ulc 1.272 | scen +0.24 worst -2.6
+#7 SHY35 IEI34 KMLM10 VOE7 UUP6 GLD3 XLV3 TQQQ2                       CAGR  6.80 MDD  -4.74 Sh 1.035 Cal 1.435 Ulc 1.078 | scen +0.03 worst -2.7
+#8 SHY35 IEI35 KMLM11 VBR6 UUP5 XLV4 TQQQ2 XLE2                       CAGR  6.99 MDD  -4.67 Sh 1.035 Cal 1.496 Ulc 1.075 | scen +0.19 worst -2.6
+done 279s -> regime_safe_etf.json

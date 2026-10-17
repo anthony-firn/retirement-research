@@ -7,7 +7,7 @@ PF = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..
 P = {"C1": PF["C1"]["alloc"], "FULL#1": PF["FULL#1"]["alloc"]}
 EP = None
 for f in sys.argv[1:]:
-    d = json.load(open(f)); EP = d["episodes"]; tag = d["mode"]
+    d = json.load(open(f)); EP = d["episodes"]; tag = os.path.splitext(os.path.basename(f))[0].replace("regime_", "")
     for i, r in enumerate(d["results"][:TOP]): P[f"{tag}#{i+1}"] = r["alloc"]
 
 def call(names):

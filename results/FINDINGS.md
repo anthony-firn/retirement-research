@@ -73,3 +73,20 @@ equity sleeve, small sector tilts (XLP/XLE or XLF/GSG).
 - **Fragile bits**: XLP 5% and XLE 3% are small tilts — removing either barely matters (Calmar even
   improves), so treat them as noise-level. The structural parts are IEI, KMLM, UUP, GLD and the small
   leveraged equity sleeve. KMLM (launched 2020) and QLD (2006) are simulated before inception.
+
+## 2026-10-17 — round 4: tuned for the current environment (see `results/MARKET_2026-10.md`)
+Regime-aware search (`lab/regime.py`) scores portfolios on 10 historical analogs of today's risks
+(AI/tech bust, oil/war shock, Fed hiking into inflation, 10y→5%, credit stress, policy shock).
+Excluded: MCISIM (Barings Corporate Investors = private credit), VWEHX (high yield); FKINX-based
+"safe" picks rejected for the same credit reason. Verified on testfol.io (`results/verify_regime.log`).
+
+| testfol 1988–2026 | Allocation | CAGR | MDD | Sharpe | Calmar | Ulcer | Scenario score | Worst analog | 2026 YTD |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | IEI34 KMLM20 UUP13 GLD11 SPMO11 XLP5 QLD3 XLE3 | 8.30 | −9.09 | 0.937 | 0.913 | 2.02 | −1.54 | −4.3 | +9.3 |
+| **C1-Now** | IEI35 KMLM22 GLD14 UUP12 XLE6 XLP5 XLV4 TQQQ2 | 8.01 | −8.27 | 0.916 | 0.968 | 2.11 | **+2.43** | **−2.8** | +9.2 |
+| **Safe-Now** | SHY35 IEI33 KMLM10 VBR7 UUP6 XLP4 GLD3 TQQQ2 | 6.83 | **−4.59** | **1.051** | **1.487** | **1.10** | +0.14 | −2.7 | +4.3 |
+
+- C1-Now vs C1: 2000–02 +12.1 vs +1.7, 2008 +13.6 vs +8.5, 2022 +8.3 vs +4.7, 2025 tariffs −2.8 vs −4.3.
+  Cost: −0.3 pts CAGR, Sharpe −0.02, Ulcer +0.10. Calmar and MDD improve.
+- Safe-Now: 68% Treasuries (SHY+IEI, yielding ~4–5% today) + 10% KMLM + small value/staples/gold/dollar
+  + 2% TQQQ. Weak spot = rate shocks (2022 −2.7, 2023 −2.3) — exactly today's regime — but losses stay small.
