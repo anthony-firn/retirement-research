@@ -1,0 +1,59 @@
+######## CLEAN ETFs only
+device cuda | 56 assets | 9772 days | climbers 1024 | rounds 10 | periods ['full', '1988-1997', '1997-2007', '2007-2017', '2017-2026']
+  initial climb done  best 1.0348  (112.3s)
+  round 1/10  best 1.0404  improved 514 climbers  (144.5s)
+  round 2/10  best 1.0421  improved 447 climbers  (173.5s)
+  round 3/10  best 1.0421  improved 386 climbers  (201.3s)
+  round 4/10  best 1.0502  improved 358 climbers  (227.9s)
+  round 5/10  best 1.0502  improved 338 climbers  (257.6s)
+  round 6/10  best 1.0502  improved 326 climbers  (286.9s)
+  round 7/10  best 1.0502  improved 293 climbers  (304.8s)
+  round 8/10  best 1.0502  improved 259 climbers  (322.4s)
+  round 9/10  best 1.0502  improved 244 climbers  (338.6s)
+  round 10/10  best 1.0502  improved 250 climbers  (354.0s)
+
+BASE   CAGR 8.28 MDD -9.80 Sh 0.857 Cal 0.844 Ulc 2.425
+#1   IEI34 KMLM20 UUP13 GLD11 SPMO11 XLP5 QLD3 XLE3                         CAGR  8.30 MDD  -9.06 Sh 0.931 Cal 0.916 Ulc 2.015 | score 1.0502
+#2   IEI32 KMLM19 SPMO18 UUP15 GLD11 XLV3 TQQQ1 XLE1                        CAGR  8.32 MDD  -9.08 Sh 0.905 Cal 0.916 Ulc 2.103 | score 1.0472
+#3   IEI33 KMLM20 UUP14 SPMO14 GLD12 XLF3 QLD3 VBR1                         CAGR  8.37 MDD  -9.37 Sh 0.906 Cal 0.893 Ulc 2.134 | score 1.0440
+#4   IEI33 KMLM21 UUP17 SPMO13 GLD10 XLF3 TQQQ2 XLE1                        CAGR  8.32 MDD  -8.77 Sh 0.913 Cal 0.948 Ulc 2.036 | score 1.0432
+#5   IEI34 KMLM20 UUP17 GLD10 SPMO10 QLD4 VBR3 XLE2                         CAGR  8.29 MDD  -8.82 Sh 0.929 Cal 0.940 Ulc 1.963 | score 1.0421
+#6   IEI35 KMLM20 UUP14 SPMO13 GLD10 VTV4 TQQQ2 GSG2                        CAGR  8.36 MDD  -8.76 Sh 0.923 Cal 0.954 Ulc 2.036 | score 1.0420
+#7   IEI34 KMLM19 UUP17 SPMO15 GLD10 TQQQ2 VBR2 GSG1                        CAGR  8.34 MDD  -8.42 Sh 0.921 Cal 0.990 Ulc 2.009 | score 1.0419
+#8   IEI33 KMLM20 UUP14 GLD12 SPMO12 XLF4 QLD3 VTV2                         CAGR  8.30 MDD  -9.26 Sh 0.905 Cal 0.896 Ulc 2.069 | score 1.0418
+#9   IEI34 KMLM20 SPMO16 GLD12 UUP10 QQQ4 XLE2 XLV2                         CAGR  8.29 MDD  -9.41 Sh 0.905 Cal 0.881 Ulc 2.169 | score 1.0411
+#10  IEI29 KMLM22 GLD13 SPMO12 UUP11 XLK5 VBR4 XLV4                         CAGR  8.30 MDD  -9.04 Sh 0.896 Cal 0.918 Ulc 2.101 | score 1.0408
+#11  IEI34 KMLM21 SPMO12 GLD10 UUP9 XLV6 XLK5 XLE3                          CAGR  8.31 MDD  -9.39 Sh 0.911 Cal 0.884 Ulc 2.043 | score 1.0405
+#12  IEI34 KMLM21 UUP16 GLD10 SPMO10 QLD4 XLE3 VBR2                         CAGR  8.34 MDD  -9.23 Sh 0.926 Cal 0.904 Ulc 2.038 | score 1.0404
+
+done in 354.1s -> gpu_clean_etf.json
+
+######## CLEAN ETFs + asset-class funds
+device cuda | 65 assets | 9771 days | climbers 1024 | rounds 10 | periods ['full', '1988-1997', '1997-2007', '2007-2017', '2017-2026']
+  initial climb done  best 1.0303  (86.6s)
+  round 1/10  best 1.0403  improved 523 climbers  (106.2s)
+  round 2/10  best 1.0403  improved 433 climbers  (123.4s)
+  round 3/10  best 1.0414  improved 393 climbers  (140.9s)
+  round 4/10  best 1.0414  improved 340 climbers  (158.0s)
+  round 5/10  best 1.0414  improved 341 climbers  (175.0s)
+  round 6/10  best 1.0414  improved 326 climbers  (191.8s)
+  round 7/10  best 1.0414  improved 290 climbers  (208.2s)
+  round 8/10  best 1.0441  improved 283 climbers  (225.0s)
+  round 9/10  best 1.0447  improved 270 climbers  (241.0s)
+  round 10/10  best 1.0447  improved 234 climbers  (257.4s)
+
+BASE   CAGR 8.29 MDD -9.80 Sh 0.859 Cal 0.846 Ulc 2.425
+#1   IEI34 KMLM20 UUP16 SPMO14 GLD10 GSG2 TQQQ2 XLF2                        CAGR  8.30 MDD  -8.69 Sh 0.916 Cal 0.955 Ulc 2.048 | score 1.0447
+#2   IEI28 KMLM20 UUP15 SPMO14 GLD11 VWINX8 QLD3 GSG1                       CAGR  8.33 MDD  -9.34 Sh 0.923 Cal 0.891 Ulc 2.103 | score 1.0430
+#3   IEI30 KMLM20 UUP16 SPMO15 GLD11 XLV4 QLD2 VBR2                         CAGR  8.32 MDD  -9.18 Sh 0.912 Cal 0.906 Ulc 2.075 | score 1.0427
+#4   IEI29 KMLM20 SPMO18 UUP15 GLD11 VWINX5 XLK1 TQQQ1                      CAGR  8.31 MDD  -9.36 Sh 0.905 Cal 0.889 Ulc 2.165 | score 1.0414
+#5   IEI30 KMLM21 SPMO16 UUP15 GLD12 QLD2 VBR2 XLV2                         CAGR  8.33 MDD  -9.25 Sh 0.903 Cal 0.900 Ulc 2.173 | score 1.0405
+#6   IEI21 KMLM21 SPMO18 UUP15 GLD12 VWINX9 IEF3 TQQQ1                      CAGR  8.41 MDD  -9.32 Sh 0.906 Cal 0.903 Ulc 2.204 | score 1.0404
+#7   SHY27 KMLM20 SPMO15 UUP13 GLD11 VWEHX9 TYD3 TQQQ2                      CAGR  8.31 MDD  -9.32 Sh 0.929 Cal 0.892 Ulc 2.144 | score 1.0404
+#8   IEI32 KMLM20 GLD14 SPMO13 UUP10 QQQ5 XLF4 XLV2                         CAGR  8.30 MDD  -9.15 Sh 0.897 Cal 0.908 Ulc 2.137 | score 1.0403
+#9   IEI30 KMLM19 SPMO17 UUP14 GLD11 VWINX6 QLD2 VUG1                       CAGR  8.31 MDD  -9.41 Sh 0.912 Cal 0.882 Ulc 2.133 | score 1.0395
+#10  IEI33 KMLM20 GLD14 SPMO14 UUP9 QQQ5 XLF4 XLV1                          CAGR  8.34 MDD  -9.28 Sh 0.895 Cal 0.899 Ulc 2.185 | score 1.0386
+#11  IEI31 KMLM20 GLD14 SPMO12 UUP9 QQQ6 XLF4 VWINX4                        CAGR  8.32 MDD  -9.05 Sh 0.904 Cal 0.920 Ulc 2.127 | score 1.0384
+#12  KMLM23 IEI22 SPMO14 GLD13 VWINX12 UUP10 XLK4 XLV2                      CAGR  8.35 MDD  -9.12 Sh 0.897 Cal 0.915 Ulc 2.191 | score 1.0382
+
+done in 257.4s -> gpu_clean_A.json

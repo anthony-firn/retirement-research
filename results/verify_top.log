@@ -1,0 +1,13 @@
+testfol 1987-12-31 -> 2026-10-16  limiting=KMLMSIM
+testfol 1987-12-31 -> 2026-10-15  limiting=KMLMSIM
+
+               allocation                                                          CAGR   MDD  Sharpe Calmar Ulcer | full-win decades-won
+FULL#1         SHY25 SPMO20 GLD15 KMLM20 UUP10 XLV5 ZROZ5                          8.29  -9.79 0.862 0.847 2.422 | -     -/4
+clean_etf#1    IEI34 KMLM20 UUP13 GLD11 SPMO11 XLP5 QLD3 XLE3                      8.29  -9.09 0.936 0.913 2.015 | True  4/4
+clean_etf#2    IEI32 KMLM19 SPMO18 UUP15 GLD11 XLV3 TQQQ1 XLE1                     8.31  -9.11 0.910 0.913 2.104 | True  4/4
+clean_etf#3    IEI33 KMLM20 UUP14 SPMO14 GLD12 XLF3 QLD3 VBR1                      8.37  -9.40 0.910 0.890 2.135 | True  4/4
+clean_etf#4    IEI33 KMLM21 UUP17 SPMO13 GLD10 XLF3 TQQQ2 XLE1                     8.31  -8.80 0.919 0.944 2.037 | True  4/4
+clean_A#1      IEI34 KMLM20 UUP16 SPMO14 GLD10 GSG2 TQQQ2 XLF2                     8.30  -8.72 0.922 0.951 2.049 | True  4/4
+clean_A#2      IEI28 KMLM20 UUP15 SPMO14 GLD11 VWINX8 QLD3 GSG1                    8.32  -9.37 0.927 0.889 2.104 | True  4/4
+clean_A#3      IEI30 KMLM20 UUP16 SPMO15 GLD11 XLV4 QLD2 VBR2                      8.31  -9.21 0.917 0.903 2.076 | True  4/4
+clean_A#4      IEI29 KMLM20 SPMO18 UUP15 GLD11 VWINX5 XLK1 TQQQ1                   8.31  -9.38 0.909 0.886 2.166 | True  4/4

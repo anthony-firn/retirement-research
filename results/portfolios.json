@@ -62,5 +62,33 @@
   },
   "note": "Beat FULL#1 every metric + every decade on testfol \u2014 but uses TBF modifier proxy (disallowed)",
   "clean": false
+ },
+ "C1": {
+  "alloc": {
+   "IEISIM": 34,
+   "KMLMSIM": 20,
+   "UUPSIM": 13,
+   "GLDSIM": 11,
+   "SPMOSIM": 11,
+   "XLPSIM": 5,
+   "QLDSIM": 3,
+   "XLESIM": 3
+  },
+  "note": "GPU search winner (clean, no modifiers). Beats FULL#1 on every metric + every decade on testfol; best Sharpe/Ulcer.",
+  "clean": true
+ },
+ "C2": {
+  "alloc": {
+   "IEISIM": 34,
+   "KMLMSIM": 20,
+   "UUPSIM": 16,
+   "SPMOSIM": 14,
+   "GLDSIM": 10,
+   "GSGSIM": 2,
+   "TQQQSIM": 2,
+   "XLFSIM": 2
+  },
+  "note": "GPU search runner-up (clean). Best Calmar and max drawdown; beats FULL#1 everywhere.",
+  "clean": true
  }
 }
