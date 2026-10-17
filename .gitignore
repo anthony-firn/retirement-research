@@ -10,3 +10,5 @@ lab/clean_etf.json
 lab/clean_A.json
 lab/hist.json
 lab/resp*.json
+lab/hist_extX.json
+lab/clean_X.json

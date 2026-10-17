@@ -6,4 +6,5 @@ python3 build_univ.py                       # -> hist_univ.json    (28-asset uni
 python3 build_native.py                     # -> hist_native.json  (58 assets, native testfol series, no splicing)
 python3 build_ext.py VWEHX,VFIIX,PRPFX,VGPMX,VWINX,VWELX,FKINX,VUSTX,VBMFX hist_extA.json
 python3 build_ext.py VWEHX,VFIIX,PRPFX,VGPMX,VWINX,VWELX,FKINX,VUSTX,VBMFX,BRK-A,PRWCX,VPMCX,FCNTX,DODGX,FPURX hist_extB.json
+python3 build_ext.py VWEHX,VFIIX,PRPFX,VGPMX,VWINX,VWELX,FKINX,VUSTX,VBMFX,SPXLSIM,SQQQSIM,URTYSIM,TNASIM,SPYSIM,MCISIM hist_extX.json   # funds + extra LETFs
 python3 build_clean.py                      # -> clean_etf.json / clean_A.json (no '?' modifier tickers)
