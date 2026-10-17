@@ -10,7 +10,8 @@ for path in (sys.argv[1:] or ["frontier.json"]):            # files containing "
     F = json.load(open(path)); EP = F["episodes"]; bn = os.path.basename(path)
     import re
     mv = re.search(r"sweet_(v\d+)", bn)
-    pre = (mv.group(1).upper() + "-") if mv else ("M" if "maxret" in bn else ("E" if "etf" in bn else "F"))   # M<cap> = max CAGR with |MDD| <= cap
+    if "sweet_final" in bn: mv = None
+    pre = (mv.group(1).upper() + "-") if mv else ("S" if "sweet_final" in bn else ("M" if "maxret" in bn else ("E" if "etf" in bn else "F")))   # M<cap> = max CAGR with |MDD| <= cap
     for r in F["results"]:
         if r["rank"] == 1 and (pre == "M" or LO <= r["target"] <= HI): picked[(pre, r["target"])] = r["alloc"]
 for (pre, tgt) in sorted(picked): P[f"{pre}{tgt:g}"] = picked[(pre, tgt)]

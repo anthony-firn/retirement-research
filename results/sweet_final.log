@@ -1,0 +1,13 @@
+######## 12-12.5%: episodes >= -8%, 2022 >= -3%, AI <= 15%
+nowsafe: every episode >= -8.0%, 2022 >= -3.0%, AI exposure <= 15.0%
+frontier SAFETY=nowsafe | cuda | 56 assets | targets [12.0, 12.5] | decade floor 0.7xT | climbers 1024 rounds 12
+T=12.0 safety 0.448 | KMLM35 VBR19 TYD14 GLD14 XLV9 TQQQ5 UUP3 GSG1                        CAGR 12.02 MDD -13.90 Sh 0.945 Cal 0.865 Ulc 3.477 | worst analog -7.9 2022 +2.9 AI 15% (389s)
+T=12.5 safety 0.380 | KMLM35 TYD18 XLV17 VBR14 GLD8 TQQQ5 XLE2 XLP1                        CAGR 12.50 MDD -15.42 Sh 0.947 Cal 0.811 Ulc 3.700 | worst analog -8.0 2022 +1.7 AI 15% (753s)
+done 753s -> sweet_final_lo.json
+
+######## 13-13.5%: episodes >= -8%, 2022 >= -3%
+nowsafe: every episode >= -8.0%, 2022 >= -3.0%, AI exposure <= 1000000000.0%
+frontier SAFETY=nowsafe | cuda | 56 assets | targets [13.0, 13.5] | decade floor 0.7xT | climbers 1024 rounds 12
+T=13.0 safety 0.364 | KMLM35 GLD19 TYD16 XLP8 TQQQ8 VBR8 XLE5 SPMO1                        CAGR 13.01 MDD -17.77 Sh 0.927 Cal 0.732 Ulc 4.304 | worst analog -7.9 2022 +2.4 AI 25% (371s)
+T=13.5 safety 0.307 | KMLM35 GLD24 TYD18 TQQQ10 XLE9 VBR2 REIT1 XLP1                       CAGR 13.50 MDD -19.37 Sh 0.895 Cal 0.697 Ulc 4.894 | worst analog -8.0 2022 +2.9 AI 30% (721s)
+done 721s -> sweet_final_hi.json

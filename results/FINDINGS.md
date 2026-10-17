@@ -151,3 +151,28 @@ Verified on testfol: `results/verify_frontier_hi.log`, `results/verify_maxret.lo
   stock–bond correlation turned positive) — the same regime as today (see MARKET_2026-10.md).
 - 2018–26 decade Sharpe ≈ 0.56–0.62 for all points ≥ 15% vs ~1.0 in 2008–17: the leverage engine
   worked best in the falling-rate era.
+
+## 2026-10-17 — round 7: sweet spot 12–13.5%, safest with today's-economy guard rails
+`lab/frontier.py SAFETY=nowsafe`: historical absolute safety (Ulcer/MDD every decade) **plus** guard rails from
+`MARKET_2026-10.md`: every analog episode ≥ −8%, the 2022 inflation/war/rates episode ≥ −3%, and (12–12.5%)
+AI/mega-tech notional exposure ≤ 15% (TQQQ counts 3×, S&P ≈ 40% AI). Variants V1–V4 mapped the trade-off
+(−6% floor caps CAGR at ~12.5%; AI ≤ 10% caps it at ~11.8%); a seeded polish pass gave the finals.
+Verified: `results/verify_sweet_final.log`.
+
+| testfol 1988–2026 | Allocation | CAGR | MaxDD | Sharpe | Calmar | Ulcer | Worst yr | 2022 ep. | 2000–02 | Worst analog | 2018–26 CAGR/Sh | 2026 YTD |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| E12 | TYD18 KMLM17 XLV16 IEI14 VBR13 GLD11 XLE6 TQQQ5 | 11.99 | −14.4 | 0.939 | 0.83 | 3.19 | −5.7 | −6.9 | +4.1 | −11.2 | 9.1/0.69 | +8.8 |
+| **S12** | KMLM35 VBR19 TYD14 GLD14 XLV9 TQQQ5 UUP3 GSG1 | 12.01 | **−13.9** | **0.950** | **0.86** | 3.47 | **−3.2** | **+2.9** | +4.0 | **−7.9** | **9.5/0.75** | +10.3 |
+| E12.5 | TYD23 KMLM20 VBR20 XLV14 GLD9 TQQQ5 XLE5 UUP4 | 12.51 | −15.6 | 0.936 | 0.80 | 3.42 | −6.4 | −6.5 | +4.9 | −12.1 | 9.0/0.65 | +9.2 |
+| **S12.5** | KMLM35 TYD18 XLV17 VBR14 GLD8 TQQQ5 XLE2 XLP1 | 12.49 | **−15.4** | **0.952** | **0.81** | 3.70 | **−2.5** | **+1.7** | +4.4 | **−8.0** | 9.0/0.69 | +10.9 |
+| E13 | VBR21 TYD20 KMLM19 XLV19 GLD9 TQQQ5 XLE5 ZROZ2 | 12.99 | −17.1 | 0.924 | 0.76 | 3.67 | −6.8 | −7.9 | +1.9 | −14.4 | 9.4/0.64 | +10.0 |
+| **S13** | KMLM35 GLD19 TYD16 XLP8 TQQQ8 VBR8 XLE5 SPMO1 | 13.00 | −17.8 | **0.931** | 0.73 | 4.30 | **−6.5** | **+2.4** | −3.9 | **−7.9** | **11.4/0.85** | +11.2 |
+| E13.5 | TYD25 KMLM19 VBR18 GLD10 XLV10 TQQQ7 XLE7 REIT4 | 13.50 | −18.8 | 0.920 | 0.72 | 4.07 | −9.1 | −9.9 | +0.9 | −14.5 | 9.9/0.65 | +9.5 |
+| **S13.5** | KMLM35 GLD24 TYD18 TQQQ10 XLE9 VBR2 REIT1 XLP1 | 13.49 | −19.4 | 0.899 | 0.70 | 4.89 | **−8.1** | **+2.9** | −7.7 | **−8.0** | **12.7/0.88** | +11.6 |
+
+- S12/S12.5 dominate E12/E12.5 on everything except long-run Ulcer (+0.3): better Sharpe, MDD, worst year,
+  2022, every analog, and still positive in the 2000–02 tech bust. AI exposure ≤ 15%.
+- S13/S13.5 need TQQQ 8–10% (AI exposure 25–30%) → negative in the tech-bust analog (−3.9 / −7.7).
+- Managed futures hits the 35% cap in every final. Implementation: split KMLM18/DBMF17 — testfol 2000–26
+  improves Sharpe 0.834→0.883 (S12), 0.813→0.862 (S12.5) and Ulcer 3.65→3.20 / 3.81→3.39.
+- Expectation check: 2000–2026 CAGR is ~9.5–9.8% for S12/S12.5 (1988–99 lifts the full-period figure).

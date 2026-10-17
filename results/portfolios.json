@@ -677,5 +677,91 @@
   },
   "note": "Sweet-spot nowsafe search V4 target 13% (local sim CAGR 12.77, MDD -20.25, worst analog -8.0, AI 15%)",
   "clean": true
+ },
+ "S12": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "VBRSIM": 19,
+   "TYDSIM": 14,
+   "GLDSIM": 14,
+   "XLVSIM": 9,
+   "TQQQSIM": 5,
+   "UUPSIM": 3,
+   "GSGSIM": 1
+  },
+  "note": "Sweet-spot final: safest at 12% CAGR with today's-economy guard rails (every analog >= -8%, 2022 >= -3%, AI <= 15%). testfol: CAGR 12.01, MDD -13.91, Sharpe 0.950, Ulcer 3.47, worst analog -7.9",
+  "clean": true
+ },
+ "S12.5": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "TYDSIM": 18,
+   "XLVSIM": 17,
+   "VBRSIM": 14,
+   "GLDSIM": 8,
+   "TQQQSIM": 5,
+   "XLESIM": 2,
+   "XLPSIM": 1
+  },
+  "note": "Sweet-spot final: safest at 12.5% CAGR with today's-economy guard rails (every analog >= -8%, 2022 >= -3%, AI <= 15%). testfol: CAGR 12.49, MDD -15.44, Sharpe 0.952, Ulcer 3.70, worst analog -8.0",
+  "clean": true
+ },
+ "S13": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "GLDSIM": 19,
+   "TYDSIM": 16,
+   "XLPSIM": 8,
+   "TQQQSIM": 8,
+   "VBRSIM": 8,
+   "XLESIM": 5,
+   "SPMOSIM": 1
+  },
+  "note": "Sweet-spot final: safest at 13% CAGR with today's-economy guard rails (every analog >= -8%, 2022 >= -3%). testfol: CAGR 13.00, MDD -17.77, Sharpe 0.931, Ulcer 4.30, worst analog -7.9",
+  "clean": true
+ },
+ "S13.5": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "GLDSIM": 24,
+   "TYDSIM": 18,
+   "TQQQSIM": 10,
+   "XLESIM": 9,
+   "VBRSIM": 2,
+   "REITSIM": 1,
+   "XLPSIM": 1
+  },
+  "note": "Sweet-spot final: safest at 13.5% CAGR with today's-economy guard rails (every analog >= -8%, 2022 >= -3%). testfol: CAGR 13.49, MDD -19.37, Sharpe 0.899, Ulcer 4.89, worst analog -8.0",
+  "clean": true
+ },
+ "S12-split": {
+  "alloc": {
+   "VBRSIM": 19,
+   "TYDSIM": 14,
+   "GLDSIM": 14,
+   "XLVSIM": 9,
+   "TQQQSIM": 5,
+   "UUPSIM": 3,
+   "GSGSIM": 1,
+   "KMLMSIM": 18,
+   "DBMFSIM": 17
+  },
+  "note": "S12 with managed futures split KMLM18/DBMF17 (implementation version; DBMFSIM limits backtests to 2000+)",
+  "clean": true
+ },
+ "S12.5-split": {
+  "alloc": {
+   "TYDSIM": 18,
+   "XLVSIM": 17,
+   "VBRSIM": 14,
+   "GLDSIM": 8,
+   "TQQQSIM": 5,
+   "XLESIM": 2,
+   "XLPSIM": 1,
+   "KMLMSIM": 18,
+   "DBMFSIM": 17
+  },
+  "note": "S12.5 with managed futures split KMLM18/DBMF17 (implementation version; DBMFSIM limits backtests to 2000+)",
+  "clean": true
  }
 }
