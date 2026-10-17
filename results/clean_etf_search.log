@@ -1,0 +1,13 @@
+######## CLEAN ETFs only
+Quarters: ['1987-1997', '1998-2007', '2008-2017', '2018-2026']
+BASE   SHY25 SPMO20 KMLM20 GLD15 UUP10 XLV5 ZROZ5                             CAGR  8.28 MDD  -9.80 Sh 0.857 Cal 0.844 Ulc 2.425 | qSharpe 0.99 0.66 0.87 0.90 | score 1.000
+R1     IEI31 KMLM21 UUP17 GLD11 SPMO10 QLD4 VBR4 GSG2                         CAGR  8.31 MDD  -9.09 Sh 0.916 Cal 0.915 Ulc 2.068 | qSharpe 1.04 0.76 0.92 0.94 | score 1.044
+R2     IEI33 KMLM20 GLD13 SPMO10 XLP8 UUP8 QQQ6 XLE2                          CAGR  8.32 MDD  -9.44 Sh 0.923 Cal 0.881 Ulc 2.107 | qSharpe 1.04 0.74 0.97 0.94 | score 1.037
+R3     IEI29 KMLM22 GLD14 SPMO12 UUP8 XLP7 XLK5 VBR3                          CAGR  8.37 MDD  -9.30 Sh 0.895 Cal 0.899 Ulc 2.191 | qSharpe 1.03 0.68 0.93 0.93 | score 1.032
+R4     IEI32 KMLM21 SPMO16 GLD12 UUP11 QQQ4 XLY3 XLE1                         CAGR  8.30 MDD  -9.38 Sh 0.895 Cal 0.885 Ulc 2.192 | qSharpe 1.03 0.71 0.93 0.93 | score 1.028
+R5     IEI33 KMLM20 SPMO18 GLD12 UUP9 XLP4 QQQ2 GDE2                          CAGR  8.34 MDD  -9.38 Sh 0.888 Cal 0.889 Ulc 2.276 | qSharpe 1.02 0.69 0.92 0.93 | score 1.028
+R6     IEI31 KMLM20 SPMO18 GLD13 UUP10 XLV5 VTV2 GDE1                         CAGR  8.29 MDD  -8.63 Sh 0.881 Cal 0.961 Ulc 2.157 | qSharpe 1.02 0.68 0.90 0.93 | score 1.026
+R7     IEI32 KMLM20 SPMO17 GLD12 UUP9 XLV7 XLK2 GSG1                          CAGR  8.35 MDD  -8.87 Sh 0.895 Cal 0.942 Ulc 2.147 | qSharpe 1.07 0.68 0.91 0.93 | score 1.026
+R8     IEI30 KMLM20 SPMO18 GLD14 UUP10 XLV6 VUG1 VOE1                         CAGR  8.32 MDD  -8.70 Sh 0.883 Cal 0.957 Ulc 2.172 | qSharpe 1.03 0.68 0.90 0.93 | score 1.024
+
+######## CLEAN ETFs + asset-class funds
