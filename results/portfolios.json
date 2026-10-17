@@ -805,5 +805,22 @@
   },
   "note": "~12% CAGR, guard rails + every forward scenario >= -4%",
   "clean": true
+ },
+ "Ceiling": {
+  "alloc": {
+   "TQQQSIM": 35,
+   "TECLSIM": 22,
+   "TMFSIM": 22,
+   "XLESIM": 21
+  },
+  "note": "Max CAGR under the rules, no drawdown cap (testfol: 24.81% CAGR, -89.8% MDD). Physical ceiling - not an investment candidate.",
+  "clean": true
+ },
+ "QQQ": {
+  "alloc": {
+   "QQQSIM": 100
+  },
+  "note": "Benchmark: Nasdaq-100 (testfol 1988-2026: 14.93% CAGR, -83.0% MDD)",
+  "clean": true
  }
 }
