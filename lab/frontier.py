@@ -12,7 +12,7 @@ import regime as rg                      # episodes + scenario score (also impor
 g = rg.g
 TARGETS = [float(x) for x in os.environ.get("TARGETS", "8,9,10,11,12,13,14,15,16").split(",")]
 DEC_FRAC = float(os.environ.get("DEC_FRAC", "0.7"))
-SAFETY = os.environ.get("SAFETY", "absolute")   # "nowsafe": absolute + EP_FLOOR/EP22_FLOOR/AIX guard rails | "maxret": TARGETS are max-drawdown caps, maximise CAGR (decade-balanced) | "absolute": every period's Ulcer & MDD vs C1 FULL-period values | "drawdown": vs C1 same-decade values | "ratios": old
+SAFETY = os.environ.get("SAFETY", "absolute")   # "beat": beat BASE on full Sharpe/Calmar/Ulcer/MDD, each decade Ulcer/MDD, worst analog (+ guard rails) | "nowsafe": absolute + EP_FLOOR/EP22_FLOOR/AIX guard rails | "maxret": TARGETS are max-drawdown caps, maximise CAGR (decade-balanced) | "absolute": every period's Ulcer & MDD vs C1 FULL-period values | "drawdown": vs C1 same-decade values | "ratios": old
 B = g.B; T_CUR = [TARGETS[0]]
 # --- current-regime ("nowsafe") constraints --------------------------------------------------------------
 EP_FLOOR = float(os.environ.get("EP_FLOOR", "-100"))      # every analog episode return >= EP_FLOOR (%)
@@ -39,18 +39,22 @@ def score(W, TT=None):
     for i in range(0, W.shape[1], g.CHUNK):
         w = W[:, i:i + g.CHUNK]; M = g.metrics(w, TT); f, b = M[0], B[0]
         pen = torch.where(f["cagr"] >= T, 0.0, -10.0 + (f["cagr"] - T))
-        if SAFETY == "ratios":
+        if SAFETY in ("ratios", "beat"):
             parts = [f["sharpe"] / b["sharpe"], f["calmar"] / b["calmar"], b["ulcer"] / f["ulcer"], b["mdd"] / f["mdd"]]
         else:
             parts = [b["ulcer"] / f["ulcer"], b["mdd"] / f["mdd"]]
         for m, bq in zip(M[1:], B[1:]):
             ref = b if SAFETY == "absolute" else bq                    # absolute: fixed yardstick = C1 full period
             parts += ([m["sharpe"] / bq["sharpe"], m["calmar"] / bq["calmar"], bq["ulcer"] / m["ulcer"]] if SAFETY == "ratios"
+                      else [bq["ulcer"] / m["ulcer"], bq["mdd"] / m["mdd"]] if SAFETY == "beat"          # beat BASE in every decade
                       else [ref["ulcer"] / m["ulcer"], ref["mdd"] / m["mdd"]])
             pen = pen + torch.where(m["cagr"] >= DEC_FRAC * T, 0.0, -5.0 + 0.5 * (m["cagr"] - DEC_FRAC * T))
         s = torch.stack(parts).min(0).values + pen
-        if SAFETY != "ratios": s = s + 0.01 * f["sharpe"]                      # tie-break
-        if SAFETY == "nowsafe":                                                # current-economy guard rails
+        if SAFETY not in ("ratios", "beat"): s = s + 0.01 * f["sharpe"]        # tie-break
+        if SAFETY == "beat":                                                   # also beat BASE's worst analog episode
+            ep = rg.episodes(w, TT); worst = ep.min(0).values
+            s = torch.minimum(s, float(rg.Bep.min()) / worst.clamp(max=-1e-6))
+        if SAFETY in ("nowsafe", "beat"):                                      # current-economy guard rails
             ep = rg.episodes(w, TT); worst = ep.min(0).values; e22 = ep[I22]; aix = ai_exposure(w)
             s = s + torch.where(worst >= EP_FLOOR, 0.0, -20.0 + (worst - EP_FLOOR))
             s = s + torch.where(e22 >= EP22_FLOOR, 0.0, -20.0 + (e22 - EP22_FLOOR))
@@ -72,7 +76,7 @@ for nm in os.environ.get("SEEDS", "Safe-Now,C1-Now,C1,C2,FULL#1").split(","):
 
 if __name__ == "__main__":
     t0 = time.time(); rng = np.random.default_rng(g.SEED); out = []; prev = None
-    if SAFETY == "nowsafe": print(f"nowsafe: every episode >= {EP_FLOOR}%, 2022 >= {EP22_FLOOR}%, AI exposure <= {AIX}%", flush=True)
+    if SAFETY in ("nowsafe", "beat"): print(f"nowsafe: every episode >= {EP_FLOOR}%, 2022 >= {EP22_FLOOR}%, AI exposure <= {AIX}%", flush=True)
     print(f"frontier SAFETY={SAFETY} | {g.DEV} | {g.A} assets | targets {TARGETS} | decade floor {DEC_FRAC}xT | climbers {g.CLIMBERS} rounds {g.ROUNDS}", flush=True)
     for T in TARGETS:
         T_CUR[0] = T
