@@ -79,3 +79,35 @@ Built from existing verified results — no new searches. Definitions in `portfo
   without the decade floor. More leverage *lowers* return (volatility drag): TQQQ alone earns only 14.6%.
 - The ceiling works only by rebalancing between uncorrelated 3× sleeves (Nasdaq, tech, long Treasuries)
   plus energy — and still loses 77–83% in a 2000–02 tech bust and ~46% in 2022.
+
+## The floor — inflation, taxes, and safety saturation (testfol-verified)
+Inflation (testfol CPI): 2.80%/yr 1988–2026, 3.62%/yr since 2018, 3.74% last 12 months. T-bills: 3.02% nominal,
+**+0.21% real** since 1988 (real max drawdown −24%).
+
+Break-even nominal CAGR (after-tax real return = 0), tax applied to the nominal return each year:
+| Inflation | Tax 0% (IRA/Roth) | Tax 20% | Tax 30% | Tax 40% |
+|---|---|---|---|---|
+| 2.8% (1988–2026) | 2.80% | 3.50% | 4.00% | 4.67% |
+| 3.5% (near-term assumption) | 3.50% | 4.38% | 5.00% | 5.83% |
+| 3.7% (last 12 months) | 3.70% | 4.62% | 5.29% | 6.17% |
+At 3.5% inflation and 25% tax: **+1% real after tax needs 6.05%; +2% needs 7.43%.**
+
+| | Nominal CAGR | MDD | Real CAGR | **Real MDD** | After-tax real @3.5% infl: 0% / 20% / 30% tax |
+|---|---|---|---|---|---|
+| MinRisk (safest found at any CAGR) | 5.47 | −3.5 | 2.59 | −10.8 | +1.90 / +0.84 / +0.32 |
+| E6 | 6.30 | −4.1 | 3.40 | −11.4 | +2.70 / +1.49 / +0.88 |
+| Safe-Now | 6.82 | −4.6 | 3.91 | −12.6 | +3.21 / +1.89 / +1.23 |
+| E7 | 7.13 | −4.8 | 4.21 | −11.1 | +3.51 / +2.13 / +1.44 |
+| **C1-Now** | 8.01 | −8.3 | 5.07 | **−10.0** | +4.36 / +2.81 / +2.04 |
+| E8 | 8.08 | −5.7 | 5.14 | −10.9 | +4.43 / +2.87 / +2.08 |
+| E10 | 10.00 | −10.0 | 7.00 | −12.7 | +6.28 / +4.35 / +3.38 |
+| S12+ | 11.90 | −13.7 | 8.85 | −15.6 | +8.11 / +5.81 / +4.67 |
+
+- **Safety saturates at ~5.5% CAGR**: a 4% target still returns the 5.47% MinRisk portfolio (SHY35 IEI23 UUP21 …,
+  MDD −3.5%, Ulcer 0.73) — there is nothing safer to buy with less return.
+- **In real terms, lower CAGR buys no safety**: every portfolio from 5.5% to 10% has a real max drawdown of
+  −10% to −13% (the 2021–23 inflation surge). C1-Now has the *smallest* real drawdown of the lineup.
+- **Practical floor ≈ 6–7.5% nominal** in a taxable account (≈ +1–2% real after tax); ≈ 4% in IRA/Roth.
+  Below ~6% you give up real after-tax growth without gaining real protection.
+- Tax model is a simplification: actual drag depends on account type, holding periods, bond interest vs
+  qualified dividends, futures (60/40) treatment of managed-futures ETFs, and state taxes.

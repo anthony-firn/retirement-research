@@ -822,5 +822,19 @@
   },
   "note": "Benchmark: Nasdaq-100 (testfol 1988-2026: 14.93% CAGR, -83.0% MDD)",
   "clean": true
+ },
+ "MinRisk": {
+  "alloc": {
+   "SHYSIM": 35,
+   "IEISIM": 23,
+   "UUPSIM": 21,
+   "GLDSIM": 5,
+   "VBRSIM": 5,
+   "XLKSIM": 5,
+   "KMLMSIM": 4,
+   "GSGSIM": 2
+  },
+  "note": "Safest portfolio found at any CAGR (target 4% not binding -> ~5.5%). Safety saturates here.",
+  "clean": true
  }
 }
