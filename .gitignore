@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+# derived datasets — rebuild with lab/make_data.sh
+lab/hist_spliced.json
+lab/hist_univ.json
+lab/hist_native.json
+lab/hist_extA.json
+lab/hist_extB.json
+lab/clean_etf.json
+lab/clean_A.json
+lab/hist.json
+lab/resp*.json
