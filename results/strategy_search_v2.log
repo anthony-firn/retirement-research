@@ -1,0 +1,40 @@
+v2 search  N=300000  guarantee=True  walk-forward=False  select on ['1988-1997', '1998-2007', '2008-2017', '2018-2026']
+  evaluated 40000/300000  (27s)
+  evaluated 80000/300000  (54s)
+  evaluated 120000/300000  (83s)
+  evaluated 160000/300000  (111s)
+  evaluated 200000/300000  (137s)
+  evaluated 240000/300000  (164s)
+  evaluated 280000/300000  (190s)
+  evaluated 300000/300000  (217s)
+  6%: no feasible strategy
+  8% | static Safe-Now worst-dec  4.44 full  6.83/ 4.7 OOS  4.73/ 3.9 || strategy worst-dec  4.62 (nbhd med  4.58,  96% feas) full  6.55/ 4.9 OOS  4.46/ 4.3 sw/yr  4.7  (243s)
+ 10% | static E10     worst-dec  7.76 full 10.00/ 9.9 OOS  8.09/ 9.9 || strategy worst-dec  5.61 (nbhd med  5.46,  96% feas) full  7.71/ 7.4 OOS  6.07/ 7.4 sw/yr 13.7  (270s)
+ 12% | static E10     worst-dec  7.76 full 10.00/ 9.9 OOS  8.09/ 9.9 || strategy worst-dec  6.55 (nbhd med  6.55,  96% feas) full  8.68/ 9.5 OOS  6.98/ 9.5 sw/yr  8.7  (296s)
+ 15% | static S12+    worst-dec  9.08 full 11.90/13.7 OOS  9.53/11.6 || strategy worst-dec  8.12 (nbhd med  8.00,  96% feas) full 10.25/ 9.8 OOS  8.48/ 8.7 sw/yr  4.6  (323s)
+ 20% | static S13.5   worst-dec 10.92 full 13.50/19.4 OOS 12.29/15.7 || strategy worst-dec  9.13 (nbhd med  9.09,  96% feas) full 11.52/12.0 OOS  9.48/ 9.9 sw/yr  3.8  (349s)
+ 25% | static M25     worst-dec 11.63 full 16.53/24.9 OOS 14.03/24.8 || strategy worst-dec 11.13 (nbhd med 11.13,  96% feas) full 13.25/17.6 OOS 12.08/14.4 sw/yr  2.1  (376s)
+ 30% | static M30     worst-dec 12.34 full 17.43/30.0 OOS 15.04/29.8 || strategy worst-dec 11.64 (nbhd med 11.64,  96% feas) full 13.11/18.9 OOS 11.70/15.3 sw/yr  1.5  (402s)
+ 40% | static M35     worst-dec 12.85 full 18.31/35.0 OOS 15.85/33.2 || strategy worst-dec 11.79 (nbhd med 11.79,  96% feas) full 14.09/16.4 OOS 12.35/16.2 sw/yr  0.3  (429s)
+done 429s -> /home/anthony/Dev/Investment/strategy/v2_guar.json
+
+######## WALK-FORWARD
+v2 search  N=300000  guarantee=True  walk-forward=True  select on ['1988-1997', '1998-2007']
+  evaluated 40000/300000  (23s)
+  evaluated 80000/300000  (46s)
+  evaluated 120000/300000  (69s)
+  evaluated 160000/300000  (92s)
+  evaluated 200000/300000  (114s)
+  evaluated 240000/300000  (137s)
+  evaluated 280000/300000  (160s)
+  evaluated 300000/300000  (182s)
+  6%: no feasible strategy
+  8% | static E10     worst-dec 10.44 full 10.00/ 9.9 OOS  8.09/ 9.9 || strategy worst-dec  7.99 (nbhd med  7.96,  96% feas) full  6.02/ 5.7 OOS  3.60/ 4.8 sw/yr 18.7  (205s)
+ 10% | static E10     worst-dec 10.44 full 10.00/ 9.9 OOS  8.09/ 9.9 || strategy worst-dec  8.69 (nbhd med  8.65,  96% feas) full  7.02/ 5.5 OOS  5.11/ 4.3 sw/yr 14.4  (227s)
+ 12% | static E10     worst-dec 10.44 full 10.00/ 9.9 OOS  8.09/ 9.9 || strategy worst-dec  9.42 (nbhd med  9.39,  96% feas) full  7.98/ 6.5 OOS  5.94/ 6.2 sw/yr  2.0  (250s)
+ 15% | static S12+    worst-dec 12.12 full 11.90/13.7 OOS  9.53/11.6 || strategy worst-dec 10.78 (nbhd med 10.62,  96% feas) full  9.67/10.6 OOS  6.54/10.6 sw/yr  4.8  (273s)
+ 20% | static E15     worst-dec 16.32 full 15.00/25.8 OOS 12.31/25.8 || strategy worst-dec 11.95 (nbhd med 11.95,  96% feas) full 10.91/ 9.6 OOS  8.27/ 9.6 sw/yr  2.0  (295s)
+ 25% | static M25     worst-dec 17.39 full 16.53/24.9 OOS 14.03/24.8 || strategy worst-dec 14.60 (nbhd med 14.60,  96% feas) full 12.15/17.8 OOS 11.56/14.9 sw/yr  2.0  (318s)
+ 30% | static M30     worst-dec 18.08 full 17.43/30.0 OOS 15.04/29.8 || strategy worst-dec 16.49 (nbhd med 16.32,  96% feas) full 13.42/21.0 OOS  9.61/21.6 sw/yr  1.7  (341s)
+ 40% | static M35     worst-dec 18.76 full 18.31/35.0 OOS 15.85/33.2 || strategy worst-dec 17.64 (nbhd med 17.40,  96% feas) full 13.95/25.2 OOS 10.29/25.2 sw/yr  1.0  (363s)
+done 363s -> /home/anthony/Dev/Investment/strategy/v2_guar_wf.json
