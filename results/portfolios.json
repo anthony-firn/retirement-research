@@ -836,5 +836,38 @@
   },
   "note": "Safest portfolio found at any CAGR (target 4% not binding -> ~5.5%). Safety saturates here.",
   "clean": true
+ },
+ "Simple-6": {
+  "alloc": {
+   "SHYSIM": 34,
+   "IEISIM": 25,
+   "VOESIM": 17,
+   "KMLMSIM": 13,
+   "UUPSIM": 11
+  },
+  "note": "Simple retiree portfolio: <=5 ETFs, no leveraged/stacked funds, today's guard rails (analogs >= -4%, 2022 >= -3%, AI <= 10%). Local: CAGR 6.22, MDD -5.55",
+  "clean": true
+ },
+ "Simple-6.8": {
+  "alloc": {
+   "IEISIM": 34,
+   "UUPSIM": 20,
+   "KMLMSIM": 17,
+   "VOESIM": 17,
+   "GLDSIM": 12
+  },
+  "note": "Simple retiree portfolio: <=5 ETFs, no leveraged/stacked funds, today's guard rails (analogs >= -4%, 2022 >= -3%, AI <= 10%). Local: CAGR 6.81, MDD -6.80",
+  "clean": true
+ },
+ "Simple-7.5": {
+  "alloc": {
+   "IEISIM": 31,
+   "SHYSIM": 31,
+   "KMLMSIM": 18,
+   "QQQSIM": 10,
+   "VOESIM": 10
+  },
+  "note": "Simple retiree portfolio: <=5 ETFs, no leveraged/stacked funds, today's guard rails (analogs >= -4%, 2022 >= -3%, AI <= 10%). Local: CAGR 7.49, MDD -7.79",
+  "clean": true
  }
 }
