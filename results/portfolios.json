@@ -869,5 +869,27 @@
   },
   "note": "Simple retiree portfolio: <=5 ETFs, no leveraged/stacked funds, today's guard rails (analogs >= -4%, 2022 >= -3%, AI <= 10%). Local: CAGR 7.49, MDD -7.79",
   "clean": true
+ },
+ "Plan-b40": {
+  "alloc": {
+   "KMLMSIM": 35,
+   "TYDSIM": 16,
+   "VBRSIM": 15,
+   "XLVSIM": 15,
+   "GLDSIM": 9,
+   "TQQQSIM": 5,
+   "IEISIM": 3,
+   "XLESIM": 2
+  },
+  "note": "The retiree's plan portfolio now: policy tier at a 40% budget (34% S12+ / 66% S12.5 blend, 1972-calibrated), with the daily breaker at 38% via strategy/advisor.py --budget 40",
+  "clean": true
+ },
+ "60/40": {
+  "alloc": {
+   "VTISIM": 60,
+   "BNDSIM": 40
+  },
+  "note": "Reference: classic 60/40",
+  "clean": true
  }
 }
