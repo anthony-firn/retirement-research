@@ -5,11 +5,11 @@ with a securities attorney / compliance consultant in the states where you opera
 
 ## Phase 0 — Personal research tool (now)
 - Lineup portfolios, policy (life-stage tier + guaranteed breaker), advisor, withdrawal rule (done).
-- Retirement planner: Social Security, pensions, account types, taxes (in progress — `planner/`).
-- Tax-aware rebalancing + asset location study (in progress).
+- Retirement planner: Social Security, pensions, account types, taxes, RMDs (done — `planner/plan.py`).
+- Tax-aware rebalancing study (done — `planner/tax_rebalance.py`); asset location (next).
 - Data: testfol.io API (undocumented; fine for personal research, not for a product).
 
-## Phase 1 — Own backtest engine ("our testfol") (next)
+## Phase 1 — Own backtest engine ("our testfol") (started — `engine/`, see engine/README.md)
 - `engine/` package: data layer, simulated ("SIM") backfills, portfolio backtester, testfol-compatible JSON API.
 - Free/public sources: Ken French data library (US equity 1926+, factors, industries), FRED (Treasury yields,
   T-bills, CPI), Shiller (S&P/CPI 1871+), Yahoo/Stooq daily ETF prices for personal use.
