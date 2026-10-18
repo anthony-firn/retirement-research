@@ -1,0 +1,33 @@
+Policy with extra annual cost drag on every tier vs benchmarks (benchmarks at index-fund cost)
+
+25y $20k +$12k, wants $60k
+   100% stocks (VTI)          | hist p75 yrs  29.8 low-real p5   34% | synth p75  35.8 ran-out   0.6% low-real p5   33%
+   60/40 VTI/BND              | hist p75 yrs  33.3 low-real p5   51% | synth p75  42.0 ran-out   0.0% low-real p5   57%
+   target-date (110-age)      | hist p75 yrs  32.8 low-real p5   56% | synth p75  42.0 ran-out   0.1% low-real p5   59%
+   POLICY, extra cost 0.0%/yr  | hist p75 yrs  23.3 low-real p5   78% | synth p75  29.6 ran-out   0.0% low-real p5   75%
+   POLICY, extra cost 0.5%/yr  | hist p75 yrs  24.0 low-real p5   72% | synth p75  30.8 ran-out   0.0% low-real p5   69%
+   POLICY, extra cost 1.0%/yr  | hist p75 yrs  24.7 low-real p5   65% | synth p75  32.0 ran-out   0.0% low-real p5   64%
+
+40y $250k +$20k, wants $70k
+   100% stocks (VTI)          | hist p75 yrs  19.8 low-real p5   33% | synth p75  23.1 ran-out   3.8% low-real p5    8%
+   60/40 VTI/BND              | hist p75 yrs  22.3 low-real p5   60% | synth p75  26.5 ran-out   0.9% low-real p5   34%
+   target-date (110-age)      | hist p75 yrs  22.8 low-real p5   61% | synth p75  27.3 ran-out   0.6% low-real p5   36%
+   POLICY, extra cost 0.0%/yr  | hist p75 yrs  15.5 low-real p5   78% | synth p75  19.1 ran-out   0.0% low-real p5   68%
+   POLICY, extra cost 0.5%/yr  | hist p75 yrs  16.1 low-real p5   72% | synth p75  20.0 ran-out   0.0% low-real p5   58%
+   POLICY, extra cost 1.0%/yr  | hist p75 yrs  16.8 low-real p5   62% | synth p75  21.4 ran-out   0.0% low-real p5   47%
+
+55y $800k +$25k, wants $70k
+   100% stocks (VTI)          | hist p75 yrs   9.7 low-real p5   42% | synth p75  11.0 ran-out   8.3% low-real p5    0%
+   60/40 VTI/BND              | hist p75 yrs  10.7 low-real p5   59% | synth p75  13.1 ran-out   4.8% low-real p5    2%
+   target-date (110-age)      | hist p75 yrs  11.8 low-real p5   54% | synth p75  14.1 ran-out   4.8% low-real p5    1%
+   POLICY, extra cost 0.0%/yr  | hist p75 yrs   8.7 low-real p5   80% | synth p75  10.1 ran-out   0.1% low-real p5   59%
+   POLICY, extra cost 0.5%/yr  | hist p75 yrs   9.0 low-real p5   72% | synth p75  10.9 ran-out   0.4% low-real p5   43%
+   POLICY, extra cost 1.0%/yr  | hist p75 yrs   9.4 low-real p5   64% | synth p75  11.8 ran-out   1.4% low-real p5   23%
+
+Retired 60y $300k, 4%
+   100% stocks (VTI)          | hist p75 yrs   0.0 low-real p5   33% | synth p75   0.0 ran-out  13.8% low-real p5    0%
+   60/40 VTI/BND              | hist p75 yrs   0.0 low-real p5   51% | synth p75   0.0 ran-out  12.7% low-real p5    0%
+   target-date (110-age)      | hist p75 yrs   0.0 low-real p5   43% | synth p75   0.0 ran-out  17.1% low-real p5    0%
+   POLICY, extra cost 0.0%/yr  | hist p75 yrs   0.0 low-real p5   78% | synth p75   0.0 ran-out   0.9% low-real p5   52%
+   POLICY, extra cost 0.5%/yr  | hist p75 yrs   0.0 low-real p5   71% | synth p75   0.0 ran-out   2.9% low-real p5   19%
+   POLICY, extra cost 1.0%/yr  | hist p75 yrs   0.0 low-real p5   61% | synth p75   0.0 ran-out   7.5% low-real p5    0%

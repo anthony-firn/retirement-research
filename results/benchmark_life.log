@@ -1,0 +1,28 @@
+
+25y $20k +$12k, wants $60k
+   approach                 | HISTORY 1972-2016 starts: yrs to goal med/p75  ran-out  p5 low-real  p99 DD | 2000 SYNTHETIC: med/p75 yrs  never  ran-out  p5 low-real  p99 DD
+   100% stocks (VTI)        |       25.6/29.8      0.0%        34%    55.4% |   29.5/35.8    14.3%    0.6%        33%   74.2%
+   60/40 VTI/BND            |       30.3/33.3      0.0%        51%    34.4% |   35.4/42.0    28.3%    0.0%        57%   49.3%
+   target-date (110-age)    |       29.2/32.8      0.0%        56%    47.1% |   34.8/42.0    28.3%    0.1%        59%   56.7%
+   OUR POLICY               |       21.6/23.3      0.0%        78%    28.7% |   25.7/29.6     2.5%    0.0%        75%   42.3%
+
+40y $250k +$20k, wants $70k
+   approach                 | HISTORY 1972-2016 starts: yrs to goal med/p75  ran-out  p5 low-real  p99 DD | 2000 SYNTHETIC: med/p75 yrs  never  ran-out  p5 low-real  p99 DD
+   100% stocks (VTI)        |       16.2/19.8      0.0%        33%    55.4% |   18.2/23.1     1.5%    3.8%         8%   74.2%
+   60/40 VTI/BND            |       20.3/22.3      0.0%        60%    34.4% |   22.0/26.5     1.7%    0.9%        34%   49.3%
+   target-date (110-age)    |       20.2/22.8      0.0%        61%    38.9% |   22.3/27.3     2.4%    0.6%        36%   46.6%
+   OUR POLICY               |       13.7/15.5      0.0%        78%    28.7% |   15.5/19.1     0.1%    0.0%        68%   40.4%
+
+55y $800k +$25k, wants $70k
+   approach                 | HISTORY 1972-2016 starts: yrs to goal med/p75  ran-out  p5 low-real  p99 DD | 2000 SYNTHETIC: med/p75 yrs  never  ran-out  p5 low-real  p99 DD
+   100% stocks (VTI)        |        6.8/9.7       0.0%        42%    55.4% |    7.5/11.0     0.1%    8.3%         0%   74.2%
+   60/40 VTI/BND            |        8.8/10.7      0.0%        59%    34.4% |    9.6/13.1     0.1%    4.8%         2%   48.9%
+   target-date (110-age)    |        9.3/11.8      0.0%        54%    29.9% |   10.3/14.1     0.1%    4.8%         1%   37.4%
+   OUR POLICY               |        6.7/8.7       0.0%        80%    28.7% |    7.2/10.1     0.0%    0.1%        59%   32.9%
+
+Retired 60y $300k, 4%
+   approach                 | HISTORY 1972-2016 starts: yrs to goal med/p75  ran-out  p5 low-real  p99 DD | 2000 SYNTHETIC: med/p75 yrs  never  ran-out  p5 low-real  p99 DD
+   100% stocks (VTI)        |        0.0/0.0       0.0%        33%    55.4% |    0.0/0.0      0.0%   13.8%         0%   74.2%
+   60/40 VTI/BND            |        0.0/0.0       0.0%        51%    34.4% |    0.0/0.0      0.0%   12.7%         0%   48.5%
+   target-date (110-age)    |        0.0/0.0       0.0%        43%    26.8% |    0.0/0.0      0.0%   17.1%         0%   34.6%
+   OUR POLICY               |        0.0/0.0       0.0%        78%    13.0% |    0.0/0.0      0.0%    0.9%        52%   17.7%
