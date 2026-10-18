@@ -1,0 +1,5 @@
+{"name": "Couple, 40, $250k (illustrative)", "filing": "mfj", "state_tax": 0.05,
+ "people": [{"age": 40, "ss": {"pia_month": 2600, "fra": 67, "claim_age": 67}},
+            {"age": 40, "ss": {"pia_month": 1800, "fra": 67, "claim_age": 67}, "pension": {"annual": 18000, "start_age": 62, "cola": 0.0}}],
+ "accounts": {"taxable": {"value": 50000, "basis": 40000}, "traditional": {"value": 150000}, "roth": {"value": 50000}},
+ "contrib": {"taxable": 5000, "traditional": 20000, "roth": 7000}, "retire_age": 60, "spending": 90000, "max_drop": 20}
