@@ -949,7 +949,7 @@
    "SPMOSIM": 5,
    "TQQQSIM": 1
   },
-  "note": "GPU search for the retiree (1972-2026 incl. 1970s, beat S12+ split + today's guard rails): MDD 16.9 vs 21.4, 5y>20% drop odds 2% vs 12%, same plan odds",
+  "note": "GPU search for the retiree (1972-2026 incl. 1970s, beat S12+ split + today's guard rails): MDD 16.9 vs 21.4, 5y>20% drop odds 2% vs 12%, same plan odds | SUPERSEDED: only ~10.4% on 1988-2026 once real KMLM/TQQQ data is used (proxy bug, fixed 2026-10-18)",
   "clean": true
  },
  "H12-8": {
@@ -963,7 +963,35 @@
    "UUPSIM": 5,
    "SPMOSIM": 6
   },
-  "note": "H12 without the 1% TQQQ (8 funds, no leveraged ETFs) - recommended for the retiree; testfol 2000-2026 8.47% CAGR, -11.7% MDD",
+  "note": "H12 without the 1% TQQQ (8 funds, no leveraged ETFs) - recommended for the retiree; testfol 2000-2026 8.47% CAGR, -11.7% MDD | SUPERSEDED by CH-12 / CH-11.5 (only ~10% on 1988-2026)",
+  "clean": true
+ },
+ "CH-12": {
+  "alloc": {
+   "DBMFSIM": 24,
+   "KMLMSIM": 16,
+   "GLDSIM": 15,
+   "VBRSIM": 14,
+   "XLVSIM": 13,
+   "TYDSIM": 10,
+   "TQQQSIM": 5,
+   "UUPSIM": 3
+  },
+  "note": "Best true-12% for the retiree: GPU search on corrected 1972-2026 data, CAGR >= 12 on 1972+ and 1988+; testfol 2000-2026 9.78% / -13.5% (S12+ split 9.59 / -13.5); plan odds 97%",
+  "clean": true
+ },
+ "CH-11.5": {
+  "alloc": {
+   "DBMFSIM": 23,
+   "KMLMSIM": 17,
+   "VBRSIM": 17,
+   "IEISIM": 15,
+   "GLDSIM": 12,
+   "TYDSIM": 6,
+   "XLVSIM": 5,
+   "TQQQSIM": 5
+  },
+  "note": "Calmer twin: 1988+ 11.5%, 5y odds of a >20% drop 2% vs 12%; testfol 2000-2026 9.26% / -12.8%",
   "clean": true
  }
 }

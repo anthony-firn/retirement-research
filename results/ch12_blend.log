@@ -1,0 +1,26 @@
+blend: {'KMLM': 18.5, 'DBMF': 18.0, 'VBR': 17.5, 'GLD': 13.5, 'XLV': 10.5, 'TYD': 6.0, 'IEI': 4.5, 'TQQQ': 3.0, 'ZROZ': 3.0, 'UUP': 2.5, 'SPMO': 2.5, 'XLE': 0.5}
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+  File "/home/anthony/miniconda3/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/anthony/miniconda3/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/anthony/miniconda3/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/home/anthony/miniconda3/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/anthony/miniconda3/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/home/anthony/miniconda3/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 400: Bad Request
+portfolio       | CAGR  real   MDD  worstRealYr | 5y>15% 5y>20% | 1973-74 1979-81  2022 | fwd worst (bond revolt) | plan odds: case A case B case C | avg
+blend 50/50     | 12.06  7.81  18.9    -9.2   |    38%     3% |   +4.4  +54.7  -1.7 |  -5.3 ( -5.3)         |    97%     91%     90% |   93%
+
+Top allocations:
+  blend 50/50     KMLM 18.5 · DBMF 18.0 · VBR 17.5 · GLD 13.5 · XLV 10.5 · TYD 6.0 · IEI 4.5 · TQQQ 3.0 · ZROZ 3.0 · UUP 2.5 · SPMO 2.5 · XLE 0.5

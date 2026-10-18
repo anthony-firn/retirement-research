@@ -1,0 +1,12 @@
+testfol.io 2000-01-03 -> 2026-10-16
+  H12              CAGR  8.75  MDD  -12.2  Sharpe 0.853  Calmar 0.717  Ulcer 2.97
+  H12-8 (no TQQQ)  CAGR  8.47  MDD  -11.7  Sharpe 0.845  Calmar 0.723  Ulcer 2.94
+  S12+ split       CAGR  9.59  MDD  -13.5  Sharpe 0.880  Calmar 0.710  Ulcer 3.10
+  60/40            CAGR  7.06  MDD  -34.0  Sharpe 0.492  Calmar 0.208  Ulcer 7.52
+portfolio       | CAGR  real   MDD  worstRealYr | 5y>15% 5y>20% | 1973-74 1979-81  2022 | fwd worst (bond revolt) | plan odds: case A case B case C | avg
+H12             | 11.96  7.71  16.9    -8.8   |    24%     2% |  +10.6  +66.5  +1.8 |  -3.4 ( -3.4)         |    97%     90%     91% |   93%
+H12-8           | 11.78  7.55  16.6    -8.6   |    22%     1% |  +11.8  +67.6  +2.4 |  -3.0 ( -3.0)         |    97%     90%     90% |   92%
+
+Top allocations:
+  H12             KMLM 19 · DBMF 19 · VBR 17 · GLD 16 · XLV 12 · ZROZ 6 · UUP 5 · SPMO 5 · TQQQ 1
+  H12-8           KMLM 19 · DBMF 19 · VBR 17 · GLD 16 · XLV 12 · ZROZ 6 · UUP 5 · SPMO 6

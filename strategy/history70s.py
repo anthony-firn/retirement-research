@@ -46,8 +46,8 @@ def blend_series(alloc, sub):
     """Daily returns of a yearly-rebalanced portfolio over CAL with substitutions."""
     comps = {}
     for t, w in alloc.items():
-        if t == "KMLMSIM": comps[t] = MF
-        elif t in sub: comps[t] = sub[t]
+        if t in sub: comps[t] = sub[t]
+        elif t == "KMLMSIM": comps[t] = MF
         else: comps[t] = rets(np.nan_to_num(series(t), nan=np.nan)) if t in H else None
         if comps[t] is None: raise KeyError(t)
     years = np.array([dt.datetime.fromtimestamp(x, dt.UTC).year for x in CAL]); out = np.zeros(len(CAL)); wts = None
@@ -58,8 +58,13 @@ def blend_series(alloc, sub):
     return out
 
 xlk = rets(series("XLKSIM"))
-SUB = {"QQQSIM": xlk, "TQQQSIM": rets(series("TECLSIM")), "QLDSIM": 2 * xlk - rf - 0.0095 / 252, "BNDSIM": rets(series("IEISIM")),
-       "GSGSIM": legs["CMDTY"], "SPMOSIM": np.nan_to_num(rets(series("SPMOSIM")))}
+def splice(name, proxy):
+    """Real testfol series wherever it exists (both days present), documented proxy only before that."""
+    s = series(name); ok = ~np.isnan(s) & ~np.isnan(np.r_[np.nan, s[:-1]]); out = np.array(proxy, float).copy()
+    out[ok] = rets(np.nan_to_num(s, nan=1.0))[ok]; return out
+SUB = {"QQQSIM": splice("QQQSIM", xlk), "TQQQSIM": splice("TQQQSIM", rets(series("TECLSIM"))), "QLDSIM": splice("QLDSIM", 2 * xlk - rf - 0.0095 / 252),
+       "BNDSIM": splice("BNDSIM", rets(series("IEISIM"))), "GSGSIM": splice("GSGSIM", legs["CMDTY"]), "SPMOSIM": np.nan_to_num(rets(series("SPMOSIM"))),
+       "KMLMSIM": splice("KMLMSIM", MF)}
 
 if __name__ == "__main__":
     i88 = int(np.searchsorted(CAL, P88["t"][0]))

@@ -1,0 +1,3 @@
+######## N6: analogs >= -3.9%, 2022 >= -3%, AI <= 15%
+nowsafe: every episode >= -3.9%, 2022 >= -3.0%, AI exposure <= 15.0%
+frontier SAFETY=nowsafe | cuda | 56 assets | targets [6.0] | decade floor 0.7xT | climbers 768 rounds 8
