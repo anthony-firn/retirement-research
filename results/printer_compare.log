@@ -1,0 +1,42 @@
+Money printers: base 4% + skim above 125% -> 36-month bucket, guardrail 70%->80% base; the retiree's taxes (not working); 40 years, 2000 histories
+
+  CH-12 Printer (taxable: no UUP)
+    PRINT per month on $100,000 (after tax, today's $): typical $712  |  bad history $488  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 94% of histories | 86% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BREAK RISK: loses real value by the end 10% | dips below 70% of start 9% | runs dry 0.0% | left at the end (typical) 137% of start
+
+  CH-12 Printer (with UUP)
+    PRINT per month on $100,000 (after tax, today's $): typical $689  |  bad history $468  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 94% of histories | 86% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BREAK RISK: loses real value by the end 10% | dips below 70% of start 8% | runs dry 0.0% | left at the end (typical) 136% of start
+
+  CH-11.5 Printer
+    PRINT per month on $100,000 (after tax, today's $): typical $657  |  bad history $450  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 94% of histories | 87% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BREAK RISK: loses real value by the end 10% | dips below 70% of start 8% | runs dry 0.0% | left at the end (typical) 134% of start
+
+  Gold-Stack 12 Printer
+    PRINT per month on $100,000 (after tax, today's $): typical $828  |  bad history $558  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 88% of histories | 84% of years within ±25% of the year before | worst year (bad history) 3.8% of start
+    BREAK RISK: loses real value by the end 14% | dips below 70% of start 17% | runs dry 0.1% | left at the end (typical) 141% of start
+
+  S12+ split Printer
+    PRINT per month on $100,000 (after tax, today's $): typical $686  |  bad history $451  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 91% of histories | 86% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BREAK RISK: loses real value by the end 12% | dips below 70% of start 12% | runs dry 0.1% | left at the end (typical) 135% of start
+
+  CH-12 fixed 5% (no bonus, no guardrail)
+    PRINT per month on $100,000 (after tax, today's $): typical $416  |  bad history $416  |  lean month (1 in 10) $417
+    RELIABILITY: base print never cut in 100% of histories | 100% of years within ±25% of the year before | worst year (bad history) 5.0% of start
+    BREAK RISK: loses real value by the end 8% | dips below 70% of start 14% | runs dry 3.5% | left at the end (typical) 757% of start
+
+  60/40 Printer
+    PRINT per month on $100,000 (after tax, today's $): typical $457  |  bad history $281  |  lean month (1 in 10) $267
+    RELIABILITY: base print never cut in 40% of histories | 92% of years within ±25% of the year before | worst year (bad history) 3.2% of start
+    BREAK RISK: loses real value by the end 57% | dips below 70% of start 70% | runs dry 7.2% | left at the end (typical) 94% of start
+
+  VTI Printer
+    PRINT per month on $100,000 (after tax, today's $): typical $620  |  bad history $281  |  lean month (1 in 10) $267
+    RELIABILITY: base print never cut in 23% of histories | 86% of years within ±25% of the year before | worst year (bad history) 0.0% of start
+    BREAK RISK: loses real value by the end 60% | dips below 70% of start 91% | runs dry 12.0% | left at the end (typical) 94% of start
+

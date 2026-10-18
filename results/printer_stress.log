@@ -1,0 +1,90 @@
+  base case | taxes: retiree, not working
+    PRINT per month on $100,000 (after tax, today's $): typical $712  |  bad history $488  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 94% of histories | 86% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 5.5 / 4.0 | 70-80 8.8 / 4.2 | 80-100 9.5 / 5.8 | no bonus in first 10 yrs 21%
+    BREAK RISK: loses real value by the end 10% | dips below 70% of start 9% | runs dry 0.0% | left at the end (typical) 137% of start
+
+  base case | taxes: retiree, working $40k
+    PRINT per month on $100,000 (after tax, today's $): typical $678  |  bad history $461  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 92% of histories | 86% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 5.4 / 4.0 | 70-80 8.4 / 4.1 | 80-100 9.0 / 5.4 | no bonus in first 10 yrs 22%
+    BREAK RISK: loses real value by the end 13% | dips below 70% of start 11% | runs dry 0.0% | left at the end (typical) 133% of start
+
+  base case | taxes: middle bracket
+    PRINT per month on $100,000 (after tax, today's $): typical $543  |  bad history $353  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 78% of histories | 89% of years within ±25% of the year before | worst year (bad history) 3.2% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.9 / 4.0 | 70-80 6.6 / 4.0 | 80-100 6.7 / 4.0 | no bonus in first 10 yrs 27%
+    BREAK RISK: loses real value by the end 34% | dips below 70% of start 26% | runs dry 0.2% | left at the end (typical) 117% of start
+
+  trend funds earn 2%/yr less | taxes: retiree, not working
+    PRINT per month on $100,000 (after tax, today's $): typical $624  |  bad history $392  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 86% of histories | 88% of years within ±25% of the year before | worst year (bad history) 3.2% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.9 / 4.0 | 70-80 7.4 / 4.0 | 80-100 8.2 / 4.4 | no bonus in first 10 yrs 27%
+    BREAK RISK: loses real value by the end 20% | dips below 70% of start 18% | runs dry 0.1% | left at the end (typical) 129% of start
+
+  trend funds earn 2%/yr less | taxes: retiree, working $40k
+    PRINT per month on $100,000 (after tax, today's $): typical $592  |  bad history $371  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 82% of histories | 88% of years within ±25% of the year before | worst year (bad history) 3.2% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.8 / 4.0 | 70-80 7.1 / 4.0 | 80-100 7.7 / 4.0 | no bonus in first 10 yrs 28%
+    BREAK RISK: loses real value by the end 23% | dips below 70% of start 22% | runs dry 0.1% | left at the end (typical) 126% of start
+
+  trend funds earn 2%/yr less | taxes: middle bracket
+    PRINT per month on $100,000 (after tax, today's $): typical $473  |  bad history $306  |  lean month (1 in 10) $267
+    RELIABILITY: base print never cut in 63% of histories | 91% of years within ±25% of the year before | worst year (bad history) 3.2% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.3 / 4.0 | 70-80 5.5 / 3.6 | 80-100 5.6 / 3.3 | no bonus in first 10 yrs 32%
+    BREAK RISK: loses real value by the end 49% | dips below 70% of start 44% | runs dry 1.6% | left at the end (typical) 105% of start
+
+  trend funds earn 4%/yr less | taxes: retiree, not working
+    PRINT per month on $100,000 (after tax, today's $): typical $539  |  bad history $319  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 74% of histories | 90% of years within ±25% of the year before | worst year (bad history) 3.2% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.4 / 4.0 | 70-80 6.1 / 3.7 | 80-100 6.8 / 3.6 | no bonus in first 10 yrs 32%
+    BREAK RISK: loses real value by the end 33% | dips below 70% of start 31% | runs dry 1.1% | left at the end (typical) 118% of start
+
+  trend funds earn 4%/yr less | taxes: retiree, working $40k
+    PRINT per month on $100,000 (after tax, today's $): typical $510  |  bad history $309  |  lean month (1 in 10) $268
+    RELIABILITY: base print never cut in 70% of histories | 90% of years within ±25% of the year before | worst year (bad history) 3.2% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.3 / 4.0 | 70-80 5.8 / 3.6 | 80-100 6.3 / 3.4 | no bonus in first 10 yrs 33%
+    BREAK RISK: loses real value by the end 38% | dips below 70% of start 36% | runs dry 1.4% | left at the end (typical) 114% of start
+
+  trend funds earn 4%/yr less | taxes: middle bracket
+    PRINT per month on $100,000 (after tax, today's $): typical $408  |  bad history $286  |  lean month (1 in 10) $267
+    RELIABILITY: base print never cut in 43% of histories | 94% of years within ±25% of the year before | worst year (bad history) 3.2% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.0 / 3.9 | 70-80 4.6 / 3.3 | 80-100 4.4 / 3.2 | no bonus in first 10 yrs 36%
+    BREAK RISK: loses real value by the end 66% | dips below 70% of start 62% | runs dry 6.2% | left at the end (typical) 86% of start
+
+  harsher reshuffle (3-month blocks) | taxes: retiree, not working
+    PRINT per month on $100,000 (after tax, today's $): typical $710  |  bad history $483  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 91% of histories | 86% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 5.7 / 4.0 | 70-80 8.9 / 4.3 | 80-100 9.3 / 5.5 | no bonus in first 10 yrs 17%
+    BREAK RISK: loses real value by the end 14% | dips below 70% of start 13% | runs dry 0.1% | left at the end (typical) 135% of start
+
+  harsher reshuffle (3-month blocks) | taxes: retiree, working $40k
+    PRINT per month on $100,000 (after tax, today's $): typical $678  |  bad history $459  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 89% of histories | 86% of years within ±25% of the year before | worst year (bad history) 3.7% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 5.5 / 4.0 | 70-80 8.5 / 4.2 | 80-100 8.8 / 5.1 | no bonus in first 10 yrs 18%
+    BREAK RISK: loses real value by the end 16% | dips below 70% of start 15% | runs dry 0.1% | left at the end (typical) 132% of start
+
+  harsher reshuffle (3-month blocks) | taxes: middle bracket
+    PRINT per month on $100,000 (after tax, today's $): typical $545  |  bad history $361  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 73% of histories | 89% of years within ±25% of the year before | worst year (bad history) 3.2% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 5.0 / 4.0 | 70-80 6.7 / 4.0 | 80-100 6.6 / 3.8 | no bonus in first 10 yrs 23%
+    BREAK RISK: loses real value by the end 37% | dips below 70% of start 32% | runs dry 0.7% | left at the end (typical) 116% of start
+
+  actual 40-year windows 1972-1986 starts | taxes: retiree, not working
+    PRINT per month on $100,000 (after tax, today's $): typical $906  |  bad history $805  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 100% of histories | 85% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 7.9 / 4.0 | 70-80 13.7 / 10.9 | 80-100 11.3 / 9.3 | no bonus in first 10 yrs 10%
+    BREAK RISK: loses real value by the end 0% | dips below 70% of start 3% | runs dry 0.0% | left at the end (typical) 138% of start
+
+  actual 40-year windows 1972-1986 starts | taxes: retiree, working $40k
+    PRINT per month on $100,000 (after tax, today's $): typical $866  |  bad history $768  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 100% of histories | 85% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 7.8 / 4.0 | 70-80 13.1 / 10.2 | 80-100 10.7 / 8.8 | no bonus in first 10 yrs 12%
+    BREAK RISK: loses real value by the end 0% | dips below 70% of start 4% | runs dry 0.0% | left at the end (typical) 136% of start
+
+  actual 40-year windows 1972-1986 starts | taxes: middle bracket
+    PRINT per month on $100,000 (after tax, today's $): typical $699  |  bad history $610  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 98% of histories | 85% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 7.0 / 4.0 | 70-80 10.3 / 7.5 | 80-100 8.4 / 7.1 | no bonus in first 10 yrs 13%
+    BREAK RISK: loses real value by the end 1% | dips below 70% of start 5% | runs dry 0.0% | left at the end (typical) 125% of start
+

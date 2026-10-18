@@ -1,0 +1,26 @@
+  24/72
+  48/72
+  72/72
+
+CH-12 (no UUP) printer settings, the retiree's taxes. Feasible = loses real value <= 10% and runs dry <= 1% of histories. Ranked by typical print:
+  settings                                     | print/yr typical  bad   lean-month | base never cut | steady | lose value  dip<70%  dry
+  base 3.5% skim>50% bucket 12m cut to 80%     |        9.85%   6.48%   3.50%  |        97%     |   54%  |      1%        4%    0.0%
+  base 3.5% skim>50% bucket 12m cut none       |        9.85%   6.43%   3.50%  |       100%     |   54%  |      1%        4%    0.1%
+  base 4.0% skim>50% bucket 12m cut to 80%     |        9.75%   6.22%   4.00%  |        96%     |   58%  |      2%        6%    0.0%
+  base 4.0% skim>50% bucket 12m cut none       |        9.75%   6.09%   4.00%  |       100%     |   58%  |      3%        6%    0.2%
+  base 4.5% skim>50% bucket 12m cut to 80%     |        9.56%   5.79%   4.50%  |        92%     |   63%  |      4%       10%    0.1%
+  base 3.5% skim>50% bucket 36m cut to 80%     |        9.44%   6.18%   3.50%  |        97%     |   84%  |      1%        4%    0.0%
+  base 3.5% skim>50% bucket 36m cut none       |        9.44%   6.17%   3.50%  |       100%     |   84%  |      1%        4%    0.1%
+  base 5.0% skim>50% bucket 12m cut to 80%     |        9.41%   5.04%   5.00%  |        87%     |   67%  |      9%       15%    0.9%
+  base 4.0% skim>50% bucket 36m cut to 80%     |        9.37%   5.99%   4.00%  |        96%     |   85%  |      2%        6%    0.0%
+  base 4.0% skim>50% bucket 36m cut none       |        9.36%   5.93%   4.00%  |       100%     |   85%  |      3%        6%    0.2%
+  base 4.5% skim>50% bucket 36m cut to 80%     |        9.25%   5.55%   4.50%  |        92%     |   87%  |      4%       10%    0.1%
+  base 5.0% skim>50% bucket 36m cut to 80%     |        9.11%   5.01%   5.00%  |        87%     |   89%  |      9%       15%    0.9%
+  base 3.5% skim>50% bucket 60m cut to 80%     |        9.03%   5.91%   3.50%  |        97%     |   89%  |      1%        4%    0.0%
+  base 3.5% skim>50% bucket 60m cut none       |        9.02%   5.90%   3.50%  |       100%     |   89%  |      1%        4%    0.1%
+  base 4.0% skim>50% bucket 60m cut to 80%     |        8.98%   5.72%   4.00%  |        96%     |   90%  |      2%        6%    0.0%
+  base 4.0% skim>50% bucket 60m cut none       |        8.97%   5.71%   4.00%  |       100%     |   90%  |      3%        6%    0.2%
+  base 4.5% skim>50% bucket 60m cut to 80%     |        8.92%   5.37%   4.50%  |        92%     |   91%  |      4%       10%    0.1%
+  base 3.5% skim>25% bucket 12m cut none       |        8.88%   6.16%   3.50%  |       100%     |   53%  |      7%        5%    0.1%
+  base 3.5% skim>25% bucket 12m cut to 80%     |        8.87%   6.16%   3.50%  |        96%     |   53%  |      6%        5%    0.0%
+  base 4.0% skim>25% bucket 12m cut to 80%     |        8.82%   6.01%   4.00%  |        94%     |   57%  |     10%        9%    0.0%

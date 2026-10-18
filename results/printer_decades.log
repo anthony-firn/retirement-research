@@ -1,0 +1,60 @@
+  base 4.0% skim>10% bucket 36m
+    PRINT per month on $100,000 (after tax, today's $): typical $661  |  bad history $469  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 85% of histories | 86% of years within ±25% of the year before | worst year (bad history) 3.3% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 6.5 / 4.0 | 70-80 8.1 / 4.5 | 80-100 8.3 / 5.1 | no bonus in first 10 yrs 9%
+    BREAK RISK: loses real value by the end 34% | dips below 70% of start 20% | runs dry 0.0% | left at the end (typical) 117% of start
+
+  base 4.0% skim>25% bucket 36m
+    PRINT per month on $100,000 (after tax, today's $): typical $712  |  bad history $488  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 94% of histories | 86% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 5.5 / 4.0 | 70-80 8.8 / 4.2 | 80-100 9.5 / 5.8 | no bonus in first 10 yrs 21%
+    BREAK RISK: loses real value by the end 10% | dips below 70% of start 9% | runs dry 0.0% | left at the end (typical) 137% of start
+
+  base 4.0% skim>35% bucket 36m
+    PRINT per month on $100,000 (after tax, today's $): typical $741  |  bad history $492  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 95% of histories | 85% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.9 / 4.0 | 70-80 9.0 / 4.0 | 80-100 10.3 / 6.0 | no bonus in first 10 yrs 29%
+    BREAK RISK: loses real value by the end 5% | dips below 70% of start 7% | runs dry 0.0% | left at the end (typical) 150% of start
+
+  base 4.0% skim>50% bucket 36m
+    PRINT per month on $100,000 (after tax, today's $): typical $780  |  bad history $499  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 96% of histories | 85% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.1 / 4.0 | 70-80 9.0 / 4.0 | 80-100 11.3 / 6.4 | no bonus in first 10 yrs 40%
+    BREAK RISK: loses real value by the end 2% | dips below 70% of start 6% | runs dry 0.0% | left at the end (typical) 169% of start
+
+  base 4.0% skim>75% bucket 36m
+    PRINT per month on $100,000 (after tax, today's $): typical $837  |  bad history $488  |  lean month (1 in 10) $333
+    RELIABILITY: base print never cut in 96% of histories | 85% of years within ±25% of the year before | worst year (bad history) 4.0% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.0 / 4.0 | 70-80 8.6 / 4.0 | 80-100 13.0 / 6.8 | no bonus in first 10 yrs 58%
+    BREAK RISK: loses real value by the end 1% | dips below 70% of start 6% | runs dry 0.0% | left at the end (typical) 200% of start
+
+  base 4.5% skim>10% bucket 36m
+    PRINT per month on $100,000 (after tax, today's $): typical $656  |  bad history $458  |  lean month (1 in 10) $375
+    RELIABILITY: base print never cut in 77% of histories | 88% of years within ±25% of the year before | worst year (bad history) 3.6% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 6.6 / 4.5 | 70-80 8.0 / 4.6 | 80-100 8.1 / 4.9 | no bonus in first 10 yrs 11%
+    BREAK RISK: loses real value by the end 41% | dips below 70% of start 29% | runs dry 0.2% | left at the end (typical) 113% of start
+
+  base 4.5% skim>25% bucket 36m
+    PRINT per month on $100,000 (after tax, today's $): typical $706  |  bad history $472  |  lean month (1 in 10) $375
+    RELIABILITY: base print never cut in 88% of histories | 88% of years within ±25% of the year before | worst year (bad history) 3.6% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 5.7 / 4.5 | 70-80 8.6 / 4.5 | 80-100 9.3 / 5.4 | no bonus in first 10 yrs 25%
+    BREAK RISK: loses real value by the end 15% | dips below 70% of start 15% | runs dry 0.1% | left at the end (typical) 133% of start
+
+  base 4.5% skim>35% bucket 36m
+    PRINT per month on $100,000 (after tax, today's $): typical $734  |  bad history $468  |  lean month (1 in 10) $375
+    RELIABILITY: base print never cut in 91% of histories | 87% of years within ±25% of the year before | worst year (bad history) 4.5% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 5.1 / 4.5 | 70-80 8.8 / 4.5 | 80-100 10.0 / 5.6 | no bonus in first 10 yrs 32%
+    BREAK RISK: loses real value by the end 9% | dips below 70% of start 12% | runs dry 0.1% | left at the end (typical) 146% of start
+
+  base 4.5% skim>50% bucket 36m
+    PRINT per month on $100,000 (after tax, today's $): typical $771  |  bad history $462  |  lean month (1 in 10) $375
+    RELIABILITY: base print never cut in 92% of histories | 87% of years within ±25% of the year before | worst year (bad history) 4.5% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.5 / 4.5 | 70-80 8.7 / 4.5 | 80-100 11.1 / 5.8 | no bonus in first 10 yrs 44%
+    BREAK RISK: loses real value by the end 4% | dips below 70% of start 10% | runs dry 0.1% | left at the end (typical) 165% of start
+
+  base 4.5% skim>75% bucket 36m
+    PRINT per month on $100,000 (after tax, today's $): typical $825  |  bad history $437  |  lean month (1 in 10) $375
+    RELIABILITY: base print never cut in 92% of histories | 87% of years within ±25% of the year before | worst year (bad history) 4.5% of start
+    BY DECADE (typical / bad, % of start per yr): ages 60-70 4.5 / 4.5 | 70-80 8.0 / 4.5 | 80-100 12.6 / 5.7 | no bonus in first 10 yrs 62%
+    BREAK RISK: loses real value by the end 3% | dips below 70% of start 9% | runs dry 0.1% | left at the end (typical) 196% of start
+
