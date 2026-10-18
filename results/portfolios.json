@@ -1095,5 +1095,60 @@
    "freq": "Yearly",
    "relative_dev": 100
   }
+ },
+ "MP-2 engine": {
+  "alloc": {
+   "DBMFSIM": 27,
+   "VBRSIM": 27,
+   "GDESIM": 21,
+   "KMLMSIM": 15,
+   "GLDSIM": 8,
+   "TQQQSIM": 2
+  },
+  "note": "Money Printer v2 engine (printer/search.py 'the retiree's' mode, simplified): best worst-case printer for the retiree taxable account, no K-1 funds; settings base 5.75%, skim>140%, bucket 48m, guardrail 70%->65%, rebalance >6pp min 1y + 2x valve",
+  "clean": true,
+  "rebalance": {
+   "freq": "Yearly",
+   "relative_dev": 100
+  },
+  "printer": {
+   "base": 5.75,
+   "skim": 0.4,
+   "bucket_months": 48,
+   "cut_below": 0.7,
+   "cut_to": 0.65,
+   "band": 6,
+   "gap_days": 252,
+   "valve": 2.0
+  }
+ },
+ "MP-Fortress engine": {
+  "alloc": {
+   "KMLMSIM": 22,
+   "VBRSIM": 20,
+   "DBMFSIM": 16,
+   "GLDSIM": 15,
+   "UGLSIM": 8,
+   "XLVSIM": 7,
+   "SPMOSIM": 5,
+   "UUPSIM": 4,
+   "TQQQSIM": 3
+  },
+  "note": "Lowest-break-risk printer found (fortress #1): dry 0.0%, loses value 5%, base never cut 97%; 2 K-1 funds (UGL, UUP) -> better in an IRA",
+  "clean": true,
+  "rebalance": {
+   "freq": "Yearly",
+   "relative_dev": 100
+  },
+  "printer": {
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.65,
+   "cut_to": 0.8,
+   "band": 6,
+   "gap_days": 252,
+   "valve": 2.0
+  }
  }
 }

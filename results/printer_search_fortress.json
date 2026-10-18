@@ -1,0 +1,808 @@
+[
+ {
+  "fitness": 0.051670182985826534,
+  "ce_base": 0.052866762737544135,
+  "ce_stress": 0.05047360323410893,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.0390625,
+  "cut": 0.03125,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 22,
+    "DBMFSIM": 16,
+    "VBRSIM": 20,
+    "GLDSIM": 15,
+    "XLVSIM": 7,
+    "UUPSIM": 4,
+    "SPMOSIM": 5,
+    "UGLSIM": 8,
+    "TQQQSIM": 3
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.05156063259318871,
+  "ce_base": 0.05305490706180251,
+  "ce_stress": 0.0503788581245749,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.05078125,
+  "cut": 0.109375,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 19,
+    "DBMFSIM": 16,
+    "VBRSIM": 23,
+    "GLDSIM": 15,
+    "XLVSIM": 7,
+    "ZROZSIM": 5,
+    "UUPSIM": 2,
+    "SPMOSIM": 5,
+    "UGLSIM": 8
+   },
+   "base": 4.75,
+   "skim": 0.39999999999999997,
+   "bucket_months": 60,
+   "cut_below": 0.75,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.05055158682813386,
+  "ce_base": 0.05199331065413854,
+  "ce_stress": 0.04910986300212919,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.02734375,
+  "cut": 0.0546875,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 23,
+    "KMLMSIM": 17,
+    "VBRSIM": 15,
+    "GLDSIM": 8,
+    "TLTSIM": 6,
+    "XLUSIM": 1,
+    "XLVSIM": 1,
+    "XLPSIM": 5
+   },
+   "base": 4.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.050451964972561075,
+  "ce_base": 0.051785032304680664,
+  "ce_stress": 0.04911889764044148,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.03515625,
+  "cut": 0.0234375,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 22,
+    "DBMFSIM": 18,
+    "VBRSIM": 24,
+    "GLDSIM": 18,
+    "XLVSIM": 5,
+    "ZROZSIM": 1,
+    "UUPSIM": 4,
+    "SPMOSIM": 7,
+    "UGLSIM": 1
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.75
+  }
+ },
+ {
+  "fitness": 0.05044454041558219,
+  "ce_base": 0.05172351081759752,
+  "ce_stress": 0.04916557001356687,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.03515625,
+  "cut": 0.02734375,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 21,
+    "DBMFSIM": 18,
+    "VBRSIM": 24,
+    "GLDSIM": 18,
+    "XLVSIM": 5,
+    "ZROZSIM": 2,
+    "UUPSIM": 4,
+    "SPMOSIM": 7,
+    "UGLSIM": 1
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.75
+  }
+ },
+ {
+  "fitness": 0.050410007949160646,
+  "ce_base": 0.051677373068112015,
+  "ce_stress": 0.049142642830209284,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.02734375,
+  "cut": 0.0546875,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 23,
+    "KMLMSIM": 17,
+    "VBRSIM": 15,
+    "GLDSIM": 8,
+    "TLTSIM": 6,
+    "XLUSIM": 1,
+    "XLVSIM": 1,
+    "XLPSIM": 5
+   },
+   "base": 4.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 24,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.05036526710363927,
+  "ce_base": 0.05159763206679808,
+  "ce_stress": 0.04913290214048045,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.03515625,
+  "cut": 0.05859375,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 23,
+    "KMLMSIM": 17,
+    "VBRSIM": 15,
+    "GLDSIM": 8,
+    "TLTSIM": 6,
+    "XLUSIM": 4,
+    "XLVSIM": 1,
+    "XLPSIM": 2
+   },
+   "base": 4.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 24,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.05034544184526711,
+  "ce_base": 0.05163560471799775,
+  "ce_stress": 0.04905527897253646,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.03515625,
+  "cut": 0.05859375,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 26,
+    "KMLMSIM": 14,
+    "VBRSIM": 15,
+    "GLDSIM": 8,
+    "TLTSIM": 6,
+    "XLUSIM": 4,
+    "XLVSIM": 1,
+    "XLPSIM": 2
+   },
+   "base": 4.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 24,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.05019396321211829,
+  "ce_base": 0.05142866915897302,
+  "ce_stress": 0.04895925726526355,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.04296875,
+  "cut": 0.03515625,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 22,
+    "DBMFSIM": 16,
+    "VBRSIM": 20,
+    "GLDSIM": 15,
+    "XLVSIM": 7,
+    "ZROZSIM": 3,
+    "UUPSIM": 4,
+    "SPMOSIM": 5,
+    "UGLSIM": 8
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.050161720113742134,
+  "ce_base": 0.05158741050496889,
+  "ce_stress": 0.04873602972251538,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.0390625,
+  "cut": 0.1484375,
+  "printer": {
+   "alloc": {
+    "DBMFSIM": 25,
+    "KMLMSIM": 11,
+    "GLDSIM": 18,
+    "VBRSIM": 18,
+    "XLVSIM": 13,
+    "TQQQSIM": 5,
+    "IEFSIM": 2,
+    "XLUSIM": 5,
+    "UGLSIM": 3
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 36,
+   "cut_below": 0.8,
+   "cut_to": 0.75
+  }
+ },
+ {
+  "fitness": 0.05015882383697462,
+  "ce_base": 0.05143874429674648,
+  "ce_stress": 0.048878903377202756,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.0390625,
+  "cut": 0.05859375,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 26,
+    "KMLMSIM": 14,
+    "VBRSIM": 15,
+    "GLDSIM": 8,
+    "TLTSIM": 8,
+    "XLUSIM": 4,
+    "XLVSIM": 1
+   },
+   "base": 4.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 24,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.050135488880613734,
+  "ce_base": 0.05131576565062315,
+  "ce_stress": 0.048955212110604315,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.046875,
+  "cut": 0.046875,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 19,
+    "DBMFSIM": 16,
+    "VBRSIM": 20,
+    "GLDSIM": 18,
+    "XLVSIM": 7,
+    "ZROZSIM": 3,
+    "UUPSIM": 4,
+    "SPMOSIM": 5,
+    "UGLSIM": 8
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.050124486844002065,
+  "ce_base": 0.051417346842856385,
+  "ce_stress": 0.048831626845147746,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.0390625,
+  "cut": 0.05859375,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 26,
+    "KMLMSIM": 14,
+    "VBRSIM": 15,
+    "GLDSIM": 8,
+    "ZROZSIM": 1,
+    "TLTSIM": 8,
+    "XLUSIM": 3,
+    "XLVSIM": 1
+   },
+   "base": 4.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 24,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.05008938082730503,
+  "ce_base": 0.051341946514156744,
+  "ce_stress": 0.04883681514045333,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.0390625,
+  "cut": 0.0625,
+  "printer": {
+   "alloc": {
+    "GDESIM": 25,
+    "DBMFSIM": 26,
+    "KMLMSIM": 14,
+    "VBRSIM": 15,
+    "GLDSIM": 8,
+    "ZROZSIM": 1,
+    "TLTSIM": 8,
+    "XLUSIM": 3
+   },
+   "base": 4.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 24,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.049969872777031424,
+  "ce_base": 0.051193493052921424,
+  "ce_stress": 0.04874625250114143,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.046875,
+  "cut": 0.0625,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 19,
+    "DBMFSIM": 16,
+    "VBRSIM": 20,
+    "GLDSIM": 18,
+    "XLVSIM": 7,
+    "ZROZSIM": 3,
+    "UUPSIM": 4,
+    "SPMOSIM": 5,
+    "UGLSIM": 8
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.04994838593674136,
+  "ce_base": 0.05113115421202776,
+  "ce_stress": 0.04876561766145496,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.046875,
+  "cut": 0.0234375,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 19,
+    "DBMFSIM": 16,
+    "VBRSIM": 20,
+    "GLDSIM": 18,
+    "XLVSIM": 7,
+    "ZROZSIM": 3,
+    "UUPSIM": 4,
+    "SPMOSIM": 5,
+    "UGLSIM": 8
+   },
+   "base": 4.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 60,
+   "cut_below": 0.5999999999999999,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.0499460838883488,
+  "ce_base": 0.05142235363450356,
+  "ce_stress": 0.048782314142194035,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.05078125,
+  "cut": 0.0390625,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 22,
+    "DBMFSIM": 18,
+    "VBRSIM": 20,
+    "GLDSIM": 16,
+    "XLVSIM": 11,
+    "ZROZSIM": 2,
+    "SPMOSIM": 8,
+    "UGLSIM": 1,
+    "QLDSIM": 2
+   },
+   "base": 4.25,
+   "skim": 0.25,
+   "bucket_months": 60,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.049937999364303196,
+  "ce_base": 0.05132456930497704,
+  "ce_stress": 0.04855142942362936,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.04296875,
+  "cut": 0.03125,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 21,
+    "DBMFSIM": 18,
+    "VBRSIM": 19,
+    "GLDSIM": 18,
+    "XLVSIM": 5,
+    "ZROZSIM": 2,
+    "UUPSIM": 4,
+    "SPMOSIM": 7,
+    "UGLSIM": 6
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.75
+  }
+ },
+ {
+  "fitness": 0.04991857395468921,
+  "ce_base": 0.05122136978777214,
+  "ce_stress": 0.048615778121606286,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.04296875,
+  "cut": 0.03515625,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 20,
+    "DBMFSIM": 18,
+    "VBRSIM": 19,
+    "GLDSIM": 18,
+    "XLVSIM": 5,
+    "ZROZSIM": 3,
+    "UUPSIM": 4,
+    "SPMOSIM": 7,
+    "UGLSIM": 6
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.75
+  }
+ },
+ {
+  "fitness": 0.049835401945008566,
+  "ce_base": 0.0512619598343659,
+  "ce_stress": 0.04840884405565123,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.046875,
+  "cut": 0.0625,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 22,
+    "DBMFSIM": 18,
+    "VBRSIM": 20,
+    "GLDSIM": 16,
+    "XLVSIM": 11,
+    "ZROZSIM": 2,
+    "SPMOSIM": 8,
+    "UGLSIM": 1,
+    "QLDSIM": 2
+   },
+   "base": 4.25,
+   "skim": 0.25,
+   "bucket_months": 60,
+   "cut_below": 0.75,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.04981622647725313,
+  "ce_base": 0.05093337779805703,
+  "ce_stress": 0.04869907515644922,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.0390625,
+  "cut": 0.046875,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 19,
+    "DBMFSIM": 16,
+    "VBRSIM": 20,
+    "GLDSIM": 18,
+    "XLVSIM": 7,
+    "ZROZSIM": 3,
+    "UUPSIM": 4,
+    "SPMOSIM": 5,
+    "UGLSIM": 8
+   },
+   "base": 4.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 60,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.049716539354739735,
+  "ce_base": 0.051698527820767205,
+  "ce_stress": 0.04804705088871226,
+  "dry": 0.0,
+  "dry_stress": 0.0078125,
+  "lose": 0.05078125,
+  "cut": 0.05859375,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 19,
+    "DBMFSIM": 19,
+    "VBRSIM": 17,
+    "GLDSIM": 19,
+    "XLVSIM": 7,
+    "ZROZSIM": 6,
+    "SPMOSIM": 11,
+    "IEFSIM": 1,
+    "TYDSIM": 1
+   },
+   "base": 4.5,
+   "skim": 0.3,
+   "bucket_months": 60,
+   "cut_below": 0.7,
+   "cut_to": 0.75
+  }
+ },
+ {
+  "fitness": 0.049694512087773285,
+  "ce_base": 0.05100560118132217,
+  "ce_stress": 0.0483834229942244,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.046875,
+  "cut": 0.0390625,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 16,
+    "DBMFSIM": 21,
+    "VBRSIM": 20,
+    "GLDSIM": 18,
+    "XLVSIM": 5,
+    "ZROZSIM": 5,
+    "UUPSIM": 4,
+    "SPMOSIM": 5,
+    "UGLSIM": 6
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.75
+  }
+ },
+ {
+  "fitness": 0.04966336490606159,
+  "ce_base": 0.050811031849920946,
+  "ce_stress": 0.048515697962202224,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.02734375,
+  "cut": 0.03515625,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 18,
+    "DBMFSIM": 20,
+    "VBRSIM": 16,
+    "GLDSIM": 13,
+    "XLVSIM": 7,
+    "SPMOSIM": 15,
+    "IEFSIM": 3,
+    "VTVSIM": 4,
+    "UGLSIM": 4
+   },
+   "base": 4.25,
+   "skim": 0.3,
+   "bucket_months": 60,
+   "cut_below": 0.7,
+   "cut_to": 0.8500000000000001
+  }
+ },
+ {
+  "fitness": 0.04958652822272254,
+  "ce_base": 0.050841607537605873,
+  "ce_stress": 0.0483314489078392,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.02734375,
+  "cut": 0.0078125,
+  "printer": {
+   "alloc": {
+    "GDESIM": 23,
+    "DBMFSIM": 24,
+    "KMLMSIM": 18,
+    "VBRSIM": 14,
+    "GLDSIM": 9,
+    "XLPSIM": 7,
+    "IEFSIM": 3,
+    "XLUSIM": 2
+   },
+   "base": 4.25,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.5999999999999999,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.0495024468339915,
+  "ce_base": 0.050709592450164605,
+  "ce_stress": 0.048295301217818394,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.02734375,
+  "cut": 0.0078125,
+  "printer": {
+   "alloc": {
+    "GDESIM": 23,
+    "DBMFSIM": 22,
+    "KMLMSIM": 18,
+    "VBRSIM": 14,
+    "GLDSIM": 9,
+    "XLPSIM": 7,
+    "IEFSIM": 3,
+    "TYDSIM": 2,
+    "XLUSIM": 2
+   },
+   "base": 4.25,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.5999999999999999,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.04950064841486543,
+  "ce_base": 0.050742916021383096,
+  "ce_stress": 0.04825838080834777,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.03125,
+  "cut": 0.0078125,
+  "printer": {
+   "alloc": {
+    "GDESIM": 23,
+    "DBMFSIM": 22,
+    "KMLMSIM": 20,
+    "VBRSIM": 14,
+    "GLDSIM": 9,
+    "XLPSIM": 7,
+    "IEFSIM": 3,
+    "TYDSIM": 2
+   },
+   "base": 4.25,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.5999999999999999,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.04947093159638889,
+  "ce_base": 0.05075113091321292,
+  "ce_stress": 0.04819073227956486,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.046875,
+  "cut": 0.05078125,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 18,
+    "DBMFSIM": 19,
+    "VBRSIM": 17,
+    "GLDSIM": 14,
+    "XLVSIM": 7,
+    "SPMOSIM": 14,
+    "IEFSIM": 5,
+    "VTVSIM": 5,
+    "GDESIM": 1
+   },
+   "base": 4.25,
+   "skim": 0.25,
+   "bucket_months": 48,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ },
+ {
+  "fitness": 0.04943878329898861,
+  "ce_base": 0.05091947882696821,
+  "ce_stress": 0.048270587771008996,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.05078125,
+  "cut": 0.04296875,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 14,
+    "DBMFSIM": 21,
+    "VBRSIM": 20,
+    "GLDSIM": 18,
+    "XLVSIM": 5,
+    "ZROZSIM": 5,
+    "UUPSIM": 4,
+    "SPMOSIM": 5,
+    "UGLSIM": 8
+   },
+   "base": 4.5,
+   "skim": 0.35,
+   "bucket_months": 60,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.75
+  }
+ },
+ {
+  "fitness": 0.04936719840170124,
+  "ce_base": 0.05079234733093985,
+  "ce_stress": 0.04825454947246264,
+  "dry": 0.0,
+  "dry_stress": 0.0,
+  "lose": 0.05078125,
+  "cut": 0.05078125,
+  "printer": {
+   "alloc": {
+    "KMLMSIM": 18,
+    "DBMFSIM": 19,
+    "VBRSIM": 17,
+    "GLDSIM": 14,
+    "XLVSIM": 7,
+    "SPMOSIM": 14,
+    "IEFSIM": 5,
+    "VTVSIM": 5,
+    "GDESIM": 1
+   },
+   "base": 4.25,
+   "skim": 0.25,
+   "bucket_months": 60,
+   "cut_below": 0.7,
+   "cut_to": 0.8
+  }
+ }
+]

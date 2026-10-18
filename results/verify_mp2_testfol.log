@@ -1,0 +1,6 @@
+testfol.io 2000-01-03 -> 2026-10-16 (limited by DBMFSIM), yearly + 2x band
+  MP-2 engine                  CAGR 11.00  MDD  -22.1  Sharpe 0.782  Calmar 0.499  Ulcer 4.97
+  MP-Fortress engine           CAGR  9.90  MDD  -16.5  Sharpe 0.785  Calmar 0.601  Ulcer 4.26
+  Crisis-Hedged 12 (no UUP)    CAGR  9.80  MDD  -14.0  Sharpe 0.878  Calmar 0.698  Ulcer 3.32
+  60/40                        CAGR  7.06  MDD  -34.0  Sharpe 0.492  Calmar 0.208  Ulcer 7.52
+  VTI (100% US stocks)         CAGR  8.50  MDD  -55.4  Sharpe 0.419  Calmar 0.153  Ulcer 15.92

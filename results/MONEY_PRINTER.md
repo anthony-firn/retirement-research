@@ -1,5 +1,9 @@
 # The Money Printer (2026-10-18)
 
+> **Update:** the printer search (`results/PRINTER_SEARCH.md`) found **MP-2** — DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · GLD 8 ·
+> TQQQ 2, base 5.75%, skim > 140%, 48-month bucket, guardrail 70% → 65% — which beats the CH-12 Printer below in every
+> validation and stress case (robust CE $518 vs $442 per $100k/month). The CH-12 Printer remains the calmer option.
+
 A **money printer** is one fully coordinated plan for living off an account. Scoring and simulation:
 `printer/money_printer.py` (GPU: 2,000 reshuffled 40-year market histories from 1972–2026 data, every fund, inflation
 and T-bills moving together). It is rated on three things only:

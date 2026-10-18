@@ -1,0 +1,42 @@
+[fortress] gamma 6.0, lose-value cap 5%, 64 climbers x 256 histories, seeds: ['Crisis-Hedged 12 (no UUP)', 'Crisis-Hedged 12', 'Crisis-Hedged 11.5', 'Gold-Stack 12', 'S12+ split', 'Plan-b40-split', 'S12+', 'H12-8']
+  iter   1 (    8s) best fitness 4.600 | CE base 4.71% stress 4.49% dry 0.0% lose 4% cut 9% | base 4.0 skim 0.35 bucket 36 cut 0.75->0.80 | DBMF25 KMLM16 GLD15 VBR15 XLV12 TYD8 TQQQ5 REIT3 XLE1
+  iter   2 (   12s) best fitness 4.712 | CE base 5.04% stress 4.73% dry 0.0% lose 6% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.75 | DBMF21 KMLM19 VBR17 GLD16 UGL8 XLV7 UUP5 SPMO4 ZROZ3
+  iter   3 (   16s) best fitness 4.712 | CE base 5.04% stress 4.73% dry 0.0% lose 6% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.75 | DBMF21 KMLM19 VBR17 GLD16 UGL8 XLV7 UUP5 SPMO4 ZROZ3
+  iter   4 (   20s) best fitness 4.878 | CE base 5.02% stress 4.74% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.75 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 UUP5 SPMO4 ZROZ3
+  iter   5 (   24s) best fitness 4.878 | CE base 5.02% stress 4.74% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.75 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 UUP5 SPMO4 ZROZ3
+  iter   6 (   28s) best fitness 4.878 | CE base 5.02% stress 4.74% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.75 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 UUP5 SPMO4 ZROZ3
+  iter   7 (   32s) best fitness 4.895 | CE base 5.06% stress 4.77% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.75 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter   8 (   36s) best fitness 4.895 | CE base 5.06% stress 4.77% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.75 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter   9 (   40s) best fitness 4.895 | CE base 5.06% stress 4.77% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.75 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  10 (   47s) best fitness 4.895 | CE base 5.06% stress 4.77% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.75 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  11 (   51s) best fitness 4.895 | CE base 5.06% stress 4.77% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.75 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  12 (   55s) best fitness 4.936 | CE base 5.08% stress 4.82% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.80 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  13 (   58s) best fitness 4.936 | CE base 5.08% stress 4.82% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.80 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  14 (   62s) best fitness 4.936 | CE base 5.08% stress 4.82% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.80 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  15 (   66s) best fitness 4.936 | CE base 5.08% stress 4.82% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.80 | KMLM19 DBMF19 GLD18 VBR17 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  16 (   70s) best fitness 4.997 | CE base 5.12% stress 4.87% dry 0.0% lose 5% cut 6% | base 4.5 skim 0.35 bucket 60 cut 0.70->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  17 (   74s) best fitness 5.014 | CE base 5.13% stress 4.90% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  18 (   77s) best fitness 5.014 | CE base 5.13% stress 4.90% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  19 (   82s) best fitness 5.014 | CE base 5.13% stress 4.90% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  20 (   90s) best fitness 5.014 | CE base 5.13% stress 4.90% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  21 (   94s) best fitness 5.014 | CE base 5.13% stress 4.90% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  22 (   98s) best fitness 5.014 | CE base 5.13% stress 4.90% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  23 (  101s) best fitness 5.014 | CE base 5.13% stress 4.90% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  24 (  105s) best fitness 5.014 | CE base 5.13% stress 4.90% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  25 (  109s) best fitness 5.014 | CE base 5.13% stress 4.90% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  26 (  113s) best fitness 5.014 | CE base 5.13% stress 4.90% dry 0.0% lose 5% cut 5% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | VBR20 KMLM19 GLD18 DBMF16 UGL8 XLV7 SPMO5 UUP4 ZROZ3
+  iter  27 (  117s) best fitness 5.016 | CE base 5.14% stress 4.89% dry 0.0% lose 4% cut 6% | base 4.5 skim 0.40 bucket 24 cut 0.70->0.80 | DBMF26 GDE24 VBR15 KMLM14 GLD8 TLT8 XLU4 XLV1
+  iter  28 (  120s) best fitness 5.035 | CE base 5.16% stress 4.91% dry 0.0% lose 4% cut 6% | base 4.5 skim 0.40 bucket 24 cut 0.70->0.80 | DBMF26 GDE24 VBR15 KMLM14 GLD8 TLT6 XLU4 XLP2 XLV1
+  iter  29 (  124s) best fitness 5.035 | CE base 5.16% stress 4.91% dry 0.0% lose 4% cut 6% | base 4.5 skim 0.40 bucket 24 cut 0.70->0.80 | DBMF26 GDE24 VBR15 KMLM14 GLD8 TLT6 XLU4 XLP2 XLV1
+  iter  30 (  133s) best fitness 5.037 | CE base 5.16% stress 4.91% dry 0.0% lose 4% cut 6% | base 4.5 skim 0.40 bucket 24 cut 0.70->0.80 | GDE24 DBMF23 KMLM17 VBR15 GLD8 TLT6 XLU4 XLP2 XLV1
+  iter  31 (  137s) best fitness 5.041 | CE base 5.17% stress 4.91% dry 0.0% lose 3% cut 5% | base 4.5 skim 0.40 bucket 24 cut 0.70->0.80 | GDE24 DBMF23 KMLM17 VBR15 GLD8 TLT6 XLP5 XLU1 XLV1
+  iter  32 (  140s) best fitness 5.041 | CE base 5.17% stress 4.91% dry 0.0% lose 3% cut 5% | base 4.5 skim 0.40 bucket 24 cut 0.70->0.80 | GDE24 DBMF23 KMLM17 VBR15 GLD8 TLT6 XLP5 XLU1 XLV1
+  iter  33 (  144s) best fitness 5.041 | CE base 5.17% stress 4.91% dry 0.0% lose 3% cut 5% | base 4.5 skim 0.40 bucket 24 cut 0.70->0.80 | GDE24 DBMF23 KMLM17 VBR15 GLD8 TLT6 XLP5 XLU1 XLV1
+  iter  34 (  148s) best fitness 5.041 | CE base 5.17% stress 4.91% dry 0.0% lose 3% cut 5% | base 4.5 skim 0.40 bucket 24 cut 0.70->0.80 | GDE24 DBMF23 KMLM17 VBR15 GLD8 TLT6 XLP5 XLU1 XLV1
+  iter  35 (  153s) best fitness 5.055 | CE base 5.20% stress 4.91% dry 0.0% lose 3% cut 5% | base 4.5 skim 0.40 bucket 36 cut 0.70->0.80 | GDE24 DBMF23 KMLM17 VBR15 GLD8 TLT6 XLP5 XLU1 XLV1
+  iter  36 (  156s) best fitness 5.055 | CE base 5.20% stress 4.91% dry 0.0% lose 3% cut 5% | base 4.5 skim 0.40 bucket 36 cut 0.70->0.80 | GDE24 DBMF23 KMLM17 VBR15 GLD8 TLT6 XLP5 XLU1 XLV1
+  iter  37 (  160s) best fitness 5.055 | CE base 5.20% stress 4.91% dry 0.0% lose 3% cut 5% | base 4.5 skim 0.40 bucket 36 cut 0.70->0.80 | GDE24 DBMF23 KMLM17 VBR15 GLD8 TLT6 XLP5 XLU1 XLV1
+  iter  38 (  164s) best fitness 5.055 | CE base 5.20% stress 4.91% dry 0.0% lose 3% cut 5% | base 4.5 skim 0.40 bucket 36 cut 0.70->0.80 | GDE24 DBMF23 KMLM17 VBR15 GLD8 TLT6 XLP5 XLU1 XLV1
+  iter  39 (  168s) best fitness 5.167 | CE base 5.29% stress 5.05% dry 0.0% lose 4% cut 3% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | KMLM22 VBR20 DBMF16 GLD15 UGL8 XLV7 SPMO5 UUP4 TQQQ3
+  iter  40 (  176s) best fitness 5.167 | CE base 5.29% stress 5.05% dry 0.0% lose 4% cut 3% | base 4.5 skim 0.35 bucket 60 cut 0.65->0.80 | KMLM22 VBR20 DBMF16 GLD15 UGL8 XLV7 SPMO5 UUP4 TQQQ3
+done

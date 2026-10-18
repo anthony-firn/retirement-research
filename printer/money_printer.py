@@ -28,8 +28,10 @@ COST = 0.0005                                                     # trading cost
 # taxable-account character: yearly distribution yield and type (q = qualified dividends, o = ordinary income)
 DIST = {"VBRSIM": (.020, "q"), "XLVSIM": (.016, "q"), "VTISIM": (.013, "q"), "SPMOSIM": (.012, "q"), "DBMFSIM": (.025, "o"),
         "KMLMSIM": (.025, "o"), "TYDSIM": (.020, "o"), "TQQQSIM": (.010, "o"), "TMFSIM": (.015, "o"), "IEISIM": (.030, "o"),
-        "BNDSIM": (.035, "o"), "GDESIM": (.010, "o")}
-COLLECTIBLE = {"GLDSIM"}; MARK_TO_MARKET = {"UUPSIM"}
+        "BNDSIM": (.035, "o"), "GDESIM": (.010, "o"), "IEFSIM": (.032, "o"), "TLTSIM": (.038, "o"), "SHYSIM": (.035, "o"), "ZROZSIM": (.040, "o"),
+        "XLESIM": (.032, "q"), "XLPSIM": (.026, "q"), "XLUSIM": (.030, "q"), "VTVSIM": (.023, "q"), "REITSIM": (.035, "o"), "QLDSIM": (.003, "o"),
+        "NTSXSIM": (.012, "q"), "RSSBSIM": (.015, "o"), "UBTSIM": (.012, "o")}
+COLLECTIBLE = {"GLDSIM"}; MARK_TO_MARKET = {"UUPSIM", "UGLSIM"}
 TAX = {"none (IRA/Roth)": dict(ord=0, lt=0, coll=0, ca=0), "retiree, not working": dict(ord=.10, lt=0, coll=.10, ca=.02),
        "retiree, working $40k": dict(ord=.12, lt=0, coll=.12, ca=.05), "middle bracket": dict(ord=.22, lt=.15, coll=.22, ca=.093)}
 
@@ -55,32 +57,48 @@ _cpi = np.asarray(h.cpi, float); _cpi = np.where(np.isnan(_cpi), np.nanmin(_cpi)
 RF = np.asarray(h.rf, float)
 def fund_returns(n): return np.asarray(br.SUB[n] if n in br.SUB else h.rets(h.series(n)), float)
 
-def make_idx(paths, years, block=252, seed=11, hist=False):
-    L = years * 252
-    if hist: st = np.arange(1, T - L, 21); return torch.tensor(st[:, None] + np.arange(L)[None, :], device=DEV)
-    g = np.random.default_rng(seed); nb = L // block + 1; s = g.integers(1, T - block, size=(paths, nb))
-    return torch.tensor((s[:, :, None] + np.arange(block)[None, None, :]).reshape(paths, -1)[:, :L], device=DEV)
+def make_idx(paths, years, block=252, seed=11, hist=False, step=1, era=None):
+    """Histories as row indices into step-day compounded returns. step=1: daily; step=5: weekly (50 steps per model year).
+    era=(first_day, last_day) restricts the bootstrap blocks to that part of 1972-2026 (e.g. 2000-2026 only)."""
+    spy = 252 if step == 1 else 250 // step; L = years * spy; bs = max(1, round(block / step)) if step > 1 else block
+    if hist: st = np.arange(1, T - years * spy * step, 21); return torch.tensor(st[:, None] + step * np.arange(L)[None, :], device=DEV)
+    lo, hi = (1, T) if era is None else era
+    g = np.random.default_rng(seed); nb = L // bs + 1; s = g.integers(lo, hi - bs * step, size=(paths, nb))
+    return torch.tensor((s[:, :, None] + step * np.arange(bs)[None, None, :]).reshape(paths, -1)[:, :L], device=DEV)
 
-def simulate(printers, IDX, trend_haircut=0.0):
-    """printers: list of Printer. Lanes = printers x histories. Returns dict of per-lane numpy arrays."""
-    assets = sorted({a for p in printers for a in p.alloc}); A = len(assets)
+def _compound(x, k):                                              # k-day compounded growth factors starting at each day
+    if k == 1: return x
+    lg = np.log(np.maximum(x, 1e-12)); cs = np.cumsum(np.concatenate([np.zeros((1,) + lg.shape[1:]), lg], 0), 0)
+    out = np.exp(cs[k:] - cs[:-k]); pad = np.ones((k - 1,) + x.shape[1:]); return np.concatenate([out, pad], 0)
+
+def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None):
+    """printers: list of Printer. Lanes = printers x histories (each lane keeps only its own funds, <= Kmax slots)."""
+    assets = sorted({a for p in printers for a in p.alloc}); A = len(assets); K = max(len(p.alloc) for p in printers)
     Rm = np.stack([fund_returns(a) for a in assets], 1)
     for a in ("KMLMSIM", "DBMFSIM"):
         if a in assets and trend_haircut: Rm[:, assets.index(a)] -= trend_haircut / 252
-    Rg = torch.tensor(Rm, device=DEV, dtype=f32); Cg = torch.tensor(CPIR, device=DEV, dtype=f32); Fg = torch.tensor(RF, device=DEV, dtype=f32)
-    divy = torch.tensor([DIST.get(a, (0, "o"))[0] for a in assets], device=DEV); qual = torch.tensor([DIST.get(a, (0, "o"))[1] == "q" for a in assets], device=DEV)
-    coll = torch.tensor([a in COLLECTIBLE for a in assets], device=DEV); mtm = torch.tensor([a in MARK_TO_MARKET for a in assets], device=DEV); norm = ~(coll | mtm)
-    C, P = len(printers), IDX.shape[0]; N = C * P; L = IDX.shape[1]; Y = L // 252; M = L // 21
+    for a, x in (drag or {}).items():                              # extra annual drag on specific funds (stress tests)
+        if a in assets: Rm[:, assets.index(a)] -= x / 252
+    Rg = torch.tensor(_compound(1 + Rm, step) - 1, device=DEV, dtype=f32); Cg = torch.tensor(_compound(CPIR, step), device=DEV, dtype=f32)
+    Fg = torch.tensor(_compound(1 + RF, step) - 1, device=DEV, dtype=f32)
+    S = 252 if step == 1 else 250 // step
+    divy_a = torch.tensor([DIST.get(a, (0, "o"))[0] for a in assets], device=DEV); qual_a = torch.tensor([DIST.get(a, (0, "o"))[1] == "q" for a in assets], device=DEV)
+    coll_a = torch.tensor([a in COLLECTIBLE for a in assets], device=DEV); mtm_a = torch.tensor([a in MARK_TO_MARKET for a in assets], device=DEV)
+    C, P = len(printers), IDX.shape[0]; N = C * P; L = IDX.shape[1]; Y = L // S; M = Y * 12
     ci = torch.arange(C, device=DEV).repeat_interleave(P); pi = torch.arange(P, device=DEV).repeat(C)
     pv = lambda f, dt=f32: torch.tensor([f(p) for p in printers], device=DEV, dtype=dt)[ci]
-    W0c = torch.tensor([[p.alloc.get(a, 0) / sum(p.alloc.values()) for a in assets] for p in printers], device=DEV, dtype=f32); W0 = W0c[ci]
-    has = W0 > 0
-    band = pv(lambda p: p.band if p.band else 1e9); gap = pv(lambda p: p.gap_days, torch.long); valve = pv(lambda p: p.valve if p.valve else 1e9)
+    sid_c = torch.zeros(C, K, dtype=torch.long, device=DEV); W0c = torch.zeros(C, K, device=DEV)
+    for c, p in enumerate(printers):
+        tot = sum(p.alloc.values())
+        for k, (a, w) in enumerate(p.alloc.items()): sid_c[c, k] = assets.index(a); W0c[c, k] = w / tot
+    sid = sid_c[ci]; W0 = W0c[ci]; has = W0 > 0
+    divy = divy_a[sid] * has; qual = qual_a[sid]; coll = coll_a[sid]; mtm = mtm_a[sid]; norm = ~(coll | mtm)
+    band = pv(lambda p: p.band if p.band else 1e9); gap = pv(lambda p: round(p.gap_days / step), torch.long); valve = pv(lambda p: p.valve if p.valve else 1e9)
     yearly = pv(lambda p: p.yearly, torch.bool); base = pv(lambda p: p.base / 100); skim = pv(lambda p: p.skim if (p.skim is not None and p.skim >= 0) else 1e9)
     bmon = pv(lambda p: p.bucket_months); cutb = pv(lambda p: p.cut_below); cutt = pv(lambda p: p.cut_to); rest = pv(lambda p: p.restore_above)
     tx = {k: pv(lambda p, k=k: TAX[p.tax][k]) for k in ("ord", "lt", "coll", "ca")}
     r_o = tx["ord"] + tx["ca"]; r_l = tx["lt"] + tx["ca"]; r_c = tx["coll"] + tx["ca"]; r_m = 0.6 * tx["lt"] + 0.4 * tx["ord"] + tx["ca"]
-    val = W0.clone(); basis = val.clone(); lastb = torch.zeros(N, A, device=DEV); bfrac = torch.ones(N, A, device=DEV)
+    val = W0.clone(); basis = val.clone(); lastb = torch.zeros(N, K, device=DEV); bfrac = torch.ones(N, K, device=DEV)
     last = torch.zeros(N, dtype=torch.long, device=DEV); infl = torch.ones(N, device=DEV); bucket = torch.zeros(N, device=DEV); mult = torch.ones(N, device=DEV)
     gST, gLT, gC, gM, carry, intr = (torch.zeros(N, device=DEV) for _ in range(6))
     dead = torch.zeros(N, dtype=torch.bool, device=DEV); cut_ever = torch.zeros(N, dtype=torch.bool, device=DEV); minreal = torch.ones(N, device=DEV)
@@ -88,7 +106,7 @@ def simulate(printers, IDX, trend_haircut=0.0):
     def realize(sell, d):
         nonlocal basis, gST, gLT, gC, gM
         frac = (sell / val.clamp(min=1e-12)).clamp(0, 1); g = sell - basis * frac; basis = basis * (1 - frac)
-        stf = torch.where((d - lastb) < 252, bfrac, torch.zeros_like(bfrac))
+        stf = torch.where((d - lastb) < S, bfrac, torch.zeros_like(bfrac))
         gST += (g * stf * norm).sum(1); gLT += (g * (1 - stf) * norm).sum(1); gC += (g * coll).sum(1); gM += (g * mtm).sum(1)
     def sell_amount(amt, d):                                       # take `amt` from the most overweight funds first
         nonlocal val
@@ -96,14 +114,14 @@ def simulate(printers, IDX, trend_haircut=0.0):
         te = torch.minimum(amt, se); rem = amt - te; s1 = exc * (te / se.clamp(min=1e-12))[:, None]
         s = s1 + (val - s1) * (rem / (V - te).clamp(min=1e-12))[:, None]; realize(s, d); val = val - s; return s.sum(1)
     for d in range(1, L):
-        rows = IDX[pi, d]; val = val * (1 + Rg[rows]); infl = infl * Cg[rows]; bi = bucket * Fg[rows]; bucket = bucket + bi; intr += bi
-        if d % 21 == 0:
-            m = d // 21 - 1
+        rows = IDX[pi, d]; val = val * (1 + Rg[rows[:, None], sid]); infl = infl * Cg[rows]; bi = bucket * Fg[rows]; bucket = bucket + bi; intr += bi
+        mo = d * 12 // S
+        if mo != (d - 1) * 12 // S:
             got = sell_amount(base / 12 * infl * mult, d); draw = bucket / bmon; bucket = bucket - draw
-            spend[:, min(m, M - 1)] = (got + draw) / infl; dead |= val.sum(1) <= 1e-6
+            spend[:, min(mo - 1, M - 1)] = (got + draw) / infl; dead |= val.sum(1) <= 1e-6
         V = val.sum(1); w = val / V.clamp(min=1e-12)[:, None]; since = d - last
         rel = torch.where(has, w / W0.clamp(min=1e-12), torch.zeros_like(w)).max(1).values
-        trig = ((((w - W0).abs().max(1).values * 100 > band) & (since > gap)) | (rel >= valve) | (yearly & (since >= 252))) & ~dead
+        trig = ((((w - W0).abs().max(1).values * 100 > band) & (since > gap)) | (rel >= valve) | (yearly & (since >= S))) & ~dead
         if trig.any():
             tgt = W0 * V[:, None]; over = (val > tgt) & trig[:, None]; under = (val < tgt) & trig[:, None]
             realize(torch.where(over, val - tgt, torch.zeros_like(val)), d)
@@ -111,8 +129,8 @@ def simulate(printers, IDX, trend_haircut=0.0):
             bfrac = torch.where(under, buy / tgt.clamp(min=1e-12), bfrac); lastb = torch.where(under, torch.full_like(lastb, float(d)), lastb)
             cost = COST * (tgt - val).abs().sum(1) * trig; val = torch.where(trig[:, None], tgt * (1 - cost / V.clamp(min=1e-12))[:, None], val)
             last = torch.where(trig, torch.full_like(last, d), last); nreb += trig
-        if d % 252 == 251:
-            y = d // 252
+        if (d + 1) % S == 0:
+            y = d // S
             dist = val * divy; basis = basis + dist; divq = (dist * qual).sum(1); divo = (dist * ~qual).sum(1)
             gM += ((val - basis) * mtm).sum(1); basis = torch.where(mtm, val, basis)
             V = val.sum(1); bonus = ((V / infl - (1 + skim)).clamp(min=0) * infl)                    # bonus print -> bucket

@@ -1,0 +1,869 @@
+[
+ {
+  "fitness": 0.061998483915950406,
+  "ce_base": 0.06902450608911397,
+  "ce_stress": 0.061998483915950406,
+  "ce_gold": 0.062495632705545055,
+  "dry": 0.0,
+  "dry_stress": 0.01171875,
+  "lose": 0.06640625,
+  "cut": 0.14453125,
+  "early": 0.05766860768198967,
+  "printer": {
+   "alloc": {
+    "GDESIM": 19,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 25,
+    "GLDSIM": 8,
+    "TQQQSIM": 2,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.75,
+   "skim": 0.39999999999999997,
+   "bucket_months": 48,
+   "cut_below": 0.7,
+   "cut_to": 0.65
+  }
+ },
+ {
+  "fitness": 0.06174342761078093,
+  "ce_base": 0.06911620382468071,
+  "ce_stress": 0.06174342761078093,
+  "ce_gold": 0.06243343208174903,
+  "dry": 0.0,
+  "dry_stress": 0.01171875,
+  "lose": 0.078125,
+  "cut": 0.13671875,
+  "early": 0.05769431218504906,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 24,
+    "GLDSIM": 8,
+    "TQQQSIM": 2,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.75,
+   "skim": 0.39999999999999997,
+   "bucket_months": 48,
+   "cut_below": 0.7,
+   "cut_to": 0.65
+  }
+ },
+ {
+  "fitness": 0.06172719632077977,
+  "ce_base": 0.0679544748602598,
+  "ce_stress": 0.06172719632077977,
+  "ce_gold": 0.06217660960971177,
+  "dry": 0.0,
+  "dry_stress": 0.0078125,
+  "lose": 0.06640625,
+  "cut": 0.1015625,
+  "early": 0.05564580857753754,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 24,
+    "GLDSIM": 8,
+    "TQQQSIM": 2,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 48,
+   "cut_below": 0.7,
+   "cut_to": 0.65
+  }
+ },
+ {
+  "fitness": 0.061697375316760374,
+  "ce_base": 0.06861187686386983,
+  "ce_stress": 0.061697375316760374,
+  "ce_gold": 0.061875382911375475,
+  "dry": 0.00390625,
+  "dry_stress": 0.01171875,
+  "lose": 0.06640625,
+  "cut": 0.1015625,
+  "early": 0.05603678151965141,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 21,
+    "GLDSIM": 10,
+    "TQQQSIM": 3,
+    "ZROZSIM": 2,
+    "XLPSIM": 1,
+    "XLVSIM": 1
+   },
+   "base": 5.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 48,
+   "cut_below": 0.7,
+   "cut_to": 0.7000000000000001
+  }
+ },
+ {
+  "fitness": 0.061624292903146805,
+  "ce_base": 0.06785625440631016,
+  "ce_stress": 0.061624292903146805,
+  "ce_gold": 0.062072645898260344,
+  "dry": 0.0,
+  "dry_stress": 0.0078125,
+  "lose": 0.06640625,
+  "cut": 0.1015625,
+  "early": 0.05582083761692047,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 24,
+    "GLDSIM": 8,
+    "TQQQSIM": 2,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.7,
+   "cut_to": 0.65
+  }
+ },
+ {
+  "fitness": 0.06141394554406294,
+  "ce_base": 0.06820740386509375,
+  "ce_stress": 0.06141394554406294,
+  "ce_gold": 0.061736914772102525,
+  "dry": 0.0,
+  "dry_stress": 0.01171875,
+  "lose": 0.0703125,
+  "cut": 0.1015625,
+  "early": 0.05582083761692047,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 24,
+    "GLDSIM": 8,
+    "TQQQSIM": 2,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.7,
+   "cut_to": 0.7000000000000001
+  }
+ },
+ {
+  "fitness": 0.06131712549621229,
+  "ce_base": 0.06840971454599652,
+  "ce_stress": 0.06131712549621229,
+  "ce_gold": 0.06160209797687721,
+  "dry": 0.00390625,
+  "dry_stress": 0.01171875,
+  "lose": 0.06640625,
+  "cut": 0.1015625,
+  "early": 0.05591437965631485,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 21,
+    "GLDSIM": 10,
+    "TQQQSIM": 3,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 48,
+   "cut_below": 0.7,
+   "cut_to": 0.7000000000000001
+  }
+ },
+ {
+  "fitness": 0.06120614957619743,
+  "ce_base": 0.06829721749032439,
+  "ce_stress": 0.06120614957619743,
+  "ce_gold": 0.06148884614782279,
+  "dry": 0.0,
+  "dry_stress": 0.01171875,
+  "lose": 0.0703125,
+  "cut": 0.1015625,
+  "early": 0.05615641921758652,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 21,
+    "GLDSIM": 10,
+    "TQQQSIM": 3,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.5,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.7,
+   "cut_to": 0.7000000000000001
+  }
+ },
+ {
+  "fitness": 0.061033803193122606,
+  "ce_base": 0.06693714183483414,
+  "ce_stress": 0.061115490931330396,
+  "ce_gold": 0.061033803193122606,
+  "dry": 0.0,
+  "dry_stress": 0.0078125,
+  "lose": 0.05078125,
+  "cut": 0.09375,
+  "early": 0.05508985370397568,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 21,
+    "GLDSIM": 10,
+    "TQQQSIM": 3,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.7,
+   "cut_to": 0.7000000000000001
+  }
+ },
+ {
+  "fitness": 0.06102204178960002,
+  "ce_base": 0.06628708786862321,
+  "ce_stress": 0.06115049362151681,
+  "ce_gold": 0.06102204178960002,
+  "dry": 0.0,
+  "dry_stress": 0.0078125,
+  "lose": 0.078125,
+  "cut": 0.046875,
+  "early": 0.05563754960894585,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 18,
+    "KMLMSIM": 20,
+    "VBRSIM": 22,
+    "GLDSIM": 5,
+    "XLUSIM": 3,
+    "XLVSIM": 1,
+    "XLPSIM": 6,
+    "XLESIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.55,
+   "cut_to": 0.6
+  }
+ },
+ {
+  "fitness": 0.06101403487061462,
+  "ce_base": 0.06634030650765381,
+  "ce_stress": 0.06109244448685369,
+  "ce_gold": 0.06101403487061462,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.08984375,
+  "cut": 0.046875,
+  "early": 0.05512139946222305,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 18,
+    "KMLMSIM": 20,
+    "VBRSIM": 22,
+    "GLDSIM": 5,
+    "XLUSIM": 1,
+    "XLVSIM": 1,
+    "XLPSIM": 8,
+    "XLESIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.55,
+   "cut_to": 0.6
+  }
+ },
+ {
+  "fitness": 0.06099430032693187,
+  "ce_base": 0.067144187282037,
+  "ce_stress": 0.06106035864685502,
+  "ce_gold": 0.06099430032693187,
+  "dry": 0.0,
+  "dry_stress": 0.0078125,
+  "lose": 0.05078125,
+  "cut": 0.140625,
+  "early": 0.055351726710796356,
+  "printer": {
+   "alloc": {
+    "GDESIM": 21,
+    "DBMFSIM": 25,
+    "KMLMSIM": 16,
+    "VBRSIM": 20,
+    "GLDSIM": 11,
+    "TQQQSIM": 2,
+    "ZROZSIM": 2,
+    "SPMOSIM": 2,
+    "QLDSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.39999999999999997,
+   "bucket_months": 48,
+   "cut_below": 0.75,
+   "cut_to": 0.7500000000000001
+  }
+ },
+ {
+  "fitness": 0.06096963962068538,
+  "ce_base": 0.06647303571885341,
+  "ce_stress": 0.06106024792951265,
+  "ce_gold": 0.06096963962068538,
+  "dry": 0.00390625,
+  "dry_stress": 0.00390625,
+  "lose": 0.08984375,
+  "cut": 0.04296875,
+  "early": 0.05512139946222305,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 18,
+    "KMLMSIM": 20,
+    "VBRSIM": 22,
+    "GLDSIM": 5,
+    "XLUSIM": 1,
+    "XLVSIM": 1,
+    "XLPSIM": 8,
+    "XLESIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.5,
+   "cut_to": 0.6
+  }
+ },
+ {
+  "fitness": 0.060890689775761384,
+  "ce_base": 0.06644992992238884,
+  "ce_stress": 0.06111557626579792,
+  "ce_gold": 0.060890689775761384,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.09375,
+  "cut": 0.03515625,
+  "early": 0.056264087557792664,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 25,
+    "KMLMSIM": 16,
+    "VBRSIM": 16,
+    "GLDSIM": 12,
+    "TQQQSIM": 5,
+    "ZROZSIM": 2,
+    "IEFSIM": 1,
+    "XLPSIM": 3
+   },
+   "base": 5.0,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.5,
+   "cut_to": 0.6
+  }
+ },
+ {
+  "fitness": 0.06088941765909842,
+  "ce_base": 0.06635434953506789,
+  "ce_stress": 0.06092529878683156,
+  "ce_gold": 0.06088941765909842,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.08984375,
+  "cut": 0.04296875,
+  "early": 0.05580054968595505,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 18,
+    "KMLMSIM": 20,
+    "VBRSIM": 22,
+    "GLDSIM": 5,
+    "XLUSIM": 1,
+    "XLVSIM": 1,
+    "XLPSIM": 8,
+    "XLESIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.35,
+   "bucket_months": 36,
+   "cut_below": 0.5,
+   "cut_to": 0.6
+  }
+ },
+ {
+  "fitness": 0.0608724640336714,
+  "ce_base": 0.0670265553679146,
+  "ce_stress": 0.06095358907883184,
+  "ce_gold": 0.0608724640336714,
+  "dry": 0.0,
+  "dry_stress": 0.0078125,
+  "lose": 0.05078125,
+  "cut": 0.13671875,
+  "early": 0.05590828135609627,
+  "printer": {
+   "alloc": {
+    "GDESIM": 21,
+    "DBMFSIM": 25,
+    "KMLMSIM": 16,
+    "VBRSIM": 20,
+    "GLDSIM": 11,
+    "TQQQSIM": 2,
+    "ZROZSIM": 2,
+    "SPMOSIM": 2,
+    "QLDSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.75,
+   "cut_to": 0.7500000000000001
+  }
+ },
+ {
+  "fitness": 0.060836826758842416,
+  "ce_base": 0.0671788647218507,
+  "ce_stress": 0.060837950996251375,
+  "ce_gold": 0.060836826758842416,
+  "dry": 0.0,
+  "dry_stress": 0.01171875,
+  "lose": 0.0546875,
+  "cut": 0.09375,
+  "early": 0.05508985370397568,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 21,
+    "GLDSIM": 10,
+    "TQQQSIM": 3,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.7,
+   "cut_to": 0.7500000000000001
+  }
+ },
+ {
+  "fitness": 0.06078728439397523,
+  "ce_base": 0.06724417777011046,
+  "ce_stress": 0.06078728439397523,
+  "ce_gold": 0.061012662560374464,
+  "dry": 0.00390625,
+  "dry_stress": 0.01171875,
+  "lose": 0.05859375,
+  "cut": 0.07421875,
+  "early": 0.05508985370397568,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 21,
+    "GLDSIM": 10,
+    "TQQQSIM": 3,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.7500000000000001
+  }
+ },
+ {
+  "fitness": 0.060759828512752405,
+  "ce_base": 0.06640546865985904,
+  "ce_stress": 0.06097809032646737,
+  "ce_gold": 0.060784661595905176,
+  "dry": 0.00390625,
+  "dry_stress": 0.0078125,
+  "lose": 0.0859375,
+  "cut": 0.0390625,
+  "early": 0.05497516691684723,
+  "printer": {
+   "alloc": {
+    "GDESIM": 22,
+    "DBMFSIM": 18,
+    "KMLMSIM": 21,
+    "VBRSIM": 22,
+    "GLDSIM": 8,
+    "XLVSIM": 1,
+    "XLPSIM": 7,
+    "SPMOSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.5,
+   "cut_to": 0.65
+  }
+ },
+ {
+  "fitness": 0.06073137130042687,
+  "ce_base": 0.06692375841044118,
+  "ce_stress": 0.06073137130042687,
+  "ce_gold": 0.061520895016069464,
+  "dry": 0.00390625,
+  "dry_stress": 0.0078125,
+  "lose": 0.07421875,
+  "cut": 0.07421875,
+  "early": 0.055740632116794586,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 26,
+    "KMLMSIM": 15,
+    "VBRSIM": 20,
+    "GLDSIM": 6,
+    "ZROZSIM": 2,
+    "SPMOSIM": 10,
+    "IEFSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.7500000000000001
+  }
+ },
+ {
+  "fitness": 0.06072648868574883,
+  "ce_base": 0.06653261628832671,
+  "ce_stress": 0.061138696285214233,
+  "ce_gold": 0.06072648868574883,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.08984375,
+  "cut": 0.03515625,
+  "early": 0.056722287088632584,
+  "printer": {
+   "alloc": {
+    "GDESIM": 21,
+    "DBMFSIM": 25,
+    "KMLMSIM": 16,
+    "VBRSIM": 16,
+    "GLDSIM": 12,
+    "TQQQSIM": 5,
+    "ZROZSIM": 2,
+    "IEFSIM": 1,
+    "XLPSIM": 2
+   },
+   "base": 5.0,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.5,
+   "cut_to": 0.6
+  }
+ },
+ {
+  "fitness": 0.06068622053489415,
+  "ce_base": 0.06616778472092727,
+  "ce_stress": 0.061050439048477144,
+  "ce_gold": 0.06068622053489415,
+  "dry": 0.00390625,
+  "dry_stress": 0.0078125,
+  "lose": 0.08203125,
+  "cut": 0.0390625,
+  "early": 0.055298157036304474,
+  "printer": {
+   "alloc": {
+    "GDESIM": 22,
+    "DBMFSIM": 18,
+    "KMLMSIM": 20,
+    "VBRSIM": 22,
+    "GLDSIM": 8,
+    "XLVSIM": 1,
+    "XLPSIM": 8,
+    "SPMOSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.5,
+   "cut_to": 0.65
+  }
+ },
+ {
+  "fitness": 0.060664118124473976,
+  "ce_base": 0.06721085313896948,
+  "ce_stress": 0.060664118124473976,
+  "ce_gold": 0.061077200352281986,
+  "dry": 0.00390625,
+  "dry_stress": 0.01171875,
+  "lose": 0.05859375,
+  "cut": 0.0703125,
+  "early": 0.055046044290065765,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 21,
+    "GLDSIM": 10,
+    "TQQQSIM": 3,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "NTSXSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.6499999999999999,
+   "cut_to": 0.7500000000000001
+  }
+ },
+ {
+  "fitness": 0.06065849448747311,
+  "ce_base": 0.06635746216944889,
+  "ce_stress": 0.06065849448747311,
+  "ce_gold": 0.06089377595875079,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.09765625,
+  "cut": 0.046875,
+  "early": 0.0560806468129158,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 25,
+    "KMLMSIM": 17,
+    "VBRSIM": 19,
+    "GLDSIM": 5,
+    "XLVSIM": 1,
+    "XLPSIM": 5,
+    "VTISIM": 1,
+    "SPMOSIM": 3
+   },
+   "base": 5.25,
+   "skim": 0.35,
+   "bucket_months": 36,
+   "cut_below": 0.5499999999999998,
+   "cut_to": 0.6499999999999999
+  }
+ },
+ {
+  "fitness": 0.060641765813047664,
+  "ce_base": 0.06617975268545741,
+  "ce_stress": 0.060641765813047664,
+  "ce_gold": 0.06068815814798844,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.08203125,
+  "cut": 0.04296875,
+  "early": 0.05576581507921219,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 19,
+    "KMLMSIM": 20,
+    "VBRSIM": 21,
+    "GLDSIM": 5,
+    "XLUSIM": 1,
+    "XLVSIM": 1,
+    "XLPSIM": 8,
+    "XLESIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.35,
+   "bucket_months": 36,
+   "cut_below": 0.5,
+   "cut_to": 0.6
+  }
+ },
+ {
+  "fitness": 0.060632412811873496,
+  "ce_base": 0.06714520336603039,
+  "ce_stress": 0.061607476182073746,
+  "ce_gold": 0.060632412811873496,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.0859375,
+  "cut": 0.07421875,
+  "early": 0.056448794901371,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 23,
+    "KMLMSIM": 18,
+    "VBRSIM": 17,
+    "GLDSIM": 10,
+    "TQQQSIM": 4,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "RSSBSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.39999999999999997,
+   "bucket_months": 48,
+   "cut_below": 0.5999999999999999,
+   "cut_to": 0.6
+  }
+ },
+ {
+  "fitness": 0.0606209631194124,
+  "ce_base": 0.06676383805483324,
+  "ce_stress": 0.061059437536145185,
+  "ce_gold": 0.0615701739789675,
+  "dry": 0.0,
+  "dry_stress": 0.0078125,
+  "lose": 0.0546875,
+  "cut": 0.0859375,
+  "early": 0.05456152558326721,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 27,
+    "KMLMSIM": 15,
+    "VBRSIM": 24,
+    "GLDSIM": 8,
+    "TQQQSIM": 2,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "XLPSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.7,
+   "cut_to": 0.7000000000000001
+  }
+ },
+ {
+  "fitness": 0.060612374464918385,
+  "ce_base": 0.06641944629676501,
+  "ce_stress": 0.06081114945450478,
+  "ce_gold": 0.060612374464918385,
+  "dry": 0.0,
+  "dry_stress": 0.0078125,
+  "lose": 0.078125,
+  "cut": 0.07421875,
+  "early": 0.05647081881761551,
+  "printer": {
+   "alloc": {
+    "GDESIM": 22,
+    "DBMFSIM": 23,
+    "KMLMSIM": 17,
+    "VBRSIM": 17,
+    "GLDSIM": 10,
+    "TQQQSIM": 4,
+    "ZROZSIM": 5,
+    "NTSXSIM": 1,
+    "RSSBSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.39999999999999997,
+   "bucket_months": 36,
+   "cut_below": 0.5999999999999999,
+   "cut_to": 0.6
+  }
+ },
+ {
+  "fitness": 0.0606064247523843,
+  "ce_base": 0.06630538902880567,
+  "ce_stress": 0.06095637997914378,
+  "ce_gold": 0.0606064247523843,
+  "dry": 0.00390625,
+  "dry_stress": 0.01171875,
+  "lose": 0.09375,
+  "cut": 0.03515625,
+  "early": 0.056264087557792664,
+  "printer": {
+   "alloc": {
+    "GDESIM": 20,
+    "DBMFSIM": 25,
+    "KMLMSIM": 16,
+    "VBRSIM": 16,
+    "GLDSIM": 12,
+    "TQQQSIM": 5,
+    "ZROZSIM": 2,
+    "IEFSIM": 1,
+    "XLPSIM": 3
+   },
+   "base": 5.0,
+   "skim": 0.35,
+   "bucket_months": 48,
+   "cut_below": 0.5,
+   "cut_to": 0.65
+  }
+ },
+ {
+  "fitness": 0.06058967483290993,
+  "ce_base": 0.06719436526743759,
+  "ce_stress": 0.06170653568631484,
+  "ce_gold": 0.06058967483290993,
+  "dry": 0.0,
+  "dry_stress": 0.00390625,
+  "lose": 0.0859375,
+  "cut": 0.0703125,
+  "early": 0.0564432293176651,
+  "printer": {
+   "alloc": {
+    "GDESIM": 24,
+    "DBMFSIM": 23,
+    "KMLMSIM": 18,
+    "VBRSIM": 17,
+    "GLDSIM": 10,
+    "TQQQSIM": 4,
+    "TYDSIM": 1,
+    "ZROZSIM": 2,
+    "NTSXSIM": 1
+   },
+   "base": 5.25,
+   "skim": 0.39999999999999997,
+   "bucket_months": 48,
+   "cut_below": 0.5999999999999999,
+   "cut_to": 0.6
+  }
+ }
+]
