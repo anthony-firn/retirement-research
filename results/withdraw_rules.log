@@ -1,0 +1,9 @@
+Retiree, $300k, 40 years, policy at retiree budget 25%, 2000 bootstrapped histories from 1971-2026
+   rule                       | ran out | p5 lowest real value | avg real spending vs plan | deepest cut
+   fixed 4.0%                 |   1.1%  |       48%            |     99.9%                |    0%
+   fixed 3.5%                 |   0.1%  |       70%            |    100.0%                |    0%
+   fixed 3.0%                 |   0.0%  |       79%            |    100.0%                |    0%
+   guardrail 4.0%             |   0.1%  |       60%            |     99.0%                |   20%
+   guardrail 4.5%             |   0.7%  |       41%            |     98.0%                |   20%
+   floor-ceiling 4.0%         |   0.1%  |       66%            |    111.7%                |   15%
+   floor-ceiling 4.5%         |   0.7%  |       48%            |    108.2%                |   15%

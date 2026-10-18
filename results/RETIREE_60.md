@@ -19,6 +19,14 @@ Script: `strategy/retiree_plan.py`; full table: `results/retiree_plan.log`.
   Simple-6.8 lowest $235.6k (median $334k); C1-Now lowest $273.1k (median $567k).
 - 30-year windows only start 1988–1996 (generally favourable starts); 20-year windows include 2000 and 2007 starts.
 
+## Update: 1970s stagflation test and withdrawal rule (2026-10-17)
+- Through 1972–2026 (1970s rebuilt from testfol components + haircut managed-futures proxy), every candidate survived
+  all 298 thirty-year 4% windows starting 1972–1996. Worst lowest real value: **Simple-6.8 74%**, Simple-7.5 55%,
+  Simple-6 57%, Safe-Now 57%, C1-Now 79% (`results/retiree_1970s.log`).
+- With inflation elevated today, **Simple-6.8 (IEI 34 · UUP 20 · KMLM 17 · VOE 17 · GLD 12) is the preferred simple choice**.
+- Withdrawals: take **4% of the current value each year, but never below 85% or above 120% of the planned amount**.
+  In 2000 harsh synthetic 40-year histories this cut run-out risk from 1.1% (fixed 4%) to 0.1% and paid 12% more on average.
+
 ## Bigger levers than the portfolio
 - **Emergency fund** (6–12 months of expenses) in savings/T-bills, outside the portfolio.
 - **Health insurance from 60 to Medicare at 65** (marketplace/COBRA) — budget for it.

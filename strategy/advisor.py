@@ -54,6 +54,10 @@ def main():
     if info["stage"].startswith("retired") and a.max_drop and a.max_drop < 13:
         print(f"NOTE: you asked for at most a {a.max_drop:.0f}% drop. Retiree portfolios safer than this one (worst drop ~13% in 1972-2026) "
               f"did not earn enough to cover 4% withdrawals + inflation in the 1970s - real wealth fell to ~36-45%. Consider a lower withdrawal rate instead.")
+    if info["stage"].startswith("retired") and a.spending:
+        plan = max(a.spending - a.other_income, 0); wd = min(max(0.04 * a.value, 0.85 * plan), 1.2 * plan)
+        print(f"Withdrawal this year (floor-ceiling rule: 4% of today's value, kept within 85%-120% of plan): ${wd:,.0f}"
+              f" (plan ${plan:,.0f}). In 2000 harsh 1970s-inclusive histories this cut 40-year run-out risk from 1.1% to 0.1%.")
     print(f"Account drawdown: {dd:.1f}% below peak -> " + ("breaker not engaged" if x >= x_cap - 1e-6 else f"BREAKER ENGAGED: risk cut from tier {x_cap:.2f} to {x:.2f}"))
     print(f"\nRECOMMENDED: {1-f:.0%} {lo}" + (f" + {f:.0%} {hi}" if f > 0.005 else ""))
     print("Target weights: " + ", ".join(f"{t} {x_*100:.1f}%" for t, x_ in w.items()))

@@ -1,0 +1,7 @@
+Built from testfol SIM components + documented proxies (KMLM -> haircut trend proxy), 1972-2026, yearly rebalance
+portfolio   | 1972-87 CAGR  MDD | 1973-74 | 1979-81 | 1972-2026 CAGR  MDD | 4%/yr 30-yr windows from 1972-1996: survived  worst lowest-real  median end-real
+Simple-6    |     11.23   7.0 |   +3.1% |  +47.6% |        7.62   7.0 | 298/298            57%  $     538,165
+Simple-6.8  |     12.98  11.3 |  +18.2% |  +64.5% |        8.51  11.3 | 298/298            74%  $     608,408
+Simple-7.5  |     11.58   9.5 |   +0.3% |  +43.5% |        8.39   9.5 | 298/298            55%  $     666,106
+C1-Now      |     13.47  12.5 |  +18.7% |  +67.7% |        9.29  12.5 | 298/298            79%  $     776,250
+Safe-Now    |     11.26   8.7 |   +4.6% |  +43.9% |        7.85   8.7 | 298/298            57%  $     502,770
