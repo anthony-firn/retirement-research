@@ -1,0 +1,42 @@
+{
+ "base case (the retiree's taxes ~3% of gains)|band \u00b16pp, min 1y, valve 2x": {
+  "90": 5.1898598879316955,
+  "75": 6.1715411548346175,
+  "50": 7.404550125776106
+ },
+ "base case (the retiree's taxes ~3% of gains)|yearly + 2x valve": {
+  "90": 5.209546432126529,
+  "75": 6.25002165240631,
+  "50": 7.418233823652114
+ },
+ "middle tax bracket (~20% of gains)|band \u00b16pp, min 1y, valve 2x": {
+  "90": 4.5524581793776795,
+  "75": 5.463050568738463,
+  "50": 6.58148693877889
+ },
+ "middle tax bracket (~20% of gains)|yearly + 2x valve": {
+  "90": 4.517244033817703,
+  "75": 5.440730592071405,
+  "50": 6.508054005515401
+ },
+ "trend funds earn 2%/yr less|band \u00b16pp, min 1y, valve 2x": {
+  "90": 4.477288107388379,
+  "75": 5.4472978521545885,
+  "50": 6.6232852367210455
+ },
+ "trend funds earn 2%/yr less|yearly + 2x valve": {
+  "90": 4.512340215436639,
+  "75": 5.517551440825203,
+  "50": 6.640765680395555
+ },
+ "harsher reshuffle (3-month blocks)|band \u00b16pp, min 1y, valve 2x": {
+  "90": 5.2136985508561455,
+  "75": 6.243362635793564,
+  "50": 7.457409091089075
+ },
+ "harsher reshuffle (3-month blocks)|yearly + 2x valve": {
+  "90": 5.265978473476396,
+  "75": 6.318237934876417,
+  "50": 7.514089964229002
+ }
+}

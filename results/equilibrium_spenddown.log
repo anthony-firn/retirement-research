@@ -1,0 +1,11 @@
+Spend-down instead of preserving: fixed inflation-adjusted income for 40 years (age 60 -> 100), chance the money runs out before 100:
+    4.0% of starting value per year: runs out in   0.1% of histories | real value left at 100: median  1043% of start
+    5.0% of starting value per year: runs out in   3.0% of histories | real value left at 100: median   766% of start
+    5.5% of starting value per year: runs out in   7.7% of histories | real value left at 100: median   633% of start
+    6.0% of starting value per year: runs out in  14.1% of histories | real value left at 100: median   495% of start
+    6.5% of starting value per year: runs out in  23.1% of histories | real value left at 100: median   348% of start
+    7.0% of starting value per year: runs out in  32.6% of histories | real value left at 100: median   213% of start
+    7.5% of starting value per year: runs out in  43.6% of histories | real value left at 100: median    73% of start
+    8.0% of starting value per year: runs out in  54.8% of histories | real value left at 100: median     0% of start
+    9.0% of starting value per year: runs out in  73.4% of histories | real value left at 100: median     0% of start
+   10.0% of starting value per year: runs out in  86.2% of histories | real value left at 100: median     0% of start

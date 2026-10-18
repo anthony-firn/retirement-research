@@ -1,0 +1,18 @@
+A) Fixed inflation-adjusted income, 40 years, keep the real starting value (bootstrap, 2000 histories)
+  base case (the retiree's taxes ~3% of gains)         band ±6pp, min 1y, valve 2x  | 90%:  5.19%  75%:  6.17%  50%:  7.40% | at 5%: real low point p10   65% of start, ran out 3.0%
+  base case (the retiree's taxes ~3% of gains)         yearly + 2x valve            | 90%:  5.21%  75%:  6.25%  50%:  7.42% | at 5%: real low point p10   65% of start, ran out 3.0%
+  middle tax bracket (~20% of gains)         band ±6pp, min 1y, valve 2x  | 90%:  4.55%  75%:  5.46%  50%:  6.58% | at 5%: real low point p10   24% of start, ran out 8.2%
+  middle tax bracket (~20% of gains)         yearly + 2x valve            | 90%:  4.52%  75%:  5.44%  50%:  6.51% | at 5%: real low point p10   15% of start, ran out 8.6%
+  trend funds earn 2%/yr less                band ±6pp, min 1y, valve 2x  | 90%:  4.48%  75%:  5.45%  50%:  6.62% | at 5%: real low point p10   17% of start, ran out 8.5%
+  trend funds earn 2%/yr less                yearly + 2x valve            | 90%:  4.51%  75%:  5.52%  50%:  6.64% | at 5%: real low point p10   24% of start, ran out 8.1%
+  harsher reshuffle (3-month blocks)         band ±6pp, min 1y, valve 2x  | 90%:  5.21%  75%:  6.24%  50%:  7.46% | at 5%: real low point p10   65% of start, ran out 3.2%
+  harsher reshuffle (3-month blocks)         yearly + 2x valve            | 90%:  5.27%  75%:  6.32%  50%:  7.51% | at 5%: real low point p10   65% of start, ran out 3.1%
+
+B) Skim plan: fixed real base income + skim the excess above a buffer each year-end (40 years, bootstrap)
+   base buffer | avg income/yr: p10   median  | worst year (=base) | income in a typical year: p25 / median / p75 | real end value p10 / median | real low point p10
+   4.0%    10% |           5.92%   8.38%  |        4.0%        |             4.00% /  4.00% / 10.25%      |      0.85 /  1.07      |    65%
+   4.0%    25% |           6.21%   9.15%  |        4.0%        |             4.00% /  4.00% / 11.47%      |      1.02 /  1.23      |    74%
+   4.5%    10% |           5.75%   8.22%  |        4.5%        |             4.50% /  4.50% /  9.22%      |      0.71 /  1.04      |    58%
+   4.5%    25% |           5.96%   9.02%  |        4.5%        |             4.50% /  4.50% / 10.37%      |      0.94 /  1.21      |    68%
+   5.0%    10% |           5.50%   8.11%  |        5.0%        |             5.00% /  5.00% /  7.88%      |      0.47 /  1.00      |    43%
+   5.0%    25% |           5.53%   8.83%  |        5.0%        |             5.00% /  5.00% /  9.01%      |      0.74 /  1.18      |    58%

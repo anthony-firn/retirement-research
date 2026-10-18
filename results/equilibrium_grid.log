@@ -1,0 +1,69 @@
+142 rules x 7 rates x 1000 bootstrap histories, 30y, tax 3%, MF haircut 0%
+  36/142 (51s)
+  72/142 (103s)
+  108/142 (162s)
+  144/142 (221s)
+
+rule                               | equilibrium rate: 90% of histories  50% | real value dip (p10) | rebalances/yr
+band ±4pp, min 0, valve 1.75x      |                  5.27%       7.46% |    68.4% of start   | 1.05
+band ±5pp, min 18m, valve 3.0x     |                  5.24%       7.41% |    68.6% of start   | 0.43
+band ±4pp, min 0, valve 2.0x       |                  5.24%       7.49% |    67.9% of start   | 1.03
+band ±4pp, min 0, valve 2.5x       |                  5.24%       7.49% |    67.9% of start   | 1.03
+band ±4pp, min 0, valve 3.0x       |                  5.24%       7.49% |    67.9% of start   | 1.03
+band ±4pp, min 0, no valve         |                  5.24%       7.49% |    67.9% of start   | 1.03
+band ±6pp, min 6m, no valve        |                  5.23%       7.46% |    68.9% of start   | 0.40
+band ±6pp, min 6m, valve 3.0x      |                  5.23%       7.46% |    69.1% of start   | 0.40
+band ±6pp, min 6m, valve 2.5x      |                  5.23%       7.44% |    68.9% of start   | 0.40
+band ±5pp, min 18m, valve 2.5x     |                  5.22%       7.39% |    68.6% of start   | 0.44
+band ±6pp, min 18m, valve 3.0x     |                  5.22%       7.42% |    68.6% of start   | 0.34
+band ±6pp, min 6m, valve 2.0x      |                  5.22%       7.42% |    69.1% of start   | 0.44
+band ±6pp, min 0, valve 2.5x       |                  5.21%       7.46% |    68.9% of start   | 0.42
+band ±6pp, min 0, valve 3.0x       |                  5.21%       7.46% |    68.9% of start   | 0.42
+band ±6pp, min 0, no valve         |                  5.21%       7.46% |    68.9% of start   | 0.42
+band ±6pp, min 1y, valve 2.0x      |                  5.21%       7.40% |    67.9% of start   | 0.42
+band ±5pp, min 18m, valve 2.0x     |                  5.21%       7.37% |    68.7% of start   | 0.48
+band ±6pp, min 18m, valve 2.0x     |                  5.21%       7.36% |    69.1% of start   | 0.40
+band ±5pp, min 18m, no valve       |                  5.21%       7.40% |    67.1% of start   | 0.43
+band ±6pp, min 1y, valve 2.5x      |                  5.20%       7.39% |    67.6% of start   | 0.38
+band ±6pp, min 18m, valve 2.5x     |                  5.20%       7.40% |    68.8% of start   | 0.35
+band ±6pp, min 18m, no valve       |                  5.20%       7.41% |    67.5% of start   | 0.34
+band ±5pp, min 6m, valve 3.0x      |                  5.20%       7.46% |    66.7% of start   | 0.56
+band ±6pp, min 0, valve 2.0x       |                  5.20%       7.43% |    69.1% of start   | 0.45
+band ±5pp, min 6m, valve 2.5x      |                  5.19%       7.45% |    66.7% of start   | 0.56
+yearly, no valve                   |                  5.19%       7.47% |    67.9% of start   | 0.96
+yearly + 2x valve (current)        |                  5.14%       7.39% |    66.9% of start   | 1.04
+#### HISTORICAL 30-year windows (monthly starts 1972-1996)
+142 rules x 7 rates x 298 historical windows, 30y, tax 3%, MF haircut 0%
+  36/142 (20s)
+  72/142 (48s)
+  108/142 (71s)
+  144/142 (101s)
+
+rule                               | equilibrium rate: 90% of histories  50% | real value dip (p10) | rebalances/yr
+band ±5pp, min 1y, valve 3.0x      |                  8.06%       9.00% |    65.7% of start   | 0.40
+band ±7pp, min 1y, valve 3.0x      |                  8.06%       9.00% |    67.2% of start   | 0.27
+band ±5pp, min 1y, no valve        |                  8.06%       9.00% |    65.7% of start   | 0.39
+band ±5pp, min 1y, valve 2.5x      |                  7.99%       9.00% |    65.7% of start   | 0.40
+band ±7pp, min 1y, valve 2.5x      |                  7.99%       9.00% |    67.2% of start   | 0.27
+band ±7pp, min 1y, no valve        |                  7.98%       9.00% |    67.2% of start   | 0.27
+band ±8pp, min 18m, valve 3.0x     |                  7.95%       9.00% |    65.8% of start   | 0.19
+band ±5pp, min 1y, valve 2.0x      |                  7.92%       9.00% |    66.8% of start   | 0.44
+band ±8pp, min 1y, valve 3.0x      |                  7.92%       9.00% |    67.0% of start   | 0.21
+band ±8pp, min 1y, no valve        |                  7.92%       9.00% |    67.0% of start   | 0.20
+band ±5pp, min 0, valve 2.0x       |                  7.91%       9.00% |    65.5% of start   | 0.46
+band ±5pp, min 0, valve 2.5x       |                  7.91%       9.00% |    65.5% of start   | 0.46
+band ±5pp, min 0, valve 3.0x       |                  7.91%       9.00% |    65.5% of start   | 0.46
+band ±5pp, min 0, no valve         |                  7.91%       9.00% |    65.5% of start   | 0.46
+band ±7pp, min 6m, valve 2.5x      |                  7.88%       9.00% |    66.5% of start   | 0.27
+band ±7pp, min 6m, valve 3.0x      |                  7.88%       9.00% |    66.5% of start   | 0.27
+band ±7pp, min 6m, no valve        |                  7.88%       9.00% |    66.5% of start   | 0.26
+band ±5pp, min 0, valve 1.75x      |                  7.87%       9.00% |    64.5% of start   | 0.51
+band ±6pp, min 1y, valve 3.0x      |                  7.87%       9.00% |    64.0% of start   | 0.32
+band ±8pp, min 1y, valve 2.5x      |                  7.86%       9.00% |    67.0% of start   | 0.22
+band ±8pp, min 18m, valve 2.5x     |                  7.85%       9.00% |    65.8% of start   | 0.20
+band ±5pp, min 18m, valve 3.0x     |                  7.85%       9.00% |    52.4% of start   | 0.35
+band ±12pp, min 0, no valve        |                  7.84%       9.00% |    65.0% of start   | 0.10
+band ±12pp, min 6m, no valve       |                  7.84%       9.00% |    65.0% of start   | 0.10
+band ±12pp, min 1y, no valve       |                  7.84%       9.00% |    65.0% of start   | 0.10
+yearly + 2x valve (current)        |                  7.51%       9.00% |    18.4% of start   | 1.02
+yearly, no valve                   |                  7.49%       9.00% |    73.9% of start   | 0.96
