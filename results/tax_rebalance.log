@@ -1,0 +1,37 @@
+Taxable account, $100k start, 1988-2026, capital-gains tax 20% on net realised gains (losses carried forward)
+
+S12+: KMLM 35, VBR 18, TYD 12, GLD 11, XLV 9, IEI 9, TQQQ 5, XLE 1   (no-tax annual rebalance ends at $7,676,825)
+   method      | end value  | after-tax if sold | tax paid  | avg drift | max DD | cost of taxes vs no-tax
+   annual      | $5,187,921 | $     4,679,756 | $631,409 |    4.3%   |  15.2% |  39.0%
+   band5       | $4,931,991 | $     4,444,772 | $592,123 |    4.3%   |  13.2% |  42.1%
+   band10      | $6,835,903 | $     6,130,719 | $781,905 |    7.8%   |  12.7% |  20.1%
+   cashflow    | $6,835,903 | $     6,130,719 | $781,905 |    7.8%   |  12.7% |  20.1%
+   band10+TLH  | $6,930,410 | $     6,200,446 | $774,669 |    7.8%   |  12.7% |  19.2%
+   with $12k/yr contributions:
+   annual      | $10,022,891 | $     9,060,425 | $1,151,121 |    4.3%
+   band10      | $12,783,390 | $    11,293,674 | $1,188,831 |    7.9%
+   cashflow    | $13,294,354 | $    11,935,098 | $1,443,140 |    7.2%
+
+Simple-6.8: IEI 34, UUP 20, KMLM 17, VOE 17, GLD 12   (no-tax annual rebalance ends at $1,274,181)
+   method      | end value  | after-tax if sold | tax paid  | avg drift | max DD | cost of taxes vs no-tax
+   annual      | $1,047,100 | $       935,114 | $ 95,512 |    2.5%   |   7.1% |  26.6%
+   band5       | $1,150,836 | $     1,026,771 | $106,358 |    3.5%   |   7.2% |  19.4%
+   band10      | $1,287,505 | $     1,133,983 | $ 74,180 |    7.0%   |   8.9% |  11.0%
+   cashflow    | $1,287,505 | $     1,133,983 | $ 74,180 |    7.0%   |   8.9% |  11.0%
+   band10+TLH  | $1,294,538 | $     1,139,606 | $ 73,409 |    7.0%   |   8.9% |  10.6%
+   with $12k/yr contributions:
+   annual      | $2,660,534 | $     2,401,215 | $196,656 |    2.5%
+   band10      | $3,113,373 | $     2,773,957 | $136,893 |    6.8%
+   cashflow    | $3,039,322 | $     2,681,199 | $158,102 |    5.6%
+
+C1-Now: IEI 35, KMLM 22, GLD 14, UUP 12, XLE 6, XLP 5, XLV 4, TQQQ 2   (no-tax annual rebalance ends at $1,971,317)
+   method      | end value  | after-tax if sold | tax paid  | avg drift | max DD | cost of taxes vs no-tax
+   annual      | $1,529,925 | $     1,370,144 | $155,799 |    3.0%   |   8.6% |  30.5%
+   band5       | $1,757,821 | $     1,574,644 | $183,612 |    3.9%   |   9.0% |  20.1%
+   band10      | $1,915,660 | $     1,687,689 | $162,948 |    8.0%   |  10.7% |  14.4%
+   cashflow    | $1,915,660 | $     1,687,689 | $162,948 |    8.0%   |  10.7% |  14.4%
+   band10+TLH  | $1,929,748 | $     1,699,486 | $163,481 |    8.0%   |  10.7% |  13.8%
+   with $12k/yr contributions:
+   annual      | $3,617,232 | $     3,264,037 | $317,154 |    3.0%
+   band10      | $4,760,988 | $     4,233,733 | $376,335 |    7.6%
+   cashflow    | $4,552,434 | $     4,083,955 | $287,761 |    6.1%
