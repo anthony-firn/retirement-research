@@ -1,0 +1,25 @@
+
+25y $20k +$12k, wants $60k  (2082 of 2700 settings feasible, 23s)
+  current   BASE    8 SLOPE 1.0  CAP 40 RET  8 F0 1.0 | years to goal: median 21.5 p75 25.3 worst 30.0 | reached 40/117 | ran out 0 | lowest real after retiring   48% of egg | max DD 24.2%
+  optimised BASE   12 SLOPE 1.5  CAP 50 RET 15 F0 1.0 | years to goal: median 18.9 p75 20.9 worst 24.3 | reached 63/117 | ran out 0 | lowest real after retiring   70% of egg | max DD 30.4%
+
+40y $250k +$20k, wants $70k  (1255 of 2700 settings feasible, 46s)
+  current   BASE    8 SLOPE 1.0  CAP 40 RET  8 F0 1.0 | years to goal: median 17.8 p75 23.0 worst 28.7 | reached 45/117 | ran out 0 | lowest real after retiring   20% of egg | max DD 18.3%
+  optimised BASE   12 SLOPE 1.5  CAP 50 RET 20 F0 0.8 | years to goal: median 14.0 p75 16.5 worst 21.5 | reached 88/117 | ran out 0 | lowest real after retiring   83% of egg | max DD 26.0%
+
+55y $800k +$25k, wants $70k  (950 of 2700 settings feasible, 69s)
+  current   BASE    8 SLOPE 1.0  CAP 40 RET  8 F0 1.0 | years to goal: median 13.1 p75 15.7 worst 19.1 | reached 85/117 | ran out 0 | lowest real after retiring   23% of egg | max DD  8.8%
+  optimised BASE   12 SLOPE 1.5  CAP 25 RET 15 F0 1.0 | years to goal: median  8.7 p75 11.1 worst 15.2 | reached 108/117 | ran out 0 | lowest real after retiring   71% of egg | max DD 14.4%
+
+Retiree: 60y, $300k, withdrawing 4% ($12k) inflation-indexed, 25 years max
+  retiree budget    5% -> ran out 0/117 | worst lowest real value  17.4% | median lowest  51.6% | max DD  3.5%
+  retiree budget    6% -> ran out 0/117 | worst lowest real value  17.4% | median lowest  51.6% | max DD  3.5%
+  retiree budget    8% -> ran out 0/117 | worst lowest real value  21.4% | median lowest  53.7% | max DD  3.7%
+  retiree budget   10% -> ran out 0/117 | worst lowest real value  44.5% | median lowest  65.9% | max DD  4.7%
+  retiree budget   12% -> ran out 0/117 | worst lowest real value  56.7% | median lowest  75.0% | max DD  5.7%
+  retiree budget   15% -> ran out 0/117 | worst lowest real value  72.6% | median lowest  93.7% | max DD  7.5%
+  retiree budget   20% -> ran out 0/117 | worst lowest real value  83.6% | median lowest  96.9% | max DD 10.2%
+  retiree budget   25% -> ran out 0/117 | worst lowest real value  82.7% | median lowest  96.9% | max DD 14.4%
+  retiree budget   30% -> ran out 0/117 | worst lowest real value  76.0% | median lowest  96.3% | max DD 18.0%
+
+done 76s
