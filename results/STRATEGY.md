@@ -29,12 +29,13 @@ Chosen on 1988–2002 starts, validated on 2003–2016 starts (same rule both wa
 - Retirees: an 8% budget let real wealth fall to 21% of the start (too little return for 4% + inflation);
   15–20% keeps the worst case at 73–84%. "Safest" by drawdown is not safest for someone withdrawing.
 
-## 4. Comfort cap: drop you can sit through vs retiring sooner (40y, $250k, +$20k/yr)
-| Worst drop lived through | 7.5% | 10% | 14% | 18% | 24% | 30% |
+## 4. Comfort cap: drop you can sit through vs retiring sooner (40y, $250k, +$20k/yr; 1972-calibrated, starts 1972–2016)
+| Worst drop lived through | 11% | 13% | 17% | 20% | 23% | 29% |
 |---|---|---|---|---|---|---|
-| Years to retire (median / p75) | 21.6/25.1 | 17.8/21.3 | 16.0/18.8 | 14.8/16.8 | 13.3/14.7 | 11.2/12.4 |
-Actual worst drop ≈ 60% of the cap → `advisor.py --max-drop X` sets cap = X / 0.6.
-Full menus for all profiles: `results/comfort_menu.log`.
+| Years to retire (median / p75) | 20.6/23.8 | 19.9/21.7 | 18.4/20.5 | 15.5/17.9 | 14.2/17.0 | 13.7/15.5 |
+Actual worst drop ≈ 57% of the budget → `advisor.py --max-drop X` sets the pre-retirement cap = X / 0.57.
+The cap is not applied after retiring (too little risk erodes real wealth under withdrawals).
+Full menus: `results/comfort_menu_1972.log` (1988-only first pass: `results/comfort_menu.log`).
 
 ## 5. Stress beyond 1988: the 1970s and 2000 synthetic histories
 - Tiers rebuilt back to 1972 from testfol SIM components (`strategy/history70s.py`); KMLM before 1988 = 12-month
