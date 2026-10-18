@@ -1,0 +1,27 @@
+Component (weight)   CAGR   vol   maxDD Sharpe | corr VTI corr port |  73-74 stagfl 79-81 Volcker    1987 crash 00-02 dot-com     07-09 GFC    2020 Covid    2022 rates
+DBMF   (24%)         10.5  10.1   20.5  0.60  | +0.05     +0.56     |         +28.1         +74.8          -3.6         +35.0         +21.8          -6.6         +32.9
+KMLM   (16%)         10.6  14.3   32.0  0.47  | -0.10     +0.46     |         +33.5         +91.0          -5.8         +24.9         +63.9         +15.8         +49.6
+GLD    (15%)          8.7  19.9   70.2  0.30  | +0.02     +0.38     |        +140.1         +98.5          +6.2         +12.0         +24.6          -3.6          -8.8
+VBR    (14%)         13.7  17.5   61.9  0.57  | +0.88     +0.56     |         -40.1         +71.3         -32.8          -8.1         -60.1         -44.6         -16.9
+XLV    (13%)         11.5  17.6   48.3  0.46  | +0.81     +0.60     |         -47.7         +39.2         -34.1         -17.0         -38.3         -27.9         -10.1
+TYD    (10%)          5.3  21.8   75.7  0.15  | -0.04     +0.22     |         -29.8         -65.4          -1.5        +100.9         +54.6         +18.5         -44.0
+TQQQ   ( 5%)          7.7  72.2  100.0  0.41  | +0.85     +0.63     |         -94.7         -51.0         -83.4        -100.0         -94.1         -69.8         -79.5
+UUP    ( 3%)          3.6   8.5   39.2 -0.06  | -0.04     -0.08     |          +4.1         +68.5          -6.2          +9.8         +11.9          +4.0         +18.1
+VTI    ( 0%)         11.2  16.8   55.4  0.45  | +1.00     +0.65     |         -48.4         +41.8         -33.2         -48.0         -55.4         -35.0         -25.3
+CH-12 portfolio      12.9   9.6   21.0  0.86  |                   |          +4.6         +54.0         -19.8          +3.1          -1.1         -11.7          +3.1
+
+Weighted average of component CAGRs 9.96% vs portfolio 12.94%  (rebalancing / diversification bonus +2.98%/yr)
+Share of portfolio risk: DBMF 13%  KMLM 10%  GLD 12%  VBR 17%  XLV 16%  TYD 5%  TQQQ 27%  UUP -0%
+By sleeve:  Trend (KMLM+DBMF): weight 40% / risk 23%  Stocks (VBR+XLV+TQQQ): weight 32% / risk 60%  Treasuries (TYD): weight 10% / risk 5%  Gold+dollar (GLD+UUP): weight 18% / risk 11%
+Average daily return on VTI's worst 5% of days: DBMF +0.01%  KMLM +0.33%  GLD +0.09%  VBR -2.37%  XLV -2.04%  TYD +0.44%  TQQQ -8.81%  UUP +0.04%  VTI -2.48%  CH-12 -0.81%
+
+Leave one out (weights rescaled):   CAGR   maxDD  Sharpe  2022  73-74
+  (none - CH-12)         12.94   21.0   0.86   +3.1   +4.6
+  without DBMF            13.51   25.2   0.80   -6.4   -2.7
+  without KMLM            13.14   23.1   0.82   -5.8   -1.1
+  without GLD             13.09   25.0   0.82   +5.2  -14.2
+  without VBR             12.58   19.3   0.81   +6.4  +13.2
+  without XLV             13.02   19.0   0.86   +5.1  +13.8
+  without TYD             13.46   22.7   0.85   +8.2   +8.8
+  without TQQQ            11.33   16.8   0.85   +7.6  +13.5
+  without UUP             13.20   21.5   0.86   +2.7   +4.6
