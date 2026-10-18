@@ -891,5 +891,20 @@
   },
   "note": "Reference: classic 60/40",
   "clean": true
+ },
+ "Plan-b40-split": {
+  "alloc": {
+   "KMLMSIM": 18,
+   "DBMFSIM": 17,
+   "TYDSIM": 16,
+   "VBRSIM": 15,
+   "XLVSIM": 15,
+   "GLDSIM": 9,
+   "TQQQSIM": 5,
+   "IEISIM": 3,
+   "XLESIM": 2
+  },
+  "note": "Plan-b40 with managed futures split KMLM 18 / DBMF 17 (recommended). Daily breaker via advisor --budget 40.",
+  "clean": true
  }
 }
