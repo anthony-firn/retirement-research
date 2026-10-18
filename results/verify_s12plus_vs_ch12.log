@@ -1,0 +1,6 @@
+1987-12-31  S12+                       CAGR 11.90  MDD  -13.7  Sharpe 0.957  Calmar 0.870  Ulcer 3.38
+1987-12-31  CH-12 KMLM-only           CAGR 11.93  MDD  -16.0  Sharpe 0.933  Calmar 0.744  Ulcer 3.74
+2000-01-03  S12+                       CAGR  9.28  MDD  -13.7  Sharpe 0.829  Calmar 0.679  Ulcer 3.55
+2000-01-03  CH-12 KMLM-only           CAGR  9.35  MDD  -16.0  Sharpe 0.813  Calmar 0.583  Ulcer 3.96
+2000-01-03  S12+ split                 CAGR  9.59  MDD  -13.5  Sharpe 0.880  Calmar 0.710  Ulcer 3.10
+2000-01-03  CH-12                     CAGR  9.78  MDD  -13.5  Sharpe 0.887  Calmar 0.724  Ulcer 3.21

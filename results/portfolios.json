@@ -889,7 +889,7 @@
    "VTISIM": 60,
    "BNDSIM": 40
   },
-  "note": "Reference: classic 60/40",
+  "note": "common benchmark (testfol SIM tickers)",
   "clean": true
  },
  "Plan-b40-split": {
@@ -1005,6 +1005,70 @@
    "TMFSIM": 4
   },
   "note": "Shows 12% on testfol 2000-2026 (12.02%, MDD -19.6, Sharpe 0.834, Ulcer 5.13); GPU search with CAGR>=12 on 1972+/1988+/2000+, moderate guard rails; plan odds 98% but 5y odds of a >20% drop 28%; ~34% gold exposure via GDE",
+  "clean": true
+ },
+ "VTI (100% US stocks)": {
+  "alloc": {
+   "VTISIM": 100
+  },
+  "note": "common benchmark (testfol SIM tickers)",
+  "clean": true
+ },
+ "Golden Butterfly": {
+  "alloc": {
+   "VTISIM": 20,
+   "VBRSIM": 20,
+   "TLTSIM": 20,
+   "SHYSIM": 20,
+   "GLDSIM": 20
+  },
+  "note": "common benchmark (testfol SIM tickers)",
+  "clean": true
+ },
+ "All Weather": {
+  "alloc": {
+   "VTISIM": 30,
+   "TLTSIM": 40,
+   "IEFSIM": 15,
+   "GLDSIM": 7.5,
+   "GSGSIM": 7.5
+  },
+  "note": "common benchmark (testfol SIM tickers)",
+  "clean": true
+ },
+ "80/20": {
+  "alloc": {
+   "VTISIM": 80,
+   "BNDSIM": 20
+  },
+  "note": "common benchmark (testfol SIM tickers)",
+  "clean": true
+ },
+ "3-fund 60/40 (VTI/VXUS/BND)": {
+  "alloc": {
+   "VTISIM": 42,
+   "VXUSSIM": 18,
+   "BNDSIM": 40
+  },
+  "note": "common benchmark (testfol SIM tickers)",
+  "clean": true
+ },
+ "Permanent Portfolio": {
+  "alloc": {
+   "VTISIM": 25,
+   "TLTSIM": 25,
+   "SHYSIM": 25,
+   "GLDSIM": 25
+  },
+  "note": "common benchmark (testfol SIM tickers)",
+  "clean": true
+ },
+ "S&P 500 + gold 80/20": {
+  "alloc": {
+   "VTISIM": 80,
+   "GLDSIM": 20
+  },
+  "note": "common benchmark (testfol SIM tickers)",
   "clean": true
  }
 }

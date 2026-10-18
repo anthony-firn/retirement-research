@@ -1,0 +1,52 @@
+{
+ "CH-12": {
+  "DBMFSIM": 24,
+  "KMLMSIM": 16,
+  "GLDSIM": 15,
+  "VBRSIM": 14,
+  "XLVSIM": 13,
+  "TYDSIM": 10,
+  "TQQQSIM": 5,
+  "UUPSIM": 3
+ },
+ "VTI (100% US stocks)": {
+  "VTISIM": 100
+ },
+ "60/40": {
+  "VTISIM": 60,
+  "BNDSIM": 40
+ },
+ "Golden Butterfly": {
+  "VTISIM": 20,
+  "VBRSIM": 20,
+  "TLTSIM": 20,
+  "SHYSIM": 20,
+  "GLDSIM": 20
+ },
+ "All Weather": {
+  "VTISIM": 30,
+  "TLTSIM": 40,
+  "IEFSIM": 15,
+  "GLDSIM": 7.5,
+  "GSGSIM": 7.5
+ },
+ "80/20": {
+  "VTISIM": 80,
+  "BNDSIM": 20
+ },
+ "3-fund 60/40 (VTI/VXUS/BND)": {
+  "VTISIM": 42,
+  "VXUSSIM": 18,
+  "BNDSIM": 40
+ },
+ "Permanent Portfolio": {
+  "VTISIM": 25,
+  "TLTSIM": 25,
+  "SHYSIM": 25,
+  "GLDSIM": 25
+ },
+ "S&P 500 + gold 80/20": {
+  "VTISIM": 80,
+  "GLDSIM": 20
+ }
+}
