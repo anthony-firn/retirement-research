@@ -1,0 +1,9 @@
+Link settings: {'rebalanceFreq': 'Yearly', 'rebalanceOffset': 0, 'rebalanceBandMode': 'SYMMETRIC', 'absoluteDev': 0, 'relativeDev': 100}
+tickers: ['DBMFSIM', 'KMLMSIM', 'GLDSIM', 'VBRSIM', 'XLVSIM', 'TYDSIM', 'TQQQSIM', 'UUPSIM']
+2002-12-31 DBMF 26.6% (+11%) | KMLM 13.9% (-13%) | GLD 18.2% (+21%) | VBR 11.7% (-16%) | XLV 12.5% (-4%) | TYD 13.9% (+39%) | TQQQ 0.7% (-87%) | UUP 2.5% (-15%)
+2003-09-02 DBMF 23.9% (-0%) | KMLM 13.0% (-19%) | GLD 14.2% (-5%) | VBR 16.1% (+15%) | XLV 12.2% (-6%) | TYD 8.0% (-20%) | TQQQ 10.1% (+101%) | UUP 2.6% (-14%)
+2008-12-31 DBMF 26.5% (+11%) | KMLM 21.4% (+34%) | GLD 15.2% (+1%) | VBR 9.1% (-35%) | XLV 9.6% (-26%) | TYD 14.6% (+46%) | TQQQ 0.6% (-89%) | UUP 3.0% (+1%)
+2009-08-03 DBMF 22.4% (-7%) | KMLM 12.8% (-20%) | GLD 15.8% (+5%) | VBR 15.6% (+11%) | XLV 13.4% (+3%) | TYD 7.3% (-27%) | TQQQ 10.0% (+101%) | UUP 2.7% (-9%)
+2013-12-06 DBMF 22.0% (-8%) | KMLM 14.2% (-12%) | GLD 10.0% (-33%) | VBR 16.9% (+20%) | XLV 16.6% (+27%) | TYD 7.7% (-23%) | TQQQ 10.1% (+102%) | UUP 2.7% (-10%)
+2022-12-30 DBMF 29.1% (+21%) | KMLM 20.8% (+30%) | GLD 14.9% (-1%) | VBR 12.7% (-10%) | XLV 12.7% (-2%) | TYD 5.7% (-44%) | TQQQ 1.0% (-79%) | UUP 3.3% (+9%)
+2023-06-01 DBMF 21.0% (-12%) | KMLM 15.6% (-2%) | GLD 15.6% (+4%) | VBR 13.0% (-7%) | XLV 11.8% (-9%) | TYD 10.0% (+0%) | TQQQ 10.0% (+100%) | UUP 2.9% (-3%)
