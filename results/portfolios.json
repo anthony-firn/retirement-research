@@ -1078,5 +1078,22 @@
   },
   "note": "common benchmark (testfol SIM tickers)",
   "clean": true
+ },
+ "Crisis-Hedged 12 (no UUP)": {
+  "alloc": {
+   "DBMFSIM": 25,
+   "KMLMSIM": 16,
+   "GLDSIM": 15,
+   "VBRSIM": 15,
+   "XLVSIM": 13,
+   "TYDSIM": 11,
+   "TQQQSIM": 5
+  },
+  "note": "Taxable-account variant: UUP (K-1, marked to market yearly) dropped, its 3% spread pro-rata",
+  "clean": true,
+  "rebalance": {
+   "freq": "Yearly",
+   "relative_dev": 100
+  }
  }
 }
