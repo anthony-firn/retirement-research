@@ -1,0 +1,21 @@
+rule                           rebal month  CAGR    MDD   Sharpe  Ulcer  trades/yr   (testfol.io 2000-01-03 -> 2026-10-16)
+Yearly, offset   0d                     12   9.78  -13.5  0.887   3.21    1.0
+Yearly, offset  21d                     11   9.54  -14.1  0.856   3.22    1.0
+Yearly, offset  42d                     10   9.41  -14.6  0.834   3.34    1.0
+Yearly, offset  63d                     10   9.44  -15.6  0.819   3.57    1.0
+Yearly, offset  84d                     08   9.22  -16.0  0.820   3.45    1.0
+Yearly, offset 105d                     07   9.03  -15.1  0.803   3.56    1.0
+Yearly, offset 126d                     06   9.21  -14.9  0.815   3.50    1.0
+Yearly, offset 147d                     05   8.98  -16.5  0.792   3.68    1.0
+Yearly, offset 168d                     04   9.22  -14.5  0.811   3.79    1.0
+Yearly, offset 189d                     03   9.78  -14.9  0.856   3.68    1.0
+Yearly, offset 210d                     02   9.87  -14.5  0.875   3.40    1.0
+Yearly, offset 231d                     01   9.54  -13.4  0.860   3.27    1.0
+Quarterly, offset  0d                   06   9.53  -14.0  0.842   3.41    4.0
+Quarterly, offset 21d                   06   9.21  -14.3  0.826   3.63    4.0
+Quarterly, offset 42d                   05   8.87  -14.0  0.791   3.64    4.0
+Band only ±35% (daily check)            01   9.42  -15.5  0.812   3.60    3.3
+Band only ±25% (daily check)            01   9.36  -15.2  0.806   3.63    6.0
+Band only ±50% (daily check)            10   9.38  -15.2  0.808   3.63    1.7
+Yearly (12 months)             avg CAGR 9.42 (range 8.98-9.87)  avg MDD -14.8  avg Sharpe 0.836 (range 0.792-0.887)  avg Ulcer 3.47
+Quarterly (3 offsets)          avg CAGR 9.20 (range 8.87-9.53)  avg MDD -14.1  avg Sharpe 0.820 (range 0.791-0.842)  avg Ulcer 3.56

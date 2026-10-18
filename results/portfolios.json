@@ -977,11 +977,11 @@
    "TQQQSIM": 5,
    "UUPSIM": 3
   },
-  "note": "(formerly CH-12) Best true-12% for the retiree: GPU search on corrected 1972-2026 data, CAGR >= 12 on 1972+ and 1988+; testfol 2000-2026 9.78% / -13.5% (S12+ split 9.59 / -13.5); plan odds 97% | rebalance: check quarterly, rebalance all only if any holding is >35% off its own target (1972-2026: 5y >20%-drop odds 1-2% vs ~10% yearly)",
+  "note": "(formerly CH-12) Best true-12% for the retiree: GPU search on corrected 1972-2026 data, CAGR >= 12 on 1972+ and 1988+; testfol 2000-2026 9.78% / -13.5% (S12+ split 9.59 / -13.5); plan odds 97% | rebalance: yearly at year-end + safety band (rebalance early only if any holding reaches 2x its target, i.e. TQQQ > 10%)",
   "clean": true,
   "rebalance": {
-   "freq": "Quarterly",
-   "relative_dev": 35
+   "freq": "Yearly",
+   "relative_dev": 100
   }
  },
  "Crisis-Hedged 11.5": {
@@ -998,8 +998,8 @@
   "note": "(formerly CH-11.5) Calmer twin: 1988+ 11.5%, 5y odds of a >20% drop 2% vs 12%; testfol 2000-2026 9.26% / -12.8%",
   "clean": true,
   "rebalance": {
-   "freq": "Quarterly",
-   "relative_dev": 35
+   "freq": "Yearly",
+   "relative_dev": 100
   }
  },
  "Gold-Stack 12": {
