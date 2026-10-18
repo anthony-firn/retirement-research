@@ -1,0 +1,13 @@
+rule                                       | pre-tax: CAGR   MDD  Sharpe | rebal/yr  avg gap | after-tax CAGR (taxable): the retiree's case  middle | 5y>20%
+buy & hold (never)                         |  11.14  30.6  0.614 |  0.00     nany  |                 11.14    11.14 |   21%
+yearly Jan                                 |  12.90  21.0  0.860 |  1.00     1.0y  |                 12.79    12.11 |   10%
+yearly Jan + 2x valve (current)            |  12.71  18.1  0.869 |  1.24     0.8y  |                 12.58    11.92 |    1%
+every 2 yrs (even Jan)                     |  13.20  19.4  0.853 |  0.51     2.0y  |                 13.13    12.47 |    3%
+every 2 yrs (odd Jan)                      |  13.11  26.1  0.780 |  0.49     2.0y  |                 13.05    12.42 |   24%
+every 2 yrs (even) + 2x valve              |  12.14  19.4  0.817 |  0.67     1.5y  |                 12.08    11.51 |    2%
+every 2 yrs (odd) + 2x valve               |  12.82  17.0  0.877 |  0.80     1.2y  |                 12.72    12.07 |    1%
+drift only: abs ±5pp                       |  12.78  18.7  0.854 |  0.86     1.2y  |                 12.67    11.96 |    2%
+drift only: abs ±6pp OR 2x valve           |  12.90  20.2  0.860 |  0.67     1.5y  |                 12.81    12.13 |    8%
+drift only: rel ±60%                       |  12.58  17.6  0.843 |  1.09     0.9y  |                 12.47    11.77 |    1%
+drift only: rel ±75%                       |  12.74  18.9  0.858 |  0.67     1.5y  |                 12.65    12.03 |    2%
+drift, min 1y apart: abs ±5pp OR 2x valve  |  12.92  16.5  0.868 |  0.75     1.3y  |                 12.83    12.09 |    1%
