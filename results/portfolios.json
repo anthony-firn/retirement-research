@@ -906,5 +906,35 @@
   },
   "note": "Plan-b40 with managed futures split KMLM 18 / DBMF 17 (recommended). Daily breaker via advisor --budget 40.",
   "clean": true
+ },
+ "S12+ split": {
+  "alloc": {
+   "KMLMSIM": 18,
+   "DBMFSIM": 17,
+   "VBRSIM": 18,
+   "TYDSIM": 12,
+   "GLDSIM": 11,
+   "XLVSIM": 9,
+   "IEISIM": 9,
+   "TQQQSIM": 5,
+   "XLESIM": 1
+  },
+  "note": "S12+ with managed futures split KMLM 18 / DBMF 17 - matches/edges Plan-b40-split for the retiree plan with slightly lower drawdown",
+  "clean": true
+ },
+ "S13 split": {
+  "alloc": {
+   "KMLMSIM": 18,
+   "DBMFSIM": 17,
+   "GLDSIM": 19,
+   "TYDSIM": 16,
+   "XLPSIM": 8,
+   "TQQQSIM": 8,
+   "VBRSIM": 8,
+   "XLESIM": 5,
+   "SPMOSIM": 1
+  },
+  "note": "S13 with KMLM/DBMF split - slightly higher odds, ~2x early-drop risk",
+  "clean": true
  }
 }
