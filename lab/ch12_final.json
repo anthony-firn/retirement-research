@@ -1,0 +1,23 @@
+{
+ "H12": {
+  "KMLMSIM": 19,
+  "DBMFSIM": 19,
+  "VBRSIM": 17,
+  "GLDSIM": 16,
+  "XLVSIM": 12,
+  "ZROZSIM": 6,
+  "UUPSIM": 5,
+  "SPMOSIM": 5,
+  "TQQQSIM": 1
+ },
+ "H12-8": {
+  "KMLMSIM": 19,
+  "DBMFSIM": 19,
+  "VBRSIM": 17,
+  "GLDSIM": 16,
+  "XLVSIM": 12,
+  "ZROZSIM": 6,
+  "UUPSIM": 5,
+  "SPMOSIM": 6
+ }
+}

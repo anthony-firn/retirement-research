@@ -936,5 +936,34 @@
   },
   "note": "S13 with KMLM/DBMF split - slightly higher odds, ~2x early-drop risk",
   "clean": true
+ },
+ "H12": {
+  "alloc": {
+   "KMLMSIM": 19,
+   "DBMFSIM": 19,
+   "VBRSIM": 17,
+   "GLDSIM": 16,
+   "XLVSIM": 12,
+   "ZROZSIM": 6,
+   "UUPSIM": 5,
+   "SPMOSIM": 5,
+   "TQQQSIM": 1
+  },
+  "note": "GPU search for the retiree (1972-2026 incl. 1970s, beat S12+ split + today's guard rails): MDD 16.9 vs 21.4, 5y>20% drop odds 2% vs 12%, same plan odds",
+  "clean": true
+ },
+ "H12-8": {
+  "alloc": {
+   "KMLMSIM": 19,
+   "DBMFSIM": 19,
+   "VBRSIM": 17,
+   "GLDSIM": 16,
+   "XLVSIM": 12,
+   "ZROZSIM": 6,
+   "UUPSIM": 5,
+   "SPMOSIM": 6
+  },
+  "note": "H12 without the 1% TQQQ (8 funds, no leveraged ETFs) - recommended for the retiree; testfol 2000-2026 8.47% CAGR, -11.7% MDD",
+  "clean": true
  }
 }
