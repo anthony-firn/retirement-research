@@ -1,0 +1,33 @@
+=== A_policy_from_1988_stats  returns: data_portfolios_1972.json  tier stats: data_portfolios.json ===
+budget position | policy 1972-2026 CAGR/MDD | breaker-engaged | static tier at that position CAGR/MDD
+   10%     1.12 |   8.24% /   9.1%          |   0.9% of days  |   8.27% /   8.9%
+   15%     2.14 |   9.41% /  12.5%          |   1.7% of days  |   9.60% /  12.4%
+   20%     4.20 |  10.94% /  18.1%          |   2.5% of days  |  11.15% /  18.5%
+   25%     5.42 |  12.57% /  22.4%          |   2.7% of days  |  12.92% /  22.7%
+   30%     7.21 |  13.48% /  27.4%          |   2.7% of days  |  13.82% /  24.0%
+   40%     9.69 |  13.00% /  34.6%          |   4.2% of days  |  13.89% /  34.1%
+   50%    12.08 |  13.37% /  46.3%          |   9.0% of days  |  15.35% /  46.5%
+
+25y $20k +$12k, wants $60k
+   rule                   | cohort 1972-87: ran out  low-real-after  p75 yrs  worst DD | all 1972-2016: ran out  low-real-after  p75 yrs  worst DD
+   old rule               |   0/65          44%     24.3    34.6%       |   0/181         44%     24.6    34.6%      
+   new rule               |   0/65          77%     22.6    46.4%       |   0/181         71%     21.0    46.4%      
+   new, comfort cap 30    |   0/65          74%     24.0    27.4%       |   0/181         69%     24.8    27.4%      
+
+40y $250k +$20k, wants $70k
+   rule                   | cohort 1972-87: ran out  low-real-after  p75 yrs  worst DD | all 1972-2016: ran out  low-real-after  p75 yrs  worst DD
+   old rule               |   0/65          23%     19.6    26.4%       |   0/181         20%     21.0    26.4%      
+   new rule               |   0/65          84%     23.4    46.4%       |   0/181         71%     14.2    46.4%      
+   new, comfort cap 30    |   0/65          79%     15.8    27.4%       |   0/181         71%     16.5    27.4%      
+
+55y $800k +$25k, wants $70k
+   rule                   | cohort 1972-87: ran out  low-real-after  p75 yrs  worst DD | all 1972-2016: ran out  low-real-after  p75 yrs  worst DD
+   old rule               |   0/65          25%     11.0    17.1%       |   0/181         23%     14.7    17.1%      
+   new rule               |   0/65          82%      9.6    38.9%       |   0/181         71%      8.1    38.9%      
+   new, comfort cap 30    |   0/65          79%      8.6    27.4%       |   0/181         69%      8.6    27.4%      
+
+Retired 60y $300k, 4%
+   rule                   | cohort 1972-87: ran out  low-real-after  p75 yrs  worst DD | all 1972-2016: ran out  low-real-after  p75 yrs  worst DD
+   old rule               |   0/65          38%      0.0     6.3%       |   0/181         21%      0.0     6.3%      
+   new rule               |   0/65          78%      0.0    12.5%       |   0/181         73%      0.0    12.5%      
+   new, comfort cap 30    |   0/65          78%      0.0    12.5%       |   0/181         73%      0.0    12.5%      

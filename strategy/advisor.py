@@ -31,14 +31,16 @@ def main():
     ap.add_argument("--budget", type=float, help="override loss budget (%)")
     ap.add_argument("--max-drop", type=float, help="biggest drop (%%) you would sit through without selling (sets the comfort cap)"); ap.add_argument("--refresh", action="store_true")
     a = ap.parse_args()
-    if a.refresh: subprocess.run([sys.executable, os.path.join(ROOT, "fetch_data.py")], check=True)
+    if a.refresh:
+        subprocess.run([sys.executable, os.path.join(ROOT, "fetch_data.py")], check=True)
+        subprocess.run([sys.executable, os.path.join(ROOT, "history70s.py")], check=True, stdout=subprocess.DEVNULL)
     sys.path.insert(0, ROOT); import policy as pl
     b, info = pl.life_budget(a.age, a.value, a.contrib, a.retire_age, a.spending, a.other_income, max_drop=a.max_drop)
     if a.budget: b = a.budget
     x_cap = pl.tier_for_budget(b); dd = max(0.0, 1 - a.value / (a.peak or a.value)) * 100
     x = pl.breaker(x_cap, dd, b); (lo, hi, f), w = pl.blend(x)
     # what this budget did historically (fixed budget, no cash flows)
-    path = pl.simulate(0, 40, 30, 1.0, 0, 200, 0, fixed_budget=b); v = np.array([p[1] for p in path])
+    path = pl.simulate(0, 40, 30, 1.0, 0, 200, 0, fixed_budget=b); v = np.array([p[1] for p in path])   # 1988-2026 testfol data
     cagr = ((v[-1] / v[0]) ** (252 / len(v)) - 1) * 100; mdd = (1 - v / np.maximum.accumulate(v)).max() * 100
     i07 = int(np.searchsorted(pl.DATES, "2007-01-01")); c07 = ((v[-1] / v[i07]) ** (252 / (len(v) - i07)) - 1) * 100
     print(f"=== Advisor  (testfol.io data through {pl.DATES[-1]}) ===")
@@ -49,6 +51,9 @@ def main():
         real = max(c07 - 3.0, 0.5) / 100                                     # conservative: post-2007 return minus ~3% inflation
         y = years_to_goal(a.value, a.contrib, info["nest_egg"], real)
         if y is not None: print(f"Projection (conservative {real*100:.1f}% real): nest egg in ~{y} years -> age {a.age + y:.0f}")
+    if info["stage"].startswith("retired") and a.max_drop and a.max_drop < 13:
+        print(f"NOTE: you asked for at most a {a.max_drop:.0f}% drop. Retiree portfolios safer than this one (worst drop ~13% in 1972-2026) "
+              f"did not earn enough to cover 4% withdrawals + inflation in the 1970s - real wealth fell to ~36-45%. Consider a lower withdrawal rate instead.")
     print(f"Account drawdown: {dd:.1f}% below peak -> " + ("breaker not engaged" if x >= x_cap - 1e-6 else f"BREAKER ENGAGED: risk cut from tier {x_cap:.2f} to {x:.2f}"))
     print(f"\nRECOMMENDED: {1-f:.0%} {lo}" + (f" + {f:.0%} {hi}" if f > 0.005 else ""))
     print("Target weights: " + ", ".join(f"{t} {x_*100:.1f}%" for t, x_ in w.items()))

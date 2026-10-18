@@ -56,12 +56,12 @@ def run(profile, rules, IDX):
     sh = lambda z: z.view(Pn, R).cpu().numpy()
     return dict(ytg=sh(ytg), dead=sh(dead), low_after=sh(low_after), mdd=sh(mdd), engaged=sh(engaged / L))
 
-RULES = {"old (8+1/yr, cap 40, ret 8)": (8, 1.0, 40, 8), "new (20+2.5/yr, cap 50, ret 15)": (20, 2.5, 50, 15), "new, comfort cap 30": (20, 2.5, 30, 15)}
+RULES = {"old (8+1/yr, cap 40, ret 8)": (8, 1.0, 40, 8), "1988 rule (20+2.5/yr, 50, ret 15)": (20, 2.5, 50, 15), "final (25+3/yr, 50, ret 25)": (25, 3.0, 50, 25), "final, comfort cap 30": (25, 3.0, 30, 25)}
 PROFILES = dict(lg.PROFILES); PROFILES["Retired 60y $300k, 4% ($12k)"] = dict(age=60, value=300000, contrib=0, retire_age=60, spending=12000, already_retired=True)
 
 if __name__ == "__main__":
     t0 = time.time(); g = np.random.default_rng(SEED); IDX = make_index(PATHS, g); out = {}
-    print(f"{PATHS} synthetic {YEARS}-year histories ({BLOCK}-day blocks from 1988-2026 testfol data)")
+    print(f"{PATHS} synthetic {YEARS}-year histories ({BLOCK}-day blocks from {pl.DATES[0][:4]}-2026 data, PORT_FILE={os.environ.get('PORT_FILE','data_portfolios.json')})")
     for name, prof in PROFILES.items():
         m = run(prof, list(RULES.values()), IDX); print(f"\n{name}  ({time.time()-t0:.0f}s)")
         print(f"   {'rule':32} | ran out | lowest real after retiring: p5   p50 | years to goal p50  p90  never | worst DD p99  max | breaker engaged")
@@ -73,4 +73,4 @@ if __name__ == "__main__":
             out.setdefault(name, {})[rn] = dict(ran_out=float(m['dead'][:, j].mean()), low_p5=float(np.percentile(lo, 5)) if len(lo) else None,
                 low_p50=float(np.median(lo)) if len(lo) else None, ytg_p50=float(np.median(yy)) if len(yy) else None, ytg_p90=float(np.percentile(yy, 90)) if len(yy) else None,
                 never=float(never), dd_p99=float(np.percentile(dd, 99)), dd_max=float(dd.max()), engaged=float(m['engaged'][:, j].mean()))
-    json.dump(out, open(os.path.join(pl.ROOT, "life_boot.json"), "w"), indent=1); print(f"\ndone {time.time()-t0:.0f}s")
+    json.dump(out, open(os.path.join(pl.ROOT, os.environ.get("OUT", "life_boot.json")), "w"), indent=1); print(f"\ndone {time.time()-t0:.0f}s")

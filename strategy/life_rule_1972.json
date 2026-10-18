@@ -1,0 +1,27 @@
+{
+ "chosen": {
+  "BASE": 25,
+  "SLOPE": 3.0,
+  "CAP": 50,
+  "RET": 20,
+  "F0": 1.0
+ },
+ "best_all": {
+  "BASE": 25,
+  "SLOPE": 3.0,
+  "CAP": 50,
+  "RET": 25,
+  "F0": 1.0
+ },
+ "current": {
+  "BASE": 20,
+  "SLOPE": 2.5,
+  "CAP": 50,
+  "RET": 15,
+  "F0": 1.0
+ },
+ "lowfloor": 0.6,
+ "retfloor": 0.7,
+ "port_file": "data_portfolios_1972.json",
+ "split": "1994"
+}

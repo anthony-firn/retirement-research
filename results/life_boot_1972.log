@@ -1,0 +1,31 @@
+2000 synthetic 40-year histories (252-day blocks from 1971-2026 data, PORT_FILE=data_portfolios_1972.json)
+
+25y $20k +$12k, wants $60k  (7s)
+   rule                             | ran out | lowest real after retiring: p5   p50 | years to goal p50  p90  never | worst DD p99  max | breaker engaged
+   old (8+1/yr, cap 40, ret 8)      |   0.0% |         63%    90% |          32.1  37.7  25.6% |        28.4  36.0 |   0.0% of days
+   1988 rule (20+2.5/yr, 50, ret 15) |   0.0% |         56%    89% |          25.7  32.9   3.2% |        42.8  46.6 |   0.3% of days
+   final (25+3/yr, 50, ret 25)      |   0.0% |         74%    95% |          25.7  32.8   2.9% |        42.9  46.6 |   0.3% of days
+   final, comfort cap 30            |   0.0% |         80%    97% |          33.4  37.9  15.6% |        21.4  26.2 |   0.0% of days
+
+40y $250k +$20k, wants $70k  (13s)
+   rule                             | ran out | lowest real after retiring: p5   p50 | years to goal p50  p90  never | worst DD p99  max | breaker engaged
+   old (8+1/yr, cap 40, ret 8)      |   0.0% |         52%    84% |          28.3  34.8   3.2% |        16.6  22.7 |   0.0% of days
+   1988 rule (20+2.5/yr, 50, ret 15) |   0.3% |         34%    83% |          15.9  24.4   0.1% |        39.7  46.1 |   0.1% of days
+   final (25+3/yr, 50, ret 25)      |   0.0% |         64%    95% |          15.6  23.1   0.1% |        40.3  46.6 |   0.2% of days
+   final, comfort cap 30            |   0.0% |         68%    95% |          21.5  27.5   0.0% |        20.3  26.2 |   0.0% of days
+
+55y $800k +$25k, wants $70k  (20s)
+   rule                             | ran out | lowest real after retiring: p5   p50 | years to goal p50  p90  never | worst DD p99  max | breaker engaged
+   old (8+1/yr, cap 40, ret 8)      |   1.5% |         13%    58% |          14.9  20.3   0.0% |         9.5  12.9 |   0.0% of days
+   1988 rule (20+2.5/yr, 50, ret 15) |   2.6% |         10%    76% |           8.5  13.9   0.0% |        25.8  34.5 |   0.0% of days
+   final (25+3/yr, 50, ret 25)      |   0.2% |         63%    94% |           7.2  13.2   0.0% |        32.4  40.1 |   0.1% of days
+   final, comfort cap 30            |   0.1% |         61%    94% |           9.7  14.3   0.0% |        19.1  26.2 |   0.0% of days
+
+Retired 60y $300k, 4% ($12k)  (26s)
+   rule                             | ran out | lowest real after retiring: p5   p50 | years to goal p50  p90  never | worst DD p99  max | breaker engaged
+   old (8+1/yr, cap 40, ret 8)      |  44.6% |          0%     6% |           0.0   0.0   0.0% |         7.5   9.4 |   0.0% of days
+   1988 rule (20+2.5/yr, 50, ret 15) |  14.1% |          0%    66% |           0.0   0.0   0.0% |        10.5  12.9 |   0.0% of days
+   final (25+3/yr, 50, ret 25)      |   1.4% |         46%    92% |           0.0   0.0   0.0% |        17.2  21.2 |   0.0% of days
+   final, comfort cap 30            |   1.4% |         46%    92% |           0.0   0.0   0.0% |        17.2  21.2 |   0.0% of days
+
+done 26s

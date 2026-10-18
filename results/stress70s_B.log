@@ -1,0 +1,37 @@
+=== B_1972_stats  returns: data_portfolios_1972.json  tier stats: data_portfolios_1972.json ===
+budget position | policy 1972-2026 CAGR/MDD | breaker-engaged | static tier at that position CAGR/MDD
+   10%     0.00 |   6.83% /   6.2%          |   0.0% of days  |   6.83% /   6.2%
+   15%     0.82 |   7.87% /   7.9%          |   0.0% of days  |   7.87% /   7.9%
+   20%     1.66 |   9.09% /  11.1%          |   0.0% of days  |   9.09% /  11.1%
+   25%     2.44 |   9.66% /  13.0%          |   0.0% of days  |   9.66% /  13.0%
+   30%     3.49 |  10.21% /  16.8%          |   0.0% of days  |  10.21% /  16.8%
+   40%     5.66 |  12.96% /  23.3%          |   0.0% of days  |  12.96% /  23.3%
+   50%     8.92 |  13.60% /  28.7%          |   0.0% of days  |  13.60% /  28.7%
+
+25y $20k +$12k, wants $60k
+   rule                   | cohort 1972-87: ran out  low-real-after  p75 yrs  worst DD | all 1972-2016: ran out  low-real-after  p75 yrs  worst DD
+   old rule               |   0/65          47%     26.4    23.3%       |   0/181         47%     30.0    23.3%      
+   1988 rule              |   0/65          46%     22.7    28.7%       |   0/181         46%     23.3    28.7%      
+   1972 rule              |   0/65          82%     22.7    28.7%       |   0/181         74%     23.3    28.7%      
+   1972 rule, cap 30      |   0/65          76%     30.0    16.8%       |   0/181         76%     30.8    16.8%      
+
+40y $250k +$20k, wants $70k
+   rule                   | cohort 1972-87: ran out  low-real-after  p75 yrs  worst DD | all 1972-2016: ran out  low-real-after  p75 yrs  worst DD
+   old rule               |   0/65          30%     22.2    16.6%       |   0/181         30%     27.3    16.6%      
+   1988 rule              |   0/65          43%     15.7    28.7%       |   0/181         38%     16.0    28.7%      
+   1972 rule              |   0/65          87%     15.5    28.7%       |   0/181         74%     15.5    28.7%      
+   1972 rule, cap 30      |   0/65          86%     18.7    16.8%       |   0/181         75%     20.5    16.8%      
+
+55y $800k +$25k, wants $70k
+   rule                   | cohort 1972-87: ran out  low-real-after  p75 yrs  worst DD | all 1972-2016: ran out  low-real-after  p75 yrs  worst DD
+   old rule               |   0/65          23%     10.9     9.5%       |   0/181         17%     17.5     9.5%      
+   1988 rule              |   0/65          72%      9.1    25.3%       |   0/181         34%     10.0    25.3%      
+   1972 rule              |   0/65          86%      8.8    28.7%       |   0/181         77%      8.7    28.7%      
+   1972 rule, cap 30      |   0/65          87%      9.9    16.8%       |   0/181         77%     11.2    16.8%      
+
+Retired 60y $300k, 4%
+   rule                   | cohort 1972-87: ran out  low-real-after  p75 yrs  worst DD | all 1972-2016: ran out  low-real-after  p75 yrs  worst DD
+   old rule               |   0/65          24%      0.0     6.2%       |   0/181         17%      0.0     6.2%      
+   1988 rule              |   0/65          58%      0.0     7.9%       |   0/181         36%      0.0     7.9%      
+   1972 rule              |   0/65          71%      0.0    13.0%       |   0/181         71%      0.0    13.0%      
+   1972 rule, cap 30      |   0/65          71%      0.0    13.0%       |   0/181         71%      0.0    13.0%      

@@ -1,0 +1,24 @@
+  25y $20k +$12k, wants $60k simulated (61s)
+  40y $250k +$20k, wants $70k simulated (122s)
+  55y $800k +$25k, wants $70k simulated (183s)
+  retiree simulated (244s)
+
+CURRENT rule: BASE 20 SLOPE 2.5 CAP 50 RET 15 F0 1.0  | feasible early/late/all: False/False/False
+   25y $20k +$12k, wants $60k     p75 years: late-starts  24.7  all  23.3 | median all  21.6
+   40y $250k +$20k, wants $70k    p75 years: late-starts  16.4  all  16.0 | median all  14.0
+   55y $800k +$25k, wants $70k    p75 years: late-starts  11.1  all  10.0 | median all   7.8
+   retiree worst lowest real value: late  35.8%  all  35.8%
+
+CHOSEN on starts before 1994 (validated on later starts): BASE 25 SLOPE 3.0 CAP 50 RET 20 F0 1.0  | feasible early/late/all: True/False/False
+   25y $20k +$12k, wants $60k     p75 years: late-starts  24.7  all  23.3 | median all  21.6
+   40y $250k +$20k, wants $70k    p75 years: late-starts  15.7  all  15.5 | median all  13.7
+   55y $800k +$25k, wants $70k    p75 years: late-starts   9.1  all   8.7 | median all   6.7
+   retiree worst lowest real value: late  61.8%  all  61.8%
+
+Best using all starts (in-sample): BASE 25 SLOPE 3.0 CAP 50 RET 25 F0 1.0  | feasible early/late/all: True/True/True
+   25y $20k +$12k, wants $60k     p75 years: late-starts  24.7  all  23.3 | median all  21.6
+   40y $250k +$20k, wants $70k    p75 years: late-starts  15.7  all  15.5 | median all  13.7
+   55y $800k +$25k, wants $70k    p75 years: late-starts   9.1  all   8.7 | median all   6.7
+   retiree worst lowest real value: late  76.5%  all  70.9%
+
+done 244s

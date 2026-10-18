@@ -12,15 +12,18 @@ import json, os, math, numpy as np
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 PF = json.load(open(os.path.join(ROOT, "..", "results", "portfolios.json")))
-D = json.load(open(os.path.join(ROOT, "data_portfolios.json")))
+_EXT = "data_portfolios_1972.json" if os.path.exists(os.path.join(ROOT, "data_portfolios_1972.json")) else "data_portfolios.json"
+D = json.load(open(os.path.join(ROOT, os.environ.get("PORT_FILE", "data_portfolios.json"))))            # returns used for simulation
+_S = json.load(open(os.path.join(ROOT, os.environ.get("STATS_FILE", _EXT))))   # tier risk stats: 1972-2026 incl. the 1970s (history70s.py)
 BM = json.load(open(os.path.join(ROOT, "black_monday.json")))
 LADDER = ["MinRisk", "Safe-Now", "C1-Now", "E9", "E10", "S12+", "S12.5", "S13", "S13.5", "E14", "E15", "M25", "M30", "M35", "E20", "E22", "E24"]
 VAL = {n: np.array(v) for n, v in zip(D["names"], D["v"])}
 import datetime as _dt
 DATES = np.array([_dt.datetime.fromtimestamp(x, _dt.UTC).date().isoformat() for x in D["t"]])
 RET = np.stack([np.r_[0, VAL[n][1:] / VAL[n][:-1] - 1] for n in LADDER], 1)            # (T, K)
-MDD = np.maximum.accumulate(np.array([(1 - VAL[n] / np.maximum.accumulate(VAL[n])).max() * 100 for n in LADDER]))
-WORST_DAY = np.maximum.accumulate(np.array([max((1 - VAL[n][1:] / VAL[n][:-1]).max() * 100, -BM.get(n, 0)) for n in LADDER]))
+_SV = {n: np.array(v) for n, v in zip(_S["names"], _S["v"])}
+MDD = np.maximum.accumulate(np.array([(1 - _SV[n] / np.maximum.accumulate(_SV[n])).max() * 100 for n in LADDER]))
+WORST_DAY = np.maximum.accumulate(np.array([max((1 - _SV[n][1:] / _SV[n][:-1]).max() * 100, -BM.get(n, 0)) for n in LADDER]))
 TIER_FRAC, MARGIN_GAP, COST = 0.75, 2.0, 0.001
 REAL = lambda t: "VNQ" if t == "REITSIM" else t.replace("SIM", "")
 
@@ -31,17 +34,18 @@ def interp_position(curve, level):
     k = int(np.searchsorted(curve, level, side="right") - 1)
     return k + (level - curve[k]) / max(curve[k + 1] - curve[k], 1e-9)
 
-# Life-stage rule tuned on the GPU over every historical start (strategy/optimize_life2.py; chosen on 1988-2002
-# starts, validated on 2003-2016 starts): budget = min(comfort cap, 50, 20 + 2.5 x years to retirement); retired/funded: 15.
-RULE = dict(BASE=20.0, SLOPE=2.5, CAP=50.0, RET=15.0)
-DROP_TO_CAP = 1 / 0.6          # worst drop actually lived through was ~60% of the cap in backtests (results/comfort_menu.log)
+# Life-stage rule tuned on the GPU over every quarterly start 1972-2016 incl. the 1970s stagflation
+# (optimize_life2.py with PORT_FILE=data_portfolios_1972.json; results/life_opt_1972.log, stress70s_B.log):
+# budget = min(comfort cap, 50, 25 + 3 x years to retirement); retired/funded: 25.
+RULE = dict(BASE=25.0, SLOPE=3.0, CAP=50.0, RET=25.0)
+DROP_TO_CAP = 1 / 0.57         # worst drop actually lived through 1972-2026 was ~57% of the budget (results/stress70s_B.log)
 
 def cap_for_max_drop(max_drop): return min(RULE["CAP"], max(6.0, max_drop * DROP_TO_CAP))
 
 def life_budget(age, value, contrib, retire_age, spending, other_income=0.0, swr=0.04, max_drop=None):
     need = max(spending - other_income, 0) / swr; funded = value / need if need > 0 else 99.0
     years = max(retire_age - age, 0.0); cap = cap_for_max_drop(max_drop) if max_drop else RULE["CAP"]
-    if funded >= 1.0 or years <= 0: b = min(RULE["RET"], cap); stage = "retired / fully funded"
+    if funded >= 1.0 or years <= 0: b = RULE["RET"]; stage = "retired / fully funded"   # comfort cap not applied: too little risk erodes real wealth under withdrawals
     else:
         b = min(cap, RULE["BASE"] + RULE["SLOPE"] * years); stage = "pre-retirement" if years <= 5 else "accumulating"
     return b, dict(stage=stage, years=years, nest_egg=need, funded=funded, cap=cap)

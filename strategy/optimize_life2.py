@@ -7,14 +7,14 @@ import life_gpu as lg, policy as pl
 
 LOWFLOOR = float(os.environ.get("LOWFLOOR", "0.6")); RETFLOOR = float(os.environ.get("RETFLOOR", "0.7"))
 allst = [i for i in range(len(pl.DATES)) if (i == 0 or (pl.DATES[i][5:7] in ("01", "04", "07", "10") and pl.DATES[i][:7] != pl.DATES[i - 1][:7])) and pl.DATES[i] < "2017"]
-split = sum(1 for i in allst if pl.DATES[i] < "2003")
+SPLIT_DATE = os.environ.get("SPLIT_DATE", "2003"); split = sum(1 for i in allst if pl.DATES[i] < SPLIT_DATE)
 keys = ("BASE", "SLOPE", "CAP", "RET", "F0")
-G = list(itertools.product([8, 10, 12, 14, 16, 20], [1.0, 1.25, 1.5, 2.0, 2.5], [25, 30, 35, 40, 50], [12, 15, 18, 20, 25], [0.6, 0.8, 1.0]))
-G.append((8, 1.0, 40, 8, 1.0))                                                              # current rule for reference
+G = list(itertools.product([8, 10, 12, 14, 16, 20, 25], [1.0, 1.5, 2.0, 2.5, 3.0], [20, 25, 30, 35, 40, 50], [12, 15, 18, 20, 25], [0.6, 0.8, 1.0]))
+G.append((20, 2.5, 50, 15, 1.0))                                                            # current rule for reference
 params = {k: torch.tensor([g[i] for g in G], device=lg.DEV, dtype=torch.float32) for i, k in enumerate(keys)}
 profiles = dict(lg.PROFILES); retp = dict(age=60, value=300000, contrib=0, retire_age=60, spending=12000, already_retired=True)
 t0 = time.time(); M = {}
-for name, prof in profiles.items(): M[name] = lg.run(prof, params, allst); print(f"  {name} simulated ({time.time()-t0:.0f}s)", flush=True)
+for name, prof in profiles.items(): M[name] = lg.run(prof, params, allst, years=40); print(f"  {name} simulated ({time.time()-t0:.0f}s)", flush=True)
 M["retiree"] = lg.run(retp, params, allst, years=25); print(f"  retiree simulated ({time.time()-t0:.0f}s)", flush=True)
 
 def stats(sel):
@@ -35,7 +35,8 @@ def show(lab, k):
     for name in profiles:
         print(f"   {name:30} p75 years: late-starts {perB[name][0][k]:5.1f}  all {perF[name][0][k]:5.1f} | median all {perF[name][1][k]:5.1f}")
     print(f"   retiree worst lowest real value: late {rB[k]*100:5.1f}%  all {rF[k]*100:5.1f}%")
-show("CURRENT rule", jc); show("CHOSEN on 1988-2002 starts (validated on 2003-2016 starts)", j); show("Best using all starts (in-sample)", jf)
-json.dump(dict(chosen=dict(zip(keys, G[j])), best_all=dict(zip(keys, G[jf])), current=dict(zip(keys, G[jc])), lowfloor=LOWFLOOR, retfloor=RETFLOOR),
-          open(os.path.join(pl.ROOT, "life_rule.json"), "w"), indent=1)
+show("CURRENT rule", jc); show(f"CHOSEN on starts before {SPLIT_DATE} (validated on later starts)", j); show("Best using all starts (in-sample)", jf)
+json.dump(dict(chosen=dict(zip(keys, G[j])), best_all=dict(zip(keys, G[jf])), current=dict(zip(keys, G[jc])), lowfloor=LOWFLOOR, retfloor=RETFLOOR,
+               port_file=os.environ.get("PORT_FILE", "data_portfolios.json"), split=SPLIT_DATE),
+          open(os.path.join(pl.ROOT, os.environ.get("OUT", "life_rule.json")), "w"), indent=1)
 print(f"\ndone {time.time()-t0:.0f}s")

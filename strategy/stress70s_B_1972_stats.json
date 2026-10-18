@@ -1,0 +1,90 @@
+{
+ "25y $20k +$12k, wants $60k": {
+  "old rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 23.260295867919922
+  },
+  "1988 rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 28.721105575561523
+  },
+  "1972 rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 28.721105575561523
+  },
+  "1972 rule, cap 30": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 16.76448631286621
+  }
+ },
+ "40y $250k +$20k, wants $70k": {
+  "old rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 16.64468002319336
+  },
+  "1988 rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 28.721105575561523
+  },
+  "1972 rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 28.721105575561523
+  },
+  "1972 rule, cap 30": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 16.76448631286621
+  }
+ },
+ "55y $800k +$25k, wants $70k": {
+  "old rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 9.547769546508789
+  },
+  "1988 rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 25.254762649536133
+  },
+  "1972 rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 28.72108268737793
+  },
+  "1972 rule, cap 30": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 16.76448631286621
+  }
+ },
+ "Retired 60y $300k, 4%": {
+  "old rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 6.177824974060059
+  },
+  "1988 rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 7.939547538757324
+  },
+  "1972 rule": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 12.984424591064453
+  },
+  "1972 rule, cap 30": {
+   "cohort_dead": 0,
+   "all_dead": 0,
+   "worst_dd": 12.984424591064453
+  }
+ }
+}

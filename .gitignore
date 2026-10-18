@@ -13,3 +13,5 @@ lab/resp*.json
 lab/hist_extX.json
 lab/clean_X.json
 strategy/data_*.json
+strategy/data_portfolios_1972.json
+strategy/data_cpi_1972.json
