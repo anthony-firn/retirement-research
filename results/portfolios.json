@@ -993,5 +993,18 @@
   },
   "note": "Calmer twin: 1988+ 11.5%, 5y odds of a >20% drop 2% vs 12%; testfol 2000-2026 9.26% / -12.8%",
   "clean": true
+ },
+ "CH-12T": {
+  "alloc": {
+   "GDESIM": 25,
+   "DBMFSIM": 23,
+   "KMLMSIM": 17,
+   "VBRSIM": 14,
+   "GLDSIM": 12,
+   "TQQQSIM": 5,
+   "TMFSIM": 4
+  },
+  "note": "Shows 12% on testfol 2000-2026 (12.02%, MDD -19.6, Sharpe 0.834, Ulcer 5.13); GPU search with CAGR>=12 on 1972+/1988+/2000+, moderate guard rails; plan odds 98% but 5y odds of a >20% drop 28%; ~34% gold exposure via GDE",
+  "clean": true
  }
 }
