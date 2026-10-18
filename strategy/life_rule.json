@@ -1,0 +1,25 @@
+{
+ "chosen": {
+  "BASE": 20,
+  "SLOPE": 2.5,
+  "CAP": 50,
+  "RET": 15,
+  "F0": 1.0
+ },
+ "best_all": {
+  "BASE": 20,
+  "SLOPE": 2.5,
+  "CAP": 50,
+  "RET": 15,
+  "F0": 1.0
+ },
+ "current": {
+  "BASE": 8,
+  "SLOPE": 1.0,
+  "CAP": 40,
+  "RET": 8,
+  "F0": 1.0
+ },
+ "lowfloor": 0.6,
+ "retfloor": 0.7
+}

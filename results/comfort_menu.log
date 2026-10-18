@@ -1,0 +1,30 @@
+
+25y $20k +$12k, wants $60k   (comfort cap = the biggest drop you'd sit through)
+    cap | years to retire: median  p75 | worst drop lived | lowest real after retiring
+    15% |              25.5  32.7 |    7.5%          | 100000000000% of nest egg
+    20% |              25.5  30.7 |   10.2%          |    77% of nest egg
+    25% |              24.5  27.6 |   14.4%          |    72% of nest egg
+    30% |              23.0  26.1 |   18.0%          |    69% of nest egg
+    35% |              21.7  24.4 |   20.6%          |    69% of nest egg
+    40% |              21.0  23.6 |   24.2%          |    71% of nest egg
+    50% |              18.8  20.3 |   30.4%          |    71% of nest egg
+
+40y $250k +$20k, wants $70k   (comfort cap = the biggest drop you'd sit through)
+    cap | years to retire: median  p75 | worst drop lived | lowest real after retiring
+    15% |              21.6  25.1 |    7.5%          |    71% of nest egg
+    20% |              17.8  21.3 |   10.2%          |    73% of nest egg
+    25% |              16.0  18.8 |   14.4%          |    69% of nest egg
+    30% |              14.8  16.8 |   18.0%          |    71% of nest egg
+    35% |              13.7  15.3 |   20.6%          |    70% of nest egg
+    40% |              13.3  14.7 |   24.2%          |    72% of nest egg
+    50% |              11.2  12.4 |   30.4%          |    71% of nest egg
+
+55y $800k +$25k, wants $70k   (comfort cap = the biggest drop you'd sit through)
+    cap | years to retire: median  p75 | worst drop lived | lowest real after retiring
+    15% |              11.2  13.3 |    7.5%          |    70% of nest egg
+    20% |               8.6  10.0 |   10.2%          |    71% of nest egg
+    25% |               7.4   8.8 |   14.4%          |    73% of nest egg
+    30% |               6.4   8.5 |   18.0%          |    69% of nest egg
+    35% |               5.9   7.3 |   20.6%          |    69% of nest egg
+    40% |               5.9   7.1 |   24.2%          |    71% of nest egg
+    50% |               5.6   7.1 |   25.4%          |    71% of nest egg

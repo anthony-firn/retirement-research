@@ -28,11 +28,12 @@ def main():
     ap.add_argument("--peak", type=float); ap.add_argument("--contrib", type=float, default=0)
     ap.add_argument("--retire-age", type=float, default=65); ap.add_argument("--spending", type=float, default=0)
     ap.add_argument("--other-income", type=float, default=0); ap.add_argument("--holdings")
-    ap.add_argument("--budget", type=float, help="override loss budget (%)"); ap.add_argument("--refresh", action="store_true")
+    ap.add_argument("--budget", type=float, help="override loss budget (%)")
+    ap.add_argument("--max-drop", type=float, help="biggest drop (%%) you would sit through without selling (sets the comfort cap)"); ap.add_argument("--refresh", action="store_true")
     a = ap.parse_args()
     if a.refresh: subprocess.run([sys.executable, os.path.join(ROOT, "fetch_data.py")], check=True)
     sys.path.insert(0, ROOT); import policy as pl
-    b, info = pl.life_budget(a.age, a.value, a.contrib, a.retire_age, a.spending, a.other_income)
+    b, info = pl.life_budget(a.age, a.value, a.contrib, a.retire_age, a.spending, a.other_income, max_drop=a.max_drop)
     if a.budget: b = a.budget
     x_cap = pl.tier_for_budget(b); dd = max(0.0, 1 - a.value / (a.peak or a.value)) * 100
     x = pl.breaker(x_cap, dd, b); (lo, hi, f), w = pl.blend(x)
@@ -42,7 +43,7 @@ def main():
     i07 = int(np.searchsorted(pl.DATES, "2007-01-01")); c07 = ((v[-1] / v[i07]) ** (252 / (len(v) - i07)) - 1) * 100
     print(f"=== Advisor  (testfol.io data through {pl.DATES[-1]}) ===")
     print(f"You: {info['stage']}, {info['years']:.0f} years to planned retirement, nest egg needed ${info['nest_egg']:,.0f}, funded {info['funded']*100:.0f}%")
-    print(f"Loss budget: {b:.0f}% max drawdown  ->  breaker at {b - pl.MARGIN_GAP:.0f}% below your peak (checked daily)")
+    print(f"Loss budget: {b:.0f}% (comfort cap {info['cap']:.0f}%)  ->  breaker at {b - pl.MARGIN_GAP:.0f}% below your peak (checked daily)")
     print(f"This budget 1988-2026: CAGR {cagr:.1f}% (since 2007: {c07:.1f}%), max drawdown {mdd:.1f}%, breaker never triggered")
     if info["stage"] == "accumulating" and a.spending:
         real = max(c07 - 3.0, 0.5) / 100                                     # conservative: post-2007 return minus ~3% inflation

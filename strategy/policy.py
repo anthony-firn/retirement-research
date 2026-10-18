@@ -31,14 +31,20 @@ def interp_position(curve, level):
     k = int(np.searchsorted(curve, level, side="right") - 1)
     return k + (level - curve[k]) / max(curve[k + 1] - curve[k], 1e-9)
 
-def life_budget(age, value, contrib, retire_age, spending, other_income=0.0, swr=0.04):
+# Life-stage rule tuned on the GPU over every historical start (strategy/optimize_life2.py; chosen on 1988-2002
+# starts, validated on 2003-2016 starts): budget = min(comfort cap, 50, 20 + 2.5 x years to retirement); retired/funded: 15.
+RULE = dict(BASE=20.0, SLOPE=2.5, CAP=50.0, RET=15.0)
+DROP_TO_CAP = 1 / 0.6          # worst drop actually lived through was ~60% of the cap in backtests (results/comfort_menu.log)
+
+def cap_for_max_drop(max_drop): return min(RULE["CAP"], max(6.0, max_drop * DROP_TO_CAP))
+
+def life_budget(age, value, contrib, retire_age, spending, other_income=0.0, swr=0.04, max_drop=None):
     need = max(spending - other_income, 0) / swr; funded = value / need if need > 0 else 99.0
-    years = max(retire_age - age, 0.0)
-    if funded >= 1.0 or years <= 0:
-        b = 8.0 if funded < 1.5 else 10.0 if funded < 2.5 else 15.0; stage = "retired / fully funded"
-    elif years <= 5: b = min(12.0, 8.0 + years); stage = "pre-retirement"
-    else: b = min(40.0, 8.0 + years); stage = "accumulating"
-    return b, dict(stage=stage, years=years, nest_egg=need, funded=funded)
+    years = max(retire_age - age, 0.0); cap = cap_for_max_drop(max_drop) if max_drop else RULE["CAP"]
+    if funded >= 1.0 or years <= 0: b = min(RULE["RET"], cap); stage = "retired / fully funded"
+    else:
+        b = min(cap, RULE["BASE"] + RULE["SLOPE"] * years); stage = "pre-retirement" if years <= 5 else "accumulating"
+    return b, dict(stage=stage, years=years, nest_egg=need, funded=funded, cap=cap)
 
 TRIGGER_FRAC = 0.9
 def _at(curve, x):
