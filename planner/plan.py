@@ -95,6 +95,7 @@ def simulate(profile, paths, horizon_age=95):
     alive = np.ones(P, bool); taxes = np.zeros(P); spent = np.zeros(P); years = horizon_age - age0
     min_total = np.full(P, np.inf); ok = np.ones(P, bool)
     for y in range(years):
+        snap = (tax_v.copy(), basis.copy(), trad.copy(), roth.copy())               # restored for lanes whose history has ended
         age = age0 + y; total = tax_v + trad + roth; retired = age >= ret_age
         # portfolio for this year from the policy
         b, _ = pl.life_budget(age, float(np.median(total)), sum(contrib.values()), ret_age, spend, max_drop=max_drop)
@@ -136,6 +137,7 @@ def simulate(profile, paths, horizon_age=95):
             covered = (w_tax + w_trad + w_roth + ss + income) >= spend + t - 1
             ok &= covered | ~valid; spent += np.where(valid, np.minimum(spend, w_tax + w_trad + w_roth + ss + income - t), 0)
         taxes += np.where(valid, t, 0)
+        tax_v, basis, trad, roth = (np.where(valid, a, b_) for a, b_ in zip((tax_v, basis, trad, roth), snap))
         total = tax_v + trad + roth; min_total = np.where(valid, np.minimum(min_total, total), min_total)
         tax_v, trad, roth = (np.maximum(a, 0) for a in (tax_v, trad, roth))
     return dict(success=ok, end=tax_v + trad + roth, taxes=taxes, low=min_total)
@@ -166,6 +168,7 @@ def sweep_retire(prof, paths, ages=range(45, 71), target=95.0):
 if __name__ == "__main__":
     prof = json.load(open(sys.argv[1])); flags = sys.argv[2:]; hist, boot = annual_paths()
     print(f"Plan: {prof.get('name', '')}   (today's $; {len(hist)} historical starts 1972-2016 + {len(boot)} bootstrapped paths)")
+    print("  note: historical paths end in 2026, so long horizons are only partly covered by history - rely on the synthetic paths for those")
     for lab, paths in (("history", hist), ("synthetic", boot)):
         s = summary(simulate(prof, paths))
         print(f"  {lab:9}: success to 95 {s['success']:5.1f}% | ending wealth p10 ${s['end_p10']:,.0f}  median ${s['end_p50']:,.0f} | "
