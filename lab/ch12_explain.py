@@ -3,7 +3,7 @@ testfol SIMs with proxies only before each fund's SIM starts)."""
 import os, sys, json, numpy as np, datetime as dt
 sys.path.insert(0, "../strategy"); os.environ.setdefault("PORT_FILE", "data_portfolios_1972.json")
 import b40_risk as br, history70s as h
-P = json.load(open("../results/portfolios.json")); A = P["CH-12"]["alloc"]; names = list(A)
+P = json.load(open("../results/portfolios.json")); A = P["Crisis-Hedged 12"]["alloc"]; names = list(A)
 comp = {n: (br.SUB[n] if n in br.SUB else h.rets(h.series(n))) for n in names}; comp["VTISIM"] = h.rets(h.series("VTISIM"))
 ts = lambda s: int(np.searchsorted(h.CAL, int(dt.datetime.fromisoformat(s).replace(tzinfo=dt.UTC).timestamp())))
 def stats(r):

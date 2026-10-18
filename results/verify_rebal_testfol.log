@@ -1,0 +1,21 @@
+2000-01-03  Yearly (Jan)                       CAGR  9.78  MDD  -13.5  Sharpe 0.887  Calmar 0.724  Ulcer 3.21
+2000-01-03  Quarterly                          CAGR  9.53  MDD  -14.0  Sharpe 0.842  Calmar 0.681  Ulcer 3.41
+2000-01-03  Daily check, rel ±35% band         CAGR  9.52  MDD  -15.0  Sharpe 0.819  Calmar 0.637  Ulcer 3.48
+2000-01-03  Daily check, abs ±5pp OR rel ±50%  CAGR  9.52  MDD  -15.0  Sharpe 0.819  Calmar 0.637  Ulcer 3.48
+2000-01-03  Daily check, rel ±25% band         CAGR  9.52  MDD  -15.0  Sharpe 0.819  Calmar 0.637  Ulcer 3.48
+2000-01-03  Daily check, rel ±50% band         CAGR  9.52  MDD  -15.0  Sharpe 0.819  Calmar 0.637  Ulcer 3.48
+2000-01-03  Daily check, rel ±15% band         CAGR  9.52  MDD  -15.0  Sharpe 0.819  Calmar 0.637  Ulcer 3.48
+2000-01-03  Daily check, abs ±5pp band         CAGR  9.52  MDD  -15.0  Sharpe 0.819  Calmar 0.637  Ulcer 3.48
+2000-01-03  Monthly                            CAGR  9.07  MDD  -14.4  Sharpe 0.797  Calmar 0.629  Ulcer 3.62
+2000-01-03  None (buy & hold)                  CAGR  7.92  MDD  -14.3  Sharpe 0.727  Calmar 0.555  Ulcer 3.65
+2000-01-03  Yearly offset 2                    CAGR  9.96  MDD  -13.5  Sharpe 0.906  Calmar 0.737  Ulcer 3.15
+2000-01-03  Yearly offset 4                    CAGR  9.91  MDD  -13.6  Sharpe 0.902  Calmar 0.731  Ulcer 3.16
+2000-01-03  Yearly offset 6                    CAGR  9.73  MDD  -13.6  Sharpe 0.881  Calmar 0.718  Ulcer 3.26
+2000-01-03  Yearly offset 8                    CAGR  9.63  MDD  -13.7  Sharpe 0.873  Calmar 0.704  Ulcer 3.19
+2000-01-03  Yearly offset 10                   CAGR  9.49  MDD  -13.7  Sharpe 0.862  Calmar 0.691  Ulcer 3.19
+2000-01-03  Daily (no band)                    CAGR  9.52  MDD  -15.0  Sharpe 0.819  Calmar 0.637  Ulcer 3.48
+2000-01-03  Monthly check + rel ±35%           CAGR  9.28  MDD  -14.9  Sharpe 0.806  Calmar 0.623  Ulcer 3.59
+2000-01-03  Quarterly check + rel ±35%         CAGR  9.45  MDD  -14.7  Sharpe 0.820  Calmar 0.643  Ulcer 3.47
+2000-01-03  Weekly check + rel ±35%            CAGR  9.27  MDD  -15.2  Sharpe 0.799  Calmar 0.611  Ulcer 3.59
+2000-01-03  Monthly check + rel ±25%           CAGR  9.31  MDD  -15.2  Sharpe 0.805  Calmar 0.611  Ulcer 3.52
+['target_currency', 'currency_usage', 'detail_level', 'locked_tabs', 'charts', 'rolling_distribution_statistics', 'income', 'attribution', 'drawdowns', 'allocations', 'ticker_allocations', 'allocation_labels', 'stats', 'ls_stats', 'sw_stats_10', 'sw_stats_15', 'sw_stats_20', 'sw_stats_25', 'sw_stats_30', 'sw_stats_35', 'sw_stats_40', 'sw_stats_rw', 'pw_stats_10', 'pw_stats_15', 'pw_stats_20', 'pw_stats_25', 'pw_stats_30', 'pw_stats_35', 'pw_stats_40', 'pw_stats_rw', 'swr_stats_10', 'swr_stats_15', 'swr_stats_20', 'swr_stats_25', 'swr_stats_30', 'swr_stats_35', 'swr_stats_40', 'swr_stats_rw', 'pwr_stats_10', 'pwr_stats_15', 'pwr_stats_20', 'pwr_stats_25', 'pwr_stats_30', 'pwr_stats_35', 'pwr_stats_40', 'pwr_stats_rw', 'withdrawal_surface', 'withdrawal_start_rates', 'errors', 'limiting_ticker', 'benchmark_ticker_used', 'benchmark_explicit', 'start_date', 'end_date', 'annual_returns', 'quarterly_returns', 'monthly_returns', 'weekly_returns', 'daily_returns', 'annual_return_statistics', 'quarterly_return_statistics', 'monthly_return_statistics', 'weekly_return_statistics', 'daily_return_statistics', 'corrs', 'betas', 'weekly_corrs', 'weekly_betas', 'monthly_corrs', 'monthly_betas', 'quarterly_corrs', 'quarterly_betas', 'annual_corrs', 'annual_betas', 'rebalancing_stats', 'rebalancing_events', 'cashflow_events', 'treasury_yield_start', 'treasury_yield_end', 'treasury_yield_avg', 'tbill_start', 'tbill_end', 'tbill_avg', 'interest_rate_series', 'interest_rate_labels']

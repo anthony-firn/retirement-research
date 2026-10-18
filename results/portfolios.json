@@ -966,7 +966,7 @@
   "note": "H12 without the 1% TQQQ (8 funds, no leveraged ETFs) - recommended for the retiree; testfol 2000-2026 8.47% CAGR, -11.7% MDD | SUPERSEDED by CH-12 / CH-11.5 (only ~10% on 1988-2026)",
   "clean": true
  },
- "CH-12": {
+ "Crisis-Hedged 12": {
   "alloc": {
    "DBMFSIM": 24,
    "KMLMSIM": 16,
@@ -977,10 +977,14 @@
    "TQQQSIM": 5,
    "UUPSIM": 3
   },
-  "note": "Best true-12% for the retiree: GPU search on corrected 1972-2026 data, CAGR >= 12 on 1972+ and 1988+; testfol 2000-2026 9.78% / -13.5% (S12+ split 9.59 / -13.5); plan odds 97%",
-  "clean": true
+  "note": "(formerly CH-12) Best true-12% for the retiree: GPU search on corrected 1972-2026 data, CAGR >= 12 on 1972+ and 1988+; testfol 2000-2026 9.78% / -13.5% (S12+ split 9.59 / -13.5); plan odds 97% | rebalance: check quarterly, rebalance all only if any holding is >35% off its own target (1972-2026: 5y >20%-drop odds 1-2% vs ~10% yearly)",
+  "clean": true,
+  "rebalance": {
+   "freq": "Quarterly",
+   "relative_dev": 35
+  }
  },
- "CH-11.5": {
+ "Crisis-Hedged 11.5": {
   "alloc": {
    "DBMFSIM": 23,
    "KMLMSIM": 17,
@@ -991,10 +995,14 @@
    "XLVSIM": 5,
    "TQQQSIM": 5
   },
-  "note": "Calmer twin: 1988+ 11.5%, 5y odds of a >20% drop 2% vs 12%; testfol 2000-2026 9.26% / -12.8%",
-  "clean": true
+  "note": "(formerly CH-11.5) Calmer twin: 1988+ 11.5%, 5y odds of a >20% drop 2% vs 12%; testfol 2000-2026 9.26% / -12.8%",
+  "clean": true,
+  "rebalance": {
+   "freq": "Quarterly",
+   "relative_dev": 35
+  }
  },
- "CH-12T": {
+ "Gold-Stack 12": {
   "alloc": {
    "GDESIM": 25,
    "DBMFSIM": 23,
@@ -1004,7 +1012,7 @@
    "TQQQSIM": 5,
    "TMFSIM": 4
   },
-  "note": "Shows 12% on testfol 2000-2026 (12.02%, MDD -19.6, Sharpe 0.834, Ulcer 5.13); GPU search with CAGR>=12 on 1972+/1988+/2000+, moderate guard rails; plan odds 98% but 5y odds of a >20% drop 28%; ~34% gold exposure via GDE",
+  "note": "(formerly CH-12T) Shows 12% on testfol 2000-2026 (12.02%, MDD -19.6, Sharpe 0.834, Ulcer 5.13); GPU search with CAGR>=12 on 1972+/1988+/2000+, moderate guard rails; plan odds 98% but 5y odds of a >20% drop 28%; ~34% gold exposure via GDE",
   "clean": true
  },
  "VTI (100% US stocks)": {
