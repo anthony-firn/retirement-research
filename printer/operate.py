@@ -130,8 +130,8 @@ def plan(state, date, prices, cpi, deposit=0.0, bucket=None):
         base_amt = owed * S["base"] / 100 * start_value * infl / 12 * mult; draw = cbucket * (1 - (1 - 1 / S["bucket_months"]) ** owed)
         if owed > 1: notes.append(f"{owed} months were due (missed runs are caught up, up to 3 months)")
         sp = sell_plan(work, prices, base_amt); apply_trades({t: -x for t, x in sp.items()})
-        steps.append(dict(step="MONTHLY PRINT", why=f"Base print {S['base']}% x baseline ${start_value:,.0f} x inflation {infl:.3f} / 12 x guardrail {mult:.2f} = ${base_amt:,.0f}"
-                          + f"; bonus from the cash bucket 1/{S['bucket_months']} of ${cbucket:,.0f} = ${draw:,.0f}. SPEND THIS MONTH: ${base_amt + draw:,.0f}",
+        steps.append(dict(step="MONTHLY PRINT", why=f"Base print {S['base']}% x baseline ${start_value:,.0f} x inflation {infl:.3f} / 12 x guardrail {mult:.2f}" + (f" x {owed} months" if owed > 1 else "") + f" = ${base_amt:,.0f}"
+                          + f"; bonus from the cash bucket ({owed} x 1/{S['bucket_months']}) of ${cbucket:,.0f} = ${draw:,.0f}. SPEND THIS MONTH: ${base_amt + draw:,.0f}",
                           trades={t: -x for t, x in sp.items()}, base=base_amt, bucket_draw=draw, spend=base_amt + draw, month=ym))
         cbucket -= draw
     # 4/5 rebalancing checks
