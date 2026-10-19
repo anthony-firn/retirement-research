@@ -48,4 +48,13 @@ def yahoo(ticker, field="adjclose"):
         vals = d["indicators"]["adjclose"][0]["adjclose"] if field == "adjclose" else d["indicators"]["quote"][0]["close"]
         pairs = [(int(dt.datetime.fromtimestamp(a, dt.UTC).replace(hour=0, minute=0, second=0).timestamp()), b) for a, b in zip(ts, vals) if b is not None]
         return [p[0] for p in pairs], [float(p[1]) for p in pairs]
-    return _cached("yahoo_" + ticker.replace("^", "IDX_"), fetch, 1)
+    return _cached("yahoo_" + ticker.replace("^", "IDX_") + ("" if field == "adjclose" else "_" + field), fetch, 1)
+
+def yahoo_dividends(ticker):
+    """Cash dividends / distributions per share: (ex-date timestamps, amounts)."""
+    def fetch():
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.request.quote(ticker)}?period1=0&period2=9999999999&interval=1d&events=div,split"
+        ev = json.loads(_get(url))["chart"]["result"][0].get("events", {}).get("dividends", {})
+        rows = sorted((int(dt.datetime.fromtimestamp(int(v["date"]), dt.UTC).replace(hour=0, minute=0, second=0).timestamp()), float(v["amount"])) for v in ev.values())
+        return [r[0] for r in rows], [r[1] for r in rows]
+    return _cached("yahoo_div_" + ticker.replace("^", "IDX_"), fetch, 1)
