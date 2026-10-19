@@ -71,7 +71,7 @@ def _compound(x, k):                                              # k-day compou
     lg = np.log(np.maximum(x, 1e-12)); cs = np.cumsum(np.concatenate([np.zeros((1,) + lg.shape[1:]), lg], 0), 0)
     out = np.exp(cs[k:] - cs[:-k]); pad = np.ones((k - 1,) + x.shape[1:]); return np.concatenate([out, pad], 0)
 
-def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None):
+def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spread"):
     """printers: list of Printer. Lanes = printers x histories (each lane keeps only its own funds, <= Kmax slots)."""
     assets = sorted({a for p in printers for a in p.alloc}); A = len(assets); K = max(len(p.alloc) for p in printers)
     Rm = np.stack([fund_returns(a) for a in assets], 1)
@@ -111,6 +111,12 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None):
     def sell_amount(amt, d):                                       # take `amt` from the most overweight funds first
         nonlocal val
         V = val.sum(1); amt = amt.clamp(max=V.clamp(min=0)); tgt = W0 * V[:, None]; exc = (val - tgt).clamp(min=0); se = exc.sum(1)
+        if sell_mode == "greedy":                                  # operator default: biggest excess first, remainder from the top fund
+            es, order = torch.sort(exc, dim=1, descending=True); before = torch.cumsum(es, 1) - es
+            take_sorted = (amt[:, None] - before).clamp(min=0); take_sorted = torch.minimum(take_sorted, es)
+            s = torch.zeros_like(val).scatter_(1, order, take_sorted); rem = (amt - s.sum(1)).clamp(min=0)
+            top = order[:, :1]; s = s.scatter_add(1, top, torch.minimum(rem[:, None], val.gather(1, top) - s.gather(1, top)))
+            realize(s, d); val = val - s; return s.sum(1)
         te = torch.minimum(amt, se); rem = amt - te; s1 = exc * (te / se.clamp(min=1e-12))[:, None]
         s = s1 + (val - s1) * (rem / (V - te).clamp(min=1e-12))[:, None]; realize(s, d); val = val - s; return s.sum(1)
     for d in range(1, L):

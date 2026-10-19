@@ -1,0 +1,20 @@
+{
+ "sim": {
+  "spend": 6.316764831542969,
+  "real_end": 1.810145616531372,
+  "reb": 27.999999403953552,
+  "cut": false
+ },
+ "operator_spread": {
+  "spend": 6.094443311441816,
+  "real_end": 1.8349881153663614,
+  "reb": 24,
+  "cut": false
+ },
+ "operator_practical": {
+  "spend": 6.190740312540959,
+  "real_end": 1.850724657164033,
+  "reb": 26,
+  "cut": false
+ }
+}

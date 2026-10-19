@@ -1,0 +1,6 @@
+Replay MP-2 2000-01-03 -> 2026-01-21 (26 years, IRA, $100k start; amounts as multiples of the starting value, today's dollars)
+                                             total spent   ending value   rebalances   guardrail cut ever
+  simulator (money_printer.py)                    1.88x         1.83x         11      False
+  operator, simulator-style selling               1.98x         1.88x         12      False
+  operator, practical selling (default)           1.75x         1.88x          9      False
+  operator vs simulator: largest difference 5.4% (calendar months/years vs 21/252-trading-day periods)
