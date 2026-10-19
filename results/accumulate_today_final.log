@@ -1,0 +1,8 @@
+Today-safe #1 (9 funds)    valid(today) True  AI 30%  gold 24%  worst fwd -14.9%
+IRA Shield 40 (6 funds)    valid(today) False  AI 30%  gold 26%  worst fwd -15.4%
+IRA Shield 40 (no K-1)     valid(today) True  AI 29%  gold 25%  worst fwd -14.6%
+IRA Max 60                 valid(today) False  AI 52%  gold 17%  worst fwd -25.9%
+Today-safe #1 (9 funds)    CE $3.70M median $5.21M p10 $2.43M median@55 $1.83M | drop 1-in-10 35% >50% 0% | CE AI unwind $3.02M trend -4% $2.53M gold -5% $2.75M recent era $2.86M | testfol 12.11% / -25.8% / 0.748 (2000)
+IRA Shield 40 (6 funds)    CE $3.74M median $5.28M p10 $2.46M median@55 $1.86M | drop 1-in-10 35% >50% 0% | CE AI unwind $3.07M trend -4% $2.56M gold -5% $2.74M recent era $2.93M | testfol 12.23% / -26.8% / 0.740 (2000)
+IRA Shield 40 (no K-1)     CE $3.59M median $4.88M p10 $2.37M median@55 $1.76M | drop 1-in-10 33% >50% 0% | CE AI unwind $2.96M trend -4% $2.51M gold -5% $2.66M recent era $2.79M | testfol 11.97% / -24.4% / 0.760 (2000)
+IRA Max 60                 CE $3.70M median $7.74M p10 $2.52M median@55 $2.37M | drop 1-in-10 52% >50% 15% | CE AI unwind $2.75M trend -4% $3.06M gold -5% $3.07M recent era $2.81M | testfol 17.73% / -45.1% / 0.794 (1987)

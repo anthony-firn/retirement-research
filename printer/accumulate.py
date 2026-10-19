@@ -12,18 +12,24 @@ ROOT = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, ROOT); sys
 import money_printer as mp
 import stress_forward as sf
 DEV, f32 = mp.DEV, mp.f32
-YEARS = 35; V0 = 8.0; CONTRIB = 15.0; GAMMA = 3.0; COST = 0.0005          # $k
+YEARS = 35; V0 = 8.0; CONTRIB = 15.0; GAMMA = float(os.environ.get("GAMMA", "3.0")); COST = 0.0005   # $k
 UNIVERSE = ["VTISIM", "VBRSIM", "VTVSIM", "SPMOSIM", "XLVSIM", "XLESIM", "XLPSIM", "VXUSSIM", "UPROSIM", "SSOSIM", "QLDSIM", "TQQQSIM", "TMFSIM", "TYDSIM",
             "UBTSIM", "UGLSIM", "GDESIM", "NTSXSIM", "RSSBSIM", "KMLMSIM", "DBMFSIM", "GLDSIM", "ZROZSIM", "TLTSIM", "IEISIM", "REITSIM", "UUPSIM"]
 LEVX = {"UPROSIM": 3, "SSOSIM": 2, "QLDSIM": 2, "TQQQSIM": 3, "TMFSIM": 3, "TYDSIM": 3, "UBTSIM": 2, "UGLSIM": 2, "GDESIM": 1.8, "NTSXSIM": 1.5, "RSSBSIM": 2}
 BAD = [k for k in sf.SC if not k.startswith("Soft")]
 RD = {n: mp.fund_returns(n) for n in UNIVERSE}
+TODAY = bool(os.environ.get("TODAY"))                              # current-climate guard rails (AI bubble, rates, war, gold run-up)
+AIW = {"TQQQSIM": 3, "QLDSIM": 2, "UPROSIM": 1.2, "SSOSIM": 0.8, "SPMOSIM": 0.6, "VTISIM": 0.35, "GDESIM": 0.36, "NTSXSIM": 0.36, "RSSBSIM": 0.3}
+AI_UNWIND = {"TQQQSIM": .09, "QLDSIM": .06, "SPMOSIM": .018, "UPROSIM": .036, "SSOSIM": .024, "VTISIM": .01, "GDESIM": .009, "NTSXSIM": .011, "RSSBSIM": .006, "VTVSIM": .003}
+def gold_x(a): return a.get("GLDSIM", 0) + 0.9 * a.get("GDESIM", 0) + 2 * a.get("UGLSIM", 0)
+def ai_x(a): return sum(AIW.get(t, 0) * w for t, w in a.items())
 def valid(a):
+    if TODAY and (ai_x(a) > 30 or gold_x(a) > 30): return False
     if len(a) > 9 or any(w < 1 or w > 50 for w in a.values()) or sum(a.values()) != 100 or any(t not in UNIVERSE for t in a): return False
     if sum(LEVX.get(t, 1) * w for t, w in a.items()) > 200: return False
     day = sum(w / 100 * RD[t] for t, w in a.items())
-    if day[1:].min() < -0.25: return False
-    return min(sum(w / 100 * sf.move(t, sf.SC[k]) for t, w in a.items()) for k in BAD) >= -40
+    if day[1:].min() < (-0.20 if TODAY else -0.25): return False
+    return min(sum(w / 100 * sf.move(t, sf.SC[k]) for t, w in a.items()) for k in BAD) >= (-15 if TODAY else -40)
 
 def simulate(allocs, IDX, step=5, trend_haircut=0.0, drag=None, band=6.0, gap_days=252, valve=2.0):
     assets = sorted({a for al in allocs for a in al}); K = max(len(a) for a in allocs)
@@ -63,9 +69,11 @@ def ce(w, gamma=GAMMA): return float(np.mean(np.maximum(w, 1e-3) ** (1 - gamma))
 GOLD3 = {"GLDSIM": .03, "GDESIM": .027, "UGLSIM": .06}
 def evaluate(allocs, IDX, cap):
     rb = simulate(allocs, IDX); rt = simulate(allocs, IDX, trend_haircut=0.02); rg = simulate(allocs, IDX, drag=GOLD3); out = []
+    ra = simulate(allocs, IDX, drag=AI_UNWIND) if TODAY else None
     for c in range(len(allocs)):
-        ces = [ce(r["wealth"][65][c]) for r in (rb, rt, rg)]; dd90 = float(np.percentile(rb["mdd"][c], 90) * 100)
-        out.append((np.log(np.mean(ces)) - 0.05 * max(0.0, dd90 - cap), dict(ce=np.mean(ces), ce_base=ces[0], dd90=dd90, med=float(np.median(rb["wealth"][65][c])), p10=float(np.percentile(rb["wealth"][65][c], 10)))))
+        ces = [ce(r["wealth"][65][c]) for r in ((rb, rt, rg, ra) if TODAY else (rb, rt, rg))]; dd90 = float(np.percentile(rb["mdd"][c], 90) * 100)
+        p50 = float((rb["mdd"][c] > 0.5).mean())
+        out.append((np.log(np.mean(ces)) - 0.05 * max(0.0, dd90 - cap) - (2.0 * max(0.0, p50 - 0.05) if TODAY else 0.0), dict(ce=np.mean(ces), ce_base=ces[0], dd90=dd90, med=float(np.median(rb["wealth"][65][c])), p10=float(np.percentile(rb["wealth"][65][c], 10)))))
     return out
 
 def mutate(a, rng):
@@ -83,7 +91,7 @@ if __name__ == "__main__":
     mode = sys.argv[1]
     if mode == "search":
         cap = float(sys.argv[2]); rng = np.random.default_rng(int(cap)); POP = int(os.environ.get("POP", "64")); ITERS = int(os.environ.get("ITERS", "50"))
-        P = json.load(open(os.path.join(ROOT, "..", "results", "portfolios.json"))); seeds = [s for s in SEEDS(P) if valid(s)]
+        P = json.load(open(os.path.join(ROOT, "..", "results", "portfolios.json"))); seeds = [s for s in SEEDS(P) + [{t: int(w) for t, w in P[n]["alloc"].items()} for n in ("IRA Accelerator 40", "IRA Steady 30", "IRA Max 60", "IRA Accelerator 40 (no K-1)") if n in P] if valid(s)]
         pop = [seeds[i % len(seeds)] for i in range(POP)]
         for i in range(len(seeds), POP):
             for _ in range(3 + i // len(seeds)): pop[i] = mutate(pop[i], rng)
@@ -105,7 +113,7 @@ if __name__ == "__main__":
             print(f"  iter {it:3d} ({time.time()-t0:4.0f}s) CE ${m['ce']*1000:,.0f} (base ${m['ce_base']*1000:,.0f}) median ${m['med']*1000:,.0f} p10 ${m['p10']*1000:,.0f} dd90 {m['dd90']:.0f}% | "
                   + " ".join(f"{t.replace('SIM','')}{w}" for t, w in sorted(pop[b].items(), key=lambda x: -x[1])), flush=True)
         top = sorted(seen.items(), key=lambda kv: -kv[1][0])[:20]
-        json.dump([dict(alloc=dict(k), fitness=f[0], **f[1]) for k, f in top], open(os.path.join(ROOT, "..", "results", f"accumulate_cap{int(cap)}.json"), "w"), indent=1, default=float)
+        json.dump([dict(alloc=dict(k), fitness=f[0], **f[1]) for k, f in top], open(os.path.join(ROOT, "..", "results", f"accumulate_{'today_' if TODAY else ''}cap{int(cap)}{os.environ.get('TAG', '')}.json"), "w"), indent=1, default=float)
 
 def testfol(alloc):
     import urllib.request

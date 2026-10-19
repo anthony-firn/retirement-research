@@ -1218,5 +1218,37 @@
   },
   "clean": true,
   "note": "Drop cap 60%: highest robust CE ($3.30M) but p90 drop 53%, 14% chance of a >50% drop"
+ },
+ "IRA Shield 40": {
+  "alloc": {
+   "VBRSIM": 29,
+   "DBMFSIM": 21,
+   "KMLMSIM": 20,
+   "GDESIM": 16,
+   "TQQQSIM": 8,
+   "UGLSIM": 6
+  },
+  "rebalance": {
+   "freq": "Yearly",
+   "relative_dev": 100
+  },
+  "clean": true,
+  "note": "Max-60-like value but safer for today: AI exposure 30%, every forward scenario >= -15%, no >50% drops; printer/accumulate.py TODAY mode"
+ },
+ "IRA Shield 40 (no K-1)": {
+  "alloc": {
+   "VBRSIM": 28,
+   "DBMFSIM": 19,
+   "KMLMSIM": 19,
+   "GDESIM": 14,
+   "TQQQSIM": 8,
+   "GLDSIM": 12
+  },
+  "rebalance": {
+   "freq": "Yearly",
+   "relative_dev": 100
+  },
+  "clean": true,
+  "note": "IRA Shield 40 with GLD instead of UGL"
  }
 }

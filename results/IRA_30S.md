@@ -39,3 +39,23 @@ More leverage stops paying past about a 40% drop tolerance. E24 and HFEA have th
 Plan: hold the Accelerator until about 50, then shift gradually into the money printer (MP-2 / CH-12) by retirement.
 That glide has not been separately simulated.
 *Research model on historical and reconstructed data; not financial advice.*
+
+## IRA Shield 40 — Max-60-like value, safer for today (2026-10-18)
+Search (`TODAY=1 python3 printer/accumulate.py search 45`) with current-climate guard rails: AI/mega-tech exposure ≤ 30%
+(Max 60: 52%, VTI: 35%), gold ≤ 30%, every bad forward scenario ≥ −15% (Max 60: −26% in a deflationary recession), worst
+day ≥ −20%, a >50% drop in ≤ 5% of histories, plus an **AI-unwind stress** (Nasdaq-linked funds −3%/yr per unit of
+exposure) in the score. Validation: `printer/validate_ira_today.py`, `results/accumulate_today_*.log`.
+
+**IRA Shield 40: VBR 29 · DBMF 21 · KMLM 20 · GDE 16 · TQQQ 8 · UGL 6** (no-K-1 version: VBR 28 · DBMF 19 · KMLM 19 · GDE 14 · TQQQ 8 · GLD 12)
+| | IRA Max 60 | IRA Accelerator 40 | **IRA Shield 40** |
+|---|---|---|---|
+| Robust CE @65 (7 scenarios) | $3.15M | $3.13M | ~$3.1M |
+| Median @65 / @55 | $7.7M / $2.4M | $6.1M / $2.1M | $5.3M / $1.9M |
+| Bad case (1 in 10) @65 | $2.52M | $2.55M | $2.46M |
+| Drop lived, 1 in 10 / chance > 50% | 52% / 15% | 40% / 1% | 35% / 0% |
+| AI exposure / worst forward scenario | 52% / −26% | 43% / −18.5% | 30% / −15% |
+| CE in the AI-unwind stress | $2.75M | $2.91M | $3.07M |
+| testfol 2000–26 CAGR / MDD | 17.7% / −45% (1988 start) | 13.0% / −30.5% | ~12.2% / −27% |
+Same risk-adjusted value as Max 60 with far smaller drops and the best result if the AI trade unwinds. What it gives
+up is the big upside in the good histories (median $5.3M vs $7.7M). Under today's guard rails, no search found a
+higher median (an upside-seeking search, γ = 1.5, also stopped at ~$5.1M): Max 60's extra upside is its Nasdaq bet.

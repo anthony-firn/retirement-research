@@ -1,0 +1,18 @@
+  base done
+  AI unwind done
+  trend -4% done
+  gold -5% done
+  lev cost +1%/x done
+  3-month blocks done
+  recent era done
+| Portfolio | Engine | Robust CE @65 | Worst-case CE | Median @65 | Bad (p10) | Median @55 | $1.75M by 55 | Drop lived median / 1-in-10 | >50% drop | AI exposure | Gold | Worst forward scenario | Worst day | CE: AI unwind / trend -4% / gold -5% / lev cost / 3-mo / recent era | testfol CAGR / MDD / Sharpe |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| IRA Max 60 | VBR 33 · KMLM 25 · GDE 18 · TQQQ 15 · XLE 6 · GLD 1 · SPMO 1 · TMF 1 | **$3.15M** | $2.75M | $7.74M | $2.52M | $2.37M | 68% | 42% / 52% | 15% | 52% | 17% | -25.9% (Deflationary recession) | -16.0% | $2.75M / $3.06M / $3.07M / $3.39M / $3.30M / $2.81M | 17.73% / -45.1% / 0.794 (1987) |
+| IRA Accelerator 40 | VBR 29 · DBMF 24 · KMLM 17 · TQQQ 13 · GDE 10 · UGL 7 | **$3.13M** | $2.60M | $6.09M | $2.55M | $2.06M | 61% | 32% / 40% | 1% | 43% | 23% | -18.5% (Deflationary recession) | -12.0% | $2.91M / $2.60M / $2.92M / $3.46M / $3.39M / $2.84M | 12.98% / -30.5% / 0.722 (2000) |
+| Today-safe #1 | VBR 29 · DBMF 20 · KMLM 20 · GDE 15 · TQQQ 8 · UGL 5 · GLD 1 · RSSB 1 · ZROZ 1 | **$3.09M** | $2.53M | $5.21M | $2.43M | $1.83M | 54% | 28% / 35% | 0% | 30% | 24% | -14.9% (Deflationary recession) | -10.7% | $3.02M / $2.53M / $2.75M / $3.37M / $3.36M / $2.86M | 12.11% / -25.8% / 0.748 (2000) |
+| Today-safe #4 | VBR 25 · DBMF 22 · GDE 21 · KMLM 20 · TQQQ 7 · SPMO 2 · UGL 2 · XLP 1 | **$3.08M** | $2.49M | $5.16M | $2.40M | $1.83M | 53% | 27% / 34% | 0% | 30% | 23% | -14.9% (Deflationary recession) | -11.4% | $3.01M / $2.49M / $2.79M / $3.37M / $3.40M / $2.85M | 12.00% / -25.9% / 0.747 (2000) |
+| Today-safe #2 | VBR 28 · DBMF 20 · KMLM 20 · GDE 15 · TQQQ 8 · UGL 6 · GLD 1 · RSSB 1 · ZROZ 1 | **$3.08M** | $2.53M | $5.18M | $2.44M | $1.83M | 54% | 27% / 35% | 0% | 30% | 26% | -14.4% (Deflationary recession) | -10.5% | $3.02M / $2.53M / $2.69M / $3.36M / $3.34M / $2.91M | 12.18% / -25.4% / 0.753 (2000) |
+| Today-safe #3 | VBR 27 · DBMF 20 · KMLM 20 · GDE 15 · TQQQ 8 · UGL 6 · RSSB 2 · GLD 1 · ZROZ 1 | **$3.06M** | $2.51M | $5.13M | $2.41M | $1.83M | 54% | 27% / 34% | 0% | 30% | 26% | -14.2% (Deflationary recession) | -10.5% | $2.99M / $2.51M / $2.67M / $3.32M / $3.33M / $2.89M | 12.12% / -25.3% / 0.750 (2000) |
+| IRA Steady 30 | VBR 23 · KMLM 22 · GDE 20 · DBMF 19 · TQQQ 8 · GLD 4 · TLT 2 · TMF 2 | **$3.01M** | $2.44M | $5.03M | $2.34M | $1.78M | 52% | 26% / 32% | 0% | 31% | 22% | -12.9% (Deflationary recession) | -11.0% | $2.90M / $2.44M / $2.73M / $3.25M / $3.31M / $2.81M | 12.20% / -23.0% / 0.784 (2000) |
+| MP-2 engine | DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · GLD 8 · TQQQ 2 | **$2.73M** | $2.13M | $3.84M | $2.12M | $1.49M | 32% | 24% / 28% | 0% | 14% | 27% | -10.1% (Deflationary recession) | -8.7% | $2.91M / $2.13M / $2.27M / $2.97M / $2.98M / $2.69M | 11.00% / -22.1% / 0.782 (2000) |
+| VTI (100% US stocks) | VTI 100 | **$1.34M** | $1.14M | $2.38M | $0.93M | $1.08M | 20% | 48% / 61% | 42% | 35% | 0% | -30.0% (AI bust) | -17.4% | $1.15M / $1.46M / $1.37M / $1.39M / $1.48M / $1.14M | 11.55% / -55.4% / 0.539 (1987) |
