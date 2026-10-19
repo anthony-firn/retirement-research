@@ -1150,5 +1150,73 @@
    "gap_days": 252,
    "valve": 2.0
   }
+ },
+ "IRA Accelerator 40": {
+  "alloc": {
+   "VBRSIM": 29,
+   "DBMFSIM": 24,
+   "KMLMSIM": 17,
+   "TQQQSIM": 13,
+   "GDESIM": 10,
+   "UGLSIM": 7
+  },
+  "rebalance": {
+   "freq": "Yearly",
+   "relative_dev": 100
+  },
+  "clean": true,
+  "note": "Best IRA accumulation portfolio for 30s (printer/accumulate.py, drop cap 40%, simplified): validated CE@65 $3.86M on $8k + $15k/yr, median $6.1M, p10 $2.5M, p90 drop lived 41%"
+ },
+ "IRA Accelerator 40 (no K-1)": {
+  "alloc": {
+   "VBRSIM": 27,
+   "DBMFSIM": 23,
+   "KMLMSIM": 16,
+   "TQQQSIM": 13,
+   "GDESIM": 10,
+   "GLDSIM": 11
+  },
+  "rebalance": {
+   "freq": "Yearly",
+   "relative_dev": 100
+  },
+  "clean": true,
+  "note": "Same with GLD instead of UGL (if the broker can't hold UGL)"
+ },
+ "IRA Steady 30": {
+  "alloc": {
+   "VBRSIM": 23,
+   "KMLMSIM": 22,
+   "GDESIM": 20,
+   "DBMFSIM": 19,
+   "TQQQSIM": 8,
+   "GLDSIM": 4,
+   "TLTSIM": 2,
+   "TMFSIM": 2
+  },
+  "rebalance": {
+   "freq": "Yearly",
+   "relative_dev": 100
+  },
+  "clean": true,
+  "note": "Drop cap 30%: CE $3.64M, median $5.0M, p90 drop 33%"
+ },
+ "IRA Max 60": {
+  "alloc": {
+   "VBRSIM": 33,
+   "KMLMSIM": 25,
+   "GDESIM": 18,
+   "TQQQSIM": 15,
+   "XLESIM": 6,
+   "GLDSIM": 1,
+   "SPMOSIM": 1,
+   "TMFSIM": 1
+  },
+  "rebalance": {
+   "freq": "Yearly",
+   "relative_dev": 100
+  },
+  "clean": true,
+  "note": "Drop cap 60%: highest robust CE ($3.30M) but p90 drop 53%, 14% chance of a >50% drop"
  }
 }
