@@ -1,0 +1,66 @@
+Step 1: 2047 variants on 1972-1999-only histories (in-sample)
+    64/2047
+    128/2047
+    192/2047
+    256/2047
+    320/2047
+    384/2047
+    448/2047
+    512/2047
+    576/2047
+    640/2047
+    704/2047
+    768/2047
+    832/2047
+    896/2047
+    960/2047
+    1024/2047
+    1088/2047
+    1152/2047
+    1216/2047
+    1280/2047
+    1344/2047
+    1408/2047
+    1472/2047
+    1536/2047
+    1600/2047
+    1664/2047
+    1728/2047
+    1792/2047
+    1856/2047
+    1920/2047
+    1984/2047
+    2047/2047
+
+  plain MP-2 in-sample CE $638/mo per $100k; best variants:
+   $725  never cut 99% dip<70 1%  curve_inv 15; gold_off 15 -> trend
+   $721  never cut 99% dip<70 1%  trend_off 5; curve_inv 15; gold_off 15 -> trend
+   $718  never cut 99% dip<70 2%  curve_inv 10; gold_off 15 -> trend
+   $716  never cut 99% dip<70 2%  trend_off 10; curve_inv 15; gold_off 15 -> trend
+   $714  never cut 99% dip<70 1%  vol_high 5; curve_inv 15; gold_off 15 -> trend
+   $714  never cut 99% dip<70 2%  trend_off 5; curve_inv 10; gold_off 15 -> trend
+   $710  never cut 99% dip<70 2%  trend_off 10; curve_inv 10; gold_off 15 -> trend
+   $710  never cut 98% dip<70 3%  curve_inv 5; gold_off 15 -> trend
+   $710  never cut 99% dip<70 2%  curve_inv 15; infl_high 5; gold_off 15 -> trend
+   $709  never cut 98% dip<70 2%  trend_off 15; curve_inv 15; gold_off 15 -> trend
+Step 2: IN-SAMPLE 1972-99 (fresh paths)
+    11/11
+Step 2: OUT-OF-SAMPLE 2000-26 bootstrap
+    11/11
+Step 2: full 1972-2026 bootstrap
+    11/11
+    11/11
+
+| Tilt rule | CE in-sample 72-99 | CE OUT-OF-SAMPLE 00-26 | CE full | actual 2000-26: avg spend / end value | OOS base never cut | OOS dip<70% | OOS loses value | OOS dry |
+|---|---|---|---|---|---|---|---|---|
+| no tilt (plain MP-2) | $647 | **$542** | $572 | $573 / 179% | 80% | 25% | 15% | 0.4% |
+| curve_inv 15; gold_off 15 -> trend | $739 | **$503** | $614 | $517 / 166% | 74% | 32% | 22% | 0.9% |
+| trend_off 5; curve_inv 15; gold_off 15 -> trend | $735 | **$501** | $610 | $509 / 164% | 74% | 31% | 22% | 0.8% |
+| curve_inv 10; gold_off 15 -> trend | $731 | **$513** | $612 | $514 / 171% | 76% | 30% | 20% | 0.7% |
+| trend_off 10; curve_inv 15; gold_off 15 -> trend | $730 | **$498** | $606 | $515 / 165% | 74% | 30% | 22% | 0.8% |
+| vol_high 5; curve_inv 15; gold_off 15 -> trend | $728 | **$503** | $607 | $491 / 163% | 75% | 30% | 22% | 0.8% |
+| trend_off 5; curve_inv 10; gold_off 15 -> trend | $727 | **$510** | $609 | $505 / 170% | 76% | 29% | 20% | 0.5% |
+| trend_off 10; curve_inv 10; gold_off 15 -> trend | $725 | **$507** | $606 | $514 / 171% | 77% | 27% | 20% | 0.5% |
+| curve_inv 5; gold_off 15 -> trend | $722 | **$522** | $610 | $514 / 176% | 78% | 28% | 18% | 0.5% |
+| curve_inv 15; infl_high 5; gold_off 15 -> trend | $726 | **$508** | $609 | $520 / 165% | 75% | 30% | 20% | 0.7% |
+| trend_off 15; curve_inv 15; gold_off 15 -> trend | $725 | **$492** | $600 | $518 / 165% | 73% | 31% | 23% | 0.8% |

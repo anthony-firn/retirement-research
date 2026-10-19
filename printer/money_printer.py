@@ -71,7 +71,9 @@ def _compound(x, k):                                              # k-day compou
     lg = np.log(np.maximum(x, 1e-12)); cs = np.cumsum(np.concatenate([np.zeros((1,) + lg.shape[1:]), lg], 0), 0)
     out = np.exp(cs[k:] - cs[:-k]); pad = np.ones((k - 1,) + x.shape[1:]); return np.concatenate([out, pad], 0)
 
-def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spread"):
+def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spread", tilt=None):
+    """tilt: optional dict(sig=(T, nS) 0/1 signal states on the calendar, dirs=[per printer: list of nS dicts {asset: weight change when that signal is on}]);
+    signals are read monthly; targets = base + sum of active tilts (clipped at 0, renormalised); a change of state triggers a rebalance."""
     """printers: list of Printer. Lanes = printers x histories (each lane keeps only its own funds, <= Kmax slots)."""
     assets = sorted({a for p in printers for a in p.alloc}); A = len(assets); K = max(len(p.alloc) for p in printers)
     Rm = np.stack([fund_returns(a) for a in assets], 1)
@@ -92,13 +94,23 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
         tot = sum(p.alloc.values())
         for k, (a, w) in enumerate(p.alloc.items()): sid_c[c, k] = assets.index(a); W0c[c, k] = w / tot
     sid = sid_c[ci]; W0 = W0c[ci]; has = W0 > 0
-    divy = divy_a[sid] * has; qual = qual_a[sid]; coll = coll_a[sid]; mtm = mtm_a[sid]; norm = ~(coll | mtm)
+    divy = divy_a[sid]; qual = qual_a[sid]; coll = coll_a[sid]; mtm = mtm_a[sid]; norm = ~(coll | mtm)
     band = pv(lambda p: p.band if p.band else 1e9); gap = pv(lambda p: round(p.gap_days / step), torch.long); valve = pv(lambda p: p.valve if p.valve else 1e9)
     yearly = pv(lambda p: p.yearly, torch.bool); base = pv(lambda p: p.base / 100); skim = pv(lambda p: p.skim if (p.skim is not None and p.skim >= 0) else 1e9)
     bmon = pv(lambda p: p.bucket_months); cutb = pv(lambda p: p.cut_below); cutt = pv(lambda p: p.cut_to); rest = pv(lambda p: p.restore_above)
     tx = {k: pv(lambda p, k=k: TAX[p.tax][k]) for k in ("ord", "lt", "coll", "ca")}
     r_o = tx["ord"] + tx["ca"]; r_l = tx["lt"] + tx["ca"]; r_c = tx["coll"] + tx["ca"]; r_m = 0.6 * tx["lt"] + 0.4 * tx["ord"] + tx["ca"]
-    val = W0.clone(); basis = val.clone(); lastb = torch.zeros(N, K, device=DEV); bfrac = torch.ones(N, K, device=DEV)
+    Wt = W0.clone(); state = None
+    if tilt is not None:
+        SIG = torch.tensor(np.asarray(tilt["sig"], np.float32), device=DEV); nS = SIG.shape[1]; Dc = torch.zeros(C, nS, K, device=DEV)
+        for c, p in enumerate(printers):
+            for si, dd in enumerate(tilt["dirs"][c]):
+                for a, x in dd.items(): Dc[c, si, list(p.alloc).index(a)] = x
+        DIR = Dc[ci]
+        def tilted(st):
+            w_ = (W0 + (st[:, :, None] * DIR).sum(1)).clamp(min=0); return w_ / w_.sum(1, keepdim=True)
+        state = SIG[IDX[pi, 0]]; Wt = tilted(state); has = Wt > 0
+    val = Wt.clone(); basis = val.clone(); lastb = torch.zeros(N, K, device=DEV); bfrac = torch.ones(N, K, device=DEV)
     last = torch.zeros(N, dtype=torch.long, device=DEV); infl = torch.ones(N, device=DEV); bucket = torch.zeros(N, device=DEV); mult = torch.ones(N, device=DEV)
     gST, gLT, gC, gM, carry, intr = (torch.zeros(N, device=DEV) for _ in range(6))
     dead = torch.zeros(N, dtype=torch.bool, device=DEV); cut_ever = torch.zeros(N, dtype=torch.bool, device=DEV); minreal = torch.ones(N, device=DEV)
@@ -110,7 +122,7 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
         gST += (g * stf * norm).sum(1); gLT += (g * (1 - stf) * norm).sum(1); gC += (g * coll).sum(1); gM += (g * mtm).sum(1)
     def sell_amount(amt, d):                                       # take `amt` from the most overweight funds first
         nonlocal val
-        V = val.sum(1); amt = amt.clamp(max=V.clamp(min=0)); tgt = W0 * V[:, None]; exc = (val - tgt).clamp(min=0); se = exc.sum(1)
+        V = val.sum(1); amt = amt.clamp(max=V.clamp(min=0)); tgt = Wt * V[:, None]; exc = (val - tgt).clamp(min=0); se = exc.sum(1)
         if sell_mode == "greedy":                                  # operator default: biggest excess first, remainder from the top fund
             es, order = torch.sort(exc, dim=1, descending=True); before = torch.cumsum(es, 1) - es
             take_sorted = (amt[:, None] - before).clamp(min=0); take_sorted = torch.minimum(take_sorted, es)
@@ -121,15 +133,18 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
         s = s1 + (val - s1) * (rem / (V - te).clamp(min=1e-12))[:, None]; realize(s, d); val = val - s; return s.sum(1)
     for d in range(1, L):
         rows = IDX[pi, d]; val = val * (1 + Rg[rows[:, None], sid]); infl = infl * Cg[rows]; bi = bucket * Fg[rows]; bucket = bucket + bi; intr += bi
-        mo = d * 12 // S
+        mo = d * 12 // S; force = None
         if mo != (d - 1) * 12 // S:
+            if state is not None:                                  # monthly signal check: new targets, rebalance on a change of state
+                new = SIG[rows]; Wn = tilted(new); force = (Wn - Wt).abs().max(1).values > 1e-6; state = new; Wt = Wn; has = Wt > 0
             got = sell_amount(base / 12 * infl * mult, d); draw = bucket / bmon; bucket = bucket - draw
             spend[:, min(mo - 1, M - 1)] = (got + draw) / infl; dead |= val.sum(1) <= 1e-6
         V = val.sum(1); w = val / V.clamp(min=1e-12)[:, None]; since = d - last
-        rel = torch.where(has, w / W0.clamp(min=1e-12), torch.zeros_like(w)).max(1).values
-        trig = ((((w - W0).abs().max(1).values * 100 > band) & (since > gap)) | (rel >= valve) | (yearly & (since >= S))) & ~dead
+        rel = torch.where(has, w / Wt.clamp(min=1e-12), torch.zeros_like(w)).max(1).values
+        trig = ((((w - Wt).abs().max(1).values * 100 > band) & (since > gap)) | (rel >= valve) | (yearly & (since >= S))) & ~dead
+        if force is not None: trig = trig | (force & ~dead)
         if trig.any():
-            tgt = W0 * V[:, None]; over = (val > tgt) & trig[:, None]; under = (val < tgt) & trig[:, None]
+            tgt = Wt * V[:, None]; over = (val > tgt) & trig[:, None]; under = (val < tgt) & trig[:, None]
             realize(torch.where(over, val - tgt, torch.zeros_like(val)), d)
             buy = torch.where(under, tgt - val, torch.zeros_like(val)); basis = basis + buy
             bfrac = torch.where(under, buy / tgt.clamp(min=1e-12), bfrac); lastb = torch.where(under, torch.full_like(lastb, float(d)), lastb)
