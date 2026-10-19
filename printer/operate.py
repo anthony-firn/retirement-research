@@ -3,6 +3,7 @@
   python3 printer/operate.py init   --state printer/ex_state.json --printer MP-2 --value 90000      # first purchase plan
   python3 printer/operate.py run    --state printer/ex_state.json [--date 2026-12-01] [--deposit 100000] [--bucket 1234] [--commit]
   python3 printer/operate.py status --state printer/ex_state.json
+  python3 printer/operate.py sync   --state printer/ex_state.json --shares "DBMF=471.389,VBR=63.364,..." [--bucket 1234]   # match the broker
 
 Run it at least once a month (the 1st trading day is ideal; any day works). It decides from the state + today's prices + CPI:
   1 DEPOSIT     new money (e.g. an insurance payout) goes to the most underweight funds first and raises the baseline
@@ -218,7 +219,8 @@ def sheet(state, p, profile, whole_shares=False):
     return "\n".join(out)
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("cmd", choices=["init", "run", "status"]); ap.add_argument("--state", required=True)
+    ap = argparse.ArgumentParser(); ap.add_argument("cmd", choices=["init", "run", "status", "sync"]); ap.add_argument("--state", required=True)
+    ap.add_argument("--shares", help='actual holdings from the broker, e.g. "DBMF=471.389,VBR=63"')
     ap.add_argument("--printer", default="MP-2"); ap.add_argument("--value", type=float); ap.add_argument("--date", default=dt.date.today().isoformat())
     ap.add_argument("--deposit", type=float, default=0.0); ap.add_argument("--bucket", type=float); ap.add_argument("--cpi", type=float); ap.add_argument("--prices", help="JSON {ticker: price} instead of live prices")
     ap.add_argument("--tax", default="retiree, not working", choices=list(TAXP)); ap.add_argument("--whole-shares", action="store_true"); ap.add_argument("--commit", action="store_true")
@@ -238,6 +240,19 @@ def main():
         if a.commit: st = apply(st, p, a.date, a.tax); json.dump(st, open(a.state, "w"), indent=1); print(f"saved {a.state}")
         return
     st = json.load(open(a.state)); prices = json.loads(a.prices) if a.prices else live_prices(st["targets"]); cpi = a.cpi or live_cpi()
+    if a.cmd == "sync":                                             # record the broker's actual shares (whole-share brokers, partial fills)
+        for kv in (a.shares or "").split(","):
+            if not kv.strip(): continue
+            t, q = kv.split("="); t = t.strip().upper(); q = float(q); h = st["holdings"].setdefault(t, {"shares": 0.0, "lots": []}); diff = q - h["shares"]
+            if diff > 1e-9: h["lots"].append(dict(shares=diff, cost=prices[t], date=a.date))
+            elif diff < -1e-9: tax_sold, need = 0, -diff; h["lots"].sort(key=lambda L: -L["cost"])
+            if diff < -1e-9:
+                for L in h["lots"]:
+                    take = min(L["shares"], need); L["shares"] -= take; need -= take
+                h["lots"] = [L for L in h["lots"] if L["shares"] > 1e-9]
+            print(f"  {t}: {h['shares']:.3f} -> {q:.3f} shares"); h["shares"] = q
+        if a.bucket is not None: st["cash_bucket"] = a.bucket; print(f"  cash bucket set to ${a.bucket:,.2f}")
+        json.dump(st, open(a.state, "w"), indent=1); print(f"synced {a.state}"); return
     p = plan(st, a.date, prices, cpi, deposit=a.deposit, bucket=a.bucket)
     if a.cmd == "status": p["steps"] = []
     print(sheet(st, p, st.get("tax", a.tax), a.whole_shares))
