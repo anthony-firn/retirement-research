@@ -66,3 +66,22 @@ What it does not do:
 - **It doesn't predict markets.** Like the tested printer, it only reacts to prices and inflation.
 
 *Research tool; have a tax preparer and fee-only fiduciary review before relying on it.*
+
+## Running it at M1 Finance (checked 2026-10-18)
+- **Every fund has an M1 security page with "Invest in … on M1":** all six MP-2 funds (DBMF, VBR, GDE, KMLM, GLD, TQQQ),
+  plus GLDM/IAUM (cheaper gold) and the other printers' funds (XLV, TYD, UUP, UGL, SPMO, TLT). Mutual funds and fake
+  tickers return 404 on the same URL pattern. M1 also shows a page for an over-the-counter ADR (NSRGY), so a page isn't
+  absolute proof: **build the pie in the app before funding it** (adding slices needs no money).
+- **Fractional shares:** every pie is fractional, so weights are exact.
+- **How M1 maps to the rules:**
+  - **Monthly print = "withdraw $X".** M1 sells overweight slices first, the same idea as the operator's rule. Then run
+    `operate.py sync` with M1's holdings.
+  - **Deposits:** new money goes to underweight slices first, which matches the deposit rule.
+  - **Rebalance (drift or safety valve) = M1's Rebalance button.** It executes in the next trade window.
+  - **The valve and drift checks are not automatic at M1.** The operator tells the retiree when to press the button.
+- **Trade windows:** 9:30 ET and 3:00 PM ET. With under $25k, M1 allows one window a day. Trades are not instant, which
+  is fine for monthly rules.
+- **Tax lots:** M1 always uses its own tax-minimizing lot order (no FIFO/LIFO choice), which is close to the operator's
+  highest-cost-long-term-first estimate. For the tax return, use M1's 1099.
+- **Cash bucket:** keep it outside the pie (M1 cash account or high-yield savings) and give its balance with `--bucket`.
+- **Cost:** $0 above $10k (a $3/month fee below $10k).
