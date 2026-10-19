@@ -198,7 +198,7 @@ def sheet(state, p, profile, whole_shares=False):
         for t, dollars in sorted(s["trades"].items(), key=lambda kv: kv[1]):
             px = p["prices"][t]; sh = abs(dollars) / px
             if whole_shares: sh = math.ceil(sh) if dollars < 0 else math.floor(sh)
-            line = f"     {'SELL' if dollars < 0 else 'BUY '} {t:5} {sh:10.3f} shares @ ${px:,.2f} = ${abs(dollars):,.0f}"
+            line = f"     {'SELL' if dollars < 0 else 'BUY '} {t:5} {sh:10.3f} shares @ ${px:,.2f} = ${sh * px:,.0f}" + (f" (plan ${abs(dollars):,.0f}; extra stays as cash)" if whole_shares and abs(sh * px - abs(dollars)) > 0.5 else "")
             if dollars < 0 and state["holdings"].get(t, {}).get("lots"):
                 picks, lt, st, tax = tax_lots(state, t, -dollars, px, p["date"], profile)
                 lots_txt = ", ".join("{:.2f}sh from {} ({})".format(pk["shares"], pk["lot_date"], pk["term"]) for pk in picks)
