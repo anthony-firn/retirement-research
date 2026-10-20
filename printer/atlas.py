@@ -14,7 +14,8 @@ current champions (tier-preserving) and evaluates the kids on the GPU. Next acco
 Validate: each account's top 2 per cell re-run on 600 fresh histories; cells re-picked on fresh stats, then smoothed (a cell takes
 a neighbour's printer when it is within TIE of its best), so the sliders move between few, stable printers.
 Usage: python3 printer/atlas.py search  (resumes; RESTART=1 starts over) ->  results/printer_atlas_archive.json
-       python3 printer/atlas.py validate -> results/printer_atlas.json (consumed by printer/build_ui.py)"""
+       python3 printer/atlas.py validate -> results/printer_atlas.json
+       python3 printer/atlas.py horizons -> results/printer_horizons.json (15-50 year stats per account; used by printer/app)"""
 import os, sys, json, time, itertools, numpy as np, torch
 ROOT = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, ROOT)
 MODE = sys.argv[1] if len(sys.argv) > 1 else "search"; sys.argv = [sys.argv[0]]
@@ -198,6 +199,21 @@ def smooth(choice, U, cand_tiers, tie=TIE, passes=4):
         if not changed: break
     return ch
 
+
+HORIZONS = (15, 20, 25, 30, 35, 40, 45, 50)                                    # years of retirement the app can plan for (age -> 100)
+def horizon_stats(rb, rs, c, H):
+    """Display stats over the first H years of the same histories (one long simulation serves every horizon)."""
+    P = rb["spend"][c].shape[0]; yrs = rb["spend"][c][:, :H * 12].reshape(P, H, 12).sum(2); syr = rs["spend"][c][:, :H * 12].reshape(P, H, 12).sum(2)
+    avg, savg, early = yrs.mean(1), syr.mean(1), yrs[:, :min(10, H)].mean(1)
+    yr, yb, ym = rb["yreal"][c][:, :H], rb["ybucket"][c][:, :H], rb["ymult"][c][:, :H]; dd = maxdd(yr)
+    return dict(typical=np.median(avg), bad=np.percentile(avg, 10), early=np.median(early), early_bad=np.percentile(early, 10),
+                lean=np.percentile(rb["spend"][c][:, :H * 12], 10) * 12, never_cut=1 - (ym < 0.999).any(1).mean(),
+                steady=np.mean(np.abs(np.diff(yrs, axis=1)) / np.maximum(yrs[:, :-1], 1e-9) < 0.25), lose=(yr[:, -1] < 1).mean(), dip70=(yr.min(1) < 0.7).mean(),
+                dry=(yr[:, -1] <= 1e-6).mean(), left=np.median(yr[:, -1] + yb[:, -1]), dd50=np.median(dd), dd90=np.percentile(dd, 90),
+                stress_typical=np.median(savg), stress_bad=np.percentile(savg, 10), stress_dry=(rs["yreal"][c][:, H - 1] <= 1e-6).mean(),
+                no_bonus_10y=np.mean(yrs[:, :10].max(1) <= yrs[:, :10].min(1) * 1.001))
+HFIELDS = ("typical", "bad", "early", "early_bad", "lean", "never_cut", "steady", "lose", "dip70", "dry", "left", "dd50", "dd90", "stress_typical", "stress_bad", "stress_dry", "no_bonus_10y")
+
 def display_stats(r_b, r_s, c, p):
     s = mp.score(r_b, c); st = mp.score(r_s, c); y = r_b["yreal"][c]; dd = maxdd(y)
     return dict(base=p.base / 100, typical=s["print_typical"], bad=s["print_bad"], lean=s["print_lean_month"], early=s["print_y1_10_typ"],
@@ -222,6 +238,21 @@ if __name__ == "__main__":
             start = [arch[keys[i]][0] for i in keep] + start[:256]                  # next account type starts from these
             json.dump(res, open(os.path.join(OUT, "printer_atlas_archive.json"), "w"), default=float)
             print(f"  [{tk}] kept {len(keep)} champions/runners-up", flush=True)
+    elif MODE == "horizons":                                                   # every validated candidate, every horizon, every account type
+        A = json.load(open(os.path.join(OUT, "printer_atlas.json"))); cands = [pload(dict(p, bucket_months=p["bucket_months"])) for p in A["printers"]]
+        IDX = mp.make_idx(FRESH, max(HORIZONS), step=STEP, seed=909); out = dict(horizons=list(HORIZONS), fields=list(HFIELDS), paths=FRESH, accounts={})
+        print(f"horizons: {len(cands)} printers x {len(TAXES)} account types x {len(HORIZONS)} horizons on {FRESH} fresh {max(HORIZONS)}-year histories", flush=True)
+        for tk, tax in TAXES.items():
+            t0 = time.time(); acc = {str(H): [] for H in HORIZONS}
+            for i in range(0, len(cands), 256):
+                pp = [replace(p, tax=tax) for p in cands[i:i + 256]]
+                tb = time.time(); rb = mp.simulate(pp, IDX, step=STEP); rs = mp.simulate(pp, IDX, step=STEP, trend_haircut=0.02)
+                for c in range(len(pp)):
+                    for H in HORIZONS: st = horizon_stats(rb, rs, c, H); acc[str(H)].append([round(float(st[f]), 4) for f in HFIELDS])
+                time.sleep(THROTTLE * (time.time() - tb))
+            out["accounts"][tk] = acc; print(f"  [{tk}] {time.time()-t0:.0f}s", flush=True)
+        json.dump(out, open(os.environ.get("HORIZONS_OUT", os.path.join(OUT, "printer_horizons.json")), "w"), separators=(",", ":"))
+        print("done", flush=True)
     elif MODE == "validate":
         arch = json.load(open(os.path.join(OUT, "printer_atlas_archive.json"))); IDX = mp.make_idx(FRESH, YEARS, step=STEP, seed=909)
         allp = {}; out = dict(levels=LEVELS, tiers=TIER, gamma=GAMMA.tolist(), paths=FRESH, accounts={}, printers=[])

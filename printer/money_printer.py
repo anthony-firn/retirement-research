@@ -116,7 +116,7 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
     last = torch.zeros(N, dtype=torch.long, device=DEV); infl = torch.ones(N, device=DEV); bucket = torch.zeros(N, device=DEV); mult = torch.ones(N, device=DEV)
     gST, gLT, gC, gM, carry, intr = (torch.zeros(N, device=DEV) for _ in range(6))
     dead = torch.zeros(N, dtype=torch.bool, device=DEV); cut_ever = torch.zeros(N, dtype=torch.bool, device=DEV); minreal = torch.ones(N, device=DEV)
-    spend = torch.zeros(N, M, device=DEV); yreal = torch.zeros(N, Y, device=DEV); taxreal = torch.zeros(N, device=DEV); nreb = torch.zeros(N, device=DEV)
+    spend = torch.zeros(N, M, device=DEV); yreal = torch.zeros(N, Y, device=DEV); ymult = torch.ones(N, Y, device=DEV); ybucket = torch.zeros(N, Y, device=DEV); taxreal = torch.zeros(N, device=DEV); nreb = torch.zeros(N, device=DEV)
     def realize(sell, d):
         nonlocal basis, gST, gLT, gC, gM
         frac = (sell / val.clamp(min=1e-12)).clamp(0, 1); g = sell - basis * frac; basis = basis * (1 - frac)
@@ -166,12 +166,12 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             gST.zero_(); gLT.zero_(); gC.zero_(); gM.zero_(); intr.zero_()
             V = val.sum(1); f = (tax / V.clamp(min=1e-12)).clamp(0, 1); val = val * (1 - f)[:, None]; basis = basis * (1 - f)[:, None]; taxreal += tax / infl
             real = val.sum(1) / infl; yreal[:, min(y, Y - 1)] = real
-            mult = torch.where(real < cutb, cutt, torch.where(real > rest, torch.ones_like(mult), mult)); cut_ever |= real < cutb
+            mult = torch.where(real < cutb, cutt, torch.where(real > rest, torch.ones_like(mult), mult)); cut_ever |= real < cutb; ymult[:, min(y, Y - 1)] = mult; ybucket[:, min(y, Y - 1)] = bucket / infl
         minreal = torch.minimum(minreal, val.sum(1) / infl)
         if trace: TR["value"][:, d] = val.sum(1); TR["bucket"][:, d] = bucket; TR["infl"][:, d] = infl; TR["mult"][:, d] = mult
     sh = lambda x: x.view(C, P, *x.shape[1:]).cpu().numpy()
     extra = {f"trace_{k}": sh(v) for k, v in TR.items()} if trace else {}
-    return dict(**extra, spend=sh(spend), yreal=sh(yreal), real_end=sh(val.sum(1) / infl), minreal=sh(minreal), dead=sh(dead), cut=sh(cut_ever),
+    return dict(**extra, spend=sh(spend), yreal=sh(yreal), ymult=sh(ymult), ybucket=sh(ybucket), real_end=sh(val.sum(1) / infl), minreal=sh(minreal), dead=sh(dead), cut=sh(cut_ever),
                 tax=sh(taxreal / Y), reb=sh(nreb / Y), bucket_end=sh(bucket / infl))
 
 def score(r, c):
