@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Money Printer Forge, hosted locally:  ./forge  [--port 8777]  -> opens http://127.0.0.1:8777
+cd "$(dirname "$0")" && exec python3 printer/app/server.py --open "$@"

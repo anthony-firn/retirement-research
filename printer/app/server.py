@@ -8,9 +8,9 @@ Serves the single-page app (static/) and a small JSON API:
   POST /api/testfol    {portfolios, start_val, withdraw_month}        a testfol.io share link (deep link) for the portfolios
 mix = dollars by tax treatment {free, deferred, taxable}; bracket = "low" | "mid" (see atlas_data.BRACKETS).
 Results are cached in memory for the session. Binds to 127.0.0.1 only."""
-import os, sys, json, argparse, functools, webbrowser, threading
+import os, sys, json, gzip, argparse, functools, webbrowser, threading
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.gzip import GZipMiddleware
@@ -20,6 +20,7 @@ app = FastAPI(title="Money Printer Forge", docs_url=None, redoc_url=None)
 app.add_middleware(GZipMiddleware, minimum_size=2000)
 app.mount("/static", StaticFiles(directory=os.path.join(HERE, "static")), name="static")
 ATLAS = atlas_data.build()
+ATLAS_JSON = json.dumps(ATLAS, separators=(",", ":")).encode(); ATLAS_GZ = gzip.compress(ATLAS_JSON, 6)   # built once: ~6 MB -> ~1 MB
 
 def _bracket(q):
     b = q.get("bracket", "low")
@@ -47,7 +48,9 @@ def run(kind, q):
 @app.get("/")
 def index(): return FileResponse(os.path.join(HERE, "static", "index.html"))
 @app.get("/api/atlas")
-def atlas(): return JSONResponse(ATLAS)
+def atlas(request: Request):
+    if "gzip" in request.headers.get("accept-encoding", ""): return Response(ATLAS_GZ, media_type="application/json", headers={"Content-Encoding": "gzip", "Cache-Control": "no-cache"})
+    return Response(ATLAS_JSON, media_type="application/json")
 @app.post("/api/testfol")
 def testfol(q: dict):
     for p in q.get("portfolios", []): _check_alloc(p.get("alloc"))

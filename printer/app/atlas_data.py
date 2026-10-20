@@ -21,11 +21,7 @@ FUNDS = {  # ticker: (plain name, class)  classes: stocks, boost (leveraged / st
 ACCOUNTS = {"roth": "Roth IRA (tax-free)", "taxable_low": "Taxable, low income", "taxable_mid": "Taxable, middle income"}
 # reference printers for comparisons (classic portfolios run with the default printer rules: 4% base, skim above 125%, 36-month bucket)
 BENCHMARKS = [dict(name="60/40 (VTI 60 · BND 40)", alloc=[["VTI", 60], ["BND", 40]], base=4.0, skim=0.25, bucket=36, cut_below=0.7, cut_to=0.8),
-              dict(name="100% US stocks (VTI)", alloc=[["VTI", 100]], base=4.0, skim=0.25, bucket=36, cut_below=0.7, cut_to=0.8),
-              dict(name="CH-12 Printer", alloc=[["DBMF", 25], ["KMLM", 16], ["GLD", 15], ["VBR", 15], ["XLV", 13], ["TYD", 11], ["TQQQ", 5]],
-                   base=4.0, skim=0.25, bucket=36, cut_below=0.7, cut_to=0.8),
-              dict(name="MP-2", alloc=[["DBMF", 27], ["VBR", 27], ["GDE", 21], ["KMLM", 15], ["GLD", 8], ["TQQQ", 2]],
-                   base=5.75, skim=0.40, bucket=48, cut_below=0.7, cut_to=0.65)]
+              dict(name="100% US stocks (VTI)", alloc=[["VTI", 100]], base=4.0, skim=0.25, bucket=36, cut_below=0.7, cut_to=0.8)]
 # tax brackets the atlas has a taxable profile for; income_tax = the profile's ordinary rate + state, used on tax-deferred withdrawals
 BRACKETS = {"low": dict(label="10–12% federal", taxable="taxable_low", income_tax=0.12),
             "mid": dict(label="22–24% federal", taxable="taxable_mid", income_tax=0.313)}

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Money Printer Forge</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/vendor/uPlot.min.css">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="eyebrow">Retirement income, chosen by your values</div>
+      <h1>Money Printer Forge</h1>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Views">
+      <button role="tab" id="tab-choose" aria-controls="view-choose" aria-selected="true">Choose</button>
+      <button role="tab" id="tab-backtest" aria-controls="view-backtest" aria-selected="false">Backtest</button>
+      <button role="tab" id="tab-frontier" aria-controls="view-frontier" aria-selected="false">Frontier</button>
+    </nav>
+    <div class="share">
+      <button class="btn primary" id="share-testfol">Open in testfol.io</button>
+      <button class="btn" id="copy-testfol">Copy testfol link</button>
+      <button class="btn ghost" id="copy-app">Copy app link</button>
+    </div>
+  </header>
+  <p class="toast" id="toast" role="status" aria-live="polite" hidden></p>
+
+  <div class="layout">
+    <!-- inputs: always visible -->
+    <aside class="inputs">
+      <section class="card">
+        <h2>About you</h2>
+        <div class="row2">
+          <label class="field" for="age"><span>Age</span><input id="age" type="number" min="30" max="95" inputmode="numeric"></label>
+          <div class="field"><span id="bracket-l">Tax bracket in retirement</span>
+            <div class="seg" id="bracket" role="group" aria-labelledby="bracket-l"></div></div>
+        </div>
+        <p class="hint" id="horizon"></p>
+        <div class="money">
+          <label class="field" for="m-free"><span>Tax-free <small>Roth IRA, Roth 401(k), HSA</small></span><input id="m-free" inputmode="numeric"></label>
+          <label class="field" for="m-deferred"><span>Tax-deferred <small>Traditional IRA, 401(k), 403(b)</small></span><input id="m-deferred" inputmode="numeric"></label>
+          <label class="field" for="m-taxable"><span>Taxable <small>brokerage, savings to invest</small></span><input id="m-taxable" inputmode="numeric"></label>
+        </div>
+        <p class="total"><span>Total invested</span><b class="num" id="total"></b></p>
+      </section>
+      <section class="card">
+        <h2>What matters to you</h2>
+        <div id="values" class="values"></div>
+        <div class="presets" id="presets"></div>
+      </section>
+    </aside>
+
+    <main>
+      <!-- CHOOSE -->
+      <section id="view-choose" role="tabpanel" aria-labelledby="tab-choose" class="view">
+        <div class="hero card">
+          <div class="hero-main">
+            <div class="eyebrow" id="pick-state">Best match on the frontier</div>
+            <div class="amt"><span class="num" id="amt">…</span><small>a month</small></div>
+            <p class="lede" id="lede">Loading 2,000+ printers and their simulated retirements…</p>
+          </div>
+          <div class="hero-facts" id="facts"></div>
+        </div>
+
+        <div class="grid2">
+          <section class="card">
+            <h2>Why this one</h2>
+            <p class="why" id="why"></p>
+            <div id="stats" class="stats"></div>
+          </section>
+          <section class="card">
+            <h2>The fund mix</h2>
+            <div class="alloc" id="alloc" role="img"></div>
+            <div class="legend" id="legend"></div>
+            <ul class="funds" id="funds"></ul>
+            <h2 class="sub">How it prints</h2>
+            <ol class="rules" id="rules"></ol>
+          </section>
+        </div>
+
+        <section class="card">
+          <div class="head-row"><h2>Close alternatives on the frontier</h2><span class="hint">Each one beats your pick on something and gives up something else.</span></div>
+          <div class="alts" id="alts"></div>
+        </section>
+
+        <section class="card">
+          <div class="head-row"><h2>What the future could look like</h2><span class="hint" id="fan-note"></span></div>
+          <div class="grid2 tight">
+            <figure><figcaption>Monthly paycheck, today's dollars</figcaption><div class="chart" id="fan-income"></div></figure>
+            <figure><figcaption>Balance, today's dollars</figcaption><div class="chart" id="fan-balance"></div></figure>
+          </div>
+          <div class="legend" id="fan-legend"></div>
+        </section>
+      </section>
+
+      <!-- BACKTEST -->
+      <section id="view-backtest" role="tabpanel" aria-labelledby="tab-backtest" class="view" hidden>
+        <section class="card">
+          <div class="controls">
+            <div class="field"><span id="mode-l">Show</span><div class="seg" id="mode" role="group" aria-labelledby="mode-l">
+              <button data-v="living">Living off it</button><button data-v="portfolio">Portfolio only</button></div></div>
+            <label class="field" for="start"><span>Start</span><select id="start"></select></label>
+            <label class="field port-only" for="rebal"><span>Rebalance</span><select id="rebal">
+              <option>Printer rule</option><option>Yearly</option><option>Quarterly</option><option>Monthly</option><option>None</option></select></label>
+            <label class="check port-only" for="real"><input type="checkbox" id="real"> Adjust for inflation</label>
+            <label class="check" for="logy"><input type="checkbox" id="logy" checked> Log scale</label>
+          </div>
+          <div class="compare">
+            <span class="hint">Comparing</span>
+            <div id="chips" class="chips"></div>
+            <select id="add" aria-label="Add a comparison"></select>
+          </div>
+        </section>
+        <div id="bt-living" class="bt">
+          <section class="card"><h2>Monthly paycheck <small>after tax, today's dollars</small></h2><div class="chart tall" id="c-paid"></div></section>
+          <section class="card"><h2>Balance <small>today's dollars, after paychecks</small></h2><div class="chart tall" id="c-bal"></div></section>
+          <section class="card"><h2>Balance drop from its high</h2><div class="chart" id="c-bdd"></div></section>
+          <section class="card"><h2>Summary</h2><div class="table-wrap"><table id="t-living"></table></div></section>
+        </div>
+        <div id="bt-portfolio" class="bt" hidden>
+          <section class="card"><h2>Portfolio growth <small id="growth-sub"></small></h2><div class="chart tall" id="c-growth"></div></section>
+          <section class="card"><h2>Drawdowns</h2><div class="chart" id="c-dd"></div></section>
+          <section class="card"><h2>Annual returns</h2><canvas class="bars" id="c-annual"></canvas></section>
+          <section class="card"><div class="head-row"><h2>Rolling returns <small>annualized</small></h2>
+            <div class="seg small" id="roll" role="group" aria-label="Rolling window"><button data-v="1">1 yr</button><button data-v="3">3 yr</button><button data-v="5">5 yr</button><button data-v="10">10 yr</button></div></div>
+            <div class="chart" id="c-roll"></div></section>
+          <section class="card"><h2>Statistics</h2><div class="table-wrap"><table id="t-stats"></table></div></section>
+        </div>
+        <p class="hint loading" id="bt-status"></p>
+      </section>
+
+      <!-- FRONTIER -->
+      <section id="view-frontier" role="tabpanel" aria-labelledby="tab-frontier" class="view" hidden>
+        <section class="card frontier">
+          <div class="head-row"><div><h2>The frontier for your situation</h2><p class="hint" id="fr-sub"></p></div>
+            <button class="btn" id="fr-clear" hidden>Clear filters</button></div>
+          <div class="pc-wrap"><canvas id="pc" aria-label="Parallel coordinates of the frontier printers"></canvas></div>
+          <div class="legend" id="fr-legend"></div>
+          <div class="sc-row">
+            <div class="sc-ctl">
+              <label class="field" for="sx"><span>Across</span><select id="sx"></select></label>
+              <label class="field" for="sy"><span>Up</span><select id="sy"></select></label>
+              <p class="hint">Every dot is a frontier printer. The gold ring is your pick. Click any dot or line to choose it; moving a slider goes back to the best match.</p>
+            </div>
+            <div class="sc-wrap"><canvas id="sc" aria-label="Scatter plot of two frontier measures"></canvas></div>
+          </div>
+          <div class="tip" id="tip" hidden></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="sticky-pick" id="sticky" aria-hidden="true"><b id="sticky-amt"></b><span id="sticky-sub"></span></div>
+  <footer class="foot">
+    <p id="method"></p>
+    <p>Accounts are combined by dollars, each running the same fund mix. Tax-deferred paychecks lose the bracket's income tax (12% or 31%, federal plus state). The model does not include Social Security, pensions or required minimum distributions.</p>
+    <p>Research model on reconstructed history before most funds existed. It is not a guarantee and not financial, tax or legal advice. Have a fee-only fiduciary and a tax preparer review a plan before you use it.</p>
+  </footer>
+</div>
+<script src="/static/vendor/uPlot.iife.min.js"></script>
+<script src="/static/charts.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
