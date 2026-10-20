@@ -18,3 +18,6 @@ strategy/data_cpi_1972.json
 engine/data/cache/
 __pycache__/
 lab/clean_1972.json
+
+# caches
+printer/signals_cache.npy
