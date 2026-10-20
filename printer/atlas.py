@@ -7,13 +7,13 @@ Five sliders, LEVELS steps each (0 = left end, 1 = right end):
   calm    'ride the waves'  -> 'calm balance'     penalty on the bad-case (1 in 10) drop of the balance from its high
   simple  'simple' .. 'sophisticated' (5 tiers)   hard limits: number of funds, leveraged funds, K-1 funds
 Utility of printer x in cell (s, t, g, c):  [(1-ws) CE_b(gamma_t) + ws CE_s(gamma_t)] * (1 - 0.35 t (1 - steady))
-                                            + 0.025 g min(left, 3) - 0.05 c dd90 - break-risk penalties(s)
+                                            + LEG_W g min(left, 3) - CALM_W c dd90 - break-risk penalties(s)
 Search, per account type: one shared archive of evaluated printers (256 weekly-step histories, base + stress, common to all);
 each cell's champion = the archive member with the highest utility that its tier allows; every generation mutates the
 current champions (tier-preserving) and evaluates the kids on the GPU. Next account type starts from the last one's champions.
-Validate: champions + runners-up re-run on 1,000 fresh histories; cells re-picked on fresh stats, then smoothed (a cell takes
+Validate: each account's top 2 per cell re-run on 600 fresh histories; cells re-picked on fresh stats, then smoothed (a cell takes
 a neighbour's printer when it is within TIE of its best), so the sliders move between few, stable printers.
-Usage: python3 printer/atlas.py search  ->  results/printer_atlas_archive.json
+Usage: python3 printer/atlas.py search  (resumes; RESTART=1 starts over) ->  results/printer_atlas_archive.json
        python3 printer/atlas.py validate -> results/printer_atlas.json (consumed by printer/build_ui.py)"""
 import os, sys, json, time, itertools, numpy as np, torch
 ROOT = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, ROOT)
@@ -21,6 +21,8 @@ MODE = sys.argv[1] if len(sys.argv) > 1 else "search"; sys.argv = [sys.argv[0]]
 import money_printer as mp, search as se
 from dataclasses import replace
 OUT = os.path.join(ROOT, "..", "results")
+LEG_W = 0.012                                 # 1x start left after 40 yrs ~ 0.016/yr of income at a 2% real discount; bequests count a bit less
+CALM_W = 0.10                                 # 10 points less bad-case drop ~ worth 1%/yr of income at the calm end
 LEVELS = 7; TIERS = 5; STEP = 5; YEARS = 40
 GAMMA = np.array([1.5, 2.0, 2.75, 3.5, 4.5, 6.0, 8.0])                  # steady slider -> risk aversion over income
 TAXES = {"roth": "none (IRA/Roth)", "taxable_low": "retiree, not working", "taxable_mid": "middle bracket"}
@@ -29,7 +31,7 @@ TIER = [dict(n=3, lev=0, k1=False, name="Starter"), dict(n=4, lev=0, k1=False, n
         dict(n=7, lev=15, k1=False, name="Advanced"), dict(n=9, lev=25, k1=True, name="Expert")]
 K1 = {"UUPSIM", "UGLSIM"}
 POP = int(os.environ.get("POP", "512")); PATHS = int(os.environ.get("PATHS", "256")); GENS = int(os.environ.get("GENS", "30"))
-FRESH = int(os.environ.get("FRESH", "1000")); TIE = float(os.environ.get("TIE", "0.0004"))
+FRESH = int(os.environ.get("FRESH", "600")); TIE = float(os.environ.get("TIE", "0.0004"))
 
 def tier_of(a):
     n = len(a); lev = sum(w for t, w in a.items() if t in se.LEV); k1 = any(t in K1 for t in a)
@@ -139,8 +141,8 @@ def utilities(S, dev=mp.DEV):
     dry_cap = 0.02 * (0.05 ** L); lose_cap = 0.25 - 0.20 * L; cut_cap = 0.35 - 0.30 * L                                       # caps tighten with safety
     pen = 2 * (f("dry_b")[:, None] - dry_cap).clamp(min=0) + (f("dry_s")[:, None] - 3 * dry_cap).clamp(min=0) \
         + 0.2 * (f("lose")[:, None] - lose_cap).clamp(min=0) + 0.1 * (f("cut")[:, None] - cut_cap).clamp(min=0)                # (A, s)
-    leg = 0.025 * L[None, :] * f("left").clamp(max=3)[:, None]                                                                # (A, g)
-    calm = 0.05 * L[None, :] * f("dd90")[:, None]                                                                             # (A, c)
+    leg = LEG_W * L[None, :] * f("left").clamp(max=3)[:, None]                                                                # (A, g)
+    calm = CALM_W * L[None, :] * f("dd90")[:, None]                                                                             # (A, c)
     return (core - pen[:, :, None])[:, :, :, None, None] + leg[:, None, None, :, None] - calm[:, None, None, None, :]
 
 def champions(S, tiers, topk=1):
@@ -205,9 +207,13 @@ def display_stats(r_b, r_s, c, p):
 if __name__ == "__main__":
     rng = np.random.default_rng(2026)
     if MODE == "search":
-        IDX = mp.make_idx(PATHS, YEARS, step=STEP, seed=101); start = seeds(rng); res = {}
+        IDX = mp.make_idx(PATHS, YEARS, step=STEP, seed=101); start = seeds(rng)
+        fa = os.path.join(OUT, "printer_atlas_archive.json")                  # resume: account types already searched are kept
+        res = json.load(open(fa)) if os.path.exists(fa) and not os.environ.get("RESTART") else {}
         print(f"Printer Atlas search: {LEVELS}^4 preference cells x {TIERS} tiers, pop {POP}, {GENS} generations, {PATHS} histories; {len(start)} seed printers", flush=True)
         for tk in TAXES:
+            if tk in res:
+                start = [pload(r["printer"]) for r in res[tk]] + start[:256]; print(f"  [{tk}] already searched, resuming after it", flush=True); continue
             arch = search(tk, start, rng, IDX)
             keys = list(arch); S = [arch[k][1] for k in keys]; tiers = [arch[k][2] for k in keys]
             top, _ = champions(S, tiers, topk=3); keep = sorted(set(top.reshape(-1).tolist()))
@@ -218,8 +224,9 @@ if __name__ == "__main__":
     elif MODE == "validate":
         arch = json.load(open(os.path.join(OUT, "printer_atlas_archive.json"))); IDX = mp.make_idx(FRESH, YEARS, step=STEP, seed=909)
         allp = {}; out = dict(levels=LEVELS, tiers=TIER, gamma=GAMMA.tolist(), paths=FRESH, accounts={}, printers=[])
-        for tk, rows in arch.items():                                          # every account type re-scores all engines found
-            for r in rows: allp.setdefault(json.dumps(r["printer"], sort_keys=True), pload(r["printer"]))
+        for tk, rows in arch.items():                                          # each account's top 2 per cell (search stats, final weights);
+            top, _ = champions(rows, [r["tier"] for r in rows], topk=2)        # every account type then re-scores all of them
+            for i in sorted(set(top.reshape(-1).tolist())): allp.setdefault(json.dumps(rows[i]["printer"], sort_keys=True), pload(rows[i]["printer"]))
         cands = list(allp.values()); print(f"validate {len(cands)} printers x {len(TAXES)} account types on {FRESH} fresh histories", flush=True)
         for tk, tax in TAXES.items():
             t0 = time.time(); S, D = [], []

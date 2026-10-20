@@ -19,6 +19,7 @@ lab/        scripts + data; run everything from inside lab/
   hist_long.json      master cache of raw testfol.io daily histories (committed)
   make_data.sh        rebuilds every derived dataset from hist_long.json
   sim_catalog.csv     testfol.io SIM ticker catalog (coverage, source)
+printer/    money printers: simulator, searches, operator, Printer Atlas + slider UI (ui/forge.html)
 results/    findings and portfolio definitions
 private/    personal household inputs, notes and outputs — gitignored, never committed
 ```
