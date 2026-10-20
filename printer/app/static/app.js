@@ -193,10 +193,11 @@ function render() {
   // alternatives
   const alts = alternatives(cur); ALTS = alts;
   $("alts").innerHTML = alts.length ? alts.map(({ i, j }) => {
-    const a = M.stats[i], diffs = [["early", "paycheck now", "$", 1], ["early_bad", "unlucky paycheck", "$", 1], ["dry", "runs dry", "%1", -1], ["dd90", "bad-case drop", "%", -1], ["left", "left at the end", "L", 1], ["funds", "funds", "n", -1]]
+    const a = M.stats[i], first = new Set(VALUES[j].parts.map(q => q[0]).concat(j === 6 ? ["funds"] : []));
+    const diffs = DIFFS.slice().sort((u, v) => first.has(v[0]) - first.has(u[0]))
       .map(([k, lab, t, sg]) => { const dv = a[k] - st[k]; const tiny = t === "$" ? Math.abs(dv * M.tot / 12) < 5 : t === "L" ? Math.abs(dv * M.tot) < 1000 : t === "n" ? dv === 0 : Math.abs(dv) < .005;
         if (tiny) return ""; const val = t === "$" ? fmt$(Math.abs(dv) * M.tot / 12) + "/mo" : t === "L" ? fmtK(Math.abs(dv) * M.tot) : t === "n" ? Math.abs(dv) : (Math.abs(dv) * 100).toFixed(t === "%1" ? 1 : 0) + " pt";
-        return `<li class="${dv * sg > 0 ? "up" : "down"}">${dv > 0 ? "+" : "−"}${val} ${lab}</li>`; }).filter(Boolean).slice(0, 4).join("");
+        return `<li class="${dv * sg > 0 ? "up" : "down"}">${dv > 0 ? "+" : "−"}${val} ${lab}</li>`; }).filter(Boolean).slice(0, 5).join("");
     return `<div class="alt"><div class="eyebrow">More: ${VALUES[j].label.toLowerCase()}</div><div class="a-amt">${fmt$(a.early * M.tot / 12)} <small>a month now</small></div>
       <div class="mix">${esc(mix(D.printers[i]))}</div><ul>${diffs}</ul><div class="acts"><button data-pick="${i}">Choose this</button><button data-cmp="${i}">Compare in backtest</button></div></div>`;
   }).join("") : `<p class="hint">Your pick already leads on everything you rated; no frontier printer does clearly better on any one value.</p>`;
@@ -204,6 +205,9 @@ function render() {
   prev = cur; writeHash(); scheduleFan(); if (S.tab === "frontier") FR.draw(); if (S.tab === "backtest") runBacktest();
 }
 let ALTS = [];
+const DIFFS = [["early", "paycheck now", "$", 1], ["typical", "lifetime average", "$", 1], ["early_bad", "unlucky paycheck", "$", 1], ["stress_typical", "if trend funds lag", "$", 1],
+  ["steady", "steady years", "%", 1], ["never_cut", "never cut", "%", 1], ["dry", "runs dry", "%1", -1], ["lose", "ends below start", "%", -1], ["dd90", "bad-case drop", "%", -1],
+  ["left", "left at the end", "L", 1], ["funds", "funds", "n", -1]];
 function rankOf(i, j) { const s = M.score[i][j]; return M.front.filter(k => M.score[k][j] < s).length / Math.max(1, M.front.length - 1); }
 $("alts").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;

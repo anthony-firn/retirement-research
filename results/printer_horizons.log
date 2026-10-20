@@ -1,0 +1,5 @@
+horizons: 2229 printers x 3 account types x 8 horizons on 600 fresh 50-year histories
+  [roth] 709s
+  [taxable_low] 726s
+  [taxable_mid] 694s
+done

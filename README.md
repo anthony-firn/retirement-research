@@ -19,13 +19,14 @@ lab/        scripts + data; run everything from inside lab/
   hist_long.json      master cache of raw testfol.io daily histories (committed)
   make_data.sh        rebuilds every derived dataset from hist_long.json
   sim_catalog.csv     testfol.io SIM ticker catalog (coverage, source)
-printer/    money printers: simulator, searches, operator, Printer Atlas + slider UI (ui/forge.html)
+printer/    money printers: simulator, searches, operator, Printer Atlas, local app (app/, run ./forge)
 results/    findings and portfolio definitions
 private/    personal household inputs, notes and outputs — gitignored, never committed
 ```
 
 ## Quick start
 ```bash
+./forge                         # Money Printer Forge: local app at http://127.0.0.1:8777 (results/PRINTER_FORGE.md)
 cd lab
 ./make_data.sh                  # build derived datasets (gitignored)
 python3 final_beat.py           # re-verify candidates on testfol.io

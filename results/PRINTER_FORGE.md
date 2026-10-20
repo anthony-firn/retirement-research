@@ -1,10 +1,62 @@
 # Money Printer Forge and the Printer Atlas (2026-10-19)
 
-**What it is.** The Forge is a character-creator page (`printer/ui/forge.html`, self-contained, opens offline). Four
-plain-language sliders plus a complexity tier pick a ready-made money printer: fund mix, monthly paycheck, bonus rule and
-safety brake. Below them is a Pareto-frontier explorer. Every pick is cached ahead of time in the Printer Atlas, so the
-sliders respond instantly.
+## The app (local): `./forge` → http://127.0.0.1:8777
+**Its job:** help someone pick the money printer that fits their situation and their values, choosing only among printers
+on the Pareto frontier.
+1. **About you.**
+   - Age sets how many years to plan for (to age 100, from 15 to 50 years).
+   - Money is entered by tax treatment: tax-free (Roth IRA, Roth 401(k), HSA), tax-deferred (traditional IRA, 401(k),
+     403(b)) and taxable.
+   - Tax bracket in retirement: 10–12% or 22–24%.
+   - Each printer's stats are mixed by those dollars. Tax-deferred paychecks lose the bracket's income tax (12% or
+     31.3%, federal plus state).
+2. **The frontier is recomputed for that situation.** It uses 11 measures: paycheck now, unlucky paycheck, lifetime
+   average, paycheck if trend funds earn 2%/yr less, paycheck never cut, steady years, runs dry, ends below start,
+   bad-case balance drop, left at the end, and simplicity. Only printers that run dry in ≤ 2% of histories count.
+3. **What matters to you.** Seven importance sliders weight plain measures:
 
+   | Slider | Measures it weights |
+   |---|---|
+   | A bigger paycheck now | early and lifetime paycheck |
+   | Still fine in bad markets | unlucky and stressed paycheck |
+   | The same amount every month | steadiness, never cut |
+   | Never running out | runs dry, ends below start |
+   | A calm balance | bad-case drop |
+   | Leaving money to family | left at the end |
+   | Keeping it simple | fewer funds, no leverage or K-1 |
+
+   The pick is the frontier printer with the highest weighted score; ties go to the simpler one. Close alternatives are
+   the best frontier printers that do clearly better (+8% of the frontier's range) on one of your top values.
+4. **Backtest.**
+   - *Living off it:* monthly after-tax paycheck, balance and balance drop on real history from any start year, with a
+     summary table.
+   - *Portfolio only* (like testfol.io): growth on a log scale, drawdowns, annual returns, rolling 1/3/5/10-year returns,
+     and statistics (CAGR, std, max drawdown, Sharpe, Sortino, Calmar, Ulcer, UPI, best/worst year). The statistics
+     use engine/backtest.py's testfol-validated definitions; 60/40 from 2000 gives 7.07% / −33.9% / 0.492 here versus
+     testfol's 7.06% / −34.0% / 0.492.
+   - Up to 3 comparisons.
+5. **Frontier.** Brushable parallel coordinates plus an X/Y scatter. Clicking any printer chooses it.
+6. **Share.**
+   - *Open in testfol.io / Copy testfol link:* testfol's own deep link to the pick and any comparisons. It uses SIM
+     tickers and Yearly rebalancing with the 100% band, the start value is your total, and the base paycheck goes in as
+     a monthly, inflation-adjusted withdrawal. testfol has no bonus bucket or brake.
+   - *Copy app link:* the full state in the URL.
+
+**Code:**
+- `printer/app/server.py`: FastAPI on 127.0.0.1.
+- `printer/app/atlas_data.py`: payload.
+- `printer/app/backtest.py`: portfolio, history and fan.
+- `printer/app/share.py`: testfol links.
+- `printer/app/static/`: the page, with uPlot vendored.
+- **Data:** `results/printer_horizons.json` (`atlas.py horizons`: every validated printer × 3 account types × horizons
+  15–50 years, 600 fresh 50-year histories).
+
+**Mixing is an approximation:** every account runs the same fund mix, and the model ignores asset location, Social
+Security, pensions and required minimum distributions.
+
+---
+
+## Original slider design (superseded by the app above)
 | Slider (left → right) | What it changes in the score |
 |---|---|
 | Paycheck or safety net | Weight on the stress case (trend funds earn 2%/yr less) goes from 20% to 80%. Run-dry, lose-value and paycheck-cut caps tighten. |
@@ -74,4 +126,4 @@ Tier limits:
   come from the fresh 600.
 - **Research model, not financial advice.**
 
-Rebuild: `python3 printer/atlas.py search && THROTTLE=0.75 python3 printer/atlas.py validate && python3 printer/build_ui.py`
+Rebuild: `python3 printer/atlas.py search && THROTTLE=0.75 python3 printer/atlas.py validate && THROTTLE=0.75 python3 printer/atlas.py horizons`, then `./forge`.
