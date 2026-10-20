@@ -1,5 +1,5 @@
 """Equilibrium income for Crisis-Hedged 12 with a per-fund tax model (taxable account), GPU, 40 years, bootstrap of 1972-2026.
-Tax model (assumptions, see RETIREE_60.md):
+Tax model (assumptions, see CRISIS_HEDGED_12.md):
 - Distributions (reinvested, add to basis, taxed every year-end on the year-end value): VBR 2.0% and XLV 1.6% qualified dividends;
   DBMF 2.5%, KMLM 2.5%, TYD 2.0%, TQQQ 1.0% ordinary income (KMLM 2022-24 paid ~2-2.5%/yr, mostly ordinary; return of capital ignored).
 - Sales: average-cost basis per fund; short-term share = fraction of the position bought within the last year; GLD gains = collectibles

@@ -20,6 +20,7 @@ lab/        scripts + data; run everything from inside lab/
   make_data.sh        rebuilds every derived dataset from hist_long.json
   sim_catalog.csv     testfol.io SIM ticker catalog (coverage, source)
 results/    findings and portfolio definitions
+private/    personal household inputs, notes and outputs — gitignored, never committed
 ```
 
 ## Quick start

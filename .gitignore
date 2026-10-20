@@ -21,3 +21,6 @@ lab/clean_1972.json
 
 # caches
 printer/signals_cache.npy
+
+# personal inputs, notes and outputs (household facts) - never commit
+private/
