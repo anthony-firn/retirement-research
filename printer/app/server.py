@@ -1,11 +1,12 @@
 """Money Printer Forge, hosted locally:  python3 printer/app/server.py [--port 8777] [--open]  ->  http://127.0.0.1:8777
 
 Serves the single-page app (static/) and a small JSON API:
-  GET  /api/atlas      the Printer Atlas (slider cells, printers, fresh-history stats, frontier, benchmarks)
-  POST /api/evaluate   {spec, account}                      stats of any printer (e.g. a slider blend) on the atlas's 600 histories
-  POST /api/backtest   {portfolios, start, end, rebalance, real}   testfol-style growth / drawdown / annual / rolling / stats
-  POST /api/history    {printers, account, start, end}       the printers running on real history (paychecks, bucket, brake)
-  POST /api/fan        {spec, account}                      percentiles of balance and paycheck over simulated futures
+  GET  /api/atlas      every validated printer + stats per account type and horizon, fund names, brackets, benchmarks
+  POST /api/backtest   {portfolios, start, end, rebalance, real}        testfol-style growth / drawdown / annual / rolling / stats
+  POST /api/history    {printers, mix, bracket, start, end}           the printers running on real history (paychecks, bucket, brake)
+  POST /api/fan        {spec, mix, bracket, years}                    percentiles of balance and paycheck over simulated futures
+  POST /api/testfol    {portfolios, start_val, withdraw_month}        a testfol.io share link (deep link) for the portfolios
+mix = dollars by tax treatment {free, deferred, taxable}; bracket = "low" | "mid" (see atlas_data.BRACKETS).
 Results are cached in memory for the session. Binds to 127.0.0.1 only."""
 import os, sys, json, argparse, functools, webbrowser, threading
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
@@ -13,16 +14,18 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.gzip import GZipMiddleware
-import atlas_data, backtest as bt
+import atlas_data, backtest as bt, share
 
 app = FastAPI(title="Money Printer Forge", docs_url=None, redoc_url=None)
 app.add_middleware(GZipMiddleware, minimum_size=2000)
 app.mount("/static", StaticFiles(directory=os.path.join(HERE, "static")), name="static")
-ATLAS = atlas_data.build(); TAX = {k: a["tax"] for k, a in ATLAS["accounts"].items()}
+ATLAS = atlas_data.build()
 
-def _tax(account):
-    if account not in TAX: raise HTTPException(400, f"unknown account type {account!r}")
-    return TAX[account]
+def _bracket(q):
+    b = q.get("bracket", "low")
+    if b not in atlas_data.BRACKETS: raise HTTPException(400, f"unknown tax bracket {b!r}")
+    if not any(float(q.get("mix", {}).get(k, 0)) > 0 for k in ("free", "deferred", "taxable")): raise HTTPException(400, "Enter how much money is in at least one account.")
+    return b
 
 def _check_alloc(alloc):
     if not alloc or abs(sum(w for _, w in alloc) - 100) > 0.6: raise HTTPException(400, "Fund weights must add up to 100%.")
@@ -32,10 +35,9 @@ def _check_alloc(alloc):
 @functools.lru_cache(maxsize=512)
 def _cached(kind, key):
     q = json.loads(key)
-    if kind == "evaluate": return bt.evaluate(q["spec"], _tax(q["account"]))
     if kind == "backtest": return bt.portfolio(q["portfolios"], q.get("start"), q.get("end"), q.get("rebalance", "Printer rule"), bool(q.get("real")))
-    if kind == "history": return bt.history(q["printers"], _tax(q["account"]), q.get("start"), q.get("end"))
-    if kind == "fan": return bt.fan(q["spec"], _tax(q["account"]))
+    if kind == "history": return bt.history(q["printers"], q["mix"], _bracket(q), q.get("start"), q.get("end"))
+    if kind == "fan": return bt.fan(q["spec"], q["mix"], _bracket(q), q.get("years", 40))
 
 def run(kind, q):
     for s in q.get("portfolios", []) + q.get("printers", []) + ([q["spec"]] if "spec" in q else []): _check_alloc(s.get("alloc"))
@@ -46,8 +48,10 @@ def run(kind, q):
 def index(): return FileResponse(os.path.join(HERE, "static", "index.html"))
 @app.get("/api/atlas")
 def atlas(): return JSONResponse(ATLAS)
-@app.post("/api/evaluate")
-def evaluate(q: dict): return run("evaluate", q)
+@app.post("/api/testfol")
+def testfol(q: dict):
+    for p in q.get("portfolios", []): _check_alloc(p.get("alloc"))
+    return {"url": share.link(q["portfolios"], float(q.get("start_val", 10000)), float(q.get("withdraw_month", 0)))}
 @app.post("/api/backtest")
 def backtest(q: dict): return run("backtest", q)
 @app.post("/api/history")

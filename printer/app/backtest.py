@@ -6,7 +6,9 @@ portfolio()  testfol-style: growth of $10,000 with no withdrawals, rebalanced Ye
              annual-return and rolling-return series.
 history()    the printer running on one real historical path from a chosen start date: monthly paycheck, bonus, cash
              bucket, safety-brake cuts, taxes, balance (money_printer.simulate with trace=True, so the rules are identical).
-fan()        simulated futures: percentiles of the real balance and the yearly paycheck over 40 reshuffled histories."""
+fan()        simulated futures: percentiles of the real balance and the yearly paycheck over reshuffled histories.
+history() and fan() take the user's money by tax treatment (tax-free / tax-deferred / taxable) and bracket: each account type
+is simulated on the same days and combined by dollars; tax-deferred withdrawals lose the bracket's income-tax rate."""
 import os, sys, math, datetime as dt, threading, numpy as np, torch
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.join(HERE, "..")); sys.path.insert(0, os.path.join(HERE, "..", ".."))
 _argv = sys.argv; sys.argv = sys.argv[:1]
@@ -18,6 +20,7 @@ CAL = np.asarray(mp.h.CAL, np.int64); T = len(CAL)
 DATES = np.array([dt.datetime.fromtimestamp(int(t), dt.UTC).date() for t in CAL])
 YEAR = np.array([d.year for d in DATES]); MONTH = np.array([d.month for d in DATES]); QUARTER = YEAR * 4 + (MONTH - 1) // 3
 RFI = np.cumprod(1 + np.asarray(mp.RF, float)); CPI = np.cumprod(mp.CPIR)
+TAXABLE_PROFILE = {"taxable_low": "retiree, not working", "taxable_mid": "middle bracket"}   # money_printer.TAX keys
 GPU = threading.Lock()                                                            # one simulation at a time on the laptop GPU
 _RET = {}
 def rets(t):
@@ -86,45 +89,40 @@ def printer(spec, tax):
                       skim=None if spec.get("skim") is None else float(spec["skim"]), bucket_months=int(spec.get("bucket", 36)),
                       cut_below=float(spec.get("cut_below", 0.7)), cut_to=float(spec.get("cut_to", 0.8)), tax=tax)
 
-def history(specs, tax, start=None, end=None):
-    i0, i1 = span(start, end); L = i1 - i0 + 1; IDX = torch.tensor(i0 + np.arange(L), device=mp.DEV)[None]
-    with GPU: r = mp.simulate([printer(s, tax) for s in specs], IDX, trace=True)
-    S = 252; mo = (np.arange(L) * 12) // S; first = np.r_[0, np.flatnonzero(np.diff(mo)) + 1]   # first day of each model month
-    M = min(r["spend"].shape[2], len(first) - 1)                                   # complete months only
-    ix = thin(L); out = dict(start=iso(i0), end=iso(i1), dates=[int(CAL[i0 + i]) for i in ix], months=[int(CAL[i0 + first[m + 1]]) for m in range(M)], printers=[])
-    for c, s in enumerate(specs):
-        val, bkt, inf, mult = (r[f"trace_{k}"][c, 0] for k in ("value", "bucket", "infl", "mult"))
-        real_tot = (val + bkt) / inf; paid = r["spend"][c, 0, :M]                     # paid each month, real fraction of start
-        cut = mult[first[1:M + 1]] < 0.999; y = paid[:(M // 12) * 12].reshape(-1, 12).sum(1)
-        dd = real_tot / np.maximum.accumulate(real_tot) - 1
-        out["printers"].append(dict(name=s.get("name", ""), paid=paid.round(6).tolist(), base_paid=(s["base"] / 100 / 12 * mult[first[1:M + 1]]).round(6).tolist(),
-            cut=cut.astype(int).tolist(), real=real_tot[ix].round(5).tolist(), nominal=(val + bkt)[ix].round(5).tolist(), bucket=(bkt / inf)[ix].round(5).tolist(),
-            real_dd=(dd[ix] * 100).round(2).tolist(),
-            summary=dict(total_paid=float(paid.sum()), avg_year=float(paid.sum() / (M / 12)), worst_year=float(y.min()) if len(y) else None,
-                         best_year=float(y.max()) if len(y) else None, months_cut=int(cut.sum()), end_real=float(real_tot[-1]), low_real=float(real_tot.min()),
-                         low_date=iso(i0 + int(real_tot.argmin())), max_real_dd=float(dd.min() * 100), ran_dry=bool(r["dead"][c, 0]),
-                         taxes=float(r["tax"][c, 0] * (L / S)))))
+def _mix(mix, bracket):
+    """Shares of the user's money by tax treatment -> [(tax profile, share of balance, share of paycheck kept after income tax)]."""
+    import atlas_data
+    b = atlas_data.BRACKETS[bracket]; tot = sum(max(0.0, float(mix.get(k, 0))) for k in ("free", "deferred", "taxable")) or 1.0
+    f, d, x = (max(0.0, float(mix.get(k, 0))) / tot for k in ("free", "deferred", "taxable")); out = []
+    if f + d > 0: out.append(("none (IRA/Roth)", f + d, f + d * (1 - b["income_tax"])))
+    if x > 0: out.append((TAXABLE_PROFILE[b["taxable"]], x, x))
     return out
 
-# ------------------------------------------------------------------ simulated futures
-def fan(spec, tax, paths=500, years=40):
-    IDX = mp.make_idx(paths, years, step=5, seed=4242)
-    with GPU: r = mp.simulate([printer(spec, tax)], IDX, step=5)
-    bal = np.c_[np.ones(paths), r["yreal"][0]]; sp = r["spend"][0]; inc = sp[:, :years * 12].reshape(paths, years, 12).sum(2)
+def history(specs, mix, bracket, start=None, end=None):
+    """The printers running on one real path, account types combined by the user's dollars (each run on the same days)."""
+    i0, i1 = span(start, end); L = i1 - i0 + 1; IDX = torch.tensor(i0 + np.arange(L), device=mp.DEV)[None]; parts = _mix(mix, bracket)
+    with GPU: r = mp.simulate([printer(s, tax) for tax, _, _ in parts for s in specs], IDX, trace=True)
+    S = 252; mo = (np.arange(L) * 12) // S; first = np.r_[0, np.flatnonzero(np.diff(mo)) + 1]
+    M = min(r["spend"].shape[2], len(first) - 1); ix = thin(L); n = len(specs)
+    out = dict(start=iso(i0), end=iso(i1), dates=[int(CAL[i0 + i]) for i in ix], months=[int(CAL[i0 + first[m + 1]]) for m in range(M)], printers=[])
+    for c, s in enumerate(specs):
+        paid = sum(k * r["spend"][j * n + c, 0, :M] for j, (_, _, k) in enumerate(parts))                       # real, share of start
+        real_tot = sum(w * (r["trace_value"][j * n + c, 0] + r["trace_bucket"][j * n + c, 0]) / r["trace_infl"][j * n + c, 0] for j, (_, w, _) in enumerate(parts))
+        mult = sum(w * r["trace_mult"][j * n + c, 0] for j, (_, w, _) in enumerate(parts)); base = sum(k for _, _, k in parts) * s["base"] / 100 / 12
+        cut = mult[first[1:M + 1]] < 0.999; y = paid[:(M // 12) * 12].reshape(-1, 12).sum(1); dd = real_tot / np.maximum.accumulate(real_tot) - 1
+        out["printers"].append(dict(name=s.get("name", ""), paid=paid.round(6).tolist(), base_paid=(base * mult[first[1:M + 1]]).round(6).tolist(), cut=cut.astype(int).tolist(),
+            real=real_tot[ix].round(5).tolist(), real_dd=(dd[ix] * 100).round(2).tolist(),
+            summary=dict(total_paid=float(paid.sum()), avg_year=float(paid.sum() / (M / 12)), worst_year=float(y.min()) if len(y) else None,
+                         best_year=float(y.max()) if len(y) else None, months_cut=int(cut.sum()), end_real=float(real_tot[-1]), low_real=float(real_tot.min()),
+                         low_date=iso(i0 + int(real_tot.argmin())), max_real_dd=float(dd.min() * 100), ran_dry=bool(any(r["dead"][j * n + c, 0] for j in range(len(parts)))))))
+    return out
+
+def fan(spec, mix, bracket, years=40, paths=500):
+    """Percentiles of the real balance and the yearly paycheck over simulated futures; account types combined path by path."""
+    years = int(max(5, min(50, years))); IDX = mp.make_idx(paths, years, step=5, seed=4242); parts = _mix(mix, bracket)
+    with GPU: r = mp.simulate([printer(spec, tax) for tax, _, _ in parts], IDX, step=5)
+    bal = sum(w * np.c_[np.ones(paths), r["yreal"][j, :, :years] + r["ybucket"][j, :, :years]] for j, (_, w, _) in enumerate(parts))
+    inc = sum(k * r["spend"][j][:, :years * 12].reshape(paths, years, 12).sum(2) for j, (_, _, k) in enumerate(parts))
     q = [5, 10, 25, 50, 75, 90, 95]
     return dict(years=list(range(years + 1)), q=q, balance=np.percentile(bal, q, axis=0).round(4).tolist(), income=np.percentile(inc, q, axis=0).round(5).tolist(),
-                below_start=(bal < 1).mean(0).round(4).tolist(), dry=float(r["dead"][0].mean()), paths=paths)
-
-# ------------------------------------------------------------------ evaluate any printer (e.g. a blend between atlas cells)
-_at = None; _EVAL_IDX = None
-def evaluate(spec, tax):
-    """The atlas's own fresh-history stats for one printer: same 600 histories (seed 909), base case + trend stress, so numbers
-    are directly comparable with the cached cells."""
-    global _at, _EVAL_IDX
-    if _at is None:
-        _argv = sys.argv; sys.argv = sys.argv[:1]; import atlas as _a; sys.argv = _argv; _at = _a
-    p = printer(spec, tax)
-    with GPU:
-        if _EVAL_IDX is None: _EVAL_IDX = mp.make_idx(_at.FRESH, _at.YEARS, step=_at.STEP, seed=909)
-        rb = mp.simulate([p], _EVAL_IDX, step=_at.STEP); rs = mp.simulate([p], _EVAL_IDX, step=_at.STEP, trend_haircut=0.02)
-    return {k: round(float(v), 4) for k, v in _at.display_stats(rb, rs, 0, p).items()}
+                below_start=(bal < 1).mean(0).round(4).tolist(), dry=float(np.mean([r["dead"][j].mean() for j in range(len(parts))])), paths=paths)

@@ -1,5 +1,6 @@
-"""The Printer Atlas as the app serves it: printers used by any slider cell or on any account's Pareto frontier, their fresh-history
-stats per account, the slider cells, plain fund names, and benchmark printers. Source: results/printer_atlas.json (atlas.py validate)."""
+"""The Printer Atlas as the app serves it: every validated candidate printer, its fresh-history stats per account type and horizon,
+plain fund names, tax brackets and benchmark printers. Sources: results/printer_atlas.json (atlas.py validate) and
+results/printer_horizons.json (atlas.py horizons)."""
 import os, json, numpy as np
 ROOT = os.path.dirname(os.path.abspath(__file__)); RESULTS = os.path.join(ROOT, "..", "..", "results")
 FUNDS = {  # ticker: (plain name, class)  classes: stocks, boost (leveraged / stacked), trend, gold, bonds
@@ -25,36 +26,23 @@ BENCHMARKS = [dict(name="60/40 (VTI 60 · BND 40)", alloc=[["VTI", 60], ["BND", 
                    base=4.0, skim=0.25, bucket=36, cut_below=0.7, cut_to=0.8),
               dict(name="MP-2", alloc=[["DBMF", 27], ["VBR", 27], ["GDE", 21], ["KMLM", 15], ["GLD", 8], ["TQQQ", 2]],
                    base=5.75, skim=0.40, bucket=48, cut_below=0.7, cut_to=0.65)]
-# Pareto frontier per account: printers no other printer beats on every objective at once. Stats are rounded to what a person
-# would notice first (0.1% of start a year ~ $8/month per $100k; one percentage point), so near-copies don't all survive.
-OBJ = [("typical", 1, .001), ("bad", 1, .001), ("early", 1, .001), ("stress_typical", 1, .001), ("never_cut", 1, .01), ("steady", 1, .01),
-       ("left", 1, .05), ("lose", -1, .01), ("dd90", -1, .01), ("dry", -1, .002)]
-DRY_MAX = 0.02                                                                    # only printers that run dry in <= 2% of histories
+# tax brackets the atlas has a taxable profile for; income_tax = the profile's ordinary rate + state, used on tax-deferred withdrawals
+BRACKETS = {"low": dict(label="10–12% federal", taxable="taxable_low", income_tax=0.12),
+            "mid": dict(label="22–24% federal", taxable="taxable_mid", income_tax=0.313)}
+LEVERED = {"TQQQ", "QLD", "TYD", "TMF", "UGL", "UBT", "GDE", "NTSX", "RSSB"}        # leveraged or stacked (more than 100% exposure)
 r4 = lambda x: None if x is None else round(float(x), 4)
 
-def pareto(M):
-    keep = np.ones(len(M), bool)
-    for i in range(len(M)):
-        if keep[i] and np.any(np.all(M >= M[i], 1) & np.any(M > M[i], 1)): keep[i] = False
-    return np.flatnonzero(keep)
-
-def build(path=None):
-    A = json.load(open(path or os.environ.get("ATLAS_OUT", os.path.join(RESULTS, "printer_atlas.json"))))
-    nfunds = np.array([len(p["alloc"]) for p in A["printers"]]); front = {}
-    for k, a in A["accounts"].items():
-        M = np.array([[sg * round(st[o] / q) for o, sg, q in OBJ] for st in a["stats"]], float)
-        ok = np.flatnonzero([st["dry"] <= DRY_MAX for st in a["stats"]])
-        front[k] = ok[pareto(np.c_[M, -nfunds][ok])].tolist()                    # simplicity (fewer funds) is the 11th objective
-    cell_ids = {k: sorted(set(np.array(a["cells"]).ravel().tolist())) for k, a in A["accounts"].items()}
-    used = sorted(set().union(*cell_ids.values(), *front.values())); remap = {i: n for n, i in enumerate(used)}
-    printers = [dict(alloc=[[t.replace("SIM", ""), w] for t, w in sorted(p["alloc"].items(), key=lambda x: -x[1])], base=r4(p["base"]), skim=r4(p["skim"]),
-                     bucket=p["bucket_months"], cut_below=r4(p["cut_below"]), cut_to=r4(p["cut_to"]), tier=p["tier"]) for p in (A["printers"][i] for i in used)]
+def build(atlas_path=None, horizons_path=None):
+    """Every validated candidate printer with its stats per account type and horizon (results/printer_horizons.json). The app mixes
+    account types by the user's dollars and computes the Pareto frontier for that mix in the browser."""
+    A = json.load(open(atlas_path or os.path.join(RESULTS, "printer_atlas.json")))
+    Hz = json.load(open(horizons_path or os.environ.get("HORIZONS_OUT", os.path.join(RESULTS, "printer_horizons.json"))))
+    printers = []
+    for p in A["printers"]:
+        al = [[t.replace("SIM", ""), w] for t, w in sorted(p["alloc"].items(), key=lambda x: -x[1])]
+        printers.append(dict(alloc=al, base=r4(p["base"]), skim=r4(p["skim"]), bucket=p["bucket_months"], cut_below=r4(p["cut_below"]), cut_to=r4(p["cut_to"]),
+                             levered=sum(w for t, w in al if t in LEVERED), k1=any(t in ("UUP", "UGL") for t, _ in al)))
     missing = {t for p in printers + BENCHMARKS for t, _ in p["alloc"] if t not in FUNDS}
     assert not missing, missing
-    data = dict(levels=A["levels"], tiers=[dict(name=t["name"], n=t["n"], lev=t["lev"], k1=t["k1"]) for t in A["tiers"]], paths=A["paths"],
-                funds={t: list(v) for t, v in FUNDS.items()}, printers=printers, benchmarks=BENCHMARKS, accounts={})
-    for k, a in A["accounts"].items():
-        keep = sorted(set(cell_ids[k]) | set(front[k]))
-        data["accounts"][k] = dict(label=ACCOUNTS[k], tax=a["tax"], cells=[remap[x] for x in np.array(a["cells"]).ravel().tolist()],
-                                   frontier=[remap[i] for i in front[k]], stats={str(remap[i]): {s: r4(v) for s, v in a["stats"][i].items()} for i in keep})
-    return data
+    return dict(horizons=Hz["horizons"], fields=Hz["fields"], paths=Hz["paths"], funds={t: list(v) for t, v in FUNDS.items()}, printers=printers,
+                benchmarks=BENCHMARKS, brackets=BRACKETS, accounts={k: dict(label=ACCOUNTS[k], tax=a["tax"], stats=Hz["accounts"][k]) for k, a in A["accounts"].items()})
