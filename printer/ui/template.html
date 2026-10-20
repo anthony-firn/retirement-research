@@ -216,9 +216,9 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
       <div class="plate">
         <canvas id="plate" aria-hidden="true"></canvas>
         <div class="denom"><div class="disc">
-          <div class="lbl">Prints, typical month</div>
+          <div class="lbl">Prints, first 10 years</div>
           <div class="amt" id="amt">$0</div>
-          <div class="per">per month, after tax, today's dollars</div>
+          <div class="per">typical month, after tax, today's dollars</div>
           <div class="floor" id="floor"></div>
         </div></div>
       </div>
@@ -267,7 +267,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
       <div class="sc-ctl">
         <label class="field"><span class="eyebrow">Across</span><select id="sx"></select></label>
         <label class="field"><span class="eyebrow">Up</span><select id="sy"></select></label>
-        <p class="fr-note">Each dot is one frontier printer. The ringed dot is the one your sliders picked. Click a dot or a line to load that printer above.</p>
+        <p class="fr-note">Each dot is one frontier printer. The gold ring is the printer shown above. Click a dot or a line to load that printer above.</p>
       </div>
       <div class="sc-wrap"><canvas id="sc" aria-label="Scatter plot of two frontier objectives"></canvas></div>
     </div>
@@ -486,11 +486,11 @@ function render(fromPreset) {
     $("s-" + s.id).querySelectorAll("i").forEach((el, j) => { const v = S.v.slice(); v[i] = j; const q = pick(S.acct, S.tier, v); el.className = j === S.v[i] ? "here" : q === id ? "same" : "" });
   });
   // portrait + headline
-  setTarget(p, st); tweenAmt(month(st.typical));
-  $("floor").textContent = `Paycheck floor ${fmt$(month(p.base / 100))}` + (p.skim != null ? " + bonuses" : "");
+  setTarget(p, st); tweenAmt(month(st.early));
+  $("floor").textContent = `40-yr average ${fmt$(month(st.typical))} · floor ${fmt$(month(p.base / 100))}`;
   $("cls").textContent = S.pin != null ? "Frontier pick" : className(S.v);
   $("unpin").hidden = S.pin == null;
-  $("st-amt").textContent = fmt$(month(st.typical)) + " / mo"; $("st-cls").textContent = `${className(S.v)} · ${p.alloc.length} funds`;
+  $("st-amt").textContent = fmt$(month(st.early)) + " / mo now"; $("st-cls").textContent = `${className(S.v)} · ${p.alloc.length} funds`;
   $("clsline").textContent = `${D.tiers[p.tier].name} build · ${p.alloc.length} funds · ${A.label.toLowerCase()}`;
   $("serial").textContent = `PRINTER Nº ${String(id + 1).padStart(3, "0")} · SERIES ${S.acct.toUpperCase().replace("_", "-")}`;
   // stats with RPG-style gear-compare deltas
@@ -587,7 +587,7 @@ const FR = (() => {
       if (brush[d.k]) { const [a, b] = brush[d.k]; pctx.fillStyle = css("--accent"); pctx.globalAlpha = .18; pctx.fillRect(x - 7, top + (1 - b) * h, 14, (b - a) * h); pctx.globalAlpha = 1; pctx.strokeStyle = css("--accent"); pctx.strokeRect(x - 7, top + (1 - b) * h, 14, (b - a) * h) }
     });
     // hovered and current printer on top
-    for (const [id, w, c] of [[hover, 2, css("--ink-2")], [cur, 2.5, css("--ink")]]) {
+    for (const [id, w, c] of [[hover, 2, css("--ink-2")], [cur, 3, css("--mint")]]) {
       if (id == null || !D.accounts[S.acct].stats[id]) continue;
       pctx.strokeStyle = c; pctx.lineWidth = w; line(id);
       pctx.fillStyle = c; DIMS.forEach((d, j) => { pctx.beginPath(); pctx.arc(axisX[j], yOf(id, j), 3.2, 0, 7); pctx.fill() });
@@ -622,9 +622,9 @@ const FR = (() => {
       if (on) { sctx.globalAlpha = 1; sctx.strokeStyle = css("--panel"); sctx.lineWidth = 1; sctx.stroke() }
     }
     sctx.globalAlpha = 1;
-    for (const [id, r, w] of [[hover, 6, 1.5], [cur, 8, 2.5]]) {
+    for (const [id, r, w, c] of [[hover, 6, 1.5, css("--ink")], [cur, 8, 3, css("--mint")]]) {
       if (id == null || !D.accounts[S.acct].stats[id]) continue; const x = X(conv(dx, val(id, dx))), y = Y(conv(dy, val(id, dy)));
-      sctx.beginPath(); sctx.arc(x, y, r, 0, 7); sctx.strokeStyle = css("--ink"); sctx.lineWidth = w; sctx.stroke();
+      sctx.beginPath(); sctx.arc(x, y, r, 0, 7); sctx.strokeStyle = c; sctx.lineWidth = w; sctx.stroke();
     }
   }
 
@@ -679,7 +679,7 @@ const FR = (() => {
     el.onchange = () => { sel[key] = el.value; draw() };
   }
   $("fr-legend").innerHTML = "Line and dot colour = how many moving parts: " + D.tiers.map((t, k) => `<span><i style="background:var(--t${k})"></i>${t.name}</span>`).join("")
-    + `<span><i style="background:var(--ink);height:3px"></i>Current printer</span>`;
+    + `<span><i style="background:var(--mint);height:3px"></i>Current printer</span>`;
   addEventListener("resize", () => draw());
   matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => draw());
   return { draw };

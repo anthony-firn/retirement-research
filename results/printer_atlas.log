@@ -1,0 +1,71 @@
+Printer Atlas search: 7^4 preference cells x 5 tiers, pop 512, 30 generations, 256 histories; 1219 seed printers
+  [roth] gen  1 (   99s) archive 1690 | distinct champions 62 | most cells: VBR35 KMLM33 GLD32
+  [roth] gen  2 (  128s) archive 2161 | distinct champions 121 | most cells: GDE25 VBR24 KMLM22 DBMF20 GLD9
+  [roth] gen  3 (  158s) archive 2647 | distinct champions 175 | most cells: VBR35 KMLM33 GLD32
+  [roth] gen  4 (  188s) archive 3137 | distinct champions 201 | most cells: GDE25 VBR25 DBMF22 KMLM17 GLD11
+  [roth] gen  5 (  218s) archive 3628 | distinct champions 240 | most cells: GDE25 VBR25 DBMF22 KMLM17 GLD11
+  [roth] gen  6 (  249s) archive 4126 | distinct champions 262 | most cells: VBR25 GDE24 DBMF23 KMLM17 GLD11
+  [roth] gen  7 (  280s) archive 4624 | distinct champions 286 | most cells: VBR28 DBMF23 GDE21 KMLM17 GLD11
+  [roth] gen  8 (  312s) archive 5127 | distinct champions 307 | most cells: VBR28 DBMF23 GDE21 KMLM17 GLD11
+  [roth] gen  9 (  343s) archive 5626 | distinct champions 345 | most cells: VBR28 DBMF23 GDE21 KMLM17 GLD11
+  [roth] gen 10 (  374s) archive 6119 | distinct champions 353 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 11 (  405s) archive 6623 | distinct champions 377 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 12 (  436s) archive 7126 | distinct champions 391 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 13 (  467s) archive 7628 | distinct champions 407 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 14 (  498s) archive 8128 | distinct champions 428 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 15 (  529s) archive 8635 | distinct champions 459 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 16 (  560s) archive 9144 | distinct champions 469 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 17 (  592s) archive 9649 | distinct champions 499 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 18 (  623s) archive 10154 | distinct champions 511 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 19 (  654s) archive 10658 | distinct champions 532 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 20 (  685s) archive 11164 | distinct champions 544 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 21 (  717s) archive 11670 | distinct champions 563 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 22 (  748s) archive 12181 | distinct champions 581 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 23 (  780s) archive 12687 | distinct champions 582 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 24 (  811s) archive 13189 | distinct champions 591 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 25 (  843s) archive 13692 | distinct champions 610 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 26 (  875s) archive 14200 | distinct champions 607 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 27 (  906s) archive 14708 | distinct champions 619 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 28 (  938s) archive 15211 | distinct champions 634 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 29 (  969s) archive 15715 | distinct champions 640 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] gen 30 ( 1001s) archive 16221 | distinct champions 648 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [roth] kept 1497 champions/runners-up
+  [taxable_low] gen  1 (  140s) archive 2246 | distinct champions 388 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen  2 (  171s) archive 2734 | distinct champions 418 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen  3 (  201s) archive 3226 | distinct champions 445 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen  4 (  232s) archive 3721 | distinct champions 459 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen  5 (  264s) archive 4223 | distinct champions 494 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen  6 (  295s) archive 4724 | distinct champions 514 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen  7 (  327s) archive 5227 | distinct champions 532 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen  8 (  358s) archive 5728 | distinct champions 530 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen  9 (  390s) archive 6237 | distinct champions 558 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen 10 (  422s) archive 6741 | distinct champions 561 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen 11 (  453s) archive 7250 | distinct champions 574 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen 12 (  485s) archive 7756 | distinct champions 581 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen 13 (  517s) archive 8261 | distinct champions 584 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen 14 (  548s) archive 8769 | distinct champions 610 | most cells: VBR28 DBMF23 GDE21 KMLM18 GLD10
+  [taxable_low] gen 15 (  580s) archive 9271 | distinct champions 619 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 16 (  612s) archive 9778 | distinct champions 620 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 17 (  643s) archive 10287 | distinct champions 632 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 18 (  675s) archive 10790 | distinct champions 639 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 19 (  707s) archive 11300 | distinct champions 650 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 20 (  738s) archive 11807 | distinct champions 652 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 21 (  770s) archive 12317 | distinct champions 667 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 22 (  802s) archive 12822 | distinct champions 676 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 23 (  834s) archive 13328 | distinct champions 681 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 24 (  960s) archive 13832 | distinct champions 695 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 25 (  992s) archive 14341 | distinct champions 708 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 26 ( 1024s) archive 14842 | distinct champions 714 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 27 ( 1056s) archive 15347 | distinct champions 717 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 28 ( 1088s) archive 15856 | distinct champions 729 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 29 ( 1120s) archive 16364 | distinct champions 737 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] gen 30 ( 1263s) archive 16872 | distinct champions 735 | most cells: DBMF29 VBR27 GDE21 KMLM13 GLD10
+  [taxable_low] kept 1755 champions/runners-up
+Printer Atlas search: 7^4 preference cells x 5 tiers, pop 512, 30 generations, 256 histories; 1219 seed printers
+  [roth] already searched, resuming after it
+  [taxable_low] already searched, resuming after it
+validate 2229 printers x 3 account types on 600 fresh histories
+  [roth] 549s | 451 distinct champions -> 271 after smoothing
+  [taxable_low] 555s | 381 distinct champions -> 246 after smoothing
+  [taxable_mid] 551s | 61 distinct champions -> 44 after smoothing
+done
