@@ -71,10 +71,12 @@ def _compound(x, k):                                              # k-day compou
     lg = np.log(np.maximum(x, 1e-12)); cs = np.cumsum(np.concatenate([np.zeros((1,) + lg.shape[1:]), lg], 0), 0)
     out = np.exp(cs[k:] - cs[:-k]); pad = np.ones((k - 1,) + x.shape[1:]); return np.concatenate([out, pad], 0)
 
-def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spread", tilt=None):
+def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spread", tilt=None, trace=False):
     """tilt: optional dict(sig=(T, nS) 0/1 signal states on the calendar, dirs=[per printer: list of nS dicts {asset: weight change when that signal is on}]);
     signals are read monthly; targets = base + sum of active tilts (clipped at 0, renormalised); a change of state triggers a rebalance."""
-    """printers: list of Printer. Lanes = printers x histories (each lane keeps only its own funds, <= Kmax slots)."""
+    """printers: list of Printer. Lanes = printers x histories (each lane keeps only its own funds, <= Kmax slots).
+    trace=True also returns every step's nominal portfolio value, cash bucket, inflation index and paycheck multiplier (lanes x steps;
+    meant for a few lanes, e.g. one historical path per printer)."""
     assets = sorted({a for p in printers for a in p.alloc}); A = len(assets); K = max(len(p.alloc) for p in printers)
     Rm = np.stack([fund_returns(a) for a in assets], 1)
     for a in ("KMLMSIM", "DBMFSIM"):
@@ -86,7 +88,7 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
     S = 252 if step == 1 else 250 // step
     divy_a = torch.tensor([DIST.get(a, (0, "o"))[0] for a in assets], device=DEV); qual_a = torch.tensor([DIST.get(a, (0, "o"))[1] == "q" for a in assets], device=DEV)
     coll_a = torch.tensor([a in COLLECTIBLE for a in assets], device=DEV); mtm_a = torch.tensor([a in MARK_TO_MARKET for a in assets], device=DEV)
-    C, P = len(printers), IDX.shape[0]; N = C * P; L = IDX.shape[1]; Y = L // S; M = Y * 12
+    C, P = len(printers), IDX.shape[0]; N = C * P; L = IDX.shape[1]; Y = L // S; M = -(-L * 12 // S)              # months incl. a partial last year (= Y * 12 for whole years)
     ci = torch.arange(C, device=DEV).repeat_interleave(P); pi = torch.arange(P, device=DEV).repeat(C)
     pv = lambda f, dt=f32: torch.tensor([f(p) for p in printers], device=DEV, dtype=dt)[ci]
     sid_c = torch.zeros(C, K, dtype=torch.long, device=DEV); W0c = torch.zeros(C, K, device=DEV)
@@ -131,6 +133,7 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             realize(s, d); val = val - s; return s.sum(1)
         te = torch.minimum(amt, se); rem = amt - te; s1 = exc * (te / se.clamp(min=1e-12))[:, None]
         s = s1 + (val - s1) * (rem / (V - te).clamp(min=1e-12))[:, None]; realize(s, d); val = val - s; return s.sum(1)
+    if trace: TR = {k: torch.zeros(N, L, device=DEV) for k in ("value", "bucket", "infl", "mult")}; TR["value"][:, 0] = val.sum(1); TR["infl"][:, 0] = 1; TR["mult"][:, 0] = 1
     for d in range(1, L):
         rows = IDX[pi, d]; val = val * (1 + Rg[rows[:, None], sid]); infl = infl * Cg[rows]; bi = bucket * Fg[rows]; bucket = bucket + bi; intr += bi
         mo = d * 12 // S; force = None
@@ -165,8 +168,10 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             real = val.sum(1) / infl; yreal[:, min(y, Y - 1)] = real
             mult = torch.where(real < cutb, cutt, torch.where(real > rest, torch.ones_like(mult), mult)); cut_ever |= real < cutb
         minreal = torch.minimum(minreal, val.sum(1) / infl)
+        if trace: TR["value"][:, d] = val.sum(1); TR["bucket"][:, d] = bucket; TR["infl"][:, d] = infl; TR["mult"][:, d] = mult
     sh = lambda x: x.view(C, P, *x.shape[1:]).cpu().numpy()
-    return dict(spend=sh(spend), yreal=sh(yreal), real_end=sh(val.sum(1) / infl), minreal=sh(minreal), dead=sh(dead), cut=sh(cut_ever),
+    extra = {f"trace_{k}": sh(v) for k, v in TR.items()} if trace else {}
+    return dict(**extra, spend=sh(spend), yreal=sh(yreal), real_end=sh(val.sum(1) / infl), minreal=sh(minreal), dead=sh(dead), cut=sh(cut_ever),
                 tax=sh(taxreal / Y), reb=sh(nreb / Y), bucket_end=sh(bucket / infl))
 
 def score(r, c):
