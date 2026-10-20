@@ -31,7 +31,8 @@ TIER = [dict(n=3, lev=0, k1=False, name="Starter"), dict(n=4, lev=0, k1=False, n
         dict(n=7, lev=15, k1=False, name="Advanced"), dict(n=9, lev=25, k1=True, name="Expert")]
 K1 = {"UUPSIM", "UGLSIM"}
 POP = int(os.environ.get("POP", "512")); PATHS = int(os.environ.get("PATHS", "256")); GENS = int(os.environ.get("GENS", "30"))
-FRESH = int(os.environ.get("FRESH", "600")); TIE = float(os.environ.get("TIE", "0.0004"))
+FRESH = int(os.environ.get("FRESH", "600")); THROTTLE = float(os.environ.get("THROTTLE", "0"))  # idle THROTTLE x busy time between GPU batches (laptop heat)
+TIE = float(os.environ.get("TIE", "0.0004"))
 
 def tier_of(a):
     n = len(a); lev = sum(w for t, w in a.items() if t in se.LEV); k1 = any(t in K1 for t in a)
@@ -232,12 +233,12 @@ if __name__ == "__main__":
             t0 = time.time(); S, D = [], []
             for i in range(0, len(cands), 256):
                 pp = [replace(p, tax=tax) for p in cands[i:i + 256]]
-                rb = mp.simulate(pp, IDX, step=STEP); rs = mp.simulate(pp, IDX, step=STEP, trend_haircut=0.02)
+                tb = time.time(); rb = mp.simulate(pp, IDX, step=STEP); rs = mp.simulate(pp, IDX, step=STEP, trend_haircut=0.02)
                 S += [stats(rb, rs, c) for c in range(len(pp))]; D += [display_stats(rb, rs, c, p) for c, p in enumerate(pp)]
+                time.sleep(THROTTLE * (time.time() - tb))
             tiers = [tier_of(p.alloc) for p in cands]; best, U = champions(S, tiers); ch = smooth(best, U, tiers)
-            used = sorted(set(ch.reshape(-1).tolist())); out["accounts"][tk] = dict(tax=tax, cells=ch.tolist(), stats={str(i): D[i] for i in used},
-                                                                                  util={str(i): S[i] for i in used})
+            used = sorted(set(ch.reshape(-1).tolist())); out["accounts"][tk] = dict(tax=tax, cells=ch.tolist(), stats=D)   # stats of every candidate (frontier view)
             print(f"  [{tk}] {time.time()-t0:.0f}s | {len(set(best.reshape(-1).tolist()))} distinct champions -> {len(used)} after smoothing", flush=True)
         out["printers"] = [dict(pdict(p), tier=tier_of(p.alloc)) for p in cands]
-        json.dump(out, open(os.path.join(OUT, "printer_atlas.json"), "w"), default=float)
+        json.dump(out, open(os.environ.get("ATLAS_OUT", os.path.join(OUT, "printer_atlas.json")), "w"), default=float)
         print("done", flush=True)
