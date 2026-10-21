@@ -55,10 +55,37 @@ def swap(p, old, new, label):
     a = dict(p.alloc)
     if old not in a: return []
     a[new] = a.get(new, 0) + a.pop(old); return [replace(p, name=f"{p.name} | {label}", alloc=a)]
+def settings(p):                                                   # one or two settings at a time around the current best
+    v = lambda lab, **kw: replace(p, name=f"{p.name} | {lab}", **kw); out = []
+    out += [v(f"skim>{int(100 + 100 * k)}%", skim=k) for k in (0.25, 0.60, 0.80, 1.0, 1.5) if k != p.skim]
+    out += [v(f"bucket {m}m", bucket_months=m) for m in (36, 60, 72, 96) if m != p.bucket_months]
+    out += [v(f"skim>{int(100 + 100 * k)}% bucket {m}m", skim=k, bucket_months=m) for k, m in ((0.6, 60), (0.8, 72), (1.0, 96))]
+    out += [v(f"base {p.base + d:.2f}%", base=p.base + d) for d in (-0.25, 0.25)]
+    out += [v(f"guardrail at {int(c * 100)}%", cut_below=c) for c in (0.65, 0.75)] + [v(f"cut to {int(c * 100)}%", cut_to=c) for c in (0.5, 0.8) if c != p.cut_to]
+    out += [v(f"restore at {int(r * 100)}%", restore_above=r) for r in (0.8, 1.0)]
+    out += [v(f"band {b}pt", band=b) for b in (4.0, 10.0)] + [v(f"valve {x}x", valve=x) for x in (1.5, 3.0)]
+    if p.lev > 1: out += [v(f"leverage {l}x", lev=l) for l in (round(p.lev - 0.1, 2), round(p.lev + 0.1, 2))]
+    return out
+def combo(p):                                                      # box-spread boost + a run line (separate loan, same box rate)
+    if p.lev <= 1: return []
+    return [replace(p, name=f"{p.name} | + {int(c * 100)}% run line" + (" below 90%" if db < 1 else ""), credit=c, draw_below=db) for c in (0.10, 0.15, 0.25) for db in (1.0, 0.9)]
+def stacked(p):                                                    # return-stacked funds: 2 exposures per dollar (NTSX 90/60 US stocks/Treasuries, RSSB 100/100 global)
+    out = []
+    for old in ("VBRSIM", "GDESIM"):
+        for new, xs in (("NTSXSIM", (5, 10, 15)), ("RSSBSIM", (5, 10, 15))):
+            for x in xs:
+                a = dict(p.alloc)
+                if a.get(old, 0) < x: continue
+                a[old] -= x; a[new] = a.get(new, 0) + x; a = {k: w for k, w in a.items() if w > 0}
+                out.append(replace(p, name=f"{p.name} | {x} {old[:-3]} -> {new[:-3]}", alloc=a))
+    return out
 FREE = {"cheap_gold", "bucket_tax"}                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
     "cheap_gold": lambda p: swap(p, "GLDSIM", "GLDMSIM", "GLD -> GLDM") + swap(p, "GLDSIM", "IAUMSIM", "GLD -> IAUM"),
     "bucket_tax": lambda p: [replace(p, name=f"{p.name} | bucket in Treasury fund", bucket_tax="treasury"), replace(p, name=f"{p.name} | bucket in BOXX", bucket_tax="boxx")],
+    "settings": settings,
+    "combo": combo,
+    "stacked": stacked,
 }
 
 def run(idea):

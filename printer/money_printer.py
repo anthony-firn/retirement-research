@@ -61,7 +61,7 @@ class Printer:
     lev: float = 1.0            # BOOST: hold lev x net worth in the funds
     lev_daily: bool = False     #   True: leverage inside the funds (reset daily, like GDE/TQQQ/futures): no loan, no margin call
                                 #   False: an account loan (margin / box spread), re-levered at each rebalance, margin call below 30% equity
-    credit: float = 0.0         # RUN: standby line, share of the inflation-adjusted start. While the real net value is below
+    credit: float = 0.0         # RUN (can be combined with BOOST; tracked as a separate loan): standby line, share of the inflation-adjusted start. While the real net value is below
     draw_below: float = 1.0     #   draw_below x start, the base print is borrowed instead of sold; the whole loan is repaid at the
     repay_above: float = 1.0    #   first year-end with the real net value above repay_above x start
     rate_spread: float = 0.0
@@ -146,7 +146,7 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             w_ = (W0 + (st[:, :, None] * DIR).sum(1)).clamp(min=0); return w_ / w_.sum(1, keepdim=True)
         state = SIG[IDX[pi, 0]]; Wt = tilted(state); has = Wt > 0
     val = Wt * torch.where(levl, lev, torch.ones_like(lev))[:, None] if any_l else Wt.clone()
-    loan = torch.where(levl, lev - 1, torch.zeros_like(lev)); lint = torch.zeros(N, device=DEV); lmax = loan.clone(); mcall = torch.zeros(N, dtype=torch.bool, device=DEV)
+    loan = torch.where(levl, lev - 1, torch.zeros_like(lev)); rloan = torch.zeros(N, device=DEV); lint = torch.zeros(N, device=DEV); lmax = loan.clone(); mcall = torch.zeros(N, dtype=torch.bool, device=DEV)
     basis = val.clone(); lastb = torch.zeros(N, K, device=DEV); bfrac = torch.ones(N, K, device=DEV)
     last = torch.zeros(N, dtype=torch.long, device=DEV); infl = torch.ones(N, device=DEV); bucket = torch.zeros(N, device=DEV); mult = torch.ones(N, device=DEV)
     gST, gLT, gC, gM, carry, intr = (torch.zeros(N, device=DEV) for _ in range(6))
@@ -175,10 +175,11 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
         val = val * (1 + R); infl = infl * Cg[rows]; bi = bucket * (Fg[rows] - bfee) if any_bt else bucket * Fg[rows]; bucket = bucket + bi; intr += bi
         if any_loan:
             li = loan * (Fg[rows] + spr); loan = loan + li; lint += li; V = val.sum(1)
-            mc = (loan > 0.70 * V) & ~dead                         # margin call: sell so the loan is 50% of what is left
+            if any_c: ri = rloan * (Fg[rows] + spr); rloan = rloan + ri; lint += ri
+            debt = loan + rloan; mc = (debt > 0.70 * V) & ~dead     # margin call: sell so the debt is 50% of what is left (run line first)
             if bool(mc.any()):
-                x = torch.where(mc, (2 * loan - V).clamp(min=0), torch.zeros_like(V)); x = torch.minimum(x, V); fr = x / V.clamp(min=1e-12)
-                realize(val * fr[:, None], d); val = val * (1 - fr)[:, None]; loan = loan - x; mcall |= mc
+                x = torch.where(mc, (2 * debt - V).clamp(min=0), torch.zeros_like(V)); x = torch.minimum(x, V); fr = x / V.clamp(min=1e-12)
+                realize(val * fr[:, None], d); val = val * (1 - fr)[:, None]; xr = torch.minimum(x, rloan); rloan = rloan - xr; loan = loan - (x - xr); mcall |= mc
         mo = d * 12 // S; force = None
         if mo != (d - 1) * 12 // S:
             if state is not None:                                  # monthly signal check: new targets, rebalance on a change of state
@@ -186,20 +187,22 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             amt = base / 12 * infl * mult
             if any_c:                                              # borrow the base print instead of selling in a down market
                 V = val.sum(1); z = torch.zeros_like(amt)
-                dr = (cred > 0) & ((V - loan) / infl < drawb) & (loan + amt <= cred * infl) & (loan + amt <= 0.5 * V)
-                got = sell_amount(torch.where(dr, z, amt), d) + torch.where(dr, amt, z); loan = loan + torch.where(dr, amt, z)
+                dr = (cred > 0) & ((V - loan - rloan) / infl < drawb) & (rloan + amt <= cred * infl) & (loan + rloan + amt <= 0.5 * V)
+                got = sell_amount(torch.where(dr, z, amt), d) + torch.where(dr, amt, z); rloan = rloan + torch.where(dr, amt, z)
             else: got = sell_amount(amt, d)
             draw = bucket / bmon; bucket = bucket - draw
-            spend[:, min(mo - 1, M - 1)] = (got + draw) / infl; dead |= val.sum(1) - loan <= 1e-6
-            if any_loan: val = torch.where(dead[:, None], torch.zeros_like(val), val); loan = torch.where(dead, torch.zeros_like(loan), loan); lmax = torch.maximum(lmax, loan / infl)
+            spend[:, min(mo - 1, M - 1)] = (got + draw) / infl; dead |= val.sum(1) - loan - rloan <= 1e-6
+            if any_loan:
+                val = torch.where(dead[:, None], torch.zeros_like(val), val); loan = torch.where(dead, torch.zeros_like(loan), loan); rloan = torch.where(dead, torch.zeros_like(rloan), rloan)
+                lmax = torch.maximum(lmax, (loan + rloan) / infl)
         V = val.sum(1); w = val / V.clamp(min=1e-12)[:, None]; since = d - last
         rel = torch.where(has, w / Wt.clamp(min=1e-12), torch.zeros_like(w)).max(1).values
         drift = (w - Wt).abs().max(1).values * 100 > band
-        if any_l: drift = drift | (levl & ((V / (V - loan).clamp(min=1e-12) / lev - 1).abs() > 0.15))      # leverage drifted > 15%
+        if any_l: drift = drift | (levl & ((V / (V - loan - rloan).clamp(min=1e-12) / lev - 1).abs() > 0.15))      # leverage drifted > 15%
         trig = ((drift & (since > gap)) | (rel >= valve) | (yearly & (since >= S))) & ~dead
         if force is not None: trig = trig | (force & ~dead)
         if trig.any():
-            Vt = torch.where(levl, lev * (V - loan), V) if any_l else V                                       # re-lever to lev x net worth
+            Vt = torch.where(levl, lev * (V - loan - rloan), V) if any_l else V                               # re-lever to lev x net worth
             tgt = Wt * Vt[:, None]; over = (val > tgt) & trig[:, None]; under = (val < tgt) & trig[:, None]
             realize(torch.where(over, val - tgt, torch.zeros_like(val)), d)
             buy = torch.where(under, tgt - val, torch.zeros_like(val)); basis = basis + buy
@@ -216,11 +219,11 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
                 inv = torch.minimum(lint, divo + intr); ded = torch.where(iinv, inv * (item * tx["ord"] + tx["ca"]), torch.where(ihom, lint * tx["ca"], torch.zeros_like(lint)))
                 lint.zero_()
                 if any_c:                                                                                 # back above repay_above: repay the line
-                    rp = (cred > 0) & (loan > 0) & ((val.sum(1) - loan) / infl > repa)
-                    if bool(rp.any()): loan = loan - sell_amount(torch.where(rp, loan, torch.zeros_like(loan)), d)
-            V = val.sum(1); net = V - loan; bonus = ((net / infl - (1 + skim)).clamp(min=0) * infl)    # bonus print -> bucket
+                    rp = (cred > 0) & (rloan > 0) & ((val.sum(1) - loan - rloan) / infl > repa)
+                    if bool(rp.any()): rloan = rloan - sell_amount(torch.where(rp, rloan, torch.zeros_like(rloan)), d)
+            V = val.sum(1); net = V - loan - rloan; bonus = ((net / infl - (1 + skim)).clamp(min=0) * infl)    # bonus print -> bucket
             if bool((bonus > 0).any()):                                                                  # (sold pro rata; a loan shrinks with it)
-                fr = bonus / net.clamp(min=1e-12); realize(val * fr[:, None], d); val = val * (1 - fr)[:, None]; loan = loan * (1 - fr); bucket = bucket + bonus
+                fr = bonus / net.clamp(min=1e-12); realize(val * fr[:, None], d); val = val * (1 - fr)[:, None]; loan = loan * (1 - fr); rloan = rloan * (1 - fr); bucket = bucket + bonus
             pos = [gST.clamp(min=0), gLT.clamp(min=0), gC.clamp(min=0), gM.clamp(min=0)]; net = gST + gLT + gC + gM + carry
             wr = (pos[0] * r_o + pos[1] * r_l + pos[2] * r_c + pos[3] * r_m) / sum(pos).clamp(min=1e-12)
             if any_bt: tax = torch.where(net > 0, net * wr, torch.zeros_like(net)) + divq * r_l + divo * r_o + intr * r_b
@@ -229,14 +232,14 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             if any_loan: tax = (tax - ded).clamp(min=0); ded.zero_()                                    # itemized interest deduction
             gST.zero_(); gLT.zero_(); gC.zero_(); gM.zero_(); intr.zero_()
             V = val.sum(1); f = (tax / V.clamp(min=1e-12)).clamp(0, 1); val = val * (1 - f)[:, None]; basis = basis * (1 - f)[:, None]; taxreal += tax / infl
-            real = (val.sum(1) - loan) / infl; yreal[:, min(y, Y - 1)] = real
+            real = (val.sum(1) - loan - rloan) / infl; yreal[:, min(y, Y - 1)] = real
             mult = torch.where(real < cutb, cutt, torch.where(real > rest, torch.ones_like(mult), mult)); cut_ever |= real < cutb; ymult[:, min(y, Y - 1)] = mult; ybucket[:, min(y, Y - 1)] = bucket / infl
-        minreal = torch.minimum(minreal, (val.sum(1) - loan) / infl)
-        if trace: TR["value"][:, d] = val.sum(1) - loan; TR["bucket"][:, d] = bucket; TR["infl"][:, d] = infl; TR["mult"][:, d] = mult
+        minreal = torch.minimum(minreal, (val.sum(1) - loan - rloan) / infl)
+        if trace: TR["value"][:, d] = val.sum(1) - loan - rloan; TR["bucket"][:, d] = bucket; TR["infl"][:, d] = infl; TR["mult"][:, d] = mult
     sh = lambda x: x.view(C, P, *x.shape[1:]).cpu().numpy()
     extra = {f"trace_{k}": sh(v) for k, v in TR.items()} if trace else {}
-    return dict(**extra, spend=sh(spend), yreal=sh(yreal), ymult=sh(ymult), ybucket=sh(ybucket), real_end=sh((val.sum(1) - loan) / infl), minreal=sh(minreal), dead=sh(dead), cut=sh(cut_ever),
-                tax=sh(taxreal / Y), reb=sh(nreb / Y), bucket_end=sh(bucket / infl), loan_end=sh(loan / infl), loan_max=sh(lmax), margin_call=sh(mcall))
+    return dict(**extra, spend=sh(spend), yreal=sh(yreal), ymult=sh(ymult), ybucket=sh(ybucket), real_end=sh((val.sum(1) - loan - rloan) / infl), minreal=sh(minreal), dead=sh(dead), cut=sh(cut_ever),
+                tax=sh(taxreal / Y), reb=sh(nreb / Y), bucket_end=sh(bucket / infl), loan_end=sh((loan + rloan) / infl), loan_max=sh(lmax), margin_call=sh(mcall))
 
 def score(r, c):
     """Score card for printer c (fractions of the starting value; multiply by size for $)."""
