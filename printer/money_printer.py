@@ -34,7 +34,9 @@ DIST = {"VBRSIM": (.020, "q"), "XLVSIM": (.016, "q"), "VTISIM": (.013, "q"), "SP
         "BNDSIM": (.035, "o"), "GDESIM": (.010, "o"), "IEFSIM": (.032, "o"), "TLTSIM": (.038, "o"), "SHYSIM": (.035, "o"), "ZROZSIM": (.040, "o"),
         "XLESIM": (.032, "q"), "XLPSIM": (.026, "q"), "XLUSIM": (.030, "q"), "VTVSIM": (.023, "q"), "REITSIM": (.035, "o"), "QLDSIM": (.003, "o"),
         "NTSXSIM": (.012, "q"), "RSSBSIM": (.015, "o"), "UBTSIM": (.012, "o")}
-COLLECTIBLE = {"GLDSIM"}; MARK_TO_MARKET = {"UUPSIM", "UGLSIM"}
+COLLECTIBLE = {"GLDSIM", "GLDMSIM", "IAUMSIM"}; MARK_TO_MARKET = {"UUPSIM", "UGLSIM"}
+# cheaper share classes of the same holdings: (source fund, yearly expense-ratio saving); GLD 0.40% -> GLDM 0.10% / IAUM 0.09%
+ALIAS = {"GLDMSIM": ("GLDSIM", 0.0030), "IAUMSIM": ("GLDSIM", 0.0031)}
 TAX = {"none (IRA/Roth)": dict(ord=0, lt=0, coll=0, ca=0), "retiree, not working": dict(ord=.10, lt=0, coll=.10, ca=.02),
        "retiree, working $40k": dict(ord=.12, lt=0, coll=.12, ca=.05), "middle bracket": dict(ord=.22, lt=.15, coll=.22, ca=.093, item=1)}
 # item=1: itemizes on the federal return (with the $40k SALT cap a California homeowner in the middle bracket usually does);
@@ -63,6 +65,8 @@ class Printer:
     draw_below: float = 1.0     #   draw_below x start, the base print is borrowed instead of sold; the whole loan is repaid at the
     repay_above: float = 1.0    #   first year-end with the real net value above repay_above x start
     rate_spread: float = 0.0
+    bucket_tax: str = "ordinary"  # cash bucket: "ordinary" = T-bill interest (federal + CA); "treasury" = Treasury fund (no CA tax);
+                                  #   "boxx" = box-spread ETF (0.19% fee; growth taxed as long-term gains)
     interest_tax: str = "none"  # "capital": a 60/40 capital loss (box spread, section 1256); "investment": investment interest
                                 #   (itemized, up to the year's ordinary investment income: federal if the bracket itemizes, plus CA);
                                 #   "home": California home-equity interest (state return only); "none": not deductible
@@ -71,7 +75,9 @@ class Printer:
 T = len(h.CAL)
 _cpi = np.asarray(h.cpi, float); _cpi = np.where(np.isnan(_cpi), np.nanmin(_cpi), _cpi); CPIR = np.r_[1.0, _cpi[1:] / _cpi[:-1]]
 RF = np.asarray(h.rf, float)
-def fund_returns(n): return np.asarray(br.SUB[n] if n in br.SUB else h.rets(h.series(n)), float)
+def fund_returns(n):
+    if n in ALIAS: src, save = ALIAS[n]; return fund_returns(src) + save / 252
+    return np.asarray(br.SUB[n] if n in br.SUB else h.rets(h.series(n)), float)
 
 def make_idx(paths, years, block=252, seed=11, hist=False, step=1, era=None):
     """Histories as row indices into step-day compounded returns. step=1: daily; step=5: weekly (50 steps per model year).
@@ -125,6 +131,10 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
     spr = pv(lambda p: p.rate_spread / 100 / S)
     any_d = any(p.lev_daily and p.lev != 1 for p in printers); any_l = any(not p.lev_daily and p.lev != 1 for p in printers)
     any_c = any(p.credit > 0 for p in printers); any_loan = any_l or any_c
+    any_bt = any(p.bucket_tax != "ordinary" for p in printers)
+    if any_bt:
+        bfee = pv(lambda p: 0.0019 / S if p.bucket_tax == "boxx" else 0.0)
+        r_b = torch.where(pv(lambda p: p.bucket_tax == "treasury", torch.bool), tx["ord"], torch.where(pv(lambda p: p.bucket_tax == "boxx", torch.bool), r_l, r_o))
     Wt = W0.clone(); state = None
     if tilt is not None:
         SIG = torch.tensor(np.asarray(tilt["sig"], np.float32), device=DEV); nS = SIG.shape[1]; Dc = torch.zeros(C, nS, K, device=DEV)
@@ -162,7 +172,7 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
     for d in range(1, L):
         rows = IDX[pi, d]; R = Rg[rows[:, None], sid]
         if any_d: R = torch.where(levd[:, None], lev[:, None] * R - (lev - 1)[:, None] * (Fg[rows] + spr)[:, None], R)
-        val = val * (1 + R); infl = infl * Cg[rows]; bi = bucket * Fg[rows]; bucket = bucket + bi; intr += bi
+        val = val * (1 + R); infl = infl * Cg[rows]; bi = bucket * (Fg[rows] - bfee) if any_bt else bucket * Fg[rows]; bucket = bucket + bi; intr += bi
         if any_loan:
             li = loan * (Fg[rows] + spr); loan = loan + li; lint += li; V = val.sum(1)
             mc = (loan > 0.70 * V) & ~dead                         # margin call: sell so the loan is 50% of what is left
@@ -213,7 +223,9 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
                 fr = bonus / net.clamp(min=1e-12); realize(val * fr[:, None], d); val = val * (1 - fr)[:, None]; loan = loan * (1 - fr); bucket = bucket + bonus
             pos = [gST.clamp(min=0), gLT.clamp(min=0), gC.clamp(min=0), gM.clamp(min=0)]; net = gST + gLT + gC + gM + carry
             wr = (pos[0] * r_o + pos[1] * r_l + pos[2] * r_c + pos[3] * r_m) / sum(pos).clamp(min=1e-12)
-            tax = torch.where(net > 0, net * wr, torch.zeros_like(net)) + divq * r_l + (divo + intr) * r_o; carry = net.clamp(max=0)
+            if any_bt: tax = torch.where(net > 0, net * wr, torch.zeros_like(net)) + divq * r_l + divo * r_o + intr * r_b
+            else: tax = torch.where(net > 0, net * wr, torch.zeros_like(net)) + divq * r_l + (divo + intr) * r_o
+            carry = net.clamp(max=0)
             if any_loan: tax = (tax - ded).clamp(min=0); ded.zero_()                                    # itemized interest deduction
             gST.zero_(); gLT.zero_(); gC.zero_(); gM.zero_(); intr.zero_()
             V = val.sum(1); f = (tax / V.clamp(min=1e-12)).clamp(0, 1); val = val * (1 - f)[:, None]; basis = basis * (1 - f)[:, None]; taxreal += tax / infl
