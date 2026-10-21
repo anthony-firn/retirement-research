@@ -218,3 +218,5 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
 ## 2026-10-21 — passive improvements, overnight (`results/IMPROVE.md`, `printer/improve.py`)
 - Batch 1: GLD → IAUM (+0.3% robust CE) and the cash bucket in BOXX (+0.1%), accepted on both tracks with break risk
   no worse. Both are free: same holdings, lower fee or tax.
+- Batch 2: settings re-tune, credit combo and stock/bond stacked funds (NTSX, RSSB): no improvement passes. MP-2's
+  settings are at the retiree's optimum, and bond stacking hurts the trend + gold engine.

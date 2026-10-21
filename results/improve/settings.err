@@ -1,0 +1,89 @@
+IDEA settings — 2026-10-21 00:11
+  [simple] reference: MP-2 | GLD -> IAUM | bucket in BOXX; 24 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [simple] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX | restore at 80%                   |   $266 /   $532 (+0.4%) | $246 / $240 | $417 / $274 |  87%    9%   18%  0.2% | $217 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | valve 3.0x                       |   $266 /   $532 (+0.4%) | $249 / $240 | $420 / $278 |  87%    8%   17%  0.1% | $218 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | skim>125%                        |   $266 /   $532 (+0.3%) | $278 / $240 | $391 / $274 |  81%   19%   26%  0.1% | $217 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | guardrail at 75%                 |   $265 /   $531 (+0.1%) | $246 / $240 | $417 / $276 |  83%    7%   17%  0.1% | $220 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | valve 1.5x                       |   $265 /   $530 (+0.0%) | $246 / $240 | $414 / $276 |  88%    8%   16%  0.1% | $218 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX                                    |   $265 /   $530 (+0.0%) | $246 / $240 | $417 / $275 |  87%    8%   18%  0.1% | $216 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | bucket 60m                       |   $265 /   $530 (-0.1%) | $245 / $240 | $410 / $271 |  87%    8%   18%  0.1% | $217 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | band 10.0pt                      |   $265 /   $530 (-0.1%) | $246 / $240 | $417 / $272 |  88%    8%   16%  0.2% | $216 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | bucket 36m                       |   $265 /   $529 (-0.2%) | $248 / $240 | $423 / $277 |  87%    8%   18%  0.1% | $216 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | base 5.50%                       |   $264 /   $529 (-0.2%) | $240 / $229 | $418 / $284 |  89%    7%   15%  0.2% | $224 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | bucket 72m                       |   $264 /   $529 (-0.3%) | $244 / $240 | $404 / $268 |  87%    8%   18%  0.1% | $216 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | guardrail at 65%                 |   $264 /   $528 (-0.4%) | $246 / $240 | $417 / $272 |  90%   10%   18%  0.2% | $213 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | restore at 100%                  |   $264 /   $527 (-0.5%) | $246 / $240 | $417 / $276 |  87%    8%   18%  0.1% | $216 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | base 6.00%                       |   $263 /   $526 (-0.8%) | $254 / $250 | $414 / $265 |  85%   11%   20%  0.3% | $206 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | bucket 96m                       |   $263 /   $526 (-0.8%) | $243 / $240 | $392 / $263 |  87%    8%   18%  0.1% | $216 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | band 4.0pt                       |   $263 /   $525 (-0.9%) | $246 / $240 | $411 / $269 |  87%    9%   18%  0.1% | $216 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 50%                       |   $262 /   $525 (-1.0%) | $246 / $240 | $417 / $279 |  87%    7%   18%  0.0% | $226 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | skim>160%                        |   $262 /   $523 (-1.3%) | $240 / $240 | $440 / $268 |  88%    5%   16%  0.1% | $215 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | skim>160% bucket 60m             |   $261 /   $523 (-1.4%) | $240 / $240 | $432 / $263 |  88%    5%   16%  0.1% | $215 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | skim>180%                        |   $258 /   $516 (-2.7%) | $240 / $240 | $462 / $259 |  88%    4%   15%  0.1% | $213 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | skim>180% bucket 72m             |   $257 /   $514 (-3.1%) | $240 / $240 | $443 / $252 |  88%    4%   15%  0.1% | $213 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | skim>200%                        |   $254 /   $509 (-4.0%) | $240 / $240 | $480 / $246 |  88%    3%   15%  0.1% | $212 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | skim>200% bucket 96m             |   $252 /   $504 (-4.8%) | $240 / $240 | $437 / $242 |  88%    3%   15%  0.1% | $211 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | skim>250%                        |   $247 /   $495 (-6.6%) | $240 / $240 | $507 / $239 |  88%    3%   15%  0.1% | $208 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 80%                       |   $237 /   $474 (-10.5%) | $246 / $240 | $417 / $269 |  87%   10%   18%  1.0% | $166 | no   no
+  [simple] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX | valve 3.0x                       |   $266 /   $531 (+0.4%) | $250 / $240 | $421 / $274 |  86%    8%   19%  0.1% | $225 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX                                    |   $265 /   $529 (+0.0%) | $248 / $240 | $417 / $271 |  86%    8%   19%  0.1% | $224 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | bucket 60m                       |   $264 /   $529 (-0.0%) | $247 / $240 | $412 / $268 |  86%    8%   19%  0.1% | $224 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | valve 1.5x                       |   $264 /   $527 (-0.3%) | $247 / $240 | $415 / $269 |  86%    8%   18%  0.1% | $222 | no   no
+  [simple] VERDICT: keep the reference
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX; 26 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $297 /   $594 (+3.5%) | $302 / $219 | $540 / $386 |  92%    5%   16%  0.0% | $248 | no   yes
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $289 /   $579 (+0.8%) | $280 / $219 | $498 / $363 |  93%    4%   12%  0.0% | $245 | yes  yes
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $289 /   $578 (+0.8%) | $283 / $229 | $500 / $355 |  90%    6%   15%  0.0% | $238 | no   yes
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $289 /   $578 (+0.7%) | $315 / $219 | $466 / $341 |  87%   12%   23%  0.0% | $244 | no   yes
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $288 /   $576 (+0.4%) | $280 / $219 | $501 / $357 |  92%    4%   14%  0.0% | $244 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $288 /   $576 (+0.4%) | $283 / $219 | $506 / $357 |  92%    5%   14%  0.0% | $246 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $288 /   $575 (+0.2%) | $280 / $219 | $501 / $357 |  94%    5%   14%  0.0% | $243 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $287 /   $574 (+0.1%) | $279 / $219 | $500 / $358 |  92%    4%   13%  0.0% | $244 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $287 /   $574 (+0.0%) | $280 / $219 | $501 / $358 |  92%    4%   14%  0.0% | $243 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $287 /   $574 (-0.1%) | $270 / $219 | $493 / $353 |  92%    4%   14%  0.0% | $243 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $286 /   $572 (-0.3%) | $280 / $219 | $501 / $359 |  88%    4%   14%  0.0% | $243 | no   no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $286 /   $572 (-0.3%) | $291 / $219 | $510 / $365 |  92%    4%   14%  0.0% | $242 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $286 /   $572 (-0.4%) | $264 / $219 | $483 / $350 |  92%    4%   14%  0.0% | $243 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $286 /   $571 (-0.5%) | $280 / $219 | $501 / $359 |  92%    4%   14%  0.0% | $242 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $285 /   $570 (-0.8%) | $282 / $219 | $497 / $351 |  91%    5%   14%  0.0% | $240 | no   no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $283 /   $567 (-1.3%) | $275 / $208 | $502 / $362 |  93%    4%   12%  0.0% | $245 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $283 /   $566 (-1.3%) | $255 / $219 | $467 / $337 |  92%    4%   14%  0.0% | $242 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $283 /   $566 (-1.4%) | $280 / $219 | $501 / $361 |  92%    4%   14%  0.0% | $241 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $281 /   $563 (-2.0%) | $239 / $219 | $541 / $377 |  93%    2%   12%  0.0% | $240 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $281 /   $562 (-2.1%) | $235 / $219 | $529 / $370 |  93%    2%   12%  0.0% | $240 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $276 /   $552 (-3.9%) | $280 / $219 | $501 / $356 |  92%    5%   14%  0.2% | $216 | no   no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $275 /   $551 (-4.1%) | $220 / $219 | $578 / $388 |  93%    1%   11%  0.0% | $236 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $275 /   $550 (-4.1%) | $255 / $219 | $462 / $327 |  92%    5%   13%  0.0% | $235 | no   no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $274 /   $547 (-4.6%) | $220 / $219 | $552 / $369 |  93%    1%   11%  0.0% | $236 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $270 /   $539 (-6.0%) | $219 / $219 | $611 / $392 |  93%    0%   11%  0.0% | $233 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $266 /   $533 (-7.2%) | $219 / $219 | $553 / $354 |  93%    0%   11%  0.0% | $232 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $259 /   $518 (-9.8%) | $219 / $219 | $683 / $391 |  93%    0%   11%  0.0% | $227 | yes  no
+  [credit] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $289 /   $577 (+0.5%) | $282 / $219 | $501 / $348 |  92%    4%   14%  0.0% | $251 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $288 /   $577 (+0.4%) | $284 / $219 | $503 / $350 |  91%    4%   15%  0.0% | $251 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $288 /   $577 (+0.4%) | $287 / $219 | $507 / $352 |  91%    5%   15%  0.0% | $251 | yes  no
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $287 /   $575 (+0.0%) | $284 / $219 | $503 / $350 |  91%    4%   15%  0.0% | $249 | yes  no
+  [credit] VERDICT: keep the reference

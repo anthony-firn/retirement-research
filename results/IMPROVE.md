@@ -51,3 +51,19 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
   - **Caveat:** BOXX's treatment (box-spread gains instead of interest) is legal but untested by the IRS. Tax Notes
     flagged a possible challenge. If that ever happens, a Treasury fund (SGOV, or a Treasury money fund) is the
     fallback.
+
+### Batch 2 (00:15–01:00): nothing accepted
+- **settings:** MP-2's settings are already at the retiree's optimum.
+  - Simple track: the closest was a 3× safety valve (+0.4%, just under the bar). A higher skim threshold raises the
+    40-year average ($440–507 at 160–250%) but lowers the first-decade print and the robust CE (−1% to −7%).
+  - Credit track: 1.3× leverage scored +3.5% in the search but failed break risk in a stress case. A 10-point
+    rebalance band reached +0.45% on fresh histories, just under the bar.
+- **combo** (box boost + run line, credit track): at most +0.1%. With the boost in place, the run line adds nothing.
+- **stacked** (NTSX / RSSB for VBR or GDE): **worse in every variant, −1.5% to −9%.** Stacking Treasuries adds rate
+  risk (2022) that the trend + gold engine doesn't need.
+- **Notes:**
+  - TIPS / annuity floor: a 30-year TIPS ladder (2.9–3.3% real) pays only 5.0%/yr real and ends at 90; the printer's
+    base is 5.75% real.
+  - A life-only annuity for a 60-year-old woman pays $638/month per $100k (7.66%, no inflation raise). That trades
+    away legacy and liquidity, so it is a different decision, not a printer improvement. Not tested.
+  - Skipped as low value for the retiree (gains already taxed 0% federal): distributions as pay, and tax-loss harvesting.
