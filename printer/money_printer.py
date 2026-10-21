@@ -33,10 +33,15 @@ DIST = {"VBRSIM": (.020, "q"), "XLVSIM": (.016, "q"), "VTISIM": (.013, "q"), "SP
         "KMLMSIM": (.025, "o"), "TYDSIM": (.020, "o"), "TQQQSIM": (.010, "o"), "TMFSIM": (.015, "o"), "IEISIM": (.030, "o"),
         "BNDSIM": (.035, "o"), "GDESIM": (.010, "o"), "IEFSIM": (.032, "o"), "TLTSIM": (.038, "o"), "SHYSIM": (.035, "o"), "ZROZSIM": (.040, "o"),
         "XLESIM": (.032, "q"), "XLPSIM": (.026, "q"), "XLUSIM": (.030, "q"), "VTVSIM": (.023, "q"), "REITSIM": (.035, "o"), "QLDSIM": (.003, "o"),
-        "NTSXSIM": (.012, "q"), "RSSBSIM": (.015, "o"), "UBTSIM": (.012, "o")}
+        "NTSXSIM": (.012, "q"), "RSSBSIM": (.015, "o"), "UBTSIM": (.012, "o"), "RSSTSIM": (.030, "o"), "RSSTPSIM": (.030, "o")}
 COLLECTIBLE = {"GLDSIM", "GLDMSIM", "IAUMSIM"}; MARK_TO_MARKET = {"UUPSIM", "UGLSIM"}
 # cheaper share classes of the same holdings: (source fund, yearly expense-ratio saving); GLD 0.40% -> GLDM 0.10% / IAUM 0.09%
 ALIAS = {"GLDMSIM": ("GLDSIM", 0.0030), "IAUMSIM": ("GLDSIM", 0.0031)}
+# return-stacked funds rebuilt from their sleeves (no long local history): sum of sleeves - T-bills for the borrowed part - extra cost.
+# RSST (0.99% fee) = US stocks + managed futures; DBMF stands in for its trend sleeve (an approximation); extra 0.5%/yr = fee gap +
+# equity-futures financing above T-bills. Over RSST's live years (2023-2026) this proxy ran ~5%/yr above the real fund (its trend
+# sleeve differs from DBMF), so "RSSTPSIM" is the same proxy with a pessimistic 3%/yr extra cost; a change only counts if it passes with it
+COMPOSITE = {"RSSTSIM": ({"VTISIM": 1.0, "DBMFSIM": 1.0}, 0.005), "RSSTPSIM": ({"VTISIM": 1.0, "DBMFSIM": 1.0}, 0.030)}
 TAX = {"none (IRA/Roth)": dict(ord=0, lt=0, coll=0, ca=0), "retiree, not working": dict(ord=.10, lt=0, coll=.10, ca=.02),
        "retiree, working $40k": dict(ord=.12, lt=0, coll=.12, ca=.05), "middle bracket": dict(ord=.22, lt=.15, coll=.22, ca=.093, item=1)}
 # item=1: itemizes on the federal return (with the $40k SALT cap a California homeowner in the middle bracket usually does);
@@ -81,6 +86,8 @@ _cpi = np.asarray(h.cpi, float); _cpi = np.where(np.isnan(_cpi), np.nanmin(_cpi)
 RF = np.asarray(h.rf, float)
 def fund_returns(n):
     if n in ALIAS: src, save = ALIAS[n]; return fund_returns(src) + save / 252
+    if n in COMPOSITE:
+        legs, cost = COMPOSITE[n]; return sum(w * fund_returns(a) for a, w in legs.items()) - (sum(legs.values()) - 1) * RF - cost / 252
     return np.asarray(br.SUB[n] if n in br.SUB else h.rets(h.series(n)), float)
 
 def make_idx(paths, years, block=252, seed=11, hist=False, step=1, era=None):

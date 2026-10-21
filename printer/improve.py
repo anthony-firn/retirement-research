@@ -98,6 +98,19 @@ def settings2(p):                                                  # pairs of th
     return [v("valve 3x + restore 80%", valve=3.0, restore_above=0.8), v("valve 3x + guardrail 75%", valve=3.0, cut_below=0.75), v("restore 80% + guardrail 75%", restore_above=0.8, cut_below=0.75),
             v("valve 3x + restore 80% + guardrail 75%", valve=3.0, restore_above=0.8, cut_below=0.75), v("valve 2.5x", valve=2.5), v("valve 4x", valve=4.0), v("no valve", valve=0),
             v("valve 3x + skim>125%", valve=3.0, skim=0.25), v("valve 3x + base 5.5%", valve=3.0, base=p.base - 0.25)]
+def rsst(p):                                                       # RSST (US stocks + trend, 2 exposures per dollar) replaces X of VBR and X of DBMF;
+    out = []                                                       # the freed X goes to defenders, to stocks, or pro rata; optimistic and pessimistic proxy
+    for fund, tag in (("RSSTSIM", "RSST"), ("RSSTPSIM", "RSST pessimistic")):
+        for x in (5, 10, 15):
+            for dlab, dst in (("defenders", {"KMLMSIM": .5, ("IAUMSIM" if "IAUMSIM" in p.alloc else "GLDSIM"): .5}), ("stocks", {"VBRSIM": .5, "GDESIM": .5}), ("pro rata", None)):
+                a = dict(p.alloc)
+                if a.get("VBRSIM", 0) < x or a.get("DBMFSIM", 0) < x: continue
+                a["VBRSIM"] -= x; a["DBMFSIM"] -= x
+                if dst is None: tot = sum(a.values()); a = {k: w + x * w / tot for k, w in a.items()}
+                else:
+                    for k, f in dst.items(): a[k] = a.get(k, 0) + x * f
+                a[fund] = x; out.append(replace(p, name=f"{p.name} | {x} {tag} for {x} VBR + {x} DBMF, freed to {dlab}", alloc=a))
+    return out
 FREE = {"cheap_gold", "bucket_tax"}                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
     "cheap_gold": lambda p: swap(p, "GLDSIM", "GLDMSIM", "GLD -> GLDM") + swap(p, "GLDSIM", "IAUMSIM", "GLD -> IAUM"),
@@ -108,6 +121,7 @@ IDEAS = {
     "glidepath": glidepath,
     "rules": rules,
     "settings2": settings2,
+    "rsst": rsst,
 }
 
 def run(idea):
