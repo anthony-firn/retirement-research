@@ -41,7 +41,7 @@ settings, structure or credit.
 
 ## Log
 
-### Batch 1 (2026-10-21 00:05–00:15)
+### Batch 1 (2026-10-21, 00:05–00:11)
 Fresh-history numbers at $50k; robust CE is relative to the reference.
 - **cheap_gold: ACCEPTED on both tracks.** GLD → IAUM gives robust CE +0.3%, a 40-year typical of $416 vs $414,
   and break risk equal or lower. GLDM is the same (0.10% vs 0.09%). The gold and the collectible tax are unchanged.
@@ -52,7 +52,7 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
     flagged a possible challenge. If that ever happens, a Treasury fund (SGOV, or a Treasury money fund) is the
     fallback.
 
-### Batch 2 (00:15–01:00): nothing accepted
+### Batch 2 (00:11–00:27): nothing accepted
 - **settings:** MP-2's settings are already at the retiree's optimum.
   - Simple track: the closest was a 3× safety valve (+0.4%, just under the bar). A higher skim threshold raises the
     40-year average ($440–507 at 160–250%) but lowers the first-decade print and the robust CE (−1% to −7%).
@@ -68,7 +68,7 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
     away legacy and liquidity, so it is a different decision, not a printer improvement. Not tested.
   - Skipped as low value for the retiree (gains already taxed 0% federal): distributions as pay, and tax-loss harvesting.
 
-### Batch 3 (01:00–01:45): one acceptance (credit track)
+### Batch 3 (00:27–00:50): one acceptance (credit track)
 - **glidepath:** none of 16 age-based shifts (5 or 10 points between stocks and trend or gold, over 10 or 20 years,
   either direction) helps: −0.4% to −3.3%. MP-2's fixed mix beats gliding.
 - **rules:** the bucket top-up of a cut base does nothing (the bucket is empty when the guardrail bites).
@@ -89,7 +89,7 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
   - `improve.py` now refuses proxy-based changes whose pessimistic twin fails. The harness's automatic acceptance was
     reverted by hand.
 
-### Batch 4 (01:45–02:20): nothing accepted
+### Batch 4 (00:50–00:56): nothing accepted
 - **lever_engines** (box loan on calmer engines: CH-12, CH-11.5, Gold-Stack 12, 3-fund VBR 35 / KMLM 35 / IAUM 30,
   at 1.2–1.5×):
   - At 1.2–1.35× all are worse than MP-2 at 1.2× (−2% to −13%).
