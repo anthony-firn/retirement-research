@@ -111,6 +111,28 @@ def rsst(p):                                                       # RSST (US st
                     for k, f in dst.items(): a[k] = a.get(k, 0) + x * f
                 a[fund] = x; out.append(replace(p, name=f"{p.name} | {x} {tag} for {x} VBR + {x} DBMF, freed to {dlab}", alloc=a))
     return out
+def lever_engines(p):                                              # box-spread leverage on calmer engines instead of MP-2 (credit track only)
+    if p.lev <= 1: return []
+    engines = {"CH-12": "Crisis-Hedged 12 (no UUP)", "CH-11.5": "Crisis-Hedged 11.5", "Gold-Stack 12": "Gold-Stack 12"}
+    allocs = {k: mp.load_alloc(v) for k, v in engines.items()}; allocs["3-fund VBR 35 / KMLM 35 / gold 30"] = {"VBRSIM": 35, "KMLMSIM": 35, "GLDSIM": 30}
+    out = []
+    for lab, a in allocs.items():
+        a = {("IAUMSIM" if k == "GLDSIM" else k): w for k, w in a.items()}
+        out += [replace(p, name=f"{p.name} | engine {lab}, {l}x, base {b}%", alloc=a, lev=l, base=b) for l in (1.2, 1.35, 1.5) for b in (5.25, 5.75)]
+    return out
+def gde_stack(p):                                                  # more GDE (90% stocks + 90% gold per dollar) for the same VBR + gold exposure;
+    out = []                                                       # the freed capital goes to the trend funds or pro rata
+    gold = "IAUMSIM" if "IAUMSIM" in p.alloc else "GLDSIM"
+    for g in (4, 6, round(p.alloc.get(gold, 0) / 0.9, 1)):
+        a = dict(p.alloc); x = 0.9 * g
+        if a.get(gold, 0) < x - 1e-9 or a.get("VBRSIM", 0) < x: continue
+        a["VBRSIM"] -= x; a[gold] -= x; a["GDESIM"] += g; freed = 2 * x - g
+        for dlab in ("trend", "pro rata"):
+            b = {k: w for k, w in a.items() if w > 1e-9}
+            if dlab == "trend": b["DBMFSIM"] += freed / 2; b["KMLMSIM"] += freed / 2
+            else: tot = sum(b.values()); b = {k: w + freed * w / tot for k, w in b.items()}
+            out.append(replace(p, name=f"{p.name} | +{g} GDE for {x:.1f} VBR + {x:.1f} gold, freed to {dlab}", alloc=b))
+    return out
 FREE = {"cheap_gold", "bucket_tax"}                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
     "cheap_gold": lambda p: swap(p, "GLDSIM", "GLDMSIM", "GLD -> GLDM") + swap(p, "GLDSIM", "IAUMSIM", "GLD -> IAUM"),
@@ -122,6 +144,8 @@ IDEAS = {
     "rules": rules,
     "settings2": settings2,
     "rsst": rsst,
+    "lever_engines": lever_engines,
+    "gde_stack": gde_stack,
 }
 
 def run(idea):
