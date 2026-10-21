@@ -65,6 +65,8 @@ class Printer:
     draw_below: float = 1.0     #   draw_below x start, the base print is borrowed instead of sold; the whole loan is repaid at the
     repay_above: float = 1.0    #   first year-end with the real net value above repay_above x start
     rate_spread: float = 0.0
+    bucket_fill: bool = False   # while the guardrail has cut the base print, top it back up from the cash bucket (if there is any)
+    no_raise_after_loss: bool = False  # skip the yearly inflation raise of the base print after a year the portfolio lost money (no catch-up)
     glide: dict = None          # GLIDEPATH: target weights reached after `glide_years` (same funds as alloc), moved linearly each
     glide_years: int = 10       #   year-end from alloc; withdrawals and the drift rule move the holdings toward the new targets
     bucket_tax: str = "ordinary"  # cash bucket: "ordinary" = T-bill interest (federal + CA); "treasury" = Treasury fund (no CA tax);
@@ -142,7 +144,9 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
     spr = pv(lambda p: p.rate_spread / 100 / S)
     any_d = any(p.lev_daily and p.lev != 1 for p in printers); any_l = any(not p.lev_daily and p.lev != 1 for p in printers)
     any_c = any(p.credit > 0 for p in printers); any_loan = any_l or any_c
-    any_bt = any(p.bucket_tax != "ordinary" for p in printers)
+    any_bt = any(p.bucket_tax != "ordinary" for p in printers); any_bf = any(p.bucket_fill for p in printers); any_nr = any(p.no_raise_after_loss for p in printers)
+    if any_bf: bfill = pv(lambda p: p.bucket_fill, torch.bool)
+    if any_nr: nr = pv(lambda p: p.no_raise_after_loss, torch.bool)
     if any_bt:
         bfee = pv(lambda p: 0.0019 / S if p.bucket_tax == "boxx" else 0.0)
         r_b = torch.where(pv(lambda p: p.bucket_tax == "treasury", torch.bool), tx["ord"], torch.where(pv(lambda p: p.bucket_tax == "boxx", torch.bool), r_l, r_o))
@@ -179,10 +183,12 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             realize(s, d); val = val - s; return s.sum(1)
         te = torch.minimum(amt, se); rem = amt - te; s1 = exc * (te / se.clamp(min=1e-12))[:, None]
         s = s1 + (val - s1) * (rem / (V - te).clamp(min=1e-12))[:, None]; realize(s, d); val = val - s; return s.sum(1)
+    if any_nr: pinf = torch.ones(N, device=DEV); infl_y = torch.ones(N, device=DEV); gidx = torch.ones(N, device=DEV)
     if trace: TR = {k: torch.zeros(N, L, device=DEV) for k in ("value", "bucket", "infl", "mult")}; TR["value"][:, 0] = val.sum(1); TR["infl"][:, 0] = 1; TR["mult"][:, 0] = 1
     for d in range(1, L):
         rows = IDX[pi, d]; R = Rg[rows[:, None], sid]
         if any_d: R = torch.where(levd[:, None], lev[:, None] * R - (lev - 1)[:, None] * (Fg[rows] + spr)[:, None], R)
+        if any_nr: gidx = gidx * ((val * (1 + R)).sum(1) / val.sum(1).clamp(min=1e-12))
         val = val * (1 + R); infl = infl * Cg[rows]; bi = bucket * (Fg[rows] - bfee) if any_bt else bucket * Fg[rows]; bucket = bucket + bi; intr += bi
         if any_loan:
             li = loan * (Fg[rows] + spr); loan = loan + li; lint += li; V = val.sum(1)
@@ -195,13 +201,15 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
         if mo != (d - 1) * 12 // S:
             if state is not None:                                  # monthly signal check: new targets, rebalance on a change of state
                 new = SIG[rows]; Wn = tilted(new); force = (Wn - Wt).abs().max(1).values > 1e-6; state = new; Wt = Wn; has = Wt > 0
-            amt = base / 12 * infl * mult
+            amt = base / 12 * (pinf if any_nr else infl) * mult
             if any_c:                                              # borrow the base print instead of selling in a down market
                 V = val.sum(1); z = torch.zeros_like(amt)
                 dr = (cred > 0) & ((V - loan - rloan) / infl < drawb) & (rloan + amt <= cred * infl) & (loan + rloan + amt <= 0.5 * V)
                 got = sell_amount(torch.where(dr, z, amt), d) + torch.where(dr, amt, z); rloan = rloan + torch.where(dr, amt, z)
             else: got = sell_amount(amt, d)
-            draw = bucket / bmon; bucket = bucket - draw
+            draw = bucket / bmon
+            if any_bf: draw = draw + torch.where(bfill & (mult < 1), torch.minimum(bucket - draw, (1 - mult) * base / 12 * (pinf if any_nr else infl)), torch.zeros_like(draw))
+            bucket = bucket - draw
             spend[:, min(mo - 1, M - 1)] = (got + draw) / infl; dead |= val.sum(1) - loan - rloan <= 1e-6
             if any_loan:
                 val = torch.where(dead[:, None], torch.zeros_like(val), val); loan = torch.where(dead, torch.zeros_like(loan), loan); rloan = torch.where(dead, torch.zeros_like(rloan), rloan)
@@ -246,6 +254,7 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             real = (val.sum(1) - loan - rloan) / infl; yreal[:, min(y, Y - 1)] = real
             mult = torch.where(real < cutb, cutt, torch.where(real > rest, torch.ones_like(mult), mult)); cut_ever |= real < cutb; ymult[:, min(y, Y - 1)] = mult; ybucket[:, min(y, Y - 1)] = bucket / infl
             if any_g: Wt = torch.where(gl[:, None], W0 + (W1 - W0) * ((y + 1) / gy).clamp(max=1)[:, None], Wt)
+            if any_nr: pinf = torch.where(nr & (gidx < 1), pinf, pinf * infl / infl_y); infl_y = infl.clone(); gidx = torch.ones_like(gidx)
         minreal = torch.minimum(minreal, (val.sum(1) - loan - rloan) / infl)
         if trace: TR["value"][:, d] = val.sum(1) - loan - rloan; TR["bucket"][:, d] = bucket; TR["infl"][:, d] = infl; TR["mult"][:, d] = mult
     sh = lambda x: x.view(C, P, *x.shape[1:]).cpu().numpy()

@@ -90,6 +90,14 @@ def glidepath(p):                                                  # calendar-ba
                 out.append(replace(p, name=f"{p.name} | rising stocks: {x} pts {dlab}->stocks over {yrs}y", alloc=d, glide=dict(p.alloc), glide_years=yrs))
                 out.append(replace(p, name=f"{p.name} | falling stocks: {x} pts stocks->{dlab} over {yrs}y", glide=d, glide_years=yrs))
     return out
+def rules(p):                                                      # income rules that react to the account, not the market
+    return [replace(p, name=f"{p.name} | bucket tops up a cut base", bucket_fill=True), replace(p, name=f"{p.name} | no raise after a losing year", no_raise_after_loss=True),
+            replace(p, name=f"{p.name} | both rules", bucket_fill=True, no_raise_after_loss=True)]
+def settings2(p):                                                  # pairs of the settings that came close in the first pass
+    v = lambda lab, **kw: replace(p, name=f"{p.name} | {lab}", **kw)
+    return [v("valve 3x + restore 80%", valve=3.0, restore_above=0.8), v("valve 3x + guardrail 75%", valve=3.0, cut_below=0.75), v("restore 80% + guardrail 75%", restore_above=0.8, cut_below=0.75),
+            v("valve 3x + restore 80% + guardrail 75%", valve=3.0, restore_above=0.8, cut_below=0.75), v("valve 2.5x", valve=2.5), v("valve 4x", valve=4.0), v("no valve", valve=0),
+            v("valve 3x + skim>125%", valve=3.0, skim=0.25), v("valve 3x + base 5.5%", valve=3.0, base=p.base - 0.25)]
 FREE = {"cheap_gold", "bucket_tax"}                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
     "cheap_gold": lambda p: swap(p, "GLDSIM", "GLDMSIM", "GLD -> GLDM") + swap(p, "GLDSIM", "IAUMSIM", "GLD -> IAUM"),
@@ -98,6 +106,8 @@ IDEAS = {
     "combo": combo,
     "stacked": stacked,
     "glidepath": glidepath,
+    "rules": rules,
+    "settings2": settings2,
 }
 
 def run(idea):
