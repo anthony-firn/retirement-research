@@ -20,7 +20,7 @@ settings, structure or credit.
 | Track | Printer | Robust CE ($50k / $100k) | Since |
 |---|---|---|---|
 | simple | MP-2 with **IAUM** for GLD and the **cash bucket in BOXX**: DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · IAUM 8 · TQQQ 2; base 5.75%, skim > 140%, 48-month bucket, guardrail 70% → 65% | $265 / $529 (+0.4% vs MP-2) | batch 1 |
-| credit | the same + $10k box-spread loan (1.2×), base 5.25% | $287 / $575 (+0.4%) | batch 1 |
+| credit | the same + $10k box-spread loan (1.2×), base 5.25%, **safety valve at 3× and the base restored above 80%** of the inflation-adjusted start (was 90%) | $290 / $579 (+1.2% vs start) | batch 3 |
 
 ## Queue (passive ideas, roughly by value ÷ effort)
 1. **cheap_gold:** GLD (0.40%) → GLDM (0.10%) or IAUM (0.09%). Same gold, same collectible tax.
@@ -67,3 +67,24 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
   - A life-only annuity for a 60-year-old woman pays $638/month per $100k (7.66%, no inflation raise). That trades
     away legacy and liquidity, so it is a different decision, not a printer improvement. Not tested.
   - Skipped as low value for the retiree (gains already taxed 0% federal): distributions as pay, and tax-loss harvesting.
+
+### Batch 3 (01:00–01:45): one acceptance (credit track)
+- **glidepath:** none of 16 age-based shifts (5 or 10 points between stocks and trend or gold, over 10 or 20 years,
+  either direction) helps: −0.4% to −3.3%. MP-2's fixed mix beats gliding.
+- **rules:** the bucket top-up of a cut base does nothing (the bucket is empty when the guardrail bites).
+  - **Skipping the inflation raise after a losing year is a safety dial, not a free gain.**
+    - Ends below the start: 8% → 5%. Dips below 70%: 17% → 15%.
+    - Trend −4%/yr CE: $226 → $233.
+    - But the first-decade bad-history print falls $234 → $227 at $50k (robust CE −0.2%), so it is not accepted.
+- **settings2 (pairs of near-misses):**
+  - **Credit track: ACCEPTED, valve 3× + restore at 80%** (+0.8% on fresh histories, $290 vs $287 at $50k; 40-year
+    typical $507 vs $503; break risk equal).
+  - **Simple track: dropping the safety valve, or loosening it to 3–4×, gave +0.4–0.5% in four independent runs**
+    with break risk equal, just under the bar.
+    - With TQQQ at 2% the valve rarely acts. It is worth adopting as a *simplification* (one rule fewer) if you want.
+- **rsst** (RSST for VBR + DBMF, VTI + DBMF proxy): **REJECTED.** The optimistic proxy passed (+1.6% simple, +0.7%
+  credit), but the pessimistic twin (3%/yr extra cost) fails on both tracks (−0.5% / −0.9%, break risk worse).
+  - Over RSST's live years the proxy ran ~5%/yr above the real fund, so the gain depends on RSST's own trend sleeve
+    matching DBMF.
+  - `improve.py` now refuses proxy-based changes whose pessimistic twin fails. The harness's automatic acceptance was
+    reverted by hand.

@@ -157,7 +157,10 @@ def run(idea):
         if not cand: say(f"  [{track}] no candidates"); continue
         say(f"  [{track}] reference: {ref.name}; {len(cand)} candidates; search {PATHS} histories x 5 cases")
         R = evaluate([ref] + cand, cases(601, PATHS)); C = list(cases(0, 1)); gain = 0.0 if idea in FREE else 0.005
-        ok = sorted([p for p in cand if safe(R[p.name], R[ref.name], C)], key=lambda p: -R[p.name]["robust_ce"])[:3]
+        def twin_ok(p):                                            # a proxy-based change counts only if its pessimistic twin passes too
+            t = p.name.replace("RSST for", "RSST pessimistic for")
+            return t == p.name or "pessimistic" in p.name or (t in R and safe(R[t], R[ref.name], C) and better(R[t], R[ref.name], gain))
+        ok = sorted([p for p in cand if safe(R[p.name], R[ref.name], C) and twin_ok(p) and "pessimistic" not in p.name], key=lambda p: -R[p.name]["robust_ce"])[:3]
         V = evaluate([ref] + ok, cases(701, FRESH)) if ok else {}
         gain = 0.0 if idea in FREE else 0.005
         verdict = [p for p in ok if safe(V[p.name], V[ref.name], C) and better(V[p.name], V[ref.name], gain)]

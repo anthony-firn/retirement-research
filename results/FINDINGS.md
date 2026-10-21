@@ -220,3 +220,6 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
   no worse. Both are free: same holdings, lower fee or tax.
 - Batch 2: settings re-tune, credit combo and stock/bond stacked funds (NTSX, RSSB): no improvement passes. MP-2's
   settings are at the retiree's optimum, and bond stacking hurts the trend + gold engine.
+- Batch 3: glidepaths and income rules don't help. Skipping raises after a losing year trades early income for
+  safety. Credit track: valve 3× + restore at 80% accepted (+0.8%). RSST is rejected: it passes only with an
+  optimistic proxy.

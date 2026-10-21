@@ -1,0 +1,25 @@
+IDEA rules — 2026-10-21 00:34
+  [simple] reference: MP-2 | GLD -> IAUM | bucket in BOXX; 3 candidates; search 1000 histories x 5 cases
+  [simple] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX                                    |   $265 /   $531 (+0.0%) | $245 / $234 | $417 / $279 |  88%    8%   17%  0.2% | $220 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | bucket tops up a cut base        |   $265 /   $531 (-0.0%) | $245 / $234 | $417 / $279 |  88%    8%   17%  0.2% | $220 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | no raise after a losing year     |   $264 /   $527 (-0.6%) | $243 / $226 | $417 / $285 |  89%    5%   15%  0.0% | $227 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | both rules                       |   $264 /   $527 (-0.6%) | $243 / $226 | $417 / $285 |  89%    5%   15%  0.0% | $227 | yes  no
+  [simple] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX                                    |   $265 /   $529 (+0.0%) | $246 / $234 | $417 / $272 |  87%    8%   17%  0.1% | $226 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | bucket tops up a cut base        |   $265 /   $529 (-0.0%) | $246 / $234 | $417 / $272 |  87%    8%   17%  0.1% | $226 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | no raise after a losing year     |   $264 /   $528 (-0.2%) | $245 / $227 | $417 / $278 |  89%    5%   15%  0.1% | $233 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | both rules                       |   $264 /   $528 (-0.3%) | $245 / $227 | $417 / $278 |  89%    5%   15%  0.1% | $233 | yes  no
+  [simple] VERDICT: keep the reference
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX; 3 candidates; search 1000 histories x 5 cases
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $286 /   $572 (+0.0%) | $278 / $214 | $502 / $360 |  92%    4%   13%  0.0% | $244 | yes  no
+             …base 5.25% | GLD -> IAUM | bucket in BOXX | bucket tops up a cut base |   $286 /   $572 (-0.0%) | $278 / $214 | $502 / $360 |  92%    4%   13%  0.0% | $244 | yes  no
+             …e 5.25% | GLD -> IAUM | bucket in BOXX | no raise after a losing year |   $282 /   $565 (-1.3%) | $277 / $209 | $500 / $358 |  93%    3%   13%  0.0% | $243 | yes  no
+             …x loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | both rules |   $282 /   $564 (-1.3%) | $277 / $209 | $500 / $358 |  93%    3%   13%  0.0% | $242 | yes  no
+  [credit] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $286 /   $572 (+0.0%) | $282 / $214 | $504 / $350 |  91%    4%   14%  0.0% | $250 | yes  no
+             …base 5.25% | GLD -> IAUM | bucket in BOXX | bucket tops up a cut base |   $286 /   $572 (-0.0%) | $282 / $214 | $504 / $350 |  91%    4%   14%  0.0% | $249 | yes  no
+             …e 5.25% | GLD -> IAUM | bucket in BOXX | no raise after a losing year |   $282 /   $564 (-1.3%) | $281 / $209 | $504 / $351 |  93%    3%   13%  0.0% | $249 | yes  no
+             …x loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | both rules |   $282 /   $564 (-1.4%) | $281 / $209 | $504 / $351 |  93%    3%   13%  0.0% | $249 | yes  no
+  [credit] VERDICT: keep the reference
