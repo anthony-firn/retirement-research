@@ -177,6 +177,18 @@ def climb(p):                                                      # short GPU h
         time.sleep(THROTTLE * (time.time() - tb))
     top = [q for v, q in sorted(seen.values(), key=lambda t: -t[0]) if q.alloc != p.alloc][:12]
     return [replace(q, name=f"{p.name} | climb: " + " ".join(f"{k[:-3]} {w}" for k, w in sorted(q.alloc.items(), key=lambda t: -t[1]))) for q in top]
+def settings_local(p):                                             # one step in each direction on every setting, around the current best (both tracks)
+    v = lambda lab, **kw: replace(p, name=f"{p.name} | {lab}", **kw); out = []
+    if p.lev > 1 and not p.lev_daily: out += [v(f"leverage {round(p.lev + d, 2)}x", lev=round(p.lev + d, 2)) for d in (-0.05, 0.05)]
+    out += [v(f"base {p.base + d:.2f}%", base=p.base + d) for d in (-0.25, 0.25)]
+    out += [v(f"skim>{int(round(100 + 100 * (p.skim + d)))}%", skim=round(p.skim + d, 2)) for d in (-0.10, 0.10)]
+    out += [v(f"bucket {p.bucket_months + d}m", bucket_months=p.bucket_months + d) for d in (-12, 12)]
+    out += [v(f"guardrail {int(round((p.cut_below + d) * 100))}%", cut_below=round(p.cut_below + d, 2)) for d in (-0.05, 0.05)]
+    out += [v(f"cut to {int(round((p.cut_to + d) * 100))}%", cut_to=round(p.cut_to + d, 2)) for d in (-0.05, 0.05)]
+    out += [v(f"restore {int(round((p.restore_above + d) * 100))}%", restore_above=round(p.restore_above + d, 2)) for d in (-0.05, 0.05)]
+    out += [v(f"band {p.band + d:g}pt", band=p.band + d) for d in (-2.0, 2.0)]
+    out += [v(f"valve {x:g}x", valve=x) for x in (2.0, 3.0, 4.0, 0) if x != p.valve]
+    return out
 FREE = {"cheap_gold", "bucket_tax", "bucket_offset", "tlh"}                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
     "cheap_gold": lambda p: swap(p, "GLDSIM", "GLDMSIM", "GLD -> GLDM") + swap(p, "GLDSIM", "IAUMSIM", "GLD -> IAUM"),
@@ -193,6 +205,7 @@ IDEAS = {
     "bucket_offset": lambda p: [replace(p, name=f"{p.name} | bucket pays the loan down", bucket_offsets_loan=True)] if p.lev > 1 and not p.lev_daily else [],
     "settings3": settings3,
     "climb": climb,
+    "settings_local": settings_local,
     "tlh": lambda p: [replace(p, name=f"{p.name} | harvest losses >= {int(h * 100)}% into twins", harvest=h) for h in (0.05, 0.10)],
 }
 
