@@ -19,8 +19,8 @@ settings, structure or credit.
 ## Current best
 | Track | Printer | Robust CE ($50k / $100k) | Since |
 |---|---|---|---|
-| simple | MP-2: DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · GLD 8 · TQQQ 2; base 5.75%, skim > 140%, 48-month bucket, guardrail 70% → 65% | (first run) | start |
-| credit | MP-2 + $10k box-spread loan (1.2×), base 5.25% | (first run) | `CREDIT.md` |
+| simple | MP-2 with **IAUM** for GLD and the **cash bucket in BOXX**: DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · IAUM 8 · TQQQ 2; base 5.75%, skim > 140%, 48-month bucket, guardrail 70% → 65% | $265 / $529 (+0.4% vs MP-2) | batch 1 |
+| credit | the same + $10k box-spread loan (1.2×), base 5.25% | $287 / $575 (+0.4%) | batch 1 |
 
 ## Queue (passive ideas, roughly by value ÷ effort)
 1. **cheap_gold:** GLD (0.40%) → GLDM (0.10%) or IAUM (0.09%). Same gold, same collectible tax.
@@ -40,3 +40,14 @@ settings, structure or credit.
    could carry part of the base print.
 
 ## Log
+
+### Batch 1 (2026-10-21 00:05–00:15)
+Fresh-history numbers at $50k; robust CE is relative to the reference.
+- **cheap_gold: ACCEPTED on both tracks.** GLD → IAUM gives robust CE +0.3%, a 40-year typical of $416 vs $414,
+  and break risk equal or lower. GLDM is the same (0.10% vs 0.09%). The gold and the collectible tax are unchanged.
+- **bucket_tax: ACCEPTED on both tracks.** Holding the cash bucket in BOXX gives +0.1%, a 40-year typical of $417 vs
+  $416, and ending below the start 8% vs 9%. A Treasury fund helps less, because the retiree's federal ordinary rate (10%) is
+  above the retiree's California rate (2%).
+  - **Caveat:** BOXX's treatment (box-spread gains instead of interest) is legal but untested by the IRS. Tax Notes
+    flagged a possible challenge. If that ever happens, a Treasury fund (SGOV, or a Treasury money fund) is the
+    fallback.

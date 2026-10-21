@@ -1,0 +1,22 @@
+IDEA bucket_tax — 2026-10-21 00:08
+  [simple] reference: MP-2 | GLD -> IAUM; 2 candidates; search 1000 histories x 5 cases
+  [simple] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX                                    |   $265 /   $530 (+0.1%) | $246 / $240 | $417 / $275 |  87%    8%   18%  0.1% | $216 | yes  yes
+             MP-2 | GLD -> IAUM | bucket in Treasury fund                           |   $265 /   $530 (+0.0%) | $246 / $240 | $416 / $274 |  87%    8%   18%  0.1% | $216 | yes  yes
+             MP-2 | GLD -> IAUM                                                     |   $265 /   $530 (+0.0%) | $246 / $240 | $415 / $274 |  87%    8%   18%  0.1% | $216 | yes  no
+  [simple] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX                                    |   $265 /   $529 (+0.1%) | $248 / $240 | $417 / $271 |  86%    8%   19%  0.1% | $224 | yes  yes
+             MP-2 | GLD -> IAUM | bucket in Treasury fund                           |   $264 /   $529 (+0.0%) | $248 / $240 | $416 / $270 |  86%    9%   19%  0.1% | $224 | yes  yes
+             MP-2 | GLD -> IAUM                                                     |   $264 /   $529 (+0.0%) | $248 / $240 | $416 / $270 |  86%    9%   19%  0.1% | $224 | yes  no
+  [simple] VERDICT: ACCEPT MP-2 | GLD -> IAUM | bucket in BOXX (robust CE +0.1% on fresh histories)
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM; 2 candidates; search 1000 histories x 5 cases
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $287 /   $574 (+0.1%) | $280 / $219 | $501 / $358 |  92%    4%   14%  0.0% | $243 | yes  yes
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in Trea |   $287 /   $574 (+0.0%) | $280 / $219 | $499 / $357 |  92%    5%   14%  0.0% | $243 | yes  yes
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM                  |   $287 /   $573 (+0.0%) | $280 / $219 | $498 / $356 |  92%    5%   14%  0.0% | $243 | yes  no
+  [credit] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX |   $287 /   $575 (+0.1%) | $284 / $219 | $503 / $350 |  91%    4%   15%  0.0% | $249 | yes  yes
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in Trea |   $287 /   $574 (+0.0%) | $284 / $219 | $501 / $349 |  91%    4%   15%  0.0% | $249 | yes  yes
+             MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM                  |   $287 /   $574 (+0.0%) | $284 / $219 | $500 / $349 |  90%    4%   15%  0.0% | $249 | yes  no
+  [credit] VERDICT: ACCEPT MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX (robust CE +0.1% on fresh histories)
+  improve_best.json updated

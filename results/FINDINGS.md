@@ -214,3 +214,7 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
   - The floor is $219 instead of $240.
   - 1.75–2× raises the average to $713–808 but fails (deep dips 34–46%, margin calls up to 5%).
   - Nothing at M1's 5.90% passes.
+
+## 2026-10-21 — passive improvements, overnight (`results/IMPROVE.md`, `printer/improve.py`)
+- Batch 1: GLD → IAUM (+0.3% robust CE) and the cash bucket in BOXX (+0.1%), accepted on both tracks with break risk
+  no worse. Both are free: same holdings, lower fee or tax.
