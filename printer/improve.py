@@ -123,7 +123,7 @@ def lever_engines(p):                                              # box-spread 
 def gde_stack(p):                                                  # more GDE (90% stocks + 90% gold per dollar) for the same VBR + gold exposure;
     out = []                                                       # the freed capital goes to the trend funds or pro rata
     gold = "IAUMSIM" if "IAUMSIM" in p.alloc else "GLDSIM"
-    for g in (4, 6, round(p.alloc.get(gold, 0) / 0.9, 1)):
+    for g in (4, 6, int(p.alloc.get(gold, 0) / 0.9 * 10) / 10):
         a = dict(p.alloc); x = 0.9 * g
         if a.get(gold, 0) < x - 1e-9 or a.get("VBRSIM", 0) < x: continue
         a["VBRSIM"] -= x; a[gold] -= x; a["GDESIM"] += g; freed = 2 * x - g
