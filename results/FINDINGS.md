@@ -231,3 +231,6 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
     ($287 → $297).
   - Break risk is no worse in every case on both. MP-2's weights are robust; the gains came from cost, tax and rule
     settings.
+- Batch 9: a front-loaded base is a dial, not a free gain. The credit printer at 5.50% for 15 years, then 5.00%,
+  raises the retiree's floor $219 → $229 at +0.4% CE with break risk equal. The loop stopped there: settings have converged
+  and the weights are robust.

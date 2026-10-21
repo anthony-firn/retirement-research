@@ -57,8 +57,15 @@ Break risk is no worse than at the start in **every** case on both tracks. On th
 
 MP-2's fund weights are robust; the gains came from **cost, tax and rule settings**.
 
-**Optional dial:** skipping the inflation raise after a losing year lowers break risk (ends below start 8% → 5%), but
-costs about $7/month of the first-decade bad-luck paycheck at $50k. It's your call.
+**Optional dials** (trade-offs, not free gains; your call):
+- **Front-load the credit printer's base:** 5.50% for 15 years, then 5.00%. The retiree's guaranteed paycheck rises from $219 to
+  **$229/month** at $50k for the first 15 years.
+  - Break risk is no worse in every case, and robust CE is +0.4% (just under the bar).
+  - 5.75% for 10 years, then 5.00%, gives $239, but the base-never-cut rate slips 2 points in one case.
+- **Front-load the simple printer's base:** 6.00% for 10 years, then 5.50%. The guaranteed paycheck goes $240 → $250
+  for 10 years, then $229 instead of $240 after that (robust CE −0.8%, break risk equal).
+- **Skip the inflation raise after a losing year:** lower break risk (ends below start 8% → 5%), but about $7/month
+  less in a bad first decade.
 
 ## Current best
 | Track | Printer | Robust CE ($50k / $100k) | Since |
@@ -185,3 +192,20 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
     $248 → $258 with trend −4%/yr; margin calls 0.7%).
 - `operate.py` now has **MP-2.1**. The safety-valve line now shows the printer's own valve, not a fixed "2x".
   `replay.py MP-2.1` reproduces the simulator within 1.9%.
+
+### Batch 9 (01:52–02:10): front-loaded base, no acceptance (dials recorded above)
+- **Simple:** every front-load lowers robust CE (−0.8% to −2.1%), but it raises the first-decade floor. Best safe
+  version: 6.00% for 10 years, then 5.50%.
+- **Credit:** 5.50% for 15 years, then 5.00%, is safe at +0.4%, with the floor $219 → $229 for 15 years. 5.75% for 10
+  years, then 5.00%, is +0.7% with the floor $239, but the base-never-cut rate is 2 points lower in a stress case.
+
+## Where this leaves things (stopping the overnight loop)
+- **Settings:** both tracks are at a local optimum on every setting (three passes).
+- **Fund weights:** robust (hill-climbs overfit).
+- **Structure:** stacked funds, glidepaths, calmer levered engines, run line on top of the boost, and harvesting all
+  fail or are too small.
+- **Next, needing a decision or new data:**
+  1. Pick the dials above.
+  2. A dedicated engine search with the box loan (long GPU run; the laptop's heat limits it).
+  3. A live-fund check of RSST's trend sleeve as more history arrives.
+  4. Teach the operator the box-loan mechanics for the credit track.
