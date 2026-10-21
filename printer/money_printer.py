@@ -35,6 +35,8 @@ DIST = {"VBRSIM": (.020, "q"), "XLVSIM": (.016, "q"), "VTISIM": (.013, "q"), "SP
         "XLESIM": (.032, "q"), "XLPSIM": (.026, "q"), "XLUSIM": (.030, "q"), "VTVSIM": (.023, "q"), "REITSIM": (.035, "o"), "QLDSIM": (.003, "o"),
         "NTSXSIM": (.012, "q"), "RSSBSIM": (.015, "o"), "UBTSIM": (.012, "o"), "RSSTSIM": (.030, "o"), "RSSTPSIM": (.030, "o")}
 COLLECTIBLE = {"GLDSIM", "GLDMSIM", "IAUMSIM"}; MARK_TO_MARKET = {"UUPSIM", "UGLSIM"}
+# funds with a near-twin to swap into for tax-loss harvesting (VBR <-> IJS/SLYV, gold trusts GLD/GLDM/IAUM, VTI <-> ITOT, XLV <-> VHT, ...)
+HARVEST = {"VBRSIM", "GLDSIM", "GLDMSIM", "IAUMSIM", "VTISIM", "XLVSIM", "VTVSIM", "XLESIM", "SPMOSIM"}
 # cheaper share classes of the same holdings: (source fund, yearly expense-ratio saving); GLD 0.40% -> GLDM 0.10% / IAUM 0.09%
 ALIAS = {"GLDMSIM": ("GLDSIM", 0.0030), "IAUMSIM": ("GLDSIM", 0.0031)}
 # return-stacked funds rebuilt from their sleeves (no long local history): sum of sleeves - T-bills for the borrowed part - extra cost.
@@ -70,6 +72,8 @@ class Printer:
     draw_below: float = 1.0     #   draw_below x start, the base print is borrowed instead of sold; the whole loan is repaid at the
     repay_above: float = 1.0    #   first year-end with the real net value above repay_above x start
     rate_spread: float = 0.0
+    harvest: float = 0.0        # TAX-LOSS HARVESTING: at each year-end swap any HARVEST fund >= `harvest` below its cost into its near-twin
+                                #   (loss realized, new cost and holding period; twin assumed to track the same; 2 x trading cost)
     bucket_offsets_loan: bool = False  # with an account loan, the cash bucket pays the loan down instead of sitting in cash: it earns the
                                        #   loan rate, untaxed (avoided interest, so the interest deduction shrinks with it); bonus draws re-borrow
     bucket_fill: bool = False   # while the guardrail has cut the base print, top it back up from the cash bucket (if there is any)
@@ -155,6 +159,8 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
     any_c = any(p.credit > 0 for p in printers); any_loan = any_l or any_c
     any_bt = any(p.bucket_tax != "ordinary" for p in printers); any_bf = any(p.bucket_fill for p in printers); any_nr = any(p.no_raise_after_loss for p in printers)
     if any_bf: bfill = pv(lambda p: p.bucket_fill, torch.bool)
+    any_h = any(p.harvest > 0 for p in printers)
+    if any_h: hthr = pv(lambda p: p.harvest); hok = torch.tensor([a in HARVEST for a in assets], device=DEV)[sid] & (pv(lambda p: p.harvest > 0, torch.bool)[:, None])
     any_bo = any(p.bucket_offsets_loan and (p.lev != 1 and not p.lev_daily) for p in printers)
     if any_bo: boff = pv(lambda p: p.bucket_offsets_loan and (p.lev != 1 and not p.lev_daily), torch.bool)
     if any_nr: nr = pv(lambda p: p.no_raise_after_loss, torch.bool)
@@ -249,6 +255,12 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             y = d // S
             dist = val * divy; basis = basis + dist; divq = (dist * qual).sum(1); divo = (dist * ~qual).sum(1)
             gM += ((val - basis) * mtm).sum(1); basis = torch.where(mtm, val, basis)
+            if any_h:                                                                                     # tax-loss harvest into near-twins
+                lossy = hok & (val > 0) & (val < basis * (1 - hthr[:, None])) & ~dead[:, None]
+                if bool(lossy.any()):
+                    realize(torch.where(lossy, val, torch.zeros_like(val)), d); basis = torch.where(lossy, val, basis)
+                    lastb = torch.where(lossy, torch.full_like(lastb, float(d)), lastb); bfrac = torch.where(lossy, torch.ones_like(bfrac), bfrac)
+                    val = torch.where(lossy, val * (1 - 2 * COST), val)
             if any_loan:
                 gM -= torch.where(icap, lint, torch.zeros_like(lint))                                    # box-spread interest: 60/40 capital loss
                 inv = torch.minimum(lint, divo + intr); ded = torch.where(iinv, inv * (item * tx["ord"] + tx["ca"]), torch.where(ihom, lint * tx["ca"], torch.zeros_like(lint)))
