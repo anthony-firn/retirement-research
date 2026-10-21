@@ -103,7 +103,7 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
 - **gde_stack** (more GDE for the same VBR + gold exposure): −1.7% to +0.3%, never safe. GDE's stocks are the
   S&P 500, so the swap gives up VBR's small-value tilt.
 
-### Batch 5 (00:56–01:20): two acceptances (credit track)
+### Batch 5 (00:56–01:16): two acceptances (credit track)
 - **bucket_offset: ACCEPTED (credit, +0.2%).** With a box loan, the cash bucket pays the loan down instead of sitting
   in BOXX. That avoids paying T-bill + 0.6% to hold cash earning T-bill − 0.2%. Bonus draws then re-borrow.
 - **settings3: ACCEPTED (credit) — leverage 1.25× + rebalance band 10 points.**
@@ -117,7 +117,7 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
   engine looked better on the climb's own 256 histories but was 2–3.5% worse on the harness's 1,000. That is
   in-sample overfit, caught as designed. MP-2's weights are robust.
 
-### Batch 6 (01:16–01:30): one acceptance (simple track)
+### Batch 6 (01:16–01:28): one acceptance (simple track)
 - **tlh** (tax-loss harvesting into near-twins): "accepted" at +0.1% simple / +0.0% credit under the old any-gain rule.
   That is about $0.30/month at $50k for recurring manual swaps, and swaps between gold trusts carry wash-sale
   uncertainty.
@@ -129,7 +129,7 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
       final spec without it.)
   - **Credit: no change.** The 1.25× printer is at a local optimum on every setting.
 
-### Batch 7 (01:30–02:00): one acceptance (simple track)
+### Batch 7 (01:28–01:42): one acceptance (simple track)
 - **settings_local, simple, second pass: ACCEPTED, safety valve 4×** (+0.5% on fresh histories). Every earlier pass
   showed it just under the bar; with the 60% cut it crosses it.
   - In practice the immediate rebalance now fires only if a fund reaches 4× its target (TQQQ at 8%, IAUM at 32%).
