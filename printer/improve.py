@@ -131,7 +131,7 @@ def run(idea):
             say(f"  [{track}] {title}: {'printer':70} | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better")
             for n, v in sorted(T.items(), key=lambda kv: -kv[1]["robust_ce"]):
                 b = v["base"]; r0 = T[ref.name]
-                say(f"  {'':10} {n[:70]:70} | {mo(v['robust_ce'], 5e4):>6} / {mo(v['robust_ce'], 1e5):>6} ({(v['robust_ce'] / r0['robust_ce'] - 1) * 100:+.1f}%) | "
+                say(f"  {'':10} {(n if len(n) <= 70 else '…' + n[-69:]):70} | {mo(v['robust_ce'], 5e4):>6} / {mo(v['robust_ce'], 1e5):>6} ({(v['robust_ce'] / r0['robust_ce'] - 1) * 100:+.1f}%) | "
                     f"{mo(b['print_y1_10_typ'], 5e4)} / {mo(b['print_y1_10_bad'], 5e4)} | {mo(b['print_typical'], 5e4)} / {mo(b['print_bad'], 5e4)} | "
                     f"{b['base_never_cut'] * 100:3.0f}%  {b['lose_value'] * 100:3.0f}%  {b['deep_dip'] * 100:3.0f}%  {b['run_dry'] * 100:3.1f}% | {mo(v['trend -4%/yr']['ce'], 5e4)} | "
                     f"{'yes' if safe(v, r0, C) else 'no ':3}  {'yes' if better(v, r0, gain) else 'no'}")
