@@ -148,7 +148,7 @@ def climb(p):                                                      # short GPU h
         if len(a) > 9 or any(w > 35 or w < 1 for w in a.values()) or sum(a.values()) != 100: return False
         if a.get("KMLMSIM", 0) + a.get("DBMFSIM", 0) > 42 or a.get("TQQQSIM", 0) > 25 or sum(sr.AI.get(t, 0) * w for t, w in a.items()) > 25: return False
         return min(sum(w / 100 * mv(t, sf.SC[k]) for t, w in a.items()) for k in sr.BAD) >= -8.5
-    rng = np.random.default_rng(int(p.lev * 100)); IDX = mp.make_idx(256, 40, step=5, seed=901)
+    rng = np.random.default_rng(int(p.lev * 100)); IDX = mp.make_idx(int(os.environ.get("CLIMB_PATHS", "256")), 40, step=5, seed=int(os.environ.get("CLIMB_SEED", "901")))
     def mutate(q):
         for _ in range(50):
             a = {k: int(round(w)) for k, w in q.alloc.items()}; a[max(a, key=a.get)] += 100 - sum(a.values())
@@ -262,6 +262,13 @@ def confirm(n=4000):
             say(f"  {k:22} | first 10 yrs typ {mo(x['print_y1_10_typ'])} -> {mo(y['print_y1_10_typ'])}, bad {mo(x['print_y1_10_bad'])} -> {mo(y['print_y1_10_bad'])} | 40-yr typ {mo(x['print_typical'])} -> {mo(y['print_typical'])}, "
                 f"bad {mo(x['print_bad'])} -> {mo(y['print_bad'])} | never cut {x['base_never_cut']*100:.0f}% -> {y['base_never_cut']*100:.0f}% | lose {x['lose_value']*100:.0f}% -> {y['lose_value']*100:.0f}% | "
                 f"dip {x['deep_dip']*100:.0f}% -> {y['deep_dip']*100:.0f}% | dry {x['run_dry']*100:.1f}% -> {y['run_dry']*100:.1f}% | margin call {x.get('margin_call', 0)*100:.1f}% -> {y.get('margin_call', 0)*100:.1f}%")
+        if pr[1].lev > 1 and not pr[1].lev_daily:                     # box-spread premium 0.6 pts wider than assumed (both printers)
+            pw = [replace(q, name=q.name + " [box +0.6]", rate_spread=q.rate_spread + 0.6) for q in pr]; W = evaluate(pw, {"base": C["base"], "trend -4%/yr": C["trend -4%/yr"]})
+            x, y = (W[q.name] for q in pw); mo = lambda v: f"${v * 5e4 / 12:,.0f}"
+            for k in ("base", "trend -4%/yr"):
+                say(f"  box +0.6 pts, {k:12} | CE {mo(x[k]['ce'])} -> {mo(y[k]['ce'])} | 40-yr typ {mo(x[k]['print_typical'])} -> {mo(y[k]['print_typical'])} | lose {x[k]['lose_value']*100:.0f}% -> {y[k]['lose_value']*100:.0f}% | "
+                    f"dip {x[k]['deep_dip']*100:.0f}% -> {y[k]['deep_dip']*100:.0f}% | dry {x[k]['run_dry']*100:.1f}% -> {y[k]['run_dry']*100:.1f}% | margin call {x[k].get('margin_call', 0)*100:.1f}% -> {y[k].get('margin_call', 0)*100:.1f}%")
+            out[track + " box +0.6"] = W
     json.dump(out, open(os.path.join(OUT, "improve", "confirm.json"), "w"), indent=1, default=str)
 
 if __name__ == "__main__" and os.environ.get("CONFIRM"): confirm(int(os.environ.get("FRESH", "4000")))
