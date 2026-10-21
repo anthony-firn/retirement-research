@@ -1,0 +1,28 @@
+IDEA settings_local — 2026-10-21 01:28
+  [simple] reference: MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60%; 17 candidates; search 1000 histories x 5 cases
+  [simple] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | band 8pt            |   $268 /   $536 (+0.6%) | $247 / $240 | $418 / $277 |  88%    7%   16%  0.1% | $226 | yes  yes
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x            |   $268 /   $536 (+0.6%) | $249 / $240 | $421 / $279 |  87%    8%   17%  0.0% | $227 | yes  yes
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 3x            |   $268 /   $535 (+0.5%) | $249 / $240 | $420 / $280 |  87%    8%   17%  0.0% | $227 | yes  yes
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 0x            |   $268 /   $535 (+0.5%) | $249 / $240 | $421 / $279 |  87%    8%   17%  0.0% | $227 | yes  yes
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | restore 85%         |   $267 /   $534 (+0.3%) | $246 / $240 | $417 / $275 |  87%    8%   18%  0.0% | $225 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | skim>130%           |   $267 /   $534 (+0.3%) | $267 / $240 | $401 / $276 |  84%   14%   22%  0.0% | $225 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | guardrail 65%       |   $267 /   $533 (+0.1%) | $246 / $240 | $417 / $273 |  90%    9%   18%  0.1% | $223 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | base 6.00%          |   $266 /   $533 (+0.0%) | $254 / $250 | $414 / $268 |  85%   10%   20%  0.1% | $218 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60%                       |   $266 /   $533 (+0.0%) | $246 / $240 | $417 / $275 |  87%    8%   18%  0.0% | $225 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | bucket 60m          |   $266 /   $532 (-0.1%) | $245 / $240 | $410 / $271 |  87%    8%   18%  0.0% | $225 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | bucket 36m          |   $266 /   $532 (-0.2%) | $248 / $240 | $423 / $278 |  87%    8%   18%  0.0% | $225 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | guardrail 75%       |   $266 /   $531 (-0.2%) | $246 / $240 | $417 / $277 |  83%    7%   17%  0.0% | $226 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | cut to 55%          |   $265 /   $531 (-0.3%) | $246 / $240 | $417 / $276 |  87%    8%   18%  0.0% | $228 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | restore 95%         |   $265 /   $531 (-0.3%) | $246 / $240 | $417 / $276 |  87%    8%   18%  0.0% | $224 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | cut to 65%          |   $265 /   $530 (-0.5%) | $246 / $240 | $417 / $275 |  87%    8%   18%  0.1% | $216 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | skim>150%           |   $265 /   $530 (-0.6%) | $240 / $240 | $429 / $272 |  88%    6%   16%  0.0% | $224 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | base 5.50%          |   $265 /   $529 (-0.6%) | $240 / $229 | $418 / $285 |  89%    7%   15%  0.0% | $229 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | band 4pt            |   $264 /   $529 (-0.7%) | $246 / $240 | $411 / $272 |  87%    9%   18%  0.0% | $223 | no   no
+  [simple] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x            |   $268 /   $536 (+0.5%) | $250 / $240 | $423 / $277 |  86%    8%   19%  0.1% | $232 | yes  yes
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | band 8pt            |   $268 /   $536 (+0.5%) | $248 / $240 | $418 / $274 |  87%    8%   18%  0.0% | $232 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 3x            |   $268 /   $536 (+0.5%) | $250 / $240 | $422 / $276 |  86%    8%   19%  0.1% | $232 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60%                       |   $267 /   $533 (+0.0%) | $248 / $240 | $417 / $272 |  86%    8%   19%  0.1% | $230 | yes  no
+  [simple] VERDICT: ACCEPT MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x (robust CE +0.5% on fresh histories)
+  improve_best.json updated

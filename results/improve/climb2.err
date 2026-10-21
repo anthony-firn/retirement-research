@@ -1,0 +1,53 @@
+IDEA climb — 2026-10-21 01:31
+  [simple] reference: MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x; 12 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [simple] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x            |   $268 /   $536 (+0.0%) | $249 / $240 | $421 / $279 |  87%    8%   17%  0.0% | $227 | yes  no
+             … 4x | climb: VBR 27 DBMF 24 KMLM 18 GDE 16 IAUM 11 XLV 2 IEI 1 TQQQ 1 |   $260 /   $521 (-2.8%) | $241 / $240 | $395 / $266 |  88%    7%   15%  0.0% | $221 | no   no
+             … 4x | climb: VBR 27 DBMF 22 KMLM 20 GDE 16 IAUM 11 XLV 2 IEI 1 TQQQ 1 |   $260 /   $520 (-2.9%) | $241 / $240 | $396 / $265 |  88%    8%   15%  0.0% | $221 | no   no
+             …e 4x | climb: VBR 26 DBMF 24 GDE 18 KMLM 16 IAUM 8 XLV 6 IEI 1 SPMO 1 |   $260 /   $520 (-2.9%) | $241 / $240 | $388 / $258 |  87%    9%   17%  0.1% | $224 | no   no
+             … 4x | climb: VBR 27 DBMF 26 GDE 16 KMLM 16 IAUM 10 IEI 2 XLV 2 TQQQ 1 |   $260 /   $520 (-3.0%) | $241 / $240 | $393 / $261 |  88%    7%   16%  0.0% | $223 | no   no
+             … valve 4x | climb: VBR 27 DBMF 23 KMLM 18 GDE 16 IAUM 10 XLV 4 SPMO 2 |   $260 /   $519 (-3.0%) | $240 / $240 | $389 / $263 |  89%    8%   15%  0.1% | $223 | no   no
+             … 4x | climb: VBR 27 DBMF 24 KMLM 18 GDE 16 IAUM 10 IEI 2 XLV 2 TQQQ 1 |   $259 /   $519 (-3.2%) | $241 / $240 | $394 / $263 |  88%    8%   15%  0.1% | $221 | no   no
+             …e 4x | climb: DBMF 26 VBR 26 GDE 19 KMLM 15 IAUM 8 IEI 2 XLV 2 SPMO 2 |   $259 /   $519 (-3.2%) | $241 / $240 | $389 / $254 |  87%    8%   17%  0.0% | $221 | no   no
+             …e 4x | climb: VBR 26 DBMF 24 GDE 18 KMLM 17 IAUM 8 XLV 5 IEI 1 SPMO 1 |   $259 /   $518 (-3.2%) | $240 / $240 | $388 / $257 |  88%    8%   17%  0.1% | $221 | no   no
+             … valve 4x | climb: DBMF 28 VBR 25 GDE 15 KMLM 13 IAUM 10 XLV 6 SPMO 3 |   $259 /   $518 (-3.3%) | $240 / $240 | $387 / $254 |  88%    8%   16%  0.0% | $222 | no   no
+             … 4x | climb: VBR 27 DBMF 25 GDE 15 KMLM 15 IAUM 10 XLV 6 VTV 1 SPMO 1 |   $259 /   $517 (-3.4%) | $240 / $240 | $385 / $257 |  87%    8%   16%  0.1% | $223 | no   no
+             … valve 4x | climb: VBR 27 DBMF 24 KMLM 18 GDE 16 IAUM 10 XLV 4 SPMO 1 |   $258 /   $517 (-3.5%) | $240 / $240 | $388 / $261 |  88%    8%   15%  0.1% | $220 | no   no
+             …| valve 4x | climb: DBMF 29 VBR 25 GDE 15 KMLM 13 IAUM 9 XLV 6 SPMO 3 |   $258 /   $517 (-3.5%) | $240 / $240 | $387 / $257 |  88%    8%   16%  0.0% | $221 | no   no
+  [simple] VERDICT: keep the reference
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt; 12 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             … restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt |   $296 /   $592 (+0.0%) | $296 / $219 | $525 / $372 |  93%    5%   13%  0.0% | $249 | yes  no
+             ….25x + band 10pt | climb: VBR 26 DBMF 22 GDE 21 KMLM 20 IAUM 9 SPMO 2 |   $291 /   $581 (-1.9%) | $280 / $219 | $500 / $364 |  93%    4%   12%  0.0% | $243 | yes  no
+             ….25x + band 10pt | climb: VBR 27 DBMF 25 GDE 21 KMLM 17 IAUM 9 SPMO 1 |   $290 /   $581 (-2.0%) | $280 / $219 | $496 / $362 |  93%    4%   12%  0.0% | $242 | yes  no
+             … band 10pt | climb: DBMF 24 VBR 24 GDE 21 KMLM 18 IAUM 8 SPMO 3 XLV 2 |   $290 /   $581 (-2.0%) | $280 / $219 | $497 / $364 |  93%    3%   12%  0.0% | $244 | yes  no
+             … band 10pt | climb: VBR 27 DBMF 24 GDE 20 KMLM 18 IAUM 9 SPMO 1 XLV 1 |   $290 /   $581 (-2.0%) | $278 / $219 | $496 / $359 |  94%    3%   12%  0.0% | $244 | yes  no
+             …1.25x + band 10pt | climb: VBR 28 DBMF 23 GDE 20 KMLM 19 IAUM 9 XLV 1 |   $290 /   $580 (-2.0%) | $279 / $219 | $497 / $360 |  93%    3%   12%  0.0% | $243 | yes  no
+             …25x + band 10pt | climb: VBR 27 DBMF 24 GDE 18 KMLM 17 IAUM 11 SPMO 3 |   $290 /   $580 (-2.1%) | $277 / $219 | $493 / $359 |  94%    4%   12%  0.0% | $244 | yes  no
+             …10pt | climb: DBMF 24 VBR 24 GDE 21 KMLM 17 IAUM 8 SPMO 3 XLV 2 IEI 1 |   $290 /   $580 (-2.1%) | $277 / $219 | $496 / $361 |  94%    4%   12%  0.0% | $244 | no   no
+             … band 10pt | climb: DBMF 24 VBR 24 GDE 20 KMLM 18 IAUM 9 SPMO 4 XLV 1 |   $290 /   $580 (-2.1%) | $280 / $219 | $496 / $359 |  94%    3%   12%  0.0% | $244 | no   no
+             …1.25x + band 10pt | climb: VBR 28 DBMF 24 GDE 20 KMLM 18 IAUM 9 XLV 1 |   $290 /   $580 (-2.1%) | $279 / $219 | $496 / $360 |  93%    3%   12%  0.0% | $243 | yes  no
+             …10pt | climb: DBMF 24 VBR 24 GDE 20 KMLM 17 IAUM 8 SPMO 3 XLV 3 IEI 1 |   $290 /   $580 (-2.1%) | $276 / $219 | $495 / $357 |  94%    4%   12%  0.0% | $245 | yes  no
+             …1.25x + band 10pt | climb: VBR 28 DBMF 24 GDE 21 KMLM 17 IAUM 9 IEI 1 |   $290 /   $579 (-2.2%) | $278 / $219 | $494 / $360 |  93%    4%   12%  0.0% | $242 | yes  no
+             …1.25x + band 10pt | climb: VBR 28 DBMF 24 GDE 21 KMLM 18 IAUM 8 IEI 1 |   $290 /   $579 (-2.2%) | $278 / $219 | $495 / $363 |  93%    3%   12%  0.0% | $242 | yes  no
+  [credit] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             … restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt |   $296 /   $592 (+0.0%) | $297 / $219 | $524 / $367 |  92%    4%   15%  0.0% | $258 | yes  no
+             ….25x + band 10pt | climb: VBR 26 DBMF 22 GDE 21 KMLM 20 IAUM 9 SPMO 2 |   $291 /   $582 (-1.8%) | $280 / $219 | $503 / $355 |  92%    4%   13%  0.0% | $254 | yes  no
+             ….25x + band 10pt | climb: VBR 27 DBMF 25 GDE 21 KMLM 17 IAUM 9 SPMO 1 |   $290 /   $581 (-1.9%) | $279 / $219 | $500 / $352 |  93%    4%   13%  0.0% | $253 | yes  no
+             … band 10pt | climb: DBMF 24 VBR 24 GDE 21 KMLM 18 IAUM 8 SPMO 3 XLV 2 |   $290 /   $580 (-1.9%) | $281 / $219 | $498 / $352 |  92%    4%   12%  0.0% | $253 | yes  no
+  [credit] VERDICT: keep the reference

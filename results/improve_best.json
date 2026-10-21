@@ -1,6 +1,6 @@
 {
  "simple": {
-  "name": "MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60%",
+  "name": "MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x",
   "alloc": {
    "DBMFSIM": 27,
    "VBRSIM": 27,
@@ -11,7 +11,7 @@
   },
   "band": 6.0,
   "gap_days": 252,
-  "valve": 2.0,
+  "valve": 4.0,
   "yearly": false,
   "base": 5.75,
   "skim": 0.4,

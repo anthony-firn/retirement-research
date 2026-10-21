@@ -23,7 +23,7 @@ the fresh set is reused across many ideas, the final best printers get a last **
 ## Current best
 | Track | Printer | Robust CE ($50k / $100k) | Since |
 |---|---|---|---|
-| simple | MP-2 with **IAUM** for GLD, the **cash bucket in BOXX**, and the guardrail cutting to **60%** (was 65%): DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · IAUM 8 · TQQQ 2; base 5.75%, skim > 140%, 48-month bucket, guardrail below 70% → base × 0.60, restored above 90% | $267 / $533 (+1.2% vs MP-2, fresh seed 701) | batch 6 |
+| simple | MP-2 with **IAUM** for GLD, the **cash bucket in BOXX**, the guardrail cutting to **60%** (was 65%), and the safety valve at **4×** (was 2×): DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · IAUM 8 · TQQQ 2; base 5.75%, skim > 140%, 48-month bucket, guardrail below 70% → base × 0.60, restored above 90% | (see confirmation) | batch 7 |
 | credit | the same engine with a **$12.5k box-spread loan (1.25×)**, base 5.25%, **rebalance band 10 points**, **safety valve 3×**, base restored above **80%** of the inflation-adjusted start (was 90%), and the **cash bucket paying the loan down** instead of sitting in cash | $296 / $592 (+3.5% vs start, fresh seed 701) | batch 5 |
 
 ## Queue (passive ideas, roughly by value ÷ effort)
@@ -128,3 +128,11 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
     - (Run with harvesting in the reference; harvesting is worth ~0.1%, and the final confirmation tests the exact
       final spec without it.)
   - **Credit: no change.** The 1.25× printer is at a local optimum on every setting.
+
+### Batch 7 (01:30–02:00): one acceptance (simple track)
+- **settings_local, simple, second pass: ACCEPTED, safety valve 4×** (+0.5% on fresh histories). Every earlier pass
+  showed it just under the bar; with the 60% cut it crosses it.
+  - In practice the immediate rebalance now fires only if a fund reaches 4× its target (TQQQ at 8%, IAUM at 32%).
+    The yearly drift rule still applies.
+- **climb, bigger** (512 histories, new seed 911, 20 generations): **no change on either track.** MP-2's weights are
+  robust.
