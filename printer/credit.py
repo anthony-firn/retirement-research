@@ -7,7 +7,10 @@ loan's base rate in the simulator (1972-2026 T-bills, so the 1980s rate spikes a
   IBKR Pro margin (<$100k: BM + 1.5%)                                    ~ +1.5   M1 margin (5.90%)            ~ +2.0
   HELOC (~7.3%) / HECM reverse-mortgage line (~7.5%)                      ~ +3.4   Schwab PAL ($100k line)      ~ +4.4
 Tax treatment of the interest depends on the credit and its use (see BOX/IBKR/... below). Every case: MP-2 settings, the retiree's taxes unless noted, 2,000 fresh 40-year histories (daily), plus stress cases.
-Usage: THROTTLE=0.75 python3 printer/credit.py   (writes results/printer_credit.json and .log)"""
+Usage: THROTTLE=0.75 python3 printer/credit.py   (writes results/printer_credit.json and .log)
+       MODE=sweep SIZE=50000 THROTTLE=0.75 python3 printer/credit.py   (how much credit makes sense for the retiree: leverage up to the 2x Reg T
+       limit and run lines up to 35% x base print, at box-spread and M1 rates; the most credit whose break risk is no worse than plain
+       MP-2 in every stress case; finalists re-run on fresh histories; writes results/printer_credit_sweep.json and .log)"""
 import os, sys, json, time, datetime as dt, numpy as np
 ROOT = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, ROOT); sys.argv = [sys.argv[0]]
 import money_printer as mp, search as se
@@ -35,7 +38,54 @@ def printers():
         pr.append(P(f"run 25% box line, base {b}%", AL, credit=0.25, **BOX, **{**S2, "base": b}))
     return pr
 
-if __name__ == "__main__":
+BOX_NOW = dict(rate_spread=0.6, interest_tax="capital")          # today's 3-month SPX box 4.69% vs T-bill 4.09%
+
+def sweep_printers():
+    pr = [P(f"no credit, base {b}%", AL, **{**S2, "base": b}) for b in (5.25, 5.75, 6.25, 6.75)]
+    for lab, kw in (("box", BOX_NOW), ("M1", M1)):
+        pr += [P(f"boost {lev}x {lab}, base {b}%", AL, lev=lev, **kw, **{**S2, "base": b}) for lev in (1.2, 1.33, 1.5, 1.75, 2.0) for b in (5.25, 5.75, 6.25, 6.75)]
+    for lab, kw in (("box", dict(rate_spread=0.6, interest_tax="capital")), ("M1", M1_SPEND)):
+        pr += [P(f"run {int(c*100)}% {lab} line, base {b}%", AL, credit=c, **kw, **{**S2, "base": b}) for c in (0.15, 0.25, 0.35) for b in (5.75, 6.25, 6.75)]
+    return pr
+
+def sweep():
+    SIZE = float(os.environ.get("SIZE", "50000")); i00 = int(np.searchsorted(mp.h.CAL, int(dt.datetime(2000, 1, 3, tzinfo=dt.UTC).timestamp())))
+    def runs(seed, n):
+        return {"base": (mp.make_idx(n, 40, seed=seed), {}), "trend -2%/yr": (mp.make_idx(n, 40, seed=seed + 1), dict(trend_haircut=0.02)),
+                "trend -4%/yr": (mp.make_idx(n, 40, seed=seed + 2), dict(trend_haircut=0.04)), "recent era 2000-2026 only": (mp.make_idx(n, 40, seed=seed + 3, era=(i00, mp.T)), {}),
+                "3-month blocks": (mp.make_idx(n, 40, block=63, seed=seed + 4), {})}
+    def evaluate(pr, R):
+        res = {p.name: {} for p in pr}
+        for lab, (IDX, kw) in R.items():
+            for i in range(0, len(pr), 8):
+                tb = time.time(); r = mp.simulate(pr[i:i + 8], IDX, **kw)
+                for c, p in enumerate(pr[i:i + 8]): s = mp.score(r, c); s["ce"] = float(se.ce(r["spend"][c], gamma=3.0)); res[p.name][lab] = s
+                if THROTTLE: time.sleep(THROTTLE * (time.time() - tb))
+            print(f"  {lab} done", flush=True)
+        for v in res.values(): v["robust_ce"] = float(np.mean([v[k]["ce"] for k in R])); v["worst_margin_call"] = max(v[k].get("margin_call", 0) for k in R)
+        return res
+    def ok(v, ref):                                                # break risk no worse than plain MP-2 in every case
+        return all(v[k]["lose_value"] <= ref[k]["lose_value"] + .01 and v[k]["deep_dip"] <= ref[k]["deep_dip"] + .02 and v[k]["run_dry"] <= ref[k]["run_dry"] + .002
+                   and v[k]["base_never_cut"] >= ref[k]["base_never_cut"] - .02 for k in ref if k in v and isinstance(v[k], dict)) and v["worst_margin_call"] <= .01
+    pr = sweep_printers(); REF = "no credit, base 5.75%"
+    print(f"Search: {len(pr)} printers, the retiree's taxes, {PATHS} histories x 5 cases", flush=True); res = evaluate(pr, runs(401, PATHS))
+    passed = sorted([n for n, v in res.items() if ok(v, res[REF])], key=lambda n: -res[n]["robust_ce"])
+    fin = [REF] + [n for n in passed if n != REF][:7] + sorted(res, key=lambda n: -res[n]["robust_ce"])[:3]
+    fin = list(dict.fromkeys(fin)); print(f"Validate {len(fin)} finalists on 2,000 fresh histories x 5 cases", flush=True)
+    val = evaluate([p for p in pr if p.name in fin], runs(501, 2000))
+    for n, v in val.items(): v["passes"] = ok(v, val[REF])
+    json.dump(dict(search=res, validate=val), open(os.path.join(OUT, "printer_credit_sweep.json"), "w"), indent=1)
+    mo = lambda x: f"${x * SIZE / 12:,.0f}"; pc = lambda x: f"{x * 100:.0f}%"
+    for title, R in (("SEARCH", res), ("VALIDATION (fresh histories)", val)):
+        print(f"\n{title}: the retiree's taxes, ${SIZE:,.0f} taxable account, $/month after tax (today's $), 40 years. ok = break risk no worse than plain MP-2 in all 5 cases")
+        print(f"{'printer':30} ok | robust CE | base pay | typical  bad  | yrs 1-10 typ/bad | never cut  lose  dip<70%  dry  | worst margin call | trend -4%: CE  typical  dry  lose")
+        for n, v in sorted(R.items(), key=lambda kv: -kv[1]["robust_ce"]):
+            b = v["base"]; t = v["trend -4%/yr"]; pb = float(n.split("base ")[1].rstrip("%")) / 100
+            print(f"{n:30} {'ok' if ok(v, R[REF]) else '--'} | {mo(v['robust_ce']):>8}  | {mo(pb):>7}  | {mo(b['print_typical']):>6} {mo(b['print_bad']):>5} | {mo(b['print_y1_10_typ']):>6} / {mo(b['print_y1_10_bad']):<5} | "
+                  f"{pc(b['base_never_cut']):>5}   {pc(b['lose_value']):>4}  {pc(b['deep_dip']):>5}  {b['run_dry']*100:4.1f}% | {v['worst_margin_call']*100:5.1f}%            | {mo(t['ce']):>6}  {mo(t['print_typical']):>6}  {t['run_dry']*100:4.1f}%  {pc(t['lose_value'])}", flush=True)
+
+if __name__ == "__main__" and os.environ.get("MODE") == "sweep": sweep()
+elif __name__ == "__main__":
     pr = printers(); i00 = int(np.searchsorted(mp.h.CAL, int(dt.datetime(2000, 1, 3, tzinfo=dt.UTC).timestamp())))
     runs = {"base": (mp.make_idx(PATHS, 40, seed=301), {}, None), "trend -2%/yr": (mp.make_idx(PATHS, 40, seed=302), dict(trend_haircut=0.02), None),
             "recent era 2000-2026 only": (mp.make_idx(PATHS, 40, seed=303, era=(i00, mp.T)), {}, None),

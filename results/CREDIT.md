@@ -72,6 +72,50 @@ trend funds −2%/yr, the 2000–2026 era only, 3-month blocks, and middle-brack
    ETFs (RSSB stocks + Treasuries, RSST stocks + trend, RSBT bonds + trend). **Next step:** add those funds to the
    Atlas universe and let the search build the engine with them.
 
+## Retiree case: $50k in a taxable account, as much credit as makes sense
+`MODE=sweep SIZE=50000 python3 printer/credit.py`, logged in `results/printer_credit_sweep.log`.
+- **Search:** 62 designs, all on the retiree's taxes:
+  - boost at 1.2×, 1.33×, 1.5×, 1.75× and 2× (2× is the Reg T limit; portfolio margin needs $110k+), each at
+    today's box-spread rate (T-bill + 0.6) and at M1 margin (5.90%);
+  - run lines of 15%, 25% and 35%;
+  - each crossed with base prints from 5.25% to 6.75%;
+  - five cases each: base, trend −2%/yr, trend −4%/yr, 2000–2026 era only, 3-month blocks.
+- **Makes sense** means break risk no worse than plain MP-2 in every case (ends below start, dips below 70%, runs
+  dry, base never cut), and margin calls ≤ 1% in the worst case.
+- **Validation:** the finalists were re-run on 2,000 fresh histories. **One design passes:** a $10k box-spread loan
+  (1.2×) with the base print at 5.25%.
+
+| $/month after tax, today's $ | No credit (MP-2) | **+ $10k box-spread loan, base 5.25%** | + $37.5k loan (1.75×) | + $50k loan (2×, the limit) |
+|---|---|---|---|---|
+| Base paycheck (the floor) | $240 | **$219** | $219 | $219 |
+| First 10 years, typical / bad history | $251 / $240 | **$286 / $219** | $429 / $219 | $497 / $220 |
+| 40-year average, typical | $420 | **$505** | $713 | $808 |
+| 40-year average, bad history (1 in 10) | $269 | **$350** | $494 | $551 |
+| Base never cut | 86% | **90%** | 83% | 75% |
+| Ends below its starting real value | 10% | **6%** | 9% | 10% |
+| Dips below 70% of start | 20% | **16%** | 34% | 46% |
+| Runs dry | 0.4% | **0.1%** | 0.2% | 0.2% |
+| Margin call (worst case) | — | **0.5%** | 1.4% | 5.1% |
+| Trend funds −4%/yr: typical / runs dry / ends below start | $310 / 2.9% / 34% | **$383 / 0.9% / 20%** | $543 / 1.4% / 21% | $609 / 1.9% / 24% |
+| Passes | yes | **yes** | no: deep dips, margin calls | no |
+
+- **The loan pays for itself.** About $40/month of interest at 4.69% buys roughly +$35/month in the first decade
+  and +$85/month on the 40-year average, with less break risk on every measure.
+- **The floor is $21/month lower.** That is the price: the extra return arrives as bonus prints rather than as a
+  higher base. Keeping the 5.75% base with the same loan gives the same averages, but margin calls rise to 1.7% in
+  the worst case (search run), so it just misses.
+- **More credit raises the average print a lot but fails the retiree's test.** At 1.75× the chance of a deep dip goes from
+  20% to 34%, the base is cut in 17% of histories, and margin calls appear.
+- **At M1's 5.90% no amount of credit passes,** for boost or run. The cost eats the benefit, and in bad histories the
+  run line's loan grows into margin calls. So the credit that makes sense for the retiree needs **IBKR or Schwab** (M1 has no
+  options).
+- **Mechanics:**
+  - One 100-point SPX box is exactly a $10k loan: about $9,885 in now, $10,000 due in 3 months at 4.69%. Roll it
+    each quarter.
+  - No monthly payment: the interest is built into the roll.
+  - The interest is a 60/40 capital loss, worth little to the retiree (0% federal gains bracket, ~2% California).
+  - Rebalance the loan back to 1.2× at the printer's rebalances.
+
 ## What credit costs today (2026-10-20)
 Benchmarks: SOFR 3.87%, fed funds 3.88% (target 3.75–4.00%, raised in September), 3-month T-bill 4.09%, 1-year
 Treasury 4.50%, prime 7.00%.

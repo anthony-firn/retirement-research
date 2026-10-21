@@ -208,3 +208,9 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
   box-rate credit still helps, and margin calls appear in 1–3% of histories.
 - **Keep any low fixed-rate mortgage** (below ~4%). IRAs can't borrow, so leverage inside funds is the only option there. Next step: add
   RSSB/RSST/RSBT to the Atlas, and the run line to the operator.
+- **Retiree case, $50k taxable, as much credit as makes sense** (`MODE=sweep`, 62 designs, 2× Reg T limit): only a
+  **$10k box-spread loan (1.2×) with a 5.25% base** keeps break risk at or below plain MP-2 in all 5 cases.
+  - Result: $505/month typical 40-year average (vs $420), $350 bad (vs $269), first decade $286 (vs $251).
+  - The floor is $219 instead of $240.
+  - 1.75–2× raises the average to $713–808 but fails (deep dips 34–46%, margin calls up to 5%).
+  - Nothing at M1's 5.90% passes.
