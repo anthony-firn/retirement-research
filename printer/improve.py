@@ -230,7 +230,29 @@ def run(idea):
     if ACCEPT and new_best != best: json.dump(new_best, open(BEST_F, "w"), indent=1); say("  improve_best.json updated")
     return out
 
-if __name__ == "__main__":
+def confirm(n=4000):
+    """Night's start vs current best for each track on brand-new histories (seeds no idea has seen) + actual 40-year windows."""
+    best = load_best(); C = cases(1101, n); C["actual 40-yr windows"] = (mp.make_idx(0, 40, hist=True), {}); out = {}
+    logp = os.path.join(OUT, "improve", "confirm.log"); log = open(logp, "w")
+    def say(x=""): print(x, flush=True); log.write(x + "\n"); log.flush()
+    say(f"CONFIRM on new histories ({n} paths per case, seeds 1101-1105) + actual windows — {dt.datetime.now():%Y-%m-%d %H:%M}")
+    for track in best:
+        pr = [P(**START[track]), P(**best[track])]
+        if pr[0].name == pr[1].name: continue
+        R = evaluate(pr, C); out[track] = R; a, b = (R[q.name] for q in pr); K5 = list(cases(0, 1))
+        for v in (a, b): v["robust_ce"] = float(np.mean([v[k]["ce"] for k in K5])); v["worst_margin_call"] = max(v[k].get("margin_call", 0) for k in K5)
+        say(f"\n[{track}] start: {pr[0].name}\n[{track}] best:  {pr[1].name}")
+        say(f"  robust CE (5 cases): ${a['robust_ce'] * 5e4 / 12:,.0f} -> ${b['robust_ce'] * 5e4 / 12:,.0f} at $50k ({(b['robust_ce'] / a['robust_ce'] - 1) * 100:+.1f}%), "
+            f"${a['robust_ce'] * 1e5 / 12:,.0f} -> ${b['robust_ce'] * 1e5 / 12:,.0f} per $100k; break risk no worse in every case: {'yes' if safe(b, a, list(cases(0, 1))) else 'NO'}")
+        for k in C:
+            x, y = a[k], b[k]; mo = lambda v: f"${v * 5e4 / 12:,.0f}"
+            say(f"  {k:22} | first 10 yrs typ {mo(x['print_y1_10_typ'])} -> {mo(y['print_y1_10_typ'])}, bad {mo(x['print_y1_10_bad'])} -> {mo(y['print_y1_10_bad'])} | 40-yr typ {mo(x['print_typical'])} -> {mo(y['print_typical'])}, "
+                f"bad {mo(x['print_bad'])} -> {mo(y['print_bad'])} | never cut {x['base_never_cut']*100:.0f}% -> {y['base_never_cut']*100:.0f}% | lose {x['lose_value']*100:.0f}% -> {y['lose_value']*100:.0f}% | "
+                f"dip {x['deep_dip']*100:.0f}% -> {y['deep_dip']*100:.0f}% | dry {x['run_dry']*100:.1f}% -> {y['run_dry']*100:.1f}% | margin call {x.get('margin_call', 0)*100:.1f}% -> {y.get('margin_call', 0)*100:.1f}%")
+    json.dump(out, open(os.path.join(OUT, "improve", "confirm.json"), "w"), indent=1, default=str)
+
+if __name__ == "__main__" and os.environ.get("CONFIRM"): confirm(int(os.environ.get("FRESH", "4000")))
+elif __name__ == "__main__":
     idea = os.environ.get("IDEA")
     if idea not in IDEAS: print("IDEA must be one of:", ", ".join(IDEAS)); sys.exit(1)
     run(idea)
