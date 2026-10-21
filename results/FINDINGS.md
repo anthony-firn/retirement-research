@@ -196,3 +196,15 @@ Verified: `results/verify_sweet_final.log`.
 - S12+ = direct upgrade of S12 by history (swaps 2% TYD + some VBR/GLD for 9% IEI, i.e. less 3× duration).
 - S12-F5 = built for today's specific risks (more gold/energy/health care, less leveraged duration); best recent
   decade and 2026 YTD, but weaker 1988–97 and slightly negative in the 2000–02 tech-bust analog (−1.1).
+
+## 2026-10-20 — credit for the printer (`results/CREDIT.md`, `printer/credit.py`)
+MP-2 with each kind of credit at today's rates and its own tax treatment. Per $100k, robust CE, the retiree's taxes; plain MP-2 = $529.
+- **Boost at 1.2×** (hold 1.2× the account): box-spread loan $586 (+11%), leverage inside funds $578, IBKR margin $569,
+  M1 margin $561, HELOC $538. At box rates every printer quality improves slightly, with no margin calls. In the middle
+  bracket, box 1.2× gives $545 vs $478. In a Roth, leverage inside funds at 1.2× gives $659 vs $600.
+- **Run line** (borrow the paycheck while below the start, repay above it): a 25% box line gives $568 (+7%), and the
+  chance of ending below the start falls from 9% to 5%. It also allows a 6.25% base at plain MP-2's break risk.
+- **Credit above about T-bill + 2% doesn't pay:** HELOC/HECM ≈ 0, Schwab PAL −6%. If trend funds earn 4%/yr less, only
+  box-rate credit still helps, and margin calls appear in 1–3% of histories.
+- **Keep any low fixed-rate mortgage** (below ~4%). IRAs can't borrow, so leverage inside funds is the only option there. Next step: add
+  RSSB/RSST/RSBT to the Atlas, and the run line to the operator.
