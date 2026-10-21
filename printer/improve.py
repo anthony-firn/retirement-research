@@ -189,7 +189,8 @@ def settings_local(p):                                             # one step in
     out += [v(f"band {p.band + d:g}pt", band=p.band + d) for d in (-2.0, 2.0)]
     out += [v(f"valve {x:g}x", valve=x) for x in (2.0, 3.0, 4.0, 0) if x != p.valve]
     return out
-FREE = {"cheap_gold", "bucket_tax", "bucket_offset", "tlh"}                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
+FREE = {"cheap_gold", "bucket_tax", "bucket_offset"}               # same holdings, lower cost or tax: any gain counts
+OPS = {"tlh"}                                                      # adds recurring manual work (swaps): must gain >= 0.25%                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
     "cheap_gold": lambda p: swap(p, "GLDSIM", "GLDMSIM", "GLD -> GLDM") + swap(p, "GLDSIM", "IAUMSIM", "GLD -> IAUM"),
     "bucket_tax": lambda p: [replace(p, name=f"{p.name} | bucket in Treasury fund", bucket_tax="treasury"), replace(p, name=f"{p.name} | bucket in BOXX", bucket_tax="boxx")],
@@ -217,13 +218,13 @@ def run(idea):
         ref = P(**spec); cand = IDEAS[idea](ref)
         if not cand: say(f"  [{track}] no candidates"); continue
         say(f"  [{track}] reference: {ref.name}; {len(cand)} candidates; search {PATHS} histories x 5 cases")
-        R = evaluate([ref] + cand, cases(601, PATHS)); C = list(cases(0, 1)); gain = 0.0 if idea in FREE else 0.005
+        R = evaluate([ref] + cand, cases(601, PATHS)); C = list(cases(0, 1)); gain = 0.0 if idea in FREE else 0.0025 if idea in OPS else 0.005
         def twin_ok(p):                                            # a proxy-based change counts only if its pessimistic twin passes too
             t = p.name.replace("RSST for", "RSST pessimistic for")
             return t == p.name or "pessimistic" in p.name or (t in R and safe(R[t], R[ref.name], C) and better(R[t], R[ref.name], gain))
         ok = sorted([p for p in cand if safe(R[p.name], R[ref.name], C) and twin_ok(p) and "pessimistic" not in p.name], key=lambda p: -R[p.name]["robust_ce"])[:3]
         V = evaluate([ref] + ok, cases(701, FRESH)) if ok else {}
-        gain = 0.0 if idea in FREE else 0.005
+        gain = 0.0 if idea in FREE else 0.0025 if idea in OPS else 0.005
         verdict = [p for p in ok if safe(V[p.name], V[ref.name], C) and better(V[p.name], V[ref.name], gain)]
         win = max(verdict, key=lambda p: V[p.name]["robust_ce"]) if verdict else None
         out[track] = dict(search=R, validate=V, winner=win.name if win else None)
