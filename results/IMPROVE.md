@@ -177,7 +177,7 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
 - **climb, bigger** (512 histories, new seed 911, 20 generations): **no change on either track.** MP-2's weights are
   robust.
 
-### Batch 8 (01:42–02:00): converged and confirmed
+### Batch 8 (01:42–01:48): converged and confirmed
 - **settings_local, simple, third pass: no change.** Both tracks are at a local optimum on every setting.
 - **Confirmation on brand-new histories:** see the table at the top. Both tracks keep break risk no worse in every
   case.
