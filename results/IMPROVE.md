@@ -24,7 +24,7 @@ the fresh set is reused across many ideas, the final best printers get a last **
 | Track | Printer | Robust CE ($50k / $100k) | Since |
 |---|---|---|---|
 | simple | MP-2 with **IAUM** for GLD and the **cash bucket in BOXX**: DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · IAUM 8 · TQQQ 2; base 5.75%, skim > 140%, 48-month bucket, guardrail 70% → 65% | $265 / $529 (+0.4% vs MP-2) | batch 1 |
-| credit | the same + $10k box-spread loan (1.2×), base 5.25%, **safety valve at 3× and the base restored above 80%** of the inflation-adjusted start (was 90%) | $290 / $579 (+1.2% vs start) | batch 3 |
+| credit | the same engine with a **$12.5k box-spread loan (1.25×)**, base 5.25%, **rebalance band 10 points**, **safety valve 3×**, base restored above **80%** of the inflation-adjusted start (was 90%), and the **cash bucket paying the loan down** instead of sitting in cash | $296 / $592 (+3.5% vs start, fresh seed 701) | batch 5 |
 
 ## Queue (passive ideas, roughly by value ÷ effort)
 1. **cheap_gold:** GLD (0.40%) → GLDM (0.10%) or IAUM (0.09%). Same gold, same collectible tax.
@@ -102,3 +102,17 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
     case. MP-2 at 1.2× stays the best levered printer.
 - **gde_stack** (more GDE for the same VBR + gold exposure): −1.7% to +0.3%, never safe. GDE's stocks are the
   S&P 500, so the swap gives up VBR's small-value tilt.
+
+### Batch 5 (00:56–01:20): two acceptances (credit track)
+- **bucket_offset: ACCEPTED (credit, +0.2%).** With a box loan, the cash bucket pays the loan down instead of sitting
+  in BOXX. That avoids paying T-bill + 0.6% to hold cash earning T-bill − 0.2%. Bonus draws then re-borrow.
+- **settings3: ACCEPTED (credit) — leverage 1.25× + rebalance band 10 points.**
+  - Fresh histories: +2.0%, $296 vs $290 at $50k. First decade $297 vs $287. 40-year typical $524 vs $509.
+  - Break risk equal or better (ends below start 4%, dips 15%, margin calls ≤ 1%).
+  - Leverage 1.25× alone gives +1.8%. In batch 2, 1.3× failed break risk. The wider band means fewer re-levering
+    trades.
+  - The loan is $12.5k on $50k: one 125-point SPX box (strikes come in 5-point steps).
+  - Simple track: dropping the valve gives +0.4–0.5% again (same history sets as before).
+- **climb** (30-generation GPU hill-climb on the weights, guard rails as `search.py`): **no change.** Every climbed
+  engine looked better on the climb's own 256 histories but was 2–3.5% worse on the harness's 1,000. That is
+  in-sample overfit, caught as designed. MP-2's weights are robust.

@@ -223,3 +223,5 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
 - Batch 3: glidepaths and income rules don't help. Skipping raises after a losing year trades early income for
   safety. Credit track: valve 3× + restore at 80% accepted (+0.8%). RSST is rejected: it passes only with an
   optimistic proxy.
+- Batches 4–5: calmer engines with leverage, GDE stacking and a weight hill-climb don't pass (the climb overfits its
+  own histories). Credit track: bucket pays the loan down (+0.2%), then leverage 1.25× with a 10-point band (+2.0%).

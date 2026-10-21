@@ -1,0 +1,51 @@
+IDEA settings3 — 2026-10-21 00:59
+  [simple] reference: MP-2 | GLD -> IAUM | bucket in BOXX; 2 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [simple] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX | valve 4x                         |   $266 /   $532 (+0.4%) | $249 / $240 | $421 / $277 |  87%    8%   17%  0.1% | $218 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | no valve                         |   $266 /   $532 (+0.4%) | $249 / $240 | $421 / $277 |  87%    8%   17%  0.1% | $218 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX                                    |   $265 /   $530 (+0.0%) | $246 / $240 | $417 / $275 |  87%    8%   18%  0.1% | $216 | yes  no
+  [simple] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX | no valve                         |   $266 /   $531 (+0.5%) | $250 / $240 | $423 / $275 |  86%    8%   19%  0.1% | $225 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | valve 4x                         |   $266 /   $531 (+0.4%) | $250 / $240 | $423 / $275 |  86%    8%   19%  0.1% | $225 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX                                    |   $265 /   $529 (+0.0%) | $248 / $240 | $417 / $271 |  86%    8%   19%  0.1% | $224 | yes  no
+  [simple] VERDICT: keep the reference
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down; 10 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             … | valve 3x + restore 80% | bucket pays the loan down | leverage 1.3x |   $300 /   $600 (+3.5%) | $310 / $219 | $545 / $389 |  91%    5%   16%  0.0% | $252 | no   yes
+             … restore 80% | bucket pays the loan down | leverage 1.25x + base 5.5% |   $297 /   $595 (+2.6%) | $301 / $229 | $525 / $371 |  90%    6%   17%  0.0% | $245 | no   yes
+             … restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt |   $296 /   $592 (+2.1%) | $296 / $219 | $525 / $372 |  93%    5%   13%  0.0% | $249 | yes  yes
+             …| valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x |   $295 /   $591 (+1.8%) | $298 / $219 | $526 / $374 |  91%    5%   15%  0.0% | $249 | yes  yes
+             …BOXX | valve 3x + restore 80% | bucket pays the loan down | skim>125% |   $293 /   $585 (+0.9%) | $319 / $219 | $470 / $341 |  87%   12%   23%  0.0% | $249 | no   yes
+             …BOXX | valve 3x + restore 80% | bucket pays the loan down | base 5.5% |   $292 /   $583 (+0.6%) | $287 / $229 | $504 / $357 |  90%    6%   16%  0.0% | $241 | no   yes
+             …BOXX | valve 3x + restore 80% | bucket pays the loan down | band 10pt |   $291 /   $582 (+0.4%) | $282 / $219 | $503 / $357 |  93%    4%   12%  0.0% | $247 | yes  no
+             …XX | valve 3x + restore 80% | bucket pays the loan down | restore 75% |   $291 /   $581 (+0.2%) | $284 / $219 | $507 / $358 |  92%    5%   14%  0.0% | $248 | yes  no
+             …| bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down |   $290 /   $580 (+0.0%) | $284 / $219 | $507 / $359 |  92%    5%   14%  0.0% | $247 | yes  no
+             … BOXX | valve 3x + restore 80% | bucket pays the loan down | valve 4x |   $290 /   $579 (-0.1%) | $283 / $219 | $507 / $362 |  92%    5%   14%  0.0% | $246 | yes  no
+             … | valve 3x + restore 80% | bucket pays the loan down | guardrail 75% |   $289 /   $579 (-0.2%) | $284 / $219 | $507 / $359 |  88%    5%   14%  0.0% | $247 | no   no
+  [credit] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             … restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt |   $296 /   $592 (+2.0%) | $297 / $219 | $524 / $367 |  92%    4%   15%  0.0% | $258 | yes  yes
+             …| valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x |   $295 /   $591 (+1.8%) | $299 / $219 | $530 / $367 |  91%    4%   16%  0.0% | $256 | yes  yes
+             …BOXX | valve 3x + restore 80% | bucket pays the loan down | band 10pt |   $291 /   $582 (+0.2%) | $285 / $219 | $505 / $352 |  92%    4%   14%  0.0% | $254 | yes  no
+             …| bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down |   $290 /   $580 (+0.0%) | $287 / $219 | $509 / $353 |  91%    5%   15%  0.0% | $253 | yes  no
+  [credit] VERDICT: ACCEPT MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt (robust CE +2.0% on fresh histories)
+  improve_best.json updated

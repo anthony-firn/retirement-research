@@ -30,7 +30,7 @@
   "interest_tax": "none"
  },
  "credit": {
-  "name": "MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80%",
+  "name": "MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt",
   "alloc": {
    "DBMFSIM": 27,
    "VBRSIM": 27,
@@ -39,7 +39,7 @@
    "TQQQSIM": 2,
    "IAUMSIM": 8
   },
-  "band": 6.0,
+  "band": 10.0,
   "gap_days": 252,
   "valve": 3.0,
   "yearly": false,
@@ -50,12 +50,14 @@
   "cut_to": 0.65,
   "restore_above": 0.8,
   "tax": "retiree, not working",
-  "lev": 1.2,
+  "lev": 1.25,
   "lev_daily": false,
   "credit": 0.0,
   "draw_below": 1.0,
   "repay_above": 1.0,
   "rate_spread": 0.6,
+  "harvest": 0.0,
+  "bucket_offsets_loan": true,
   "bucket_fill": false,
   "no_raise_after_loss": false,
   "glide": null,

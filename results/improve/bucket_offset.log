@@ -1,0 +1,11 @@
+IDEA bucket_offset — 2026-10-21 00:56
+  [simple] no candidates
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80%; 1 candidates; search 1000 histories x 5 cases
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …| bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down |   $290 /   $580 (+0.2%) | $284 / $219 | $507 / $359 |  92%    5%   14%  0.0% | $247 | yes  yes
+             …), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% |   $289 /   $579 (+0.0%) | $283 / $219 | $506 / $357 |  92%    5%   14%  0.0% | $247 | yes  no
+  [credit] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …| bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down |   $290 /   $580 (+0.2%) | $287 / $219 | $509 / $353 |  91%    5%   15%  0.0% | $253 | yes  yes
+             …), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% |   $290 /   $579 (+0.0%) | $287 / $219 | $507 / $351 |  91%    5%   15%  0.0% | $252 | yes  no
+  [credit] VERDICT: ACCEPT MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down (robust CE +0.2% on fresh histories)
+  improve_best.json updated
