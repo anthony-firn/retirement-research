@@ -193,7 +193,7 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
 - `operate.py` now has **MP-2.1**. The safety-valve line now shows the printer's own valve, not a fixed "2x".
   `replay.py MP-2.1` reproduces the simulator within 1.9%.
 
-### Batch 9 (01:52–02:10): front-loaded base, no acceptance (dials recorded above)
+### Batch 9 (01:51–01:56): front-loaded base, no acceptance (dials recorded above)
 - **Simple:** every front-load lowers robust CE (−0.8% to −2.1%), but it raises the first-decade floor. Best safe
   version: 6.00% for 10 years, then 5.50%.
 - **Credit:** 5.50% for 15 years, then 5.00%, is safe at +0.4%, with the floor $219 → $229 for 15 years. 5.75% for 10
