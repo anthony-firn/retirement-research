@@ -16,6 +16,10 @@ settings, structure or credit.
 
 `printer/regress.py check` must say *identical* before every commit.
 
+**Seeds:** every idea uses the same search (601) and fresh (701) histories, so ideas are compared like for like. Because
+the fresh set is reused across many ideas, the final best printers get a last **confirmation on brand-new histories**
+(new seeds, 4,000 paths) against where the night started.
+
 ## Current best
 | Track | Printer | Robust CE ($50k / $100k) | Since |
 |---|---|---|---|
@@ -79,8 +83,9 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
 - **settings2 (pairs of near-misses):**
   - **Credit track: ACCEPTED, valve 3× + restore at 80%** (+0.8% on fresh histories, $290 vs $287 at $50k; 40-year
     typical $507 vs $503; break risk equal).
-  - **Simple track: dropping the safety valve, or loosening it to 3–4×, gave +0.4–0.5% in four independent runs**
-    with break risk equal, just under the bar.
+  - **Simple track: dropping the safety valve, or loosening it to 3–4×, gave +0.4–0.5%** with break risk equal,
+    just under the bar. Same result in settings, settings2 and settings3, but on the same two history sets (every idea
+    shares the search seed 601 and fresh seed 701), so these are not independent confirmations.
     - With TQQQ at 2% the valve rarely acts. It is worth adopting as a *simplification* (one rule fewer) if you want.
 - **rsst** (RSST for VBR + DBMF, VTI + DBMF proxy): **REJECTED.** The optimistic proxy passed (+1.6% simple, +0.7%
   credit), but the pessimistic twin (3%/yr extra cost) fails on both tracks (−0.5% / −0.9%, break risk worse).
