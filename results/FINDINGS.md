@@ -225,3 +225,9 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
   optimistic proxy.
 - Batches 4–5: calmer engines with leverage, GDE stacking and a weight hill-climb don't pass (the climb overfits its
   own histories). Credit track: bucket pays the loan down (+0.2%), then leverage 1.25× with a 10-point band (+2.0%).
+- **Overnight result, confirmed on 4,000 brand-new histories per case:**
+  - **MP-2.1** (IAUM, BOXX bucket, guardrail cut to 60%, valve 4×): robust CE +1.7% ($264 → $268 at $50k).
+  - **Credit printer** (1.25× box loan, 10-point band, valve 3×, restore at 80%, bucket pays the loan down): +3.6%
+    ($287 → $297).
+  - Break risk is no worse in every case on both. MP-2's weights are robust; the gains came from cost, tax and rule
+    settings.

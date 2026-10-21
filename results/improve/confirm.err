@@ -1,0 +1,37 @@
+CONFIRM on new histories (4000 paths per case, seeds 1101-1105) + actual windows — 2026-10-21 01:46
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+    actual 40-yr windows done
+
+[simple] start: MP-2
+[simple] best:  MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x
+  robust CE (5 cases): $264 -> $268 at $50k (+1.7%), $528 -> $537 per $100k; break risk no worse in every case: yes
+  base                   | first 10 yrs typ $249 -> $251, bad $240 -> $240 | 40-yr typ $416 -> $423, bad $270 -> $276 | never cut 86% -> 87% | lose 9% -> 8% | dip 19% -> 18% | dry 0.2% -> 0.1% | margin call 0.0% -> 0.0%
+  trend -2%/yr           | first 10 yrs typ $240 -> $240, bad $240 -> $240 | 40-yr typ $366 -> $375, bad $222 -> $225 | never cut 75% -> 76% | lose 20% -> 18% | dip 30% -> 29% | dry 1.2% -> 0.5% | margin call 0.0% -> 0.0%
+  trend -4%/yr           | first 10 yrs typ $240 -> $240, bad $221 -> $219 | 40-yr typ $315 -> $322, bad $193 -> $196 | never cut 61% -> 63% | lose 34% -> 31% | dip 44% -> 43% | dry 2.7% -> 1.4% | margin call 0.0% -> 0.0%
+  recent era             | first 10 yrs typ $240 -> $240, bad $240 -> $240 | 40-yr typ $367 -> $371, bad $236 -> $239 | never cut 81% -> 81% | lose 14% -> 13% | dip 26% -> 25% | dry 0.5% -> 0.3% | margin call 0.0% -> 0.0%
+  3-month blocks         | first 10 yrs typ $252 -> $253, bad $240 -> $240 | 40-yr typ $408 -> $414, bad $252 -> $257 | never cut 76% -> 76% | lose 17% -> 15% | dip 30% -> 30% | dry 0.5% -> 0.3% | margin call 0.0% -> 0.0%
+  actual 40-yr windows   | first 10 yrs typ $327 -> $328, bad $241 -> $240 | 40-yr typ $457 -> $483, bad $422 -> $443 | never cut 100% -> 100% | lose 0% -> 0% | dip 0% -> 0% | dry 0.0% -> 0.0% | margin call 0.0% -> 0.0%
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+    actual 40-yr windows done
+
+[credit] start: MP-2 + $10k box loan (1.2x), base 5.25%
+[credit] best:  MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt
+  robust CE (5 cases): $287 -> $297 at $50k (+3.6%), $574 -> $595 per $100k; break risk no worse in every case: yes
+  base                   | first 10 yrs typ $285 -> $300, bad $219 -> $219 | 40-yr typ $499 -> $523, bad $347 -> $368 | never cut 91% -> 92% | lose 6% -> 5% | dip 15% -> 13% | dry 0.1% -> 0.1% | margin call 0.0% -> 0.1%
+  trend -2%/yr           | first 10 yrs typ $257 -> $272, bad $219 -> $219 | 40-yr typ $446 -> $475, bad $274 -> $297 | never cut 84% -> 85% | lose 11% -> 10% | dip 25% -> 24% | dry 0.3% -> 0.2% | margin call 0.2% -> 0.1%
+  trend -4%/yr           | first 10 yrs typ $232 -> $245, bad $211 -> $217 | 40-yr typ $386 -> $415, bad $225 -> $242 | never cut 73% -> 74% | lose 20% -> 19% | dip 36% -> 35% | dry 0.8% -> 0.6% | margin call 0.4% -> 0.4%
+  recent era             | first 10 yrs typ $259 -> $273, bad $219 -> $219 | 40-yr typ $454 -> $478, bad $313 -> $336 | never cut 90% -> 92% | lose 7% -> 5% | dip 18% -> 17% | dry 0.1% -> 0.1% | margin call 0.0% -> 0.1%
+  3-month blocks         | first 10 yrs typ $289 -> $299, bad $219 -> $219 | 40-yr typ $494 -> $514, bad $324 -> $339 | never cut 81% -> 81% | lose 12% -> 11% | dip 28% -> 28% | dry 0.1% -> 0.2% | margin call 0.0% -> 0.1%
+  actual 40-yr windows   | first 10 yrs typ $381 -> $407, bad $265 -> $287 | 40-yr typ $539 -> $593, bad $490 -> $534 | never cut 100% -> 100% | lose 0% -> 0% | dip 0% -> 0% | dry 0.0% -> 0.0% | margin call 0.0% -> 0.0%
+    base done
+    trend -4%/yr done
+  box +0.6 pts, base         | CE $307 -> $319 | 40-yr typ $494 -> $519 | lose 6% -> 5% | dip 16% -> 14% | dry 0.1% -> 0.1% | margin call 0.0% -> 0.0%
+  box +0.6 pts, trend -4%/yr | CE $248 -> $258 | 40-yr typ $380 -> $409 | lose 22% -> 21% | dip 38% -> 38% | dry 0.9% -> 0.8% | margin call 0.4% -> 0.7%

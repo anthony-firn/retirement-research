@@ -20,6 +20,46 @@ settings, structure or credit.
 the fresh set is reused across many ideas, the final best printers get a last **confirmation on brand-new histories**
 (new seeds, 4,000 paths) against where the night started.
 
+## Overnight result (confirmed 2026-10-21 01:46 on 4,000 brand-new histories per case + the actual 40-year windows)
+Retiree case: the retiree's taxes, taxable account; $/month after tax in today's dollars.
+
+| | **Simple (M1, no credit): MP-2 → MP-2.1** | **Credit (IBKR/Schwab box loan)** |
+|---|---|---|
+| What changed | GLD → **IAUM**; cash bucket in **BOXX**; guardrail cuts the base to **60%** (was 65%); safety valve **4×** (was 2×) | the same IAUM and BOXX; loan **$12.5k (1.25×)** (was $10k); rebalance band **10 points**; valve **3×**; base restored above **80%**; **bucket pays the loan down** |
+| Robust CE, $50k (per $100k) | $264 → **$268** (+1.7%), $528 → $537 | $287 → **$297** (+3.6%), $574 → $595 |
+| Base paycheck at $50k | $240 (unchanged) | $219 (unchanged) |
+| First 10 years, typical | $249 → $251 | $285 → **$300** |
+| 40-year average, typical / bad history | $416 → $423 / $270 → $276 | $499 → **$523** / $347 → $368 |
+| Base never cut · ends below start · dips < 70% · runs dry | 86→87% · 9→8% · 19→18% · 0.2→0.1% | 91→92% · 6→5% · 15→13% · 0.1→0.1% |
+| Trend funds −4%/yr: 40-year typical / runs dry | $315 → $322 / 2.7% → 1.4% | $386 → $415 / 0.8% → 0.6% |
+| Actual 40-year windows (1972–86 starts), 40-year typical | $457 → $483 | $539 → $593 |
+| Margin calls (worst case) | — | ≤ 0.4% (0.7% with a box premium 0.6 pts wider) |
+
+Break risk is no worse than at the start in **every** case on both tracks. On the actual 2000–2026 path
+(`printer/replay.py MP-2.1`), MP-2.1 spent 2.06× its start (MP-2: 1.88×) and ended at 1.93× (1.83×).
+
+**What the retiree does differently (simple track):**
+1. Buy IAUM instead of GLD.
+2. Keep the cash bucket in BOXX. Check that M1 lists it by adding it to the pie before funding.
+3. Run the operator with `--printer MP-2.1`.
+
+**What did not help:**
+- different settings beyond these;
+- glidepaths;
+- income rules;
+- stock/bond stacked funds;
+- RSST (only with an optimistic proxy);
+- calmer engines with more leverage;
+- more GDE;
+- a run line on top of the boost;
+- tax-loss harvesting (too small for its manual work);
+- weight hill-climbs (they overfit).
+
+MP-2's fund weights are robust; the gains came from **cost, tax and rule settings**.
+
+**Optional dial:** skipping the inflation raise after a losing year lowers break risk (ends below start 8% → 5%), but
+costs about $7/month of the first-decade bad-luck paycheck at $50k. It's your call.
+
 ## Current best
 | Track | Printer | Robust CE ($50k / $100k) | Since |
 |---|---|---|---|
@@ -136,3 +176,12 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
     The yearly drift rule still applies.
 - **climb, bigger** (512 histories, new seed 911, 20 generations): **no change on either track.** MP-2's weights are
   robust.
+
+### Batch 8 (01:42–02:00): converged and confirmed
+- **settings_local, simple, third pass: no change.** Both tracks are at a local optimum on every setting.
+- **Confirmation on brand-new histories:** see the table at the top. Both tracks keep break risk no worse in every
+  case.
+  - Credit track with a box premium 0.6 points wider than assumed: still better than the start (CE $307 → $319 base,
+    $248 → $258 with trend −4%/yr; margin calls 0.7%).
+- `operate.py` now has **MP-2.1**. The safety-valve line now shows the printer's own valve, not a fixed "2x".
+  `replay.py MP-2.1` reproduces the simulator within 1.9%.

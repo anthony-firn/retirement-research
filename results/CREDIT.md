@@ -116,6 +116,16 @@ trend funds −2%/yr, the 2000–2026 era only, 3-month blocks, and middle-brack
   - The interest is a 60/40 capital loss, worth little to the retiree (0% federal gains bracket, ~2% California).
   - Rebalance the loan back to 1.2× at the printer's rebalances.
 
+**Improved overnight (`results/IMPROVE.md`):**
+- **Changes:**
+  - IAUM for GLD, the bucket in BOXX;
+  - a **$12.5k loan (1.25×)** with a 10-point rebalance band;
+  - safety valve 3×, base restored above 80%;
+  - the cash bucket paying the loan down.
+- **Result on 4,000 fresh histories:** robust CE $287 → $297 at $50k (+3.6%), first decade $285 → $300, 40-year
+  typical $499 → $523. Break risk no worse in every case; margin calls ≤ 0.4%.
+- **Mechanics:** the loan is one 125-point SPX box.
+
 ## What credit costs today (2026-10-20)
 Benchmarks: SOFR 3.87%, fed funds 3.88% (target 3.75–4.00%, raised in September), 3-month T-bill 4.09%, 1-year
 Treasury 4.50%, prime 7.00%.

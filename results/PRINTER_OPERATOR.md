@@ -7,6 +7,13 @@ which funds to sell or buy and how many shares, which tax lots, and why. **It us
 the gap is calendar months versus 21-trading-day months. Its default one-fund-at-a-time selling gives the same results
 as the simulator's spread selling over 2,000 histories (`results/sell_mode_check.log`).
 
+**MP-2.1 (2026-10-21, `results/IMPROVE.md`):**
+- **What:** MP-2 with IAUM instead of GLD, the guardrail cutting the base to 60%, and the safety valve at 4×. Use
+  `--printer MP-2.1`.
+- **Cash bucket:** keep it in **BOXX**, a box-spread ETF whose growth is taxed as long-term gains (0% federal for the retiree).
+  A Treasury fund such as SGOV is the fallback if BOXX's tax treatment is ever challenged.
+- **Tested:** on fresh histories, +1.7% robust CE with break risk no worse in any stress case.
+
 ## Commands
 ```
 python3 printer/operate.py init   --state printer/ex_state.json --printer MP-2 --value 90000 --commit   # buy at target weights

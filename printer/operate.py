@@ -22,6 +22,10 @@ ROOT = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.jo
 PRINTERS = {   # ticker -> target %, and printer settings (from results/PRINTER_SEARCH.md / MONEY_PRINTER.md)
     "MP-2": dict(targets={"DBMF": 27, "VBR": 27, "GDE": 21, "KMLM": 15, "GLD": 8, "TQQQ": 2},
                  settings=dict(base=5.75, skim=0.40, bucket_months=48, cut_below=0.70, cut_to=0.65, restore_above=0.90, band=6.0, min_days=365, valve=2.0)),
+    # MP-2.1 (results/IMPROVE.md, 2026-10-21): MP-2 with IAUM for GLD (same gold, 0.09% fee), the guardrail cutting the base to 60%,
+    # and the safety valve at 4x; keep the cash bucket in BOXX (box-spread ETF, taxed as long-term gains)
+    "MP-2.1": dict(targets={"DBMF": 27, "VBR": 27, "GDE": 21, "KMLM": 15, "IAUM": 8, "TQQQ": 2},
+                   settings=dict(base=5.75, skim=0.40, bucket_months=48, cut_below=0.70, cut_to=0.60, restore_above=0.90, band=6.0, min_days=365, valve=4.0)),
     "CH-12": dict(targets={"DBMF": 25, "KMLM": 16, "GLD": 15, "VBR": 15, "XLV": 13, "TYD": 11, "TQQQ": 5},
                   settings=dict(base=4.0, skim=0.25, bucket_months=36, cut_below=0.70, cut_to=0.80, restore_above=0.90, band=6.0, min_days=365, valve=2.0)),
     "MP-Fortress": dict(targets={"KMLM": 22, "VBR": 20, "DBMF": 16, "GLD": 15, "UGL": 8, "XLV": 7, "SPMO": 5, "UUP": 4, "TQQQ": 3},
@@ -212,7 +216,7 @@ def sheet(state, p, profile, whole_shares=False):
     out += ["\nWATCH LEVELS (for the rest of the period):",
             f"   skim line (checked in January): account above ${w['skim_line']:,.0f}",
             f"   guardrail (checked in January): below ${w['guardrail_line']:,.0f} -> base print x {state['settings']['cut_to']:.2f}; back to normal above ${w['restore_line']:,.0f}",
-            "   safety valve (check any time; rebalance at once if any fund reaches 2x its target): " + " | ".join(f"{t} {lv}" for t, lv in w["valve_levels"].items())]
+            f"   safety valve (check any time; rebalance at once if any fund reaches {state['settings']['valve']:g}x its target): " + " | ".join(f"{t} {lv}" for t, lv in w["valve_levels"].items())]
     out += [f"   note: {n}" for n in p["notes"]]
     y = p["date"][:4]; g = state.get("realized_gains_by_year", {}).get(y, 0.0)
     out.append(f"\nTAXES: realized gains recorded so far in {y} (before today): ${g:,.0f}. Keep total taxable income under the 0% long-term-gains bracket if possible (2026 joint: $98,900; single from 2027: $49,450).")
