@@ -1,6 +1,6 @@
 {
  "simple": {
-  "name": "MP-2 | GLD -> IAUM | bucket in BOXX",
+  "name": "MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60%",
   "alloc": {
    "DBMFSIM": 27,
    "VBRSIM": 27,
@@ -17,7 +17,7 @@
   "skim": 0.4,
   "bucket_months": 48,
   "cut_below": 0.7,
-  "cut_to": 0.65,
+  "cut_to": 0.6,
   "restore_above": 0.9,
   "tax": "retiree, not working",
   "lev": 1.0,
@@ -26,6 +26,12 @@
   "draw_below": 1.0,
   "repay_above": 1.0,
   "rate_spread": 0.0,
+  "harvest": 0.0,
+  "bucket_offsets_loan": false,
+  "bucket_fill": false,
+  "no_raise_after_loss": false,
+  "glide": null,
+  "glide_years": 10,
   "bucket_tax": "boxx",
   "interest_tax": "none"
  },

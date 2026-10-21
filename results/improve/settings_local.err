@@ -1,0 +1,76 @@
+IDEA settings_local — 2026-10-21 01:20
+  [simple] reference: MP-2 | GLD -> IAUM | bucket in BOXX | harvest losses >= 10% into twins; 17 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [simple] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …IAUM | bucket in BOXX | harvest losses >= 10% into twins | cut to 60% |   $266 /   $533 (+0.5%) | $246 / $240 | $417 / $275 |  87%    8%   18%  0.0% | $225 | yes  no
+             …> IAUM | bucket in BOXX | harvest losses >= 10% into twins | valve 4x |   $266 /   $533 (+0.4%) | $249 / $240 | $421 / $278 |  87%    8%   17%  0.1% | $218 | yes  no
+             …> IAUM | bucket in BOXX | harvest losses >= 10% into twins | valve 0x |   $266 /   $532 (+0.4%) | $249 / $240 | $421 / $278 |  87%    8%   17%  0.1% | $218 | yes  no
+             … IAUM | bucket in BOXX | harvest losses >= 10% into twins | skim>130% |   $266 /   $532 (+0.4%) | $267 / $240 | $401 / $275 |  84%   14%   22%  0.1% | $217 | no   no
+             …> IAUM | bucket in BOXX | harvest losses >= 10% into twins | valve 3x |   $266 /   $532 (+0.3%) | $249 / $240 | $420 / $279 |  87%    8%   17%  0.1% | $218 | yes  no
+             …AUM | bucket in BOXX | harvest losses >= 10% into twins | restore 85% |   $266 /   $532 (+0.2%) | $246 / $240 | $417 / $275 |  87%    9%   18%  0.2% | $217 | yes  no
+             …M | bucket in BOXX | harvest losses >= 10% into twins | guardrail 75% |   $266 /   $531 (+0.1%) | $246 / $240 | $417 / $277 |  83%    7%   17%  0.1% | $220 | no   no
+             …> IAUM | bucket in BOXX | harvest losses >= 10% into twins | band 8pt |   $265 /   $530 (+0.0%) | $247 / $240 | $418 / $277 |  88%    8%   16%  0.2% | $216 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | harvest losses >= 10% into twins |   $265 /   $530 (+0.0%) | $246 / $240 | $417 / $275 |  87%    8%   18%  0.1% | $217 | yes  no
+             …IAUM | bucket in BOXX | harvest losses >= 10% into twins | bucket 60m |   $265 /   $530 (-0.1%) | $245 / $240 | $410 / $271 |  87%    8%   18%  0.1% | $217 | yes  no
+             …IAUM | bucket in BOXX | harvest losses >= 10% into twins | bucket 36m |   $265 /   $529 (-0.2%) | $248 / $240 | $423 / $278 |  87%    8%   18%  0.1% | $216 | yes  no
+             …IAUM | bucket in BOXX | harvest losses >= 10% into twins | base 5.50% |   $265 /   $529 (-0.2%) | $240 / $229 | $418 / $284 |  89%    7%   15%  0.2% | $224 | yes  no
+             …AUM | bucket in BOXX | harvest losses >= 10% into twins | restore 95% |   $265 /   $529 (-0.3%) | $246 / $240 | $417 / $275 |  87%    8%   18%  0.1% | $216 | yes  no
+             …M | bucket in BOXX | harvest losses >= 10% into twins | guardrail 65% |   $264 /   $528 (-0.4%) | $246 / $240 | $417 / $272 |  90%   10%   18%  0.2% | $213 | no   no
+             … IAUM | bucket in BOXX | harvest losses >= 10% into twins | skim>150% |   $264 /   $527 (-0.6%) | $240 / $240 | $429 / $273 |  88%    6%   16%  0.1% | $216 | yes  no
+             …IAUM | bucket in BOXX | harvest losses >= 10% into twins | base 6.00% |   $263 /   $526 (-0.9%) | $254 / $250 | $414 / $265 |  85%   10%   20%  0.3% | $206 | no   no
+             …> IAUM | bucket in BOXX | harvest losses >= 10% into twins | band 4pt |   $263 /   $525 (-0.9%) | $246 / $240 | $411 / $269 |  87%    9%   18%  0.1% | $216 | no   no
+             …IAUM | bucket in BOXX | harvest losses >= 10% into twins | cut to 70% |   $260 /   $521 (-1.8%) | $246 / $240 | $417 / $273 |  87%    8%   18%  0.2% | $204 | no   no
+  [simple] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …IAUM | bucket in BOXX | harvest losses >= 10% into twins | cut to 60% |   $267 /   $534 (+0.8%) | $248 / $240 | $417 / $272 |  86%    8%   19%  0.1% | $231 | yes  yes
+             …> IAUM | bucket in BOXX | harvest losses >= 10% into twins | valve 0x |   $266 /   $532 (+0.5%) | $250 / $240 | $423 / $275 |  86%    8%   19%  0.1% | $226 | yes  no
+             …> IAUM | bucket in BOXX | harvest losses >= 10% into twins | valve 4x |   $266 /   $532 (+0.4%) | $250 / $240 | $423 / $275 |  86%    8%   19%  0.1% | $225 | yes  no
+             MP-2 | GLD -> IAUM | bucket in BOXX | harvest losses >= 10% into twins |   $265 /   $530 (+0.0%) | $248 / $240 | $417 / $271 |  86%    8%   19%  0.1% | $224 | yes  no
+  [simple] VERDICT: ACCEPT MP-2 | GLD -> IAUM | bucket in BOXX | harvest losses >= 10% into twins | cut to 60% (robust CE +0.8% on fresh histories)
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt | harvest losses >= 10% into twins; 19 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             … 1.25x + band 10pt | harvest losses >= 10% into twins | leverage 1.3x |   $300 /   $601 (+1.3%) | $307 / $219 | $544 / $387 |  92%    5%   15%  0.0% | $250 | no   yes
+             …rage 1.25x + band 10pt | harvest losses >= 10% into twins | skim>130% |   $298 /   $597 (+0.7%) | $321 / $219 | $499 / $361 |  90%    8%   18%  0.0% | $251 | no   yes
+             …age 1.25x + band 10pt | harvest losses >= 10% into twins | base 5.50% |   $298 /   $596 (+0.6%) | $298 / $229 | $523 / $370 |  91%    5%   15%  0.0% | $243 | no   yes
+             …ge 1.25x + band 10pt | harvest losses >= 10% into twins | restore 75% |   $297 /   $594 (+0.2%) | $296 / $219 | $524 / $372 |  93%    5%   13%  0.0% | $250 | yes  no
+             …age 1.25x + band 10pt | harvest losses >= 10% into twins | cut to 60% |   $297 /   $594 (+0.2%) | $296 / $219 | $525 / $372 |  93%    4%   13%  0.0% | $253 | yes  no
+             …erage 1.25x + band 10pt | harvest losses >= 10% into twins | valve 4x |   $297 /   $594 (+0.1%) | $294 / $219 | $525 / $371 |  93%    5%   14%  0.0% | $251 | yes  no
+             …erage 1.25x + band 10pt | harvest losses >= 10% into twins | valve 0x |   $297 /   $594 (+0.1%) | $295 / $219 | $524 / $371 |  93%    5%   14%  0.0% | $251 | yes  no
+             …erage 1.25x + band 10pt | harvest losses >= 10% into twins | band 8pt |   $297 /   $593 (+0.0%) | $295 / $219 | $526 / $377 |  92%    4%   14%  0.0% | $249 | yes  no
+             … down | leverage 1.25x + band 10pt | harvest losses >= 10% into twins |   $296 /   $593 (+0.0%) | $296 / $219 | $525 / $372 |  93%    5%   13%  0.0% | $250 | yes  no
+             …age 1.25x + band 10pt | harvest losses >= 10% into twins | bucket 60m |   $296 /   $592 (-0.1%) | $286 / $219 | $513 / $365 |  93%    5%   13%  0.0% | $250 | yes  no
+             …ge 1.25x + band 10pt | harvest losses >= 10% into twins | restore 85% |   $296 /   $592 (-0.2%) | $296 / $219 | $525 / $372 |  93%    5%   13%  0.0% | $249 | yes  no
+             … 1.25x + band 10pt | harvest losses >= 10% into twins | guardrail 65% |   $296 /   $592 (-0.2%) | $296 / $219 | $524 / $371 |  95%    5%   13%  0.0% | $248 | no   no
+             …erage 1.25x + band 10pt | harvest losses >= 10% into twins | valve 2x |   $296 /   $592 (-0.2%) | $293 / $219 | $520 / $377 |  93%    4%   14%  0.0% | $247 | yes  no
+             … 1.25x + band 10pt | harvest losses >= 10% into twins | guardrail 75% |   $296 /   $591 (-0.3%) | $296 / $219 | $525 / $372 |  89%    4%   13%  0.0% | $249 | no   no
+             …age 1.25x + band 10pt | harvest losses >= 10% into twins | bucket 36m |   $295 /   $591 (-0.4%) | $310 / $219 | $533 / $380 |  93%    4%   13%  0.0% | $249 | yes  no
+             …rage 1.25x + band 10pt | harvest losses >= 10% into twins | band 12pt |   $295 /   $589 (-0.6%) | $293 / $219 | $518 / $368 |  92%    4%   13%  0.0% | $248 | no   no
+             …age 1.25x + band 10pt | harvest losses >= 10% into twins | cut to 70% |   $293 /   $587 (-1.0%) | $296 / $219 | $524 / $371 |  93%    5%   13%  0.0% | $241 | no   no
+             …rage 1.25x + band 10pt | harvest losses >= 10% into twins | skim>150% |   $293 /   $587 (-1.0%) | $273 / $219 | $546 / $384 |  94%    2%   12%  0.0% | $248 | yes  no
+             …age 1.25x + band 10pt | harvest losses >= 10% into twins | base 5.00% |   $292 /   $584 (-1.5%) | $292 / $208 | $525 / $377 |  94%    4%   12%  0.0% | $250 | yes  no
+             … 1.25x + band 10pt | harvest losses >= 10% into twins | leverage 1.2x |   $291 /   $583 (-1.8%) | $282 / $219 | $503 / $357 |  93%    4%   12%  0.0% | $248 | no   no
+  [credit] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …ge 1.25x + band 10pt | harvest losses >= 10% into twins | restore 75% |   $297 /   $593 (+0.2%) | $297 / $219 | $524 / $367 |  92%    4%   15%  0.0% | $259 | yes  no
+             …age 1.25x + band 10pt | harvest losses >= 10% into twins | cut to 60% |   $296 /   $593 (+0.1%) | $297 / $219 | $524 / $367 |  92%    4%   15%  0.0% | $261 | yes  no
+             …erage 1.25x + band 10pt | harvest losses >= 10% into twins | valve 4x |   $296 /   $592 (+0.1%) | $299 / $219 | $525 / $367 |  92%    4%   15%  0.0% | $258 | yes  no
+             … down | leverage 1.25x + band 10pt | harvest losses >= 10% into twins |   $296 /   $592 (+0.0%) | $297 / $219 | $524 / $367 |  92%    4%   15%  0.0% | $258 | yes  no
+  [credit] VERDICT: keep the reference
+  improve_best.json updated

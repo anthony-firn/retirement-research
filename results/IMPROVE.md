@@ -23,7 +23,7 @@ the fresh set is reused across many ideas, the final best printers get a last **
 ## Current best
 | Track | Printer | Robust CE ($50k / $100k) | Since |
 |---|---|---|---|
-| simple | MP-2 with **IAUM** for GLD and the **cash bucket in BOXX**: DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · IAUM 8 · TQQQ 2; base 5.75%, skim > 140%, 48-month bucket, guardrail 70% → 65% | $265 / $529 (+0.4% vs MP-2) | batch 1 |
+| simple | MP-2 with **IAUM** for GLD, the **cash bucket in BOXX**, and the guardrail cutting to **60%** (was 65%): DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · IAUM 8 · TQQQ 2; base 5.75%, skim > 140%, 48-month bucket, guardrail below 70% → base × 0.60, restored above 90% | $267 / $533 (+1.2% vs MP-2, fresh seed 701) | batch 6 |
 | credit | the same engine with a **$12.5k box-spread loan (1.25×)**, base 5.25%, **rebalance band 10 points**, **safety valve 3×**, base restored above **80%** of the inflation-adjusted start (was 90%), and the **cash bucket paying the loan down** instead of sitting in cash | $296 / $592 (+3.5% vs start, fresh seed 701) | batch 5 |
 
 ## Queue (passive ideas, roughly by value ÷ effort)
@@ -116,3 +116,15 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
 - **climb** (30-generation GPU hill-climb on the weights, guard rails as `search.py`): **no change.** Every climbed
   engine looked better on the climb's own 256 histories but was 2–3.5% worse on the harness's 1,000. That is
   in-sample overfit, caught as designed. MP-2's weights are robust.
+
+### Batch 6 (01:16–01:30): one acceptance (simple track)
+- **tlh** (tax-loss harvesting into near-twins): "accepted" at +0.1% simple / +0.0% credit under the old any-gain rule.
+  That is about $0.30/month at $50k for recurring manual swaps, and swaps between gold trusts carry wash-sale
+  uncertainty.
+  - **Removed by hand.** Changes that add recurring manual work now need ≥ 0.25% (`OPS` in `improve.py`).
+- **settings_local** (one step each way on every setting):
+  - **Simple: ACCEPTED, the guardrail cuts the base to 60% instead of 65%** (+0.8% on fresh histories). A deeper cut
+    in a deep slump protects the account. The first-decade bad-history print is unchanged at $240.
+    - (Run with harvesting in the reference; harvesting is worth ~0.1%, and the final confirmation tests the exact
+      final spec without it.)
+  - **Credit: no change.** The 1.25× printer is at a local optimum on every setting.

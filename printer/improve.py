@@ -214,7 +214,9 @@ def run(idea):
     best = load_best(); logp = os.path.join(OUT, "improve", f"{idea}.log"); os.makedirs(os.path.dirname(logp), exist_ok=True); log = open(logp, "w")
     def say(x=""): print(x, flush=True); log.write(x + "\n"); log.flush()
     say(f"IDEA {idea} — {dt.datetime.now():%Y-%m-%d %H:%M}"); out = {}; new_best = dict(best)
+    only = [t for t in os.environ.get("TRACKS", "").split(",") if t]
     for track, spec in best.items():
+        if only and track not in only: continue
         ref = P(**spec); cand = IDEAS[idea](ref)
         if not cand: say(f"  [{track}] no candidates"); continue
         say(f"  [{track}] reference: {ref.name}; {len(cand)} candidates; search {PATHS} histories x 5 cases")
