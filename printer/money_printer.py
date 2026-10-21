@@ -72,6 +72,8 @@ class Printer:
     draw_below: float = 1.0     #   draw_below x start, the base print is borrowed instead of sold; the whole loan is repaid at the
     repay_above: float = 1.0    #   first year-end with the real net value above repay_above x start
     rate_spread: float = 0.0
+    base_years: int = 0         # FRONT-LOADING: from year `base_years` on (0 = never), the base print is `base_after` % instead of `base`
+    base_after: float = 0.0
     harvest: float = 0.0        # TAX-LOSS HARVESTING: at each year-end swap any HARVEST fund >= `harvest` below its cost into its near-twin
                                 #   (loss realized, new cost and holding period; twin assumed to track the same; 2 x trading cost)
     bucket_offsets_loan: bool = False  # with an account loan, the cash bucket pays the loan down instead of sitting in cash: it earns the
@@ -159,6 +161,8 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
     any_c = any(p.credit > 0 for p in printers); any_loan = any_l or any_c
     any_bt = any(p.bucket_tax != "ordinary" for p in printers); any_bf = any(p.bucket_fill for p in printers); any_nr = any(p.no_raise_after_loss for p in printers)
     if any_bf: bfill = pv(lambda p: p.bucket_fill, torch.bool)
+    any_fl = any(p.base_years > 0 for p in printers)
+    if any_fl: fl_y = pv(lambda p: p.base_years if p.base_years > 0 else 10 ** 6, torch.long); fl_b = pv(lambda p: p.base_after / 100)
     any_h = any(p.harvest > 0 for p in printers)
     if any_h: hthr = pv(lambda p: p.harvest); hok = torch.tensor([a in HARVEST for a in assets], device=DEV)[sid] & (pv(lambda p: p.harvest > 0, torch.bool)[:, None])
     any_bo = any(p.bucket_offsets_loan and (p.lev != 1 and not p.lev_daily) for p in printers)
@@ -223,14 +227,15 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
         if mo != (d - 1) * 12 // S:
             if state is not None:                                  # monthly signal check: new targets, rebalance on a change of state
                 new = SIG[rows]; Wn = tilted(new); force = (Wn - Wt).abs().max(1).values > 1e-6; state = new; Wt = Wn; has = Wt > 0
-            amt = base / 12 * (pinf if any_nr else infl) * mult
+            bnow = torch.where(d // S >= fl_y, fl_b, base) if any_fl else base
+            amt = bnow / 12 * (pinf if any_nr else infl) * mult
             if any_c:                                              # borrow the base print instead of selling in a down market
                 V = val.sum(1); z = torch.zeros_like(amt)
                 dr = (cred > 0) & ((V - loan - rloan) / infl < drawb) & (rloan + amt <= cred * infl) & (loan + rloan + amt <= 0.5 * V)
                 got = sell_amount(torch.where(dr, z, amt), d) + torch.where(dr, amt, z); rloan = rloan + torch.where(dr, amt, z)
             else: got = sell_amount(amt, d)
             draw = bucket / bmon
-            if any_bf: draw = draw + torch.where(bfill & (mult < 1), torch.minimum(bucket - draw, (1 - mult) * base / 12 * (pinf if any_nr else infl)), torch.zeros_like(draw))
+            if any_bf: draw = draw + torch.where(bfill & (mult < 1), torch.minimum(bucket - draw, (1 - mult) * (bnow if any_fl else base) / 12 * (pinf if any_nr else infl)), torch.zeros_like(draw))
             bucket = bucket - draw
             spend[:, min(mo - 1, M - 1)] = (got + draw) / infl; dead |= val.sum(1) - loan - rloan <= 1e-6
             if any_loan:

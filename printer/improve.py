@@ -189,6 +189,9 @@ def settings_local(p):                                             # one step in
     out += [v(f"band {p.band + d:g}pt", band=p.band + d) for d in (-2.0, 2.0)]
     out += [v(f"valve {x:g}x", valve=x) for x in (2.0, 3.0, 4.0, 0) if x != p.valve]
     return out
+def front_load(p):                                                 # higher base early, lower later (the retiree's early years matter most)
+    return [replace(p, name=f"{p.name} | base {p.base + up:.2f}% for {yrs}y then {p.base - dn:.2f}%", base=p.base + up, base_years=yrs, base_after=p.base - dn)
+            for up in (0.25, 0.5) for yrs in (10, 15) for dn in (0.25, 0.5, 0.75)]
 FREE = {"cheap_gold", "bucket_tax", "bucket_offset"}               # same holdings, lower cost or tax: any gain counts
 OPS = {"tlh"}                                                      # adds recurring manual work (swaps): must gain >= 0.25%                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
@@ -207,6 +210,7 @@ IDEAS = {
     "settings3": settings3,
     "climb": climb,
     "settings_local": settings_local,
+    "front_load": front_load,
     "tlh": lambda p: [replace(p, name=f"{p.name} | harvest losses >= {int(h * 100)}% into twins", harvest=h) for h in (0.05, 0.10)],
 }
 
