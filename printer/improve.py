@@ -139,6 +139,44 @@ def settings3(p):                                                  # credit trac
     return [v("leverage 1.25x", lev=1.25), v("leverage 1.3x", lev=1.3), v("band 10pt", band=10.0), v("leverage 1.25x + band 10pt", lev=1.25, band=10.0),
             v("base 5.5%", base=5.5), v("leverage 1.25x + base 5.5%", lev=1.25, base=5.5), v("restore 75%", restore_above=0.75), v("valve 4x", valve=4.0),
             v("guardrail 75%", cut_below=0.75), v("skim>125%", skim=0.25)]
+def climb(p):                                                      # short GPU hill-climb on the fund weights around the current best (same settings);
+    import search as sr                                            # guard rails as printer/search.py; the top distinct engines go to the normal test
+    sys.path.insert(0, os.path.join(ROOT, "..", "lab")); import stress_forward as sf
+    U = ["DBMFSIM", "KMLMSIM", "VBRSIM", "GDESIM", "IAUMSIM" if "IAUMSIM" in p.alloc else "GLDSIM", "TQQQSIM", "XLVSIM", "XLESIM", "VTVSIM", "SPMOSIM", "IEISIM"]
+    mv = lambda t, sc: sf.move("GLDSIM" if t in ("IAUMSIM", "GLDMSIM") else t, sc)
+    def valid(a):
+        if len(a) > 9 or any(w > 35 or w < 1 for w in a.values()) or sum(a.values()) != 100: return False
+        if a.get("KMLMSIM", 0) + a.get("DBMFSIM", 0) > 42 or a.get("TQQQSIM", 0) > 25 or sum(sr.AI.get(t, 0) * w for t, w in a.items()) > 25: return False
+        return min(sum(w / 100 * mv(t, sf.SC[k]) for t, w in a.items()) for k in sr.BAD) >= -8.5
+    rng = np.random.default_rng(int(p.lev * 100)); IDX = mp.make_idx(256, 40, step=5, seed=901)
+    def mutate(q):
+        for _ in range(50):
+            a = {k: int(round(w)) for k, w in q.alloc.items()}; a[max(a, key=a.get)] += 100 - sum(a.values())
+            x = rng.choice(list(a)); y = rng.choice(U); d = int(rng.choice([1, 2, 3]))
+            if x == y or a[x] < d: continue
+            a[x] -= d; a[y] = a.get(y, 0) + d; a = {k: w for k, w in a.items() if w > 0}
+            if valid(a): return replace(q, alloc=a)
+        return q
+    def fit(pop):
+        r = [mp.simulate(pop, IDX, step=5, **kw) for kw in ({}, dict(trend_haircut=0.02), dict(trend_haircut=0.04))]
+        out = []
+        for c in range(len(pop)):
+            ces = [se.ce(x["spend"][c], gamma=3.0) for x in r]; b0 = r[0]
+            pen = 0.3 * max(0, (b0["real_end"][c] < 1).mean() - R0["lose"]) + 0.3 * max(0, (b0["minreal"][c] < .7).mean() - R0["dip"]) + 2 * max(0, r[2]["dead"][c].mean() - R0["dry4"]) \
+                  + 2 * max(0, max(x["margin_call"][c].mean() for x in r) - 0.01)
+            out.append(float(np.mean(ces)) - pen)
+        return out
+    r0 = [mp.simulate([p], IDX, step=5, **kw) for kw in ({}, dict(trend_haircut=0.04))]
+    R0 = dict(lose=(r0[0]["real_end"][0] < 1).mean(), dip=(r0[0]["minreal"][0] < .7).mean(), dry4=r0[1]["dead"][0].mean())
+    pop = [p] + [mutate(mutate(p)) for _ in range(31)]; f = fit(pop); seen = {}
+    for it in range(int(os.environ.get("CLIMB_ITERS", "30"))):
+        cool(); tb = time.time(); kids = [mutate(q) for q in pop]; kf = fit(kids)
+        for i in range(len(pop)):
+            if kf[i] > f[i]: pop[i], f[i] = kids[i], kf[i]
+        for q, v in zip(pop, f): seen[tuple(sorted(q.alloc.items()))] = (v, q)
+        time.sleep(THROTTLE * (time.time() - tb))
+    top = [q for v, q in sorted(seen.values(), key=lambda t: -t[0]) if q.alloc != p.alloc][:12]
+    return [replace(q, name=f"{p.name} | climb: " + " ".join(f"{k[:-3]} {w}" for k, w in sorted(q.alloc.items(), key=lambda t: -t[1]))) for q in top]
 FREE = {"cheap_gold", "bucket_tax", "bucket_offset"}                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
     "cheap_gold": lambda p: swap(p, "GLDSIM", "GLDMSIM", "GLD -> GLDM") + swap(p, "GLDSIM", "IAUMSIM", "GLD -> IAUM"),
@@ -154,6 +192,7 @@ IDEAS = {
     "gde_stack": gde_stack,
     "bucket_offset": lambda p: [replace(p, name=f"{p.name} | bucket pays the loan down", bucket_offsets_loan=True)] if p.lev > 1 and not p.lev_daily else [],
     "settings3": settings3,
+    "climb": climb,
 }
 
 def run(idea):

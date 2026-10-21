@@ -1,0 +1,31 @@
+IDEA gde_stack — 2026-10-21 00:54
+  [simple] reference: MP-2 | GLD -> IAUM | bucket in BOXX; 6 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [simple] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …M | bucket in BOXX | +4 GDE for 3.6 VBR + 3.6 gold, freed to pro rata |   $266 /   $531 (+0.3%) | $250 / $240 | $424 / $281 |  86%    9%   19%  0.1% | $215 | no   no
+             …M | bucket in BOXX | +6 GDE for 5.4 VBR + 5.4 gold, freed to pro rata |   $266 /   $531 (+0.2%) | $252 / $240 | $427 / $284 |  86%   10%   19%  0.2% | $214 | no   no
+             …| bucket in BOXX | +8.8 GDE for 7.9 VBR + 7.9 gold, freed to pro rata |   $265 /   $531 (+0.1%) | $255 / $240 | $432 / $283 |  86%   10%   21%  0.2% | $209 | no   no
+             MP-2 | GLD -> IAUM | bucket in BOXX                                    |   $265 /   $530 (+0.0%) | $246 / $240 | $417 / $275 |  87%    8%   18%  0.1% | $216 | yes  no
+             …IAUM | bucket in BOXX | +4 GDE for 3.6 VBR + 3.6 gold, freed to trend |   $264 /   $528 (-0.3%) | $249 / $240 | $419 / $278 |  87%    9%   18%  0.2% | $211 | no   no
+             …IAUM | bucket in BOXX | +6 GDE for 5.4 VBR + 5.4 gold, freed to trend |   $263 /   $525 (-0.9%) | $248 / $240 | $420 / $281 |  87%    9%   18%  0.2% | $207 | no   no
+             …UM | bucket in BOXX | +8.8 GDE for 7.9 VBR + 7.9 gold, freed to trend |   $261 /   $521 (-1.7%) | $250 / $240 | $422 / $279 |  86%    9%   18%  0.2% | $200 | no   no
+  [simple] VERDICT: keep the reference
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80%; 6 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% |   $289 /   $579 (+0.0%) | $283 / $219 | $506 / $357 |  92%    5%   14%  0.0% | $247 | yes  no
+             …e 3x + restore 80% | +4 GDE for 3.6 VBR + 3.6 gold, freed to pro rata |   $289 /   $578 (-0.1%) | $290 / $219 | $513 / $361 |  90%    6%   16%  0.0% | $241 | no   no
+             …e 3x + restore 80% | +6 GDE for 5.4 VBR + 5.4 gold, freed to pro rata |   $289 /   $577 (-0.3%) | $292 / $219 | $517 / $364 |  90%    6%   16%  0.0% | $238 | no   no
+             …alve 3x + restore 80% | +4 GDE for 3.6 VBR + 3.6 gold, freed to trend |   $288 /   $577 (-0.4%) | $285 / $219 | $509 / $362 |  91%    5%   14%  0.0% | $238 | no   no
+             …3x + restore 80% | +8.8 GDE for 7.9 VBR + 7.9 gold, freed to pro rata |   $288 /   $576 (-0.5%) | $297 / $219 | $523 / $363 |  89%    7%   18%  0.0% | $235 | no   no
+             …alve 3x + restore 80% | +6 GDE for 5.4 VBR + 5.4 gold, freed to trend |   $287 /   $575 (-0.7%) | $287 / $219 | $512 / $364 |  91%    5%   14%  0.0% | $235 | no   no
+             …ve 3x + restore 80% | +8.8 GDE for 7.9 VBR + 7.9 gold, freed to trend |   $286 /   $571 (-1.4%) | $289 / $219 | $512 / $360 |  91%    5%   14%  0.0% | $229 | no   no
+  [credit] VERDICT: keep the reference

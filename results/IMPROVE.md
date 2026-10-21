@@ -88,3 +88,12 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
     matching DBMF.
   - `improve.py` now refuses proxy-based changes whose pessimistic twin fails. The harness's automatic acceptance was
     reverted by hand.
+
+### Batch 4 (01:45–02:20): nothing accepted
+- **lever_engines** (box loan on calmer engines: CH-12, CH-11.5, Gold-Stack 12, 3-fund VBR 35 / KMLM 35 / IAUM 30,
+  at 1.2–1.5×):
+  - At 1.2–1.35× all are worse than MP-2 at 1.2× (−2% to −13%).
+  - At 1.5× some score higher (3-fund +1.3% to +2.4%, CH-12 +1.5–1.8%), but every one fails break risk in a stress
+    case. MP-2 at 1.2× stays the best levered printer.
+- **gde_stack** (more GDE for the same VBR + gold exposure): −1.7% to +0.3%, never safe. GDE's stocks are the
+  S&P 500, so the swap gives up VBR's small-value tilt.
