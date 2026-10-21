@@ -65,6 +65,8 @@ class Printer:
     draw_below: float = 1.0     #   draw_below x start, the base print is borrowed instead of sold; the whole loan is repaid at the
     repay_above: float = 1.0    #   first year-end with the real net value above repay_above x start
     rate_spread: float = 0.0
+    glide: dict = None          # GLIDEPATH: target weights reached after `glide_years` (same funds as alloc), moved linearly each
+    glide_years: int = 10       #   year-end from alloc; withdrawals and the drift rule move the holdings toward the new targets
     bucket_tax: str = "ordinary"  # cash bucket: "ordinary" = T-bill interest (federal + CA); "treasury" = Treasury fund (no CA tax);
                                   #   "boxx" = box-spread ETF (0.19% fee; growth taxed as long-term gains)
     interest_tax: str = "none"  # "capital": a 60/40 capital loss (box spread, section 1256); "investment": investment interest
@@ -118,6 +120,15 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
         tot = sum(p.alloc.values())
         for k, (a, w) in enumerate(p.alloc.items()): sid_c[c, k] = assets.index(a); W0c[c, k] = w / tot
     sid = sid_c[ci]; W0 = W0c[ci]; has = W0 > 0
+    any_g = any(p.glide for p in printers)
+    if any_g:
+        assert tilt is None, "glide and tilt can't be combined"
+        W1c = W0c.clone()
+        for c, p in enumerate(printers):
+            if p.glide:
+                assert set(p.glide) <= set(p.alloc), "glide funds must be in alloc (weight 0 allowed)"
+                gt = sum(p.glide.values()); W1c[c] = torch.tensor([p.glide.get(a, 0) / gt for a in p.alloc] + [0.0] * (K - len(p.alloc)), device=DEV)
+        W1 = W1c[ci]; gl = pv(lambda p: bool(p.glide), torch.bool); gy = pv(lambda p: p.glide_years); has = has | (W1 > 0)
     divy = divy_a[sid]; qual = qual_a[sid]; coll = coll_a[sid]; mtm = mtm_a[sid]; norm = ~(coll | mtm)
     band = pv(lambda p: p.band if p.band else 1e9); gap = pv(lambda p: round(p.gap_days / step), torch.long); valve = pv(lambda p: p.valve if p.valve else 1e9)
     yearly = pv(lambda p: p.yearly, torch.bool); base = pv(lambda p: p.base / 100); skim = pv(lambda p: p.skim if (p.skim is not None and p.skim >= 0) else 1e9)
@@ -234,6 +245,7 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             V = val.sum(1); f = (tax / V.clamp(min=1e-12)).clamp(0, 1); val = val * (1 - f)[:, None]; basis = basis * (1 - f)[:, None]; taxreal += tax / infl
             real = (val.sum(1) - loan - rloan) / infl; yreal[:, min(y, Y - 1)] = real
             mult = torch.where(real < cutb, cutt, torch.where(real > rest, torch.ones_like(mult), mult)); cut_ever |= real < cutb; ymult[:, min(y, Y - 1)] = mult; ybucket[:, min(y, Y - 1)] = bucket / infl
+            if any_g: Wt = torch.where(gl[:, None], W0 + (W1 - W0) * ((y + 1) / gy).clamp(max=1)[:, None], Wt)
         minreal = torch.minimum(minreal, (val.sum(1) - loan - rloan) / infl)
         if trace: TR["value"][:, d] = val.sum(1) - loan - rloan; TR["bucket"][:, d] = bucket; TR["infl"][:, d] = infl; TR["mult"][:, d] = mult
     sh = lambda x: x.view(C, P, *x.shape[1:]).cpu().numpy()

@@ -79,6 +79,17 @@ def stacked(p):                                                    # return-stac
                 a[old] -= x; a[new] = a.get(new, 0) + x; a = {k: w for k, w in a.items() if w > 0}
                 out.append(replace(p, name=f"{p.name} | {x} {old[:-3]} -> {new[:-3]}", alloc=a))
     return out
+def glidepath(p):                                                  # calendar-based shift between stocks (VBR, GDE) and defenders, by age
+    out = []
+    for x in (5, 10):
+        for dlab, dst in (("trend", {"DBMFSIM": .5, "KMLMSIM": .5}), ("gold", {"IAUMSIM": 1.0} if "IAUMSIM" in p.alloc else {"GLDSIM": 1.0})):
+            d = dict(p.alloc); d["VBRSIM"] -= x / 2; d["GDESIM"] -= x / 2
+            for k, f in dst.items(): d[k] = d.get(k, 0) + x * f
+            if min(d.values()) < 0 or any(k not in p.alloc for k in d): continue
+            for yrs in (10, 20):
+                out.append(replace(p, name=f"{p.name} | rising stocks: {x} pts {dlab}->stocks over {yrs}y", alloc=d, glide=dict(p.alloc), glide_years=yrs))
+                out.append(replace(p, name=f"{p.name} | falling stocks: {x} pts stocks->{dlab} over {yrs}y", glide=d, glide_years=yrs))
+    return out
 FREE = {"cheap_gold", "bucket_tax"}                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
     "cheap_gold": lambda p: swap(p, "GLDSIM", "GLDMSIM", "GLD -> GLDM") + swap(p, "GLDSIM", "IAUMSIM", "GLD -> IAUM"),
@@ -86,6 +97,7 @@ IDEAS = {
     "settings": settings,
     "combo": combo,
     "stacked": stacked,
+    "glidepath": glidepath,
 }
 
 def run(idea):
