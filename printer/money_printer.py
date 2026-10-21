@@ -70,6 +70,8 @@ class Printer:
     draw_below: float = 1.0     #   draw_below x start, the base print is borrowed instead of sold; the whole loan is repaid at the
     repay_above: float = 1.0    #   first year-end with the real net value above repay_above x start
     rate_spread: float = 0.0
+    bucket_offsets_loan: bool = False  # with an account loan, the cash bucket pays the loan down instead of sitting in cash: it earns the
+                                       #   loan rate, untaxed (avoided interest, so the interest deduction shrinks with it); bonus draws re-borrow
     bucket_fill: bool = False   # while the guardrail has cut the base print, top it back up from the cash bucket (if there is any)
     no_raise_after_loss: bool = False  # skip the yearly inflation raise of the base print after a year the portfolio lost money (no catch-up)
     glide: dict = None          # GLIDEPATH: target weights reached after `glide_years` (same funds as alloc), moved linearly each
@@ -153,6 +155,8 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
     any_c = any(p.credit > 0 for p in printers); any_loan = any_l or any_c
     any_bt = any(p.bucket_tax != "ordinary" for p in printers); any_bf = any(p.bucket_fill for p in printers); any_nr = any(p.no_raise_after_loss for p in printers)
     if any_bf: bfill = pv(lambda p: p.bucket_fill, torch.bool)
+    any_bo = any(p.bucket_offsets_loan and (p.lev != 1 and not p.lev_daily) for p in printers)
+    if any_bo: boff = pv(lambda p: p.bucket_offsets_loan and (p.lev != 1 and not p.lev_daily), torch.bool)
     if any_nr: nr = pv(lambda p: p.no_raise_after_loss, torch.bool)
     if any_bt:
         bfee = pv(lambda p: 0.0019 / S if p.bucket_tax == "boxx" else 0.0)
@@ -196,7 +200,12 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
         rows = IDX[pi, d]; R = Rg[rows[:, None], sid]
         if any_d: R = torch.where(levd[:, None], lev[:, None] * R - (lev - 1)[:, None] * (Fg[rows] + spr)[:, None], R)
         if any_nr: gidx = gidx * ((val * (1 + R)).sum(1) / val.sum(1).clamp(min=1e-12))
-        val = val * (1 + R); infl = infl * Cg[rows]; bi = bucket * (Fg[rows] - bfee) if any_bt else bucket * Fg[rows]; bucket = bucket + bi; intr += bi
+        val = val * (1 + R); infl = infl * Cg[rows]; bi = bucket * (Fg[rows] - bfee) if any_bt else bucket * Fg[rows]
+        if any_bo:                                                 # bucket parked against the loan: earns the loan rate, untaxed
+            off = boff & (loan >= bucket); bo_i = bucket * (Fg[rows] + spr)
+            lint -= torch.where(off, bo_i, torch.zeros_like(bo_i)); intr += torch.where(off, torch.zeros_like(bi), bi); bi = torch.where(off, bo_i, bi)
+        else: intr += bi
+        bucket = bucket + bi
         if any_loan:
             li = loan * (Fg[rows] + spr); loan = loan + li; lint += li; V = val.sum(1)
             if any_c: ri = rloan * (Fg[rows] + spr); rloan = rloan + ri; lint += ri

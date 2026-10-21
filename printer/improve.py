@@ -133,7 +133,13 @@ def gde_stack(p):                                                  # more GDE (9
             else: tot = sum(b.values()); b = {k: w + freed * w / tot for k, w in b.items()}
             out.append(replace(p, name=f"{p.name} | +{g} GDE for {x:.1f} VBR + {x:.1f} gold, freed to {dlab}", alloc=b))
     return out
-FREE = {"cheap_gold", "bucket_tax"}                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
+def settings3(p):                                                  # credit track: a second pass around the new best
+    v = lambda lab, **kw: replace(p, name=f"{p.name} | {lab}", **kw)
+    if p.lev <= 1: return [v("no valve", valve=0), v("valve 4x", valve=4.0)]
+    return [v("leverage 1.25x", lev=1.25), v("leverage 1.3x", lev=1.3), v("band 10pt", band=10.0), v("leverage 1.25x + band 10pt", lev=1.25, band=10.0),
+            v("base 5.5%", base=5.5), v("leverage 1.25x + base 5.5%", lev=1.25, base=5.5), v("restore 75%", restore_above=0.75), v("valve 4x", valve=4.0),
+            v("guardrail 75%", cut_below=0.75), v("skim>125%", skim=0.25)]
+FREE = {"cheap_gold", "bucket_tax", "bucket_offset"}                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
     "cheap_gold": lambda p: swap(p, "GLDSIM", "GLDMSIM", "GLD -> GLDM") + swap(p, "GLDSIM", "IAUMSIM", "GLD -> IAUM"),
     "bucket_tax": lambda p: [replace(p, name=f"{p.name} | bucket in Treasury fund", bucket_tax="treasury"), replace(p, name=f"{p.name} | bucket in BOXX", bucket_tax="boxx")],
@@ -146,6 +152,8 @@ IDEAS = {
     "rsst": rsst,
     "lever_engines": lever_engines,
     "gde_stack": gde_stack,
+    "bucket_offset": lambda p: [replace(p, name=f"{p.name} | bucket pays the loan down", bucket_offsets_loan=True)] if p.lev > 1 and not p.lev_daily else [],
+    "settings3": settings3,
 }
 
 def run(idea):
