@@ -238,3 +238,20 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
   prints $897/month in the first decade and $1,581 over 40 years (typical), vs $758 / $1,277 for MP-2.1. Margin calls
   are 0%, and break risk is no worse than MP-2.1 in every case. The box loan makes sense from ~$110k if someone runs
   it.
+
+## 2026-10-21 — optimizing MP-2.1 for recent Sharpe (`printer/recent_sharpe.py`, `results/recent_sharpe.log`)
+- **Walk-forward, six cut dates 1992–2016:** weights picked for the best Sharpe over the previous 5 or 10 years
+  shrink badly in the next 10 years. Average Sharpe in sample → next decade:
+  - recent 5 years: 1.00 → 0.74;
+  - recent 10 years: 0.89 → 0.77;
+  - all history: 0.87 → 0.79.
+  Picking by recent Sharpe is the worst method.
+- **Today's recent-Sharpe pick:** DBMF 36 · IAUM 35 · GDE 16 · TQQQ 6 · KMLM 5 · VBR 2, about 50% gold exposure after
+  gold's run.
+  - Sharpe 2016–26: 0.99 vs MP-2.1's 0.85. But 1972–26: 0.65 vs 0.78, with a worse max drawdown (−29.7% vs −26.8%).
+  - In the printer (the retiree's taxes, 2,000 fresh histories × 5 cases): **robust CE −16%** (−20% for the 5-year pick).
+    Ends below start 30% vs 9%, dips < 70% 44% vs 18%, runs dry 1.8% vs 0.0%.
+  - Only the 2000–26-era case is slightly better ($281 vs $272). **Not adopted.**
+- **Side finding:** MP-2/MP-2.1's weights lose about −10.1% in the hypothetical deflationary-recession scenario
+  (AI bust −8.51%), outside the search's −8.5% guard rail. That was probably introduced when MP-2 was simplified
+  after the search.

@@ -1,0 +1,22 @@
+1. WALK-FORWARD: pick weights at T, judge the next 10 years (Sharpe / CAGR / max drawdown)
+T      | recent 10y pick                        in-sample -> next 10y | recent 5y pick                         in-sample -> next 10y | all-history pick                       -> next 10y | MP-2.1 weights next 10y
+  1992 | VBR 35 KMLM 35 GDE 23 DBMF 7           0.80 -> 0.80 / 11.8% / -21.0% | VBR 35 KMLM 35 GDE 17 DBMF 7 TQQQ 6    0.26 -> 0.72 / 13.7% / -31.4% | VBR 35 KMLM 35 IAUM 23 DBMF 7          -> 0.86 / 10.4% / -12.7% | 0.72 / 11.1% / -16.4%
+  1997 | VBR 35 KMLM 35 GDE 17 DBMF 7 TQQQ 6    0.89 -> 0.59 / 11.5% / -31.4% | DBMF 36 VBR 35 GDE 13 KMLM 7 IAUM 7 TQQQ 2 2.05 -> 0.74 / 11.3% / -13.7% | VBR 35 KMLM 35 IAUM 20 DBMF 7 TQQQ 2 GDE 1 -> 0.75 / 10.8% / -17.0% | 0.71 / 11.2% / -16.4%
+  2002 | VBR 35 DBMF 25 IAUM 22 KMLM 17 TQQQ 1  0.88 -> 0.93 / 12.3% / -19.6% | DBMF 35 VBR 35 IAUM 23 KMLM 7          0.27 -> 0.94 / 12.1% / -19.5% | VBR 35 KMLM 22 IAUM 22 DBMF 20 TQQQ 1  -> 0.94 / 12.3% / -18.9% | 0.88 / 13.6% / -26.8%
+  2007 | DBMF 35 VBR 34 IAUM 24 KMLM 7          0.86 -> 0.70 /  7.2% / -19.2% | VBR 35 IAUM 35 DBMF 28 TQQQ 2          1.40 -> 0.67 /  8.2% / -25.9% | VBR 35 DBMF 33 IAUM 22 KMLM 9 TQQQ 1   -> 0.70 /  7.5% / -20.6% | 0.69 /  8.8% / -26.8%
+  2012 | IAUM 35 DBMF 27 VBR 17 KMLM 15 GDE 3 TQQQ 3 1.06 -> 0.71 /  6.9% / -15.4% | IAUM 36 KMLM 24 DBMF 18 GDE 14 VBR 6 TQQQ 2 0.91 -> 0.60 /  6.1% / -14.5% | VBR 35 IAUM 23 DBMF 21 KMLM 21         -> 0.73 /  7.0% / -18.4% | 0.78 /  9.3% / -22.9%
+  2016 | KMLM 35 IAUM 35 VBR 15 TQQQ 8 DBMF 7   0.86 -> 0.93 / 12.8% / -13.3% | VBR 35 KMLM 35 GDE 10 DBMF 7 TQQQ 7 IAUM 6 1.13 -> 0.78 / 12.8% / -23.1% | VBR 35 KMLM 27 IAUM 22 DBMF 15 TQQQ 1  -> 0.74 /  9.7% / -17.8% | 0.86 / 13.2% / -22.9%
+  recent10  pick: average in-sample Sharpe 0.89 -> next-10-year Sharpe 0.77
+  recent5   pick: average in-sample Sharpe 1.00 -> next-10-year Sharpe 0.74
+  all       pick: average in-sample Sharpe 0.87 -> next-10-year Sharpe 0.79
+  MP-2.1 weights (chosen with hindsight): average next-10-year Sharpe 0.77
+
+2. TODAY'S RECENT-SHARPE PICKS vs MP-2.1 (portfolio stats, then the printer on fresh histories)
+  recent 10y (2016-2026)   DBMF 36 IAUM 35 GDE 16 TQQQ 6 KMLM 5 VBR 2 | Sharpe 2016-26 0.99 | 2000-26 0.77 | 1972-26 0.65 (CAGR 12.9%, max DD -29.7%) | forward scenarios ok: True
+  recent 5y (2021-2026)    IAUM 35 DBMF 33 GDE 19 KMLM 9 TQQQ 4     | Sharpe 2016-26 0.97 | 2000-26 0.77 | 1972-26 0.63 (CAGR 12.5%, max DD -29.9%) | forward scenarios ok: True
+  MP-2.1                   DBMF 27 VBR 27 GDE 21 KMLM 15 IAUM 8 TQQQ 2 | Sharpe 2016-26 0.85 | 2000-26 0.75 | 1972-26 0.78 (CAGR 13.5%, max DD -26.8%) | forward scenarios ok: False
+
+  Printer, the retiree's taxes, $50k, 2,000 fresh histories x 5 cases:
+  -> IAUM | bucket in BOXX | cut to 60% | valve 4x | robust CE $268 (+0.0%) | first 10 yrs $252 | 40-yr $421 / bad $279 | lose 9% dip 18% dry 0.0% | trend -4% CE $237 | recent-era CE $272 | break risk no worse: True
+  1 settings | weights from recent 10y (2016-2026) | robust CE $226 (-15.8%) | first 10 yrs $243 | 40-yr $366 / bad $210 | lose 30% dip 44% dry 1.8% | trend -4% CE $170 | recent-era CE $281 | break risk no worse: False
+  .1 settings | weights from recent 5y (2021-2026) | robust CE $214 (-20.4%) | first 10 yrs $240 | 40-yr $343 / bad $198 | lose 35% dip 50% dry 2.4% | trend -4% CE $155 | recent-era CE $277 | break risk no worse: False
