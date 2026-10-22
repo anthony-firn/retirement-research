@@ -1,6 +1,5 @@
 /* Money Printer: one plain, readable sans everywhere (Atkinson Hyperlegible Next, made for easy reading), big numbers, few words.
    Neutral surfaces; strategy colors are the validated categorical slots (fixed per strategy); status colors only mean good/bad. */
-@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap");
 :root {
   --page: #f9f9f7; --surface: #fcfcfb; --raise: #ffffff; --ink: #0b0b0b; --ink-2: #52514e; --ink-3: #6f6e69; --muted: #898781;
   --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11, 11, 11, .10); --wash: rgba(11, 11, 11, .04);
@@ -183,3 +182,11 @@ details > summary { cursor: pointer; font-weight: 600; color: var(--ink-2) }
 .btn.answer { font-size: 20px; min-height: 64px; justify-content: flex-start; padding: 14px 20px }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0) }
 .picker button, .tabs button, nav.main a { min-height: 44px; display: inline-flex; align-items: center }
+body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom) }
+.wrap { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)) }
+dialog { max-width: min(560px, calc(100% - 32px)); border: 1px solid var(--axis); border-radius: var(--r); background: var(--raise); color: var(--ink); padding: 24px }
+dialog::backdrop { background: #0008 }
+.research-text { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit }
+.view pre { overflow: auto; padding: 16px; border-radius: var(--r); background: var(--wash) }
+.view code { overflow-wrap: anywhere }
+.view > * { min-width: 0 }

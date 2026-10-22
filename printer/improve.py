@@ -14,7 +14,8 @@ import os, sys, json, time, subprocess, datetime as dt, numpy as np
 from dataclasses import asdict, replace
 ROOT = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, ROOT); ACCEPT = "--accept" in sys.argv; sys.argv = [sys.argv[0]]
 import money_printer as mp, search as se
-P = mp.Printer; OUT = os.path.join(ROOT, "..", "results"); BEST_F = os.path.join(OUT, "improve_best.json")
+P = mp.Printer; OUT = os.environ.get("RESEARCH_OUT", os.path.join(ROOT, "..", "results")); BEST_F = os.environ.get("RESEARCH_BEST_FILE", os.path.join(OUT, "improve_best.json"))
+SEARCH_SEED = int(os.environ.get("SEARCH_SEED", "601")); VALIDATION_SEED = int(os.environ.get("VALIDATION_SEED", "701"))
 PATHS = int(os.environ.get("PATHS", "1000")); FRESH = int(os.environ.get("FRESH", "2000")); THROTTLE = max(0.75, float(os.environ.get("THROTTLE", "1")))
 S2 = dict(base=5.75, skim=0.40, bucket_months=48, cut_below=0.70, cut_to=0.65)
 START = {"simple": asdict(P("MP-2", mp.load_alloc("MP-2 engine"), **S2)),
@@ -266,12 +267,12 @@ def run(idea):
         ref = P(**spec); cand = IDEAS[idea](ref)
         if not cand: say(f"  [{track}] no candidates"); continue
         say(f"  [{track}] reference: {ref.name}; {len(cand)} candidates; search {PATHS} histories x 5 cases")
-        R = evaluate([ref] + cand, cases(601, PATHS)); C = list(cases(0, 1)); gain = 0.0 if idea in FREE else 0.0025 if idea in OPS else 0.005
+        R = evaluate([ref] + cand, cases(SEARCH_SEED, PATHS)); C = list(cases(0, 1)); gain = 0.0 if idea in FREE else 0.0025 if idea in OPS else 0.005
         def twin_ok(p):                                            # a proxy-based change counts only if its pessimistic twin passes too
             t = p.name.replace("RSST for", "RSST pessimistic for")
             return t == p.name or "pessimistic" in p.name or (t in R and safe(R[t], R[ref.name], C) and better(R[t], R[ref.name], gain))
         ok = sorted([p for p in cand if safe(R[p.name], R[ref.name], C) and twin_ok(p) and "pessimistic" not in p.name], key=lambda p: -R[p.name]["robust_ce"])[:3]
-        V = evaluate([ref] + ok, cases(701, FRESH)) if ok else {}
+        V = evaluate([ref] + ok, cases(VALIDATION_SEED, FRESH)) if ok else {}
         gain = 0.0 if idea in FREE else 0.0025 if idea in OPS else 0.005
         verdict = [p for p in ok if safe(V[p.name], V[ref.name], C) and better(V[p.name], V[ref.name], gain)]
         win = max(verdict, key=lambda p: V[p.name]["robust_ce"]) if verdict else None

@@ -1,0 +1,4 @@
+# Planned deployment target. Point DNS here and configure a protected household backend first.
+retirement.evolvetech.dev {
+    reverse_proxy 127.0.0.1:8777
+}

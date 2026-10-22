@@ -1,0 +1,76 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How the apps share one system — Retirement Research</title><link rel="stylesheet" href="/static/app.css"></head><body>
+<header class="top"><div class="in"><a class="logo" href="/">Retirement tools</a><nav class="main"><a href="/static/research/index.html">Research library</a></nav></div></header>
+<main class="wrap"><article class="view"><h1>How the apps share one system</h1><p>The goal is useful retirement decisions with a small, inspectable system. Shared code is a means to that goal.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Implementation</th>
+<th>Runs where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accessible interface</td>
+<td>Existing HTML, CSS, JavaScript; no UI framework or bundler</td>
+<td>Browser, iOS WebView, Android WebView</td>
+</tr>
+<tr>
+<td>Installation</td>
+<td>Web manifest and service worker; Capacitor 8 for native packaging</td>
+<td>Web, iOS, Android</td>
+</tr>
+<tr>
+<td>Research library</td>
+<td>Generated static HTML from reviewed public documentation</td>
+<td>Bundled on device; browser cache after first visit</td>
+</tr>
+<tr>
+<td>Planning and simulations</td>
+<td>Existing Python engine and FastAPI endpoints</td>
+<td>Household server today</td>
+</tr>
+<tr>
+<td>Personal trackers</td>
+<td>Existing private JSON files</td>
+<td>One household per server today</td>
+</tr>
+</tbody>
+</table></div>
+<p>The mobile app bundles its interface. It calls an explicitly configured HTTPS API for calculations and tracker actions.
+It does not download an arbitrary website through Capacitor's development-only <code>server.url</code> setting.
+The same formulas, tax assumptions and fund definitions serve every client.</p>
+<h2>Efficiency rules</h2>
+<ul>
+<li>Run exploratory searches offline on the research machine; never launch an optimizer for each phone visit.</li>
+<li>Reuse existing server caches for repeated scenarios. Measure latency, memory and accuracy before adding another cache or service.</li>
+<li>Keep the library usable without a server. Keep API responses and household information out of service-worker caches.</li>
+<li>Use system fonts, local scripts and local charts: no analytics, advertising SDK or font service is needed.</li>
+<li>CPU execution is supported by the simulation engine; a CUDA GPU accelerates large studies. No phone GPU is required.</li>
+<li>Prefer small, tested pure functions when extracting calculation code. Do not rewrite the Python engine in JavaScript merely to ship a phone app.</li>
+<li>Consider on-device deterministic calculations later if profiling shows a material privacy, availability or latency benefit. Require Python/mobile parity tests first.</li>
+</ul>
+<h2>Access and privacy</h2>
+<p>The current backend stores all trackers in one household directory. A single backend access key grants access to that household.
+Native origins are allowed explicitly and only when key protection is configured. Keys are entered at runtime and held in memory;
+they are not compiled into apps or saved in browser storage. Use TLS for all phone traffic.</p>
+<p>This is a self-hosted, single-household foundation. A public multi-user service requires user identities, authorization on every
+tracker, isolated storage, recovery and deletion, resource limits, and operational monitoring. An access key and CORS are not
+multi-user authorization. Do not place the current household server behind a shared public signup form.</p>
+<p>The API is network-only. Offline screens must not imply that stale market prices or an old trade preview are actionable.
+Read-only offline educational material is separate from live household calculations.</p>
+<h2>Helpful output before complexity</h2>
+<p>Start with income needs, timing, benefits, health expenses, inflation, account taxes and emergency savings.
+Show an income range, assumptions, costs, uncertainty and the next action. Compare a simple baseline before suggesting complexity.
+Borrowing is optional and must remain gated; a higher simulated paycheck alone is not a sufficient reason to borrow.
+The current US/California assumptions must be visible; they are not a universal tax model.</p>
+<h2>Technical references checked 2026-10-21</h2>
+<ul>
+<li><a href="https://capacitorjs.com/docs/getting-started">Capacitor installation</a>: an existing web project can supply the shared interface.</li>
+<li><a href="https://capacitorjs.com/docs/config">Capacitor configuration</a>: packaged web assets; <code>server.url</code> is for live reload, not production.</li>
+<li><a href="https://capacitorjs.com/docs/getting-started/environment-setup">Capacitor environment</a>: version 8 requires Node 22+, Xcode/macOS for iOS, and Android tooling for Android.</li>
+<li><a href="https://web.dev/learn/pwa/installation">PWA installation</a>: browser and operating-system installation behavior differs.</li>
+</ul>
+<p>Store acceptance, device behavior and performance still require testing. A generated native project is not a signed release.</p>
+</article></main></body></html>

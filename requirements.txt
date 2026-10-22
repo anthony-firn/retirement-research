@@ -1,0 +1,7 @@
+# Direct Python dependencies. Select a compatible CPU/CUDA torch wheel for your machine.
+fastapi>=0.115,<1
+uvicorn>=0.30,<1
+numpy>=1.26,<2
+torch>=2.3,<3
+requests>=2.32,<3
+scipy>=1.12,<2

@@ -4,6 +4,11 @@
 "use strict";
 const $ = s => document.querySelector(s);
 const app = $("#app");
+let routeVersion = 0;
+function latest(el) {
+  const job = Symbol(); if (el) el._job = job;
+  return () => !!el?.isConnected && el._job === job;
+}
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const money = x => (x == null || !isFinite(x) ? "–" : (x < 0 ? "−$" : "$") + Math.round(Math.abs(x)).toLocaleString("en-US"));
 const kmoney = x => (Math.abs(x) >= 1e7 ? "$" + Math.round(x / 1e6) + "M" : Math.abs(x) >= 1e6 ? "$" + (x / 1e6).toFixed(1) + "M" : Math.abs(x) >= 1e4 ? "$" + Math.round(x / 1e3) + "k" : money(x));
@@ -11,8 +16,7 @@ const pct = (x, d = 0) => (x == null ? "–" : (x * 100).toFixed(d) + "%");
 const num = s => Number(String(s).replace(/[^0-9.\-]/g, "")) || 0;
 function toast(m, ms = 2600) { const t = $("#toast"); t.textContent = m; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => (t.hidden = true), ms); }
 async function api(url, body) {
-  const r = await fetch(url, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
-  const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.detail || "Something went wrong."); return j;
+  return PrinterPlatform.request(url, body);
 }
 const ICON = {
   grow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7Z"/><path d="M12 14c0-3-2-6-7-6 0 4 2 7 7 6Z"/></svg>',
@@ -80,7 +84,9 @@ const loading = (msg = "Working it out…") => `<p class="hint">${msg}</p>`;
 
 // ------------------------------------------------------------------ HOME
 async function home() {
+  const version = routeVersion;
   let mine = []; try { mine = await api("/api/ops/list"); } catch {}
+  if (version !== routeVersion) return;
   app.innerHTML = `<section class="view">
     <h1>What do you want to do?</h1>
     <a class="tile start" href="#/start">${ICON.vs}<b>Start here: make my plan</b><span>8 easy questions. Get a tested plan made for you.</span></a>
@@ -126,8 +132,10 @@ function start() {
   if (i) $("#q-back").onclick = () => { Q.step--; start(); };
 }
 async function startResult() {
+  const version = routeVersion;
   app.innerHTML = `<section class="view">${loading("Testing plans on 50 years of markets…")}</section>`; let r;
-  try { r = await api("/api/quest", { ...sit(), goal: Q.goal || "steady", borrow: Q.borrow || "no" }); } catch (e) { app.innerHTML = `<section class="view"><p class="err">${esc(e.message)}</p><a class="btn" href="#/start">Start again</a></section>`; return; }
+  try { r = await api("/api/quest", { ...sit(), goal: Q.goal || "steady", borrow: Q.borrow || "no" }); } catch (e) { if (version !== routeVersion) return; app.innerHTML = `<section class="view"><p class="err">${esc(e.message)}</p><a class="btn" href="#/start">Start again</a></section>`; return; }
+  if (version !== routeVersion) return;
   const p = r.profile, m = RB[r.pick]; S.s = r.pick;
   app.innerHTML = `<section class="view">
     <section class="card plan" style="--c:${color(r.pick)}"><span class="label">Your class</span><h1>${esc(r.cls)}</h1><p>${esc(r.tagline)}</p>
@@ -174,9 +182,10 @@ async function build() {
   paintBuild();
 }
 async function paintBuild() {
-  const out = $("#b-out"); let r; const b = S.b;
+  const out = $("#b-out"); const current = latest(out); if (!current()) return; let r; const b = S.b;
   try { r = await api("/api/build", { age: b.age, saved: b.saved, monthly: b.monthly, want: b.want, ss: b.ss, claim: b.claim, other: b.other, sex: b.sex, account: b.acct, bracket: b.br, pay: b.pay, mix: b.mix, health: !!b.health, raise: !!b.raise }); }
-  catch (e) { out.innerHTML = `<p class="err">${esc(e.message)}</p>`; return; }
+  catch (e) { if (current()) out.innerHTML = `<p class="err">${esc(e.message)}</p>`; return; }
+  if (!current()) return;
   const t = r.retire, bd = r.breakdown, age = b.age, R = t.typical, yr = new Date().getFullYear() + (R ? R - age : 0), pay = RB[r.pay];
   const lv = r.levels.slice(1).map(l => `<span class="chip">Save ${money(l.monthly)}/mo → ${l.typical ?? "90+"}</span>`).join("");
   const c = r.contrib; const cnote = c.overflow > 1 && b.acct !== "taxable" ? `${b.acct === "roth" ? "Roth" : "401(k)"} limit: ${money(c.limit)}/mo. The other ${money(c.overflow)}/mo goes to a regular account.`
@@ -228,8 +237,9 @@ async function retire() {
   app.innerHTML = `<section class="view"><h1>Pay myself</h1>${bar.html}<div id="r-out">${loading()}</div></section>`; bar.wire(); paintRetire();
 }
 async function paintRetire() {
-  const out = $("#r-out"); let r;
-  try { r = await api("/api/profiles", { ...sit(), ids: ["mp21", "box", "crash"] }); } catch (e) { out.innerHTML = `<p class="err">${esc(e.message)}</p>`; return; }
+  const out = $("#r-out"); const current = latest(out); if (!current()) return; let r;
+  try { r = await api("/api/profiles", { ...sit(), ids: ["mp21", "box", "crash"] }); } catch (e) { if (current()) out.innerHTML = `<p class="err">${esc(e.message)}</p>`; return; }
+  if (!current()) return;
   planNote(r.situation); const av = r.strategies.filter(p => p.available); const by = Object.fromEntries(av.map(p => [p.id, p]));
   const bestId = by.box && S.amount >= 110000 ? "box" : "mp21"; const best = by[bestId]; const others = av.filter(p => p.id !== bestId);
   const card = (p, hero) => { const m = RB[p.id];
@@ -266,10 +276,11 @@ async function compare() {
 const STATS = [["life", "Paycheck", p => money(p.life)], ["floor", "Steady pay", p => money(p.floor)], ["never_cut", "Rarely cut", p => `${pct(p.never_cut)} never cut`],
   ["deep_dip", "Calm", p => `${pct(p.deep_dip)} big drop`], ["stress_life", "Tough times", p => `${money(p.stress_life)} if unlucky`], ["left", "Leaves", p => kmoney(p.left)], ["ease", "Easy", p => `${p.ease}/10`]];
 async function paintCompare() {
-  const cards = $("#c-cards"), bt = $("#c-battles"); const ids = S.ids.slice();
+  const cards = $("#c-cards"), bt = $("#c-battles"); const ids = S.ids.slice(); const current = latest(cards); if (!current()) return;
   cards.innerHTML = loading(); bt.innerHTML = "";
   let pr, ba;
-  try { [pr, ba] = await Promise.all([api("/api/profiles", { ...sit(), ids }), api("/api/battles", { ...sit(), ids })]); } catch (e) { cards.innerHTML = `<p class="err">${esc(e.message)}</p>`; return; }
+  try { [pr, ba] = await Promise.all([api("/api/profiles", { ...sit(), ids }), api("/api/battles", { ...sit(), ids })]); } catch (e) { if (current()) cards.innerHTML = `<p class="err">${esc(e.message)}</p>`; return; }
+  if (!current()) return;
   planNote(pr.situation);
   cards.innerHTML = `<div class="grid">${pr.strategies.map(p => { const m = RB[p.id];
     if (!p.available) return `<section class="card plan off" style="--c:${color(p.id)}"><div class="name"><b>${esc(m.name)}</b></div><p>${esc(p.why)}</p></section>`;
@@ -334,9 +345,10 @@ function ordersHTML(actions) {
     return `<section class="card action"><div class="t">${icon}<h2>${title}</h2></div>${spend}${box}${tr}<details><summary>Why</summary><p class="small">${esc(a.why)}</p></details></section>`; }).join("");
 }
 async function paintSetup() {
-  const out = $("#u-out"); const m = RB[S.s]; let r;
+  const out = $("#u-out"); const current = latest(out); if (!current()) return; const m = RB[S.s]; let r;
   if (!m.operable) { out.innerHTML = `<p>This one is for comparing only.</p>`; return; }
-  try { r = await api("/api/ops/setup", { id: S.s, amount: S.amount, account: S.acct, bracket: S.br, age: S.age, sex: S.sex }); } catch (e) { out.innerHTML = `<p class="err">${esc(e.message)}</p>`; return; }
+  try { r = await api("/api/ops/setup", { id: S.s, amount: S.amount, account: S.acct, bracket: S.br, age: S.age, sex: S.sex }); } catch (e) { if (current()) out.innerHTML = `<p class="err">${esc(e.message)}</p>`; return; }
+  if (!current()) return;
   const key = `steps:${S.s}`; let done = []; try { done = JSON.parse(localStorage.getItem(key) || "[]"); } catch {}
   out.innerHTML = `<div class="grid two"><section class="stack"><h2>Do these in order</h2><ol class="steps" id="u-steps">${r.steps.map((s, i) => `<li class="${done.includes(i) ? "done" : ""}" data-i="${i}"><div><b>${esc(s.title)}.</b> ${esc(s.text)}</div></li>`).join("")}</ol>
       <p class="hint">Tap a step when it is done.</p></section>
@@ -351,7 +363,9 @@ async function paintSetup() {
 
 // ------------------------------------------------------------------ TODAY
 async function today() {
+  const version = routeVersion;
   let mine = []; try { mine = await api("/api/ops/list"); } catch {}
+  if (version !== routeVersion) return;
   if (!mine.length) { app.innerHTML = `<section class="view"><div class="card empty">${ICON.today}<h1>No plan yet</h1><p>Set one up and it will tell you exactly what to do.</p><a class="btn go" href="${link("retire")}">Pay myself</a></div></section>`; return; }
   if (!mine.some(t => t.name === S.n)) S.n = mine[0].name; setHash("today");
   app.innerHTML = `<section class="view"><div class="row between"><h1>Today</h1>
@@ -362,8 +376,9 @@ async function today() {
   $("#t-go").onclick = () => paintToday(num($("#t-dep").value)); paintToday(0);
 }
 async function paintToday(deposit) {
-  const out = $("#t-out"); let r;
-  try { r = await api("/api/ops/today", { name: S.n, deposit }); } catch (e) { out.innerHTML = `<p class="err">${esc(e.message)}</p>`; return; }
+  const out = $("#t-out"); const current = latest(out); if (!current()) return; let r;
+  try { r = await api("/api/ops/today", { name: S.n, deposit }); } catch (e) { if (current()) out.innerHTML = `<p class="err">${esc(e.message)}</p>`; return; }
+  if (!current()) return;
   const st = r.status, next = r.calendar[0];
   const todo = r.nothing ? `<section class="card empty">${ICON.check}<h1>Nothing to do today</h1><p>Next: <b>${esc(next.what)}</b> on ${next.date}.</p></section>`
     : `<section class="stack"><h2>To do today</h2>${ordersHTML(r.actions)}<button class="btn go" id="t-done" style="justify-self:start">I placed these trades — save</button></section>`;
@@ -393,11 +408,13 @@ async function paintToday(deposit) {
 // ------------------------------------------------------------------ router
 const VIEWS = { "": home, start, "start-result": startResult, build, retire, compare, setup, today };
 async function route() {
+  routeVersion++;
   const v = readHash();
   for (const a of document.querySelectorAll("nav.main a[data-v]")) { if (a.dataset.v === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); }
   window.scrollTo(0, 0); await (VIEWS[v] || home)();
 }
 (async () => {
-  try { R = await api("/api/roster"); RB = Object.fromEntries(R.map(r => [r.id, r])); } catch { app.innerHTML = `<p class="err">The app server is not running.</p>`; return; }
+  try { R = await api("/api/roster"); RB = Object.fromEntries(R.map(r => [r.id, r])); } catch (e) {
+    app.innerHTML = `<section class="view"><h1>Connect to your retirement tools</h1><p>${esc(e.message)}</p><div class="row"><button class="btn" onclick="location.reload()">Try again</button><a class="btn go" href="/static/research/index.html">Read the research</a></div></section>`; return; }
   addEventListener("hashchange", route); route();
 })();

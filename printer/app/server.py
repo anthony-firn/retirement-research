@@ -13,15 +13,18 @@ The redesigned app is at / ; the original Forge (frontier, backtests) is at /cla
 mix = dollars by tax treatment {free, deferred, taxable}; bracket = "low" | "mid" (see atlas_data.BRACKETS).
 Results are cached in memory for the session. Binds to 127.0.0.1 only."""
 import os, sys, json, gzip, argparse, functools, webbrowser, threading
-from urllib.parse import urlsplit
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.middleware.cors import CORSMiddleware
+from security import guard
 import atlas_data, backtest as bt, share, plans
 
 app = FastAPI(title="Money Printer Forge", docs_url=None, redoc_url=None)
+API_TOKEN = os.environ.get("MONEY_PRINTER_API_TOKEN", "")
+ALLOWED_ORIGINS = [o.strip() for o in os.environ.get("MONEY_PRINTER_ALLOWED_ORIGINS", "").split(",") if o.strip()]
 app.add_middleware(GZipMiddleware, minimum_size=2000)
 app.mount("/static", StaticFiles(directory=os.path.join(HERE, "static")), name="static")
 ATLAS = atlas_data.build()
@@ -55,18 +58,12 @@ def index(): return FileResponse(os.path.join(HERE, "static", "index.html"))
 @app.get("/classic")
 def classic(): return FileResponse(os.path.join(HERE, "static", "classic", "index.html"))
 
-@app.middleware("http")
-async def same_origin(request: Request, call_next):
-    """Only this app's own pages may change trackers: blocks other websites (open in the same browser) from posting to /api/ops."""
-    if request.method == "POST" and request.url.path.startswith("/api/ops/"):
-        o = request.headers.get("origin") or request.headers.get("referer") or ""
-        try:
-            source, target = urlsplit(o), urlsplit(str(request.url))
-            allowed = (source.scheme, source.hostname, source.port) == (target.scheme, target.hostname, target.port)
-        except ValueError:
-            allowed = False
-        if o and not allowed: return JSONResponse({"detail": "Not allowed."}, status_code=403)
-    return await call_next(request)
+app.middleware("http")(guard(API_TOKEN, ALLOWED_ORIGINS))
+
+@app.get("/sw.js")
+def service_worker():
+    return FileResponse(os.path.join(HERE, "static", "sw.js"), media_type="application/javascript",
+                        headers={"Cache-Control": "no-cache"})
 
 def _plain(fn, q):
     try: return JSONResponse(fn(q))
@@ -108,9 +105,15 @@ def history(q: dict): return run("history", q)
 @app.post("/api/fan")
 def fan(q: dict): return run("fan", q)
 
+if API_TOKEN and ALLOWED_ORIGINS:
+    app.add_middleware(CORSMiddleware, allow_origins=ALLOWED_ORIGINS,
+                       allow_methods=["GET", "POST"], allow_headers=["Content-Type", "Authorization"])
+
 if __name__ == "__main__":
     import uvicorn
-    ap = argparse.ArgumentParser(); ap.add_argument("--port", type=int, default=8777); ap.add_argument("--open", action="store_true"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--port", type=int, default=8777); ap.add_argument("--host", default="127.0.0.1"); ap.add_argument("--open", action="store_true"); a = ap.parse_args()
+    if a.host not in ("127.0.0.1", "localhost", "::1") and not API_TOKEN:
+        ap.error("Set MONEY_PRINTER_API_TOKEN before listening beyond localhost. Use HTTPS for phone access.")
     url = f"http://127.0.0.1:{a.port}"; print(f"Money Printer Forge: {url}", flush=True)
     if a.open: threading.Timer(1.5, lambda: webbrowser.open(url)).start()
-    uvicorn.run(app, host="127.0.0.1", port=a.port, log_level="warning")
+    uvicorn.run(app, host=a.host, port=a.port, log_level="warning")

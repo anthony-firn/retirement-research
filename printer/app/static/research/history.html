@@ -1,0 +1,83 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Research history — Retirement Research</title><link rel="stylesheet" href="/static/app.css"></head><body>
+<header class="top"><div class="in"><a class="logo" href="/">Retirement tools</a><nav class="main"><a href="/static/research/index.html">Research library</a></nav></div></header>
+<main class="wrap"><article class="view"><h1>Research history</h1><p>This is an index of the repository's recorded work. It is not a claim that every exploratory run was preserved or independently verified.
+Historical figures and product rates in older reports describe the report date and need rechecking before use.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Implementation</th>
+<th>Evidence and discussion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which diversified portfolios survive different decades?</td>
+<td><code>lab/beat*.py</code>, <code>lab/cv.py</code>, <code>lab/verify*.py</code></td>
+<td><code>results/STRATEGY.md</code>, <code>results/LINEUP.md</code>, committed lab result JSON/logs</td>
+</tr>
+<tr>
+<td>Can we reproduce portfolio backtests ourselves?</td>
+<td><code>engine/backtest.py</code>, <code>engine/sims.py</code>, <code>engine/validate.py</code></td>
+<td><code>engine/README.md</code>, <code>results/engine_validation.log</code></td>
+</tr>
+<tr>
+<td>How can savings produce an after-tax monthly paycheck?</td>
+<td><code>printer/money_printer.py</code>, <code>printer/search.py</code>, <code>printer/validate.py</code></td>
+<td><code>results/MONEY_PRINTER.md</code>, <code>results/PRINTER_SEARCH.md</code>, <code>results/printer_validate_table.md</code></td>
+</tr>
+<tr>
+<td>Does cheap credit help after taxes and forced-sale risk?</td>
+<td><code>printer/credit.py</code></td>
+<td><code>results/CREDIT.md</code>, corresponding credit sweep JSON/logs</td>
+</tr>
+<tr>
+<td>Which passive changes improve the income/risk trade-off?</td>
+<td><code>printer/improve.py</code></td>
+<td><code>results/IMPROVE.md</code>, <code>results/improve/*.json</code>, <code>.log</code> and <code>.err</code></td>
+</tr>
+<tr>
+<td>Are apparent gains caused by unrealistic reconstructed funds?</td>
+<td><code>strategy/history70s.py</code>, <code>printer/recent_sharpe.py</code>, <code>printer/deflation_fix.py</code></td>
+<td><code>results/FINDINGS.md</code>, rejected candidates and pessimistic proxy tests in <code>results/IMPROVE.md</code></td>
+</tr>
+<tr>
+<td>What happens from real market peaks?</td>
+<td><code>printer/bubble_starts.py</code>, <code>printer/backtest_real.py</code></td>
+<td>bubble-start and actual-history result files in <code>results/</code></td>
+</tr>
+<tr>
+<td>Does the operational tracker follow the simulator?</td>
+<td><code>printer/operate.py</code>, <code>printer/replay.py</code></td>
+<td><code>results/PRINTER_OPERATOR.md</code>, replay output and limits in <code>results/PRINTER_FORGE.md</code></td>
+</tr>
+<tr>
+<td>How do saving, retirement age, Social Security, health costs and account taxes interact?</td>
+<td><code>printer/app/plans.py</code>, <code>printer/safe_base.py</code>, <code>planner/</code></td>
+<td><code>results/safe_base.json</code>, <code>results/PRINTER_FORGE.md</code>; simplified assumptions are visible in the code</td>
+</tr>
+<tr>
+<td>Can someone understand and operate this on a phone?</td>
+<td><code>printer/app/static/</code>, <code>mobile/</code></td>
+<td>browser checks, API tests, native build instructions; physical-device testing remains necessary</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Reading the passive-improvement sequence</h2>
+<p>The 2026-10-21 log in <code>results/IMPROVE.md</code> records cheaper gold, bonus-bucket tax treatment, spending settings,
+combined loans, stacked-fund proxies, glidepaths, harvest rules, changing allocations, additional trend exposure,
+crash leverage, phase-in and real-asset ideas. Many were rejected or retained only as optional trade-offs.
+Use the JSON metrics and reference specification from each run; do not reconstruct a conclusion solely from a summary paragraph.</p>
+<p><code>results/FINDINGS.md</code> gives the broader running record. <code>git log --oneline -- printer strategy lab results</code> shows changes to the
+methods and conclusions. This preserves public research decisions without publishing raw household conversations.</p>
+<h2>Known evidence gaps</h2>
+<ul>
+<li>Seeds used repeatedly during development are no longer untouched validation seeds.</li>
+<li>New bootstrap paths are not new market regimes. Model risk, multiple testing and shared proxy errors remain.</li>
+<li>The legacy acceptance predicate permits small absolute risk regressions; read METHOD.md before repeating the phrase “no worse.”</li>
+<li>The latest selected settings still need prospective tracking and independent replication.</li>
+<li>Life expectancy estimates, healthcare assumptions, benefits and taxes need broader review and jurisdiction-specific modules.</li>
+<li>The data pipeline still depends on third-party historical caches and an undocumented external API in places.</li>
+</ul>
+</article></main></body></html>

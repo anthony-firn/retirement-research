@@ -24,3 +24,13 @@ printer/signals_cache.npy
 
 # personal inputs, notes and outputs (household facts) - never commit
 private/
+
+# Native shells are generated from mobile/capacitor.config.json; do not commit dependencies, build output or signing keys.
+mobile/node_modules/
+mobile/www/
+mobile/ios/
+mobile/android/
+*.keystore
+*.jks
+*.p12
+*.mobileprovision

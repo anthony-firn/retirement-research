@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reproduce and improve a search — Retirement Research</title><link rel="stylesheet" href="/static/app.css"></head><body>
+<header class="top"><div class="in"><a class="logo" href="/">Retirement tools</a><nav class="main"><a href="/static/research/index.html">Research library</a></nav></div></header>
+<main class="wrap"><article class="view"><h1>Reproduce and improve a search</h1><h2>Set up and check the inputs</h2>
+<p>Use Python 3.11 or 3.12 and a virtual environment. Install <code>requirements.txt</code>. Choose the appropriate PyTorch CPU/CUDA
+distribution for your machine. Then run:</p>
+<pre><code class="language-bash">python3 tools/research_snapshot.py --output /tmp/retirement-inputs.json
+CUDA_VISIBLE_DEVICES='' python3 -m unittest discover -s printer/app/tests -v
+THROTTLE=1 python3 printer/regress.py check
+</code></pre>
+<p>The snapshot records public code/data hashes, versions, commit and missing generated inputs. Missing inputs are a blocker for
+the simulator, not an invitation to substitute unrelated data. See DATA.md. Exact baseline equality is expected on the original
+GPU path; different CPU reductions can differ in the last few decimal places. Report that difference rather than resaving the baseline.</p>
+<h2>Write down the question before searching</h2>
+<p>Copy EXPERIMENT_TEMPLATE.md. Specify population, jurisdiction, horizon, tax profile, baseline, candidate family, costs,
+objective and risk tolerances. Use generic example households. Keep a simple stock/bond baseline and the existing printer baseline.
+Agree on the meaning of improvement before looking at the results.</p>
+<h2>Re-run an existing passive idea without replacing historical artifacts</h2>
+<p>The runner creates a new directory, copies the current reference specification, records input hashes and captures stdout/stderr.
+It does not promote a winner or change the app. A small run checks plumbing only:</p>
+<pre><code class="language-bash">CUDA_VISIBLE_DEVICES='' python3 tools/run_experiment.py --idea cheap_gold --name gold-smoke --paths 8 --fresh 8 --seed 202610210
+</code></pre>
+<p>For a research run, choose a new seed family and adequate sample size; record it before seeing results:</p>
+<pre><code class="language-bash">python3 tools/run_experiment.py --idea cheap_gold --name gold-replication --paths 1000 --fresh 2000 --seed 202610310
+</code></pre>
+<p>The five cases are the base block bootstrap, trend returns reduced 2%/year and 4%/year, the post-2000 era, and three-month blocks.
+Real history windows and explicit unobserved shocks provide additional checks. Report dollars per month after tax in today's dollars,
+early-retirement and lifetime income, low-percentile outcomes, cuts, deep dips, real loss, depletion, margin calls, costs and complexity.</p>
+<h2>What the existing acceptance code actually checks</h2>
+<p><code>printer/improve.py:safe</code> permits, per stress case, up to <strong>1 percentage point more real loss</strong>, <strong>2 points more deep dips</strong>,
+<strong>0.2 points more depletion</strong>, and <strong>2 points fewer histories with an uncut base paycheck</strong>, relative to the reference.
+The maximum margin-call probability may be no higher than the greater of 1% and the reference's maximum.
+These are engineering tolerances in the legacy search, not proof that risk is equal or lower.</p>
+<p><code>better</code> also requires a category-specific increase in mean certainty-equivalent spending and no reduction in base-case
+low-percentile first-decade spending. The thresholds and candidate categories are defined in the code; copy them into your record.
+The certainty-equivalent objective uses risk aversion gamma=3 and is not the same as the median paycheck.</p>
+<h2>Stronger validation for new recommendations</h2>
+<p>Do not silently call legacy acceptance strict dominance. Report differences and uncertainty for every metric and stress case.
+For a strict no-increase rule, require every specified risk estimate to be no worse; explain that sampling uncertainty can still hide harm.
+Use paired common paths for candidate/baseline comparisons, multiple held-out seed families, proxy alternatives, cost/rate sensitivity,
+historical starts, and walk-forward selection where feasible. Preserve the full candidate count and rejected runs to expose multiple testing.
+Bootstrap confidence intervals require a justified resampling unit; overlapping histories are not independent real-world observations.</p>
+<p>The original harness uses fixed seed families. The new runner supplies distinct search and validation families; changing them does
+not create new observations or repair hindsight in a fund proxy. Independent datasets and prospective tracking remain valuable.</p>
+<h2>Thermal and promotion rules</h2>
+<p>Keep one GPU study active at a time. The runner sets <code>THROTTLE=1</code>, checks temperature, and refuses to start at 80°C or above.
+The harness also cools between batches. Use CPU mode for tiny checks. A smoke test does not establish financial performance.</p>
+<p>Review a candidate's full results, source rights and implementation feasibility before promotion. Update the specification, public
+explanation, rejected-idea log and relevant regression checks together. Do not change existing default results merely to pass a test.</p>
+</article></main></body></html>

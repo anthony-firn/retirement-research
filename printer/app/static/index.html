@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Money Printer</title>
+<meta name="theme-color" content="#f9f9f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="description" content="Open retirement research and tools for preparing for retirement and turning savings into income.">
+<link rel="manifest" href="/static/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="/static/vendor/uPlot.min.css">
 <link rel="stylesheet" href="/static/app.css">
@@ -12,14 +18,17 @@
 <header class="top"><div class="in">
   <a class="logo" href="#/"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="8" width="26" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="16" cy="16" r="4" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M7 12v8M25 12v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Money Printer</a>
   <nav class="main" aria-label="Main">
-    <a href="#/build" data-v="build">Grow</a><a href="#/retire" data-v="retire">Pay myself</a><a href="#/compare" data-v="compare">Compare</a><a href="#/today" data-v="today">Today</a><a class="adv" href="/classic">Advanced</a>
+    <a href="#/build" data-v="build">Grow</a><a href="#/retire" data-v="retire">Pay myself</a><a href="#/compare" data-v="compare">Compare</a><a href="#/today" data-v="today">Today</a><a class="adv" href="/classic">Advanced</a><a href="/static/research/index.html">Research</a>
   </nav>
 </div></header>
+<p class="wrap hint" id="connection-status" role="status" hidden>You are offline. Calculations and tracker changes need your server. You can still read the research.</p>
 <main class="wrap" id="app" aria-live="polite"></main>
 <footer class="wrap foot"><p>Tested on 1972–2026 market history, much of it rebuilt for funds that did not exist yet. Not a promise. Not financial, tax or legal advice. Leveraged funds and loans can lose money fast.</p></footer>
 <div class="toast" id="toast" role="status" hidden></div>
 <script src="/static/vendor/uPlot.iife.min.js"></script>
 <script src="/static/charts.js"></script>
+<script src="/static/config.js"></script>
+<script src="/static/platform.js"></script>
 <script src="/static/app.js"></script>
 </body>
 </html>

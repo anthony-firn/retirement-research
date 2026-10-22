@@ -1,0 +1,19 @@
+{
+  "name": "retirement-research-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Thin native shells around the shared retirement web interface.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node build.mjs",
+    "add:ios": "cap add ios",
+    "add:android": "cap add android",
+    "sync": "cap sync",
+    "open:ios": "cap open ios",
+    "open:android": "cap open android",
+    "test": "node --test build.test.mjs"
+  },
+  "dependencies": { "@capacitor/core": "8.5.3", "@capacitor/android": "8.5.3", "@capacitor/ios": "8.5.3" },
+  "devDependencies": { "@capacitor/cli": "8.5.3" },
+  "overrides": { "xcode": { "uuid": "11.1.1" } }
+}

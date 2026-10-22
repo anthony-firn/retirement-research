@@ -1,7 +1,56 @@
-# Investment — portfolio research with testfol.io
+# Retirement Research
 
-Backtesting and optimizing a diversified portfolio against testfol.io's (undocumented) backtest API,
-with a local simulator for fast searches. testfol.io is always the final judge.
+Open tools and evidence for preparing for retirement and turning savings into spendable income.
+One web interface serves desktop, installable web apps, iOS and Android native shells, with one shared Python research engine.
+
+Original code and documentation use [Apache License 2.0](LICENSE), allowing community and proprietary reuse.
+Third-party software and market data have [separate rights and notices](THIRD_PARTY.md).
+
+## Start here
+
+- **Use the local app:** `./forge` opens [localhost:8777](http://127.0.0.1:8777).
+- **Understand the evidence:** [research library](docs/research/README.md), [history](docs/research/HISTORY.md), [data limits](docs/research/DATA.md).
+- **Reproduce or improve a search:** [method and commands](docs/research/METHOD.md), [experiment template](docs/research/EXPERIMENT_TEMPLATE.md).
+- **Build phone apps:** [iOS/Android instructions](mobile/README.md), [shared architecture](docs/ARCHITECTURE.md).
+- **Help:** [contributor guide](CONTRIBUTING.md), [roadmap](ROADMAP.md).
+
+The app's Research link opens the public library, cached for offline reading after browser installation and bundled in native builds.
+Calculations and tracker actions require the Python server. Native packaging is implemented; signed store releases are still pending.
+The current backend belongs to one household and must not share its private tracker directory between unrelated users.
+
+## Development
+
+Use Python 3.11 or 3.12 in a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+python3 tools/research_snapshot.py --output /tmp/retirement-inputs.json
+python3 tools/build_offline.py
+CUDA_VISIBLE_DEVICES='' python3 -m unittest discover -s printer/app/tests -v
+node --test mobile/build.test.mjs
+./forge
+```
+
+A fresh checkout needs the generated datasets checked by the snapshot tool; follow [the dependency chain](docs/research/DATA.md).
+Installing packages alone does not supply those inputs. Remote availability and redistribution rights remain limitations.
+The current local installation already has them. Native tooling requires Node 22+.
+
+For an isolated small experiment:
+
+```bash
+CUDA_VISIBLE_DEVICES='' python3 tools/run_experiment.py --idea bucket_tax --name bucket-smoke --paths 8 --fresh 8 --seed 202610210
+```
+
+This records fingerprints and output in a new directory without promoting a winner. Tiny runs test wiring, not performance.
+The planner uses simplified US/California tax and benefit assumptions. Some histories are reconstructed. Bootstrap paths reuse
+observed data, and the legacy acceptance test allows [documented risk tolerances](docs/research/METHOD.md).
+
+## Original portfolio lab
+
+The conventions below describe the original lineup research and third-party comparisons. Other strategy families must state
+their own constraints. The public research library explains the later income-printer and retirement-planning work.
 
 ## Rules for a valid result
 - **Final test = one continuous testfol.io backtest**, 1987-12-31 → today (KMLMSIM sets the start).

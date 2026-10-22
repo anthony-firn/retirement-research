@@ -1,43 +1,50 @@
-# Roadmap — from personal tool to a product that helps people
+# Roadmap: an open retirement resource
 
-Written 2026-10-17. The regulatory notes are a general orientation, **not legal advice** — confirm each step
-with a securities attorney / compliance consultant in the states where you operate.
+Updated 2026-10-21. The public foundation uses Apache-2.0; later proprietary systems can be separate products. Existing public releases retain their license.
 
-## Phase 0 — Personal research tool (now)
-- Lineup portfolios, policy (life-stage tier + guaranteed breaker), advisor, withdrawal rule (done).
-- Retirement planner: Social Security, pensions, account types, taxes, RMDs (done — `planner/plan.py`).
-- Tax-aware rebalancing study (done — `planner/tax_rebalance.py`); asset location (next).
-- Data: testfol.io API (undocumented; fine for personal research, not for a product).
+## Shared app and evidence foundation — implemented
 
-## Phase 1 — Own backtest engine ("our testfol") (started — `engine/`, see engine/README.md)
-- `engine/` package: data layer, simulated ("SIM") backfills, portfolio backtester, testfol-compatible JSON API.
-- Free/public sources: Ken French data library (US equity 1926+, factors, industries), FRED (Treasury yields,
-  T-bills, CPI), Shiller (S&P/CPI 1871+), Yahoo/Stooq daily ETF prices for personal use.
-- SIM recipes mirror testfol's documented sources (`lab/sim_catalog.csv`): e.g. VTISIM = Fama-French Rm-Rf + Rf →
-  VTSMX → VTI; IEF/TLT SIMs = Treasury-yield total-return models; GLDSIM = LBMA gold.
-- Validation gate: every SIM and every lineup portfolio must match testfol within ~0.1%/yr CAGR and ~0.5 pt MDD
-  before testfol is retired from the pipeline.
-- Self-host: FastAPI service + simple web UI, local first.
+- One accessible HTML/CSS/JavaScript interface and one Python calculation/research engine.
+- Local household app, plan questionnaire, strategy comparisons and trade tracker.
+- PWA manifest/icons, public offline reading and thin Capacitor iOS/Android build configuration.
+- Public research history, documented acceptance tolerances, data fingerprints and isolated experiment records.
+- Household API access key, explicit native-origin permission and network-only financial responses.
 
-## Phase 2 — Product hardening (before any outside user)
-- Licensed market data for anything redistributed (Yahoo/Stooq terms generally prohibit commercial use).
-- Suitability flow: risk questionnaire, income/tax/SS inputs, leverage-free default for simple/vulnerable users.
-- Security & privacy: no credentials stored, encryption at rest, privacy policy (GLBA-style safeguards).
-- Audit trail of every recommendation (inputs, data version, model version).
-- Marketing hygiene: the SEC Marketing Rule restricts hypothetical/backtested performance in advertising.
+Generated native projects are not signed store releases. Physical-device testing remains necessary.
 
-## Phase 3 — Regulatory ladder (US, typical path — verify with counsel)
-1. **Personal use only** — no registration needed.
-2. **Free general education** (articles, generic model portfolios, calculators) — the "publisher" exclusion can
-   apply to impersonal, bona-fide, regularly published content; *personalised* tool output is a grey zone.
-3. **State-registered investment adviser (RIA)** — required in most states once you give personalised advice for
-   compensation (de-minimis client exemptions vary by state). Typical steps: Series 65 (or CFP/CFA waiver), Form ADV
-   Parts 1 & 2 via IARD, compliance manual, code of ethics, books & records, E&O insurance.
-4. **SEC registration** — generally at ~$100M+ regulatory AUM, or via the internet-adviser exemption
-   (Rule 203A-2(e), amended 2024 — check current conditions). Annual ADV updates, CCO, compliance program.
-5. Optional credibility: CFP® certification; avoid custody (use client-owned brokerage accounts + broker APIs).
+## Private mobile beta — next release
 
-## Guiding principles
-- Honest testing: walk-forward, out-of-sample, stress beyond the data, costs included — keep the logs.
-- Default to the simplest portfolio that meets the need; complexity must earn its keep.
-- The tool informs; the person decides.
+- Choose permanent app identity, publisher accounts and a real HTTPS household endpoint.
+- Test on physical iPhone/iPad and Android devices: keyboard, safe areas, text scaling, screen readers, interrupted connections, key prompts, lifecycle, external links, offline reading and updates.
+- Reconcile synthetic tracker actions with the operator/simulator.
+- Prepare signing, store listings, privacy disclosures, support ownership and accessibility evidence.
+- Preserve native source changes once permissions or native features are introduced.
+
+## Public research release
+
+- Review committed files/history for household details and credentials; keep raw assistant conversations private.
+- Complete the data-provider rights inventory and replace or separate unclear-redistribution historical inputs.
+- Supply a permissioned, versioned fixture and verify clean-checkout reproduction.
+- Collect independent reproductions and publish rejected candidates, uncertainty and sensitivity tests.
+- Use preregistered validation seed families, walk-forward tests and prospective tracking; repeated bootstrap seeds are not untouched validation.
+- Publish model cards with population, costs, proxy periods, operational requirements and failure modes.
+
+## Broader retirement planning before more portfolio complexity
+
+- Make jurisdiction, tax year, household composition and account assumptions modular and visible.
+- Validate Social Security claiming/work/survivor interactions against dated authoritative sources.
+- Integrate required distributions, healthcare uncertainty, benefit eligibility, pensions and household cash-flow timing.
+- Compare simple low-cost portfolios, deterministic income floors and flexible spending alongside complex strategies.
+- Review mortality and long-term care assumptions and test comprehension with retirees and caregivers.
+
+Each calculation needs versioned assumptions, representative examples and independent checks. Keep existing simplifications labeled until replaced.
+
+## Optional public multi-user service
+
+The private JSON tracker directory is a household store. Public accounts require identities, per-user authorization and storage, encryption, recovery/deletion/export, resource limits, provenance/audit records and operational ownership. Keep educational pages accessible without an account. Broker integration and public-service review belong to explicitly scoped later work.
+
+## Efficiency criteria
+
+Reuse one interface and engine. Run research outside interactive requests. Profile before adding services. Measure latency, CPU/GPU use, bundle size, accessibility, reproducibility and user understanding. Complexity must earn a measurable benefit. “Best” is an ongoing tested objective, not a claim that financial uncertainty is solved.
+
+The original development plan is preserved in [the legacy roadmap](docs/LEGACY_ROADMAP.md); its dated product/legal notes are historical context.
