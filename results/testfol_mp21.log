@@ -1,0 +1,20 @@
+
+Full window, $50k, no withdrawals (portfolio only)  (2000-01-03 -> 2026-10-20; limiting ticker DBMFSIM)
+                                        CAGR   max DD  Sharpe  Ulcer   end value
+  MP-2 (2x valve: Yearly + 100% band)  11.01%   -22.1%   0.782   4.96     820,511
+  MP-2.1 (4x valve: Yearly + 300% band)  11.10%   -22.1%   0.787   4.97     839,999
+
+Full window, $50k, living off $240/month (inflation-adjusted)  (2000-01-03 -> 2026-10-20; limiting ticker DBMFSIM)
+                                        CAGR   max DD  Sharpe  Ulcer   end value
+  MP-2 (2x valve: Yearly + 100% band)  11.01%   -22.1%   0.782   4.96     238,392
+  MP-2.1 (4x valve: Yearly + 300% band)  11.10%   -22.1%   0.787   4.97     247,073
+
+Since IAUM existed, $50k, living off $240/month  (2021-06-29 -> 2026-10-20; limiting ticker IAUM)
+                                        CAGR   max DD  Sharpe  Ulcer   end value
+  MP-2 (GLD, 2x valve)                14.25%   -12.3%   0.874   3.42      74,301
+  MP-2.1 (IAUM, 4x valve)             14.43%   -12.3%   0.884   3.46      75,040
+  MP-2 with IAUM only (2x valve)      14.25%   -12.3%   0.874   3.42      74,273
+
+LINK1 https://testfol.io/?d=eNrtk89vmzAUx%2F%2BVyKdNolPImm3i1ox0qlbapOkqVVNlOfAAd8bObAONovzve8BCAGXbYYddxsn2%2B%2FB9v3ckEWrNxIJplhni7YixTFsaMQvEI8QhIKPOrbEWTBBvOsbPISx6plzGglmuJPFiJgzUr7mxNGQmjYUqDY2V7mJW5xUlZc5ES9FEq9KmVNfuUBudJYAqudYgwy2G8GXlYxSHH4h3NjkfH%2B801vAdqUBJm4pth6Qqjg3YWjVjNkxpzDUGuFHaxkpwhcGFKoNjxG0qSgK1vG%2F6%2BuQQrYTgMqEll1EVyjuULrlNI81KTMrkOmYhVLoij6CVO4FstHqGsCkMubm9mZM%2FYDTjkm6BaQzFPe22adRPZnoSqTp7AH4lApvWT6eYApK6CHuHtAWsHnZEsqyalGBxNsEkLA%2B%2FgW4szRlt%2Fiy4XF0FaN6ADkFiUybv906HeJjd%2FR745M%2BHgNsDPgfXwYBwp32Ja38AfOjZ75fL5dDHHrvOZQHG%2BrzgEdbPHCZZAy4RkyFcNhP4iEWrB7A13B4HEKuc1Ae2NkrkFnwo6ruGaj%2BK5u6Ox53fZ0xGgarmiKweg2B%2Bf3f1kfQUZlBvRF%2F2Yq0KGGofyc7jgayq0OniG3f0ymLG2OPRBkfKG52%2FjHD%2FC3j9v8F%2F1%2BC3%2F6jBmGQiMLtFd3Wf9j8AUfwQCg%3D%3D
+
+LINK2 https://testfol.io/?d=eNrNk11v2jAUhv8K8lUrpRNhZZtyVxZaoZEWSjupqirLJCfBnWMz20mKEP99J8kICWLb5Zor2%2BfJe763JBFqycSMaZYa4m2JsUxbGjELxCPEISCj1q225kwQb9jHzyEseqVcxoJZriTxYiYMVK%2BZsTRkZhULVRgaK93GrM5KSsqMiYaiiVaFXVFduUNtdJYAqmRagww3GMLjwsco9j8Q72Jw2T%2FcaazhJ1KBknYlNi2Sqjg2YCvVlNlwRWOuMcC10jZWgisMLlQpHCJuUlESqOVd0%2FOLQ7QSgsuEFlxGZSifULrgdhVpVmBSJtMxC6HUFVkEjdwJZK3VK4R1Ycjt3e2Y%2FAOjKZd0A0xjKO5pt3WjfjPDk0jZ2T3wJxFYN35axRSQVEXYOaQpYPmwJZKl5aQEs4tB7%2Bxm6p9jKpaHP0DX9vqMhD8KrheTAM1r0CFIbM3g885pEd9H938HbvzxMeB2gG%2FBNDgi3GFXYuofAV869of5fH7sY4e95zIHY32e8wiraPbzrAFXickQrus5fMLSVWPYGO4OY4i1TqoDWxolMgs%2B5NVdQ7kleX13%2B%2F3W7yMmo0CV00QWT0EwfriffCUdhRFUe9GVvVqqHI61D2TrcU%2BWVWj18oPbO5tcPQZO7%2FKth9ufwztvbBnse27rx%2F%2FUVkwyEZjdrL22L7tfrIUNBA%3D%3D
