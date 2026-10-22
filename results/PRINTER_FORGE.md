@@ -1,6 +1,38 @@
 # Money Printer Forge and the Printer Atlas (2026-10-19)
 
 ## The redesigned app (2026-10-21): `./forge` → http://127.0.0.1:8777
+The local deployment runs as the `money-printer` systemd user service, starts at login and restarts on failure.
+It listens on this computer only. `./forge` opens the running app; `./forge --port 8888` uses that port instead.
+The machine must be awake and the user session available.
+
+```bash
+systemctl --user status money-printer
+journalctl --user -u money-printer -n 30
+systemctl --user restart money-printer   # after changing Python files
+systemctl --user disable --now money-printer  # stop and disable login startup
+```
+
+The machine-specific unit is in `deploy/money-printer.service`; its header has installation instructions.
+
+**Start here: make my plan** asks about work, age, savings, account, income, sex, priorities and borrowing.
+Workers go to Grow. Retirement answers rank the eligible MP-2.1, Crash Buyer and Boosted plans against the
+chosen priority, with a 60/40 comparison. This is a preference score among those tested, operable plans;
+it does not search the full Atlas frontier. Result URLs preserve the answers across reloads and sharing.
+Loan plans require a taxable account, at least $110,000 and age below 75; setup and tracker creation enforce
+the same rules. These are app eligibility limits, not a promise of broker approval.
+
+Today separates bonus savings from risk triggers and hides loan-payoff warnings when there is no debt.
+Trade previews expire after two hours and cannot be recorded after the tracker changes or a previous save.
+Other browser origins cannot post to tracker endpoints. Recording trades updates the local tracker;
+it does not place orders with a broker. IRA estimates do not model required minimum distributions;
+the app links to the IRS rules rather than assigning everyone the same starting age.
+
+Verification: `CUDA_VISIBLE_DEVICES='' python3 -m unittest discover -s printer/app/tests -v` checks numeric
+inputs, loan setup/create limits and expired, changed or repeated trade previews without market requests.
+`THROTTLE=1 python3 printer/regress.py check` matches the saved simulator baseline exactly on the GPU
+(CPU reductions can differ in the last few decimal places). Chromium walkthroughs also checked the questionnaire,
+result reload, comparison, setup, working path and a 390px mobile viewport; API checks rejected foreign origins.
+
 **Goal:** the clearest possible app for growing wealth before retirement and paying yourself in it. Few words, big
 numbers, plain labels. Every view is a deep link: `#/build`, `#/retire`, `#/compare?ids=mp21,box,6040&battle=2008`,
 `#/setup?s=box&amount=150000`, `#/today?n=<tracker>`.

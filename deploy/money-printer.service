@@ -1,0 +1,16 @@
+# Money Printer app as an always-on user service on this computer (http://127.0.0.1:8777, localhost only).
+# Install:  cp deploy/money-printer.service ~/.config/systemd/user/ && systemctl --user daemon-reload && systemctl --user enable --now money-printer
+# Stop:     systemctl --user disable --now money-printer      Logs: journalctl --user -u money-printer -f
+[Unit]
+Description=Money Printer app (local, 127.0.0.1:8777)
+After=default.target
+
+[Service]
+WorkingDirectory=/home/anthony/Dev/Investment
+ExecStart=/home/anthony/miniconda3/bin/python3 printer/app/server.py --port 8777
+Restart=on-failure
+RestartSec=5
+Nice=5
+
+[Install]
+WantedBy=default.target

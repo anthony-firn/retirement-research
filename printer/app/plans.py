@@ -5,10 +5,11 @@ A situation is {amount, age, account: taxable | ira | roth, bracket: low | mid}.
 is simulated tax-free and each paycheck loses the bracket's income tax (12% or 31.3%); Roth is tax-free. Loan strategies need a
 taxable account (IRAs can't borrow). Simulations are weekly-step estimates on reshuffled 1972-2026 history (the validated numbers in
 results/ use daily steps and more histories)."""
-import os, sys, json, math, uuid, datetime as dt, threading, functools, numpy as np, torch
+import os, sys, json, math, uuid, hashlib, datetime as dt, threading, functools, numpy as np, torch
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.join(HERE, ".."); sys.path.insert(0, HERE); sys.path.insert(0, ROOT); sys.path.insert(0, os.path.join(ROOT, ".."))
 sys.path.insert(0, os.path.join(ROOT, "..", "lab"))
 _argv = sys.argv; sys.argv = sys.argv[:1]
+import warnings; warnings.filterwarnings("ignore", category=RuntimeWarning)       # empty decades for short horizons
 import money_printer as mp, operate as op
 import stress_forward as sf
 sys.argv = _argv
@@ -91,18 +92,33 @@ def safe_base(pay, account, bracket, years):
     return min(TESTED_BASE[pay], pts[0][1] if y <= pts[0][0] else pts[-1][1])
 
 # ------------------------------------------------------------------ one situation -> printers with the right taxes, base and loan floor
+def _num(v, lo, hi, what):
+    try: x = float(v)
+    except (TypeError, ValueError): raise ValueError(f"Please enter a number for {what}.")
+    if not math.isfinite(x) or x < lo or x > hi: raise ValueError(f"{what.capitalize()} must be between {lo:,.0f} and {hi:,.0f}.")
+    return x
 def situation(q):
-    amt = float(q.get("amount", 100000)); age = int(q.get("age", 60)); acct = q.get("account", "taxable"); br = q.get("bracket", "low"); sex = q.get("sex", "f")
-    if acct not in ("taxable", "ira", "roth") or br not in INCOME_TAX or sex not in MORT: raise ValueError("bad situation")
+    amt = _num(q.get("amount", 100000), 1000, 50_000_000, "money"); age = int(_num(q.get("age", 60), 18, 100, "age"))
+    acct = q.get("account", "taxable"); br = q.get("bracket", "low"); sex = q.get("sex", "f")
+    if acct not in ("taxable", "ira", "roth") or br not in INCOME_TAX or sex not in MORT: raise ValueError("Please pick an option for each question.")
     L = life(age, sex); years = int(max(10, min(50, L["plan_age"] - age)))
     return dict(amount=amt, age=age, account=acct, bracket=br, sex=sex, plan_age=L["plan_age"], years=years, keep=(1 - INCOME_TAX[br]) if acct == "ira" else 1.0,
                 tax=TAX_PROFILE[br] if acct == "taxable" else "none (IRA/Roth)")
 
+LOAN_MIN, LOAN_MAX_AGE = 110000, 75
+def loan_block(r, s):
+    """Why a loan plan is not offered here (None if it is): regular account only, $110k+ (portfolio margin), under 75."""
+    if not r["loan"]: return None
+    if s["account"] != "taxable": return "Loans need a regular account. IRAs can't borrow."
+    if s["amount"] < LOAN_MIN: return "Loans need $110,000 or more (for the cheap loan setup)."
+    if s["age"] >= LOAN_MAX_AGE: return "Not offered at 75 or older: a loan adds risk you don't need."
+    return None
+
 def tuned(r, s):
-    """The roster printer for this situation; None if it can't be used (loans need a taxable account). The MP-2.1 family uses the
+    """The roster printer for this situation; None if it can't be used (see loan_block). The MP-2.1 family uses the
     safe base for this account, bracket and length of retirement."""
     p = r["printer"]
-    if r["loan"] and s["account"] != "taxable": return None
+    if loan_block(r, s): return None
     kw = dict(tax=s["tax"], name=r["id"])
     b = safe_base(r["id"], s["account"], s["bracket"], s["years"])
     if b is not None: kw["base"] = b
@@ -136,7 +152,7 @@ def profiles(q):
     out = []
     for i in ids:
         r = BY[i]; x = raw.get(i)
-        if x is None: out.append(dict(id=i, available=False, why="Loans need a taxable account (IRAs can't borrow).")); continue
+        if x is None: out.append(dict(id=i, available=False, why=loan_block(r, s) or "Not available here.")); continue
         p = tuned(r, s); funds = len(p.alloc)
         ease = 10 - (funds - 3) * 0.8 - (3 if r["loan"] else 0) - (0.5 if p.skim is not None and p.skim >= 0 else 0)
         out.append(dict(id=i, available=True, base_pct=p.base, **{k: v for k, v in x.items() if k != "fan"}, fan=x["fan"],
@@ -149,6 +165,31 @@ def profiles(q):
         for key, hi in (("life", True), ("floor", True), ("never_cut", True), ("deep_dip", False), ("stress_life", True), ("left", True)): bar(key, hi)
         for o in av: o["bars"]["ease"] = o["ease"]
     return dict(situation=s, strategies=out)
+
+# ------------------------------------------------------------------ the quest: a few plain answers -> a tested plan ("class")
+CLASSES = {"mp21": ("The Steady Earner", "Simple, steady pay. One pie, ten minutes a month."),
+           "box": ("The Power Earner", "More pay from a cheap loan. More moving parts."),
+           "crash": ("The Bargain Hunter", "No loan until a crash, then it buys cheap.")}
+GOALS = {"steady": ("never_cut", "A paycheck that rarely drops"), "most": ("life", "The biggest paycheck"), "calm": ("deep_dip", "Small drops in bad times"),
+         "legacy": ("left", "Money left for family"), "simple": ("ease", "Keep it simple")}
+def quest(q):
+    """Pick the tested plan that best fits the answers. Candidates: the operable plans (all validated on fresh histories) allowed
+    by the borrowing answer and the guard rails; score = 60% the main goal + 10% each other measure (0-10 bars within the group)."""
+    goal = q.get("goal", "steady") if q.get("goal") in GOALS else "steady"; borrow = q.get("borrow", "no")
+    allowed = ["mp21"] + (["crash"] if borrow in ("crash", "yes") else []) + (["box"] if borrow == "yes" else [])
+    pr = profiles({**q, "ids": allowed + ["6040"]}); av = {o["id"]: o for o in pr["strategies"] if o["available"]}
+    keys = ["life", "floor", "never_cut", "deep_dip", "stress_life", "left", "ease"]; main = GOALS[goal][0]
+    score = {i: sum((0.6 if k == main else 0.4 / (len(keys) - 1)) * av[i]["bars"][k] for k in keys) for i in allowed if i in av}
+    if goal == "simple": score = {i: v + (3 if i == "mp21" else 0) for i, v in score.items()}
+    pick = max(score, key=score.get); ba = battles({**q, "ids": [pick, "6040"]})
+    wins = sum(1 for e in ba["episodes"] if e["winner"] == pick)
+    why = [f"Fits “{GOALS[goal][1].lower()}”."]
+    o = av[pick]; ref = av.get("6040")
+    if ref: why.append(f"Pays about {o['life'] / max(ref['life'], 1):.1f}× a classic 60/40 mix, with {'fewer' if o['deep_dip'] < ref['deep_dip'] else 'similar'} big drops.")
+    blocked = [dict(id=i, why=x["why"]) for i, x in ((o_["id"], o_) for o_ in pr["strategies"]) if not x["available"] and i != "6040"]
+    return dict(pick=pick, cls=CLASSES[pick][0], tagline=CLASSES[pick][1], profile=o, ref=ref, wins=wins, battles=len(ba["episodes"]),
+                why=why, others=[dict(id=i, cls=CLASSES[i][0], life=av[i]["life"], floor=av[i]["floor"]) for i in allowed if i in av and i != pick],
+                blocked=blocked, situation=pr["situation"], goal=GOALS[goal][1])
 
 # ------------------------------------------------------------------ battles
 CAL = np.asarray(mp.h.CAL)
@@ -272,8 +313,9 @@ def _build(key):
 def build(q):
     acct = q.get("account") if q.get("account") in ("roth", "trad", "taxable") else "roth"
     claim = str(q.get("claim", "best")); claim = claim if claim == "best" or (claim.isdigit() and 62 <= int(claim) <= 70) else "best"
-    k = dict(age=int(q.get("age", 35)), saved=float(q.get("saved", 0)), monthly=float(q.get("monthly", 500)), want=float(q.get("want", 4000)), ss=float(q.get("ss", 0)),
-             claim=claim, other=float(q.get("other", 0)), sex=q.get("sex", "f") if q.get("sex") in MORT else "f", account=acct, **{"raise": bool(q.get("raise", True))}, bracket=q.get("bracket", "low") if q.get("bracket") in INCOME_TAX else "low",
+    k = dict(age=int(_num(q.get("age", 35), 18, 80, "age")), saved=_num(q.get("saved", 0), 0, 50_000_000, "savings"), monthly=_num(q.get("monthly", 500), 0, 100_000, "monthly saving"),
+             want=_num(q.get("want", 4000), 0, 200_000, "monthly income wanted"), ss=_num(q.get("ss", 0), 0, 10_000, "Social Security"),
+             claim=claim, other=_num(q.get("other", 0), 0, 100_000, "other income"), sex=q.get("sex", "f") if q.get("sex") in MORT else "f", account=acct, **{"raise": bool(q.get("raise", True))}, bracket=q.get("bracket", "low") if q.get("bracket") in INCOME_TAX else "low",
              mix=q.get("mix", "steady") if q.get("mix") in BUILD else "steady", pay=q.get("pay", "mp21") if q.get("pay") in PAY_BASE else "mp21", health=bool(q.get("health", True)))
     k["age"] = max(18, min(80, k["age"])); out = dict(_build(json.dumps(k, sort_keys=True)))
     R = out["retire"]["typical"]
@@ -285,7 +327,11 @@ def build(q):
     return out
 
 # ------------------------------------------------------------------ operations on top of printer/operate.py
-_PRICES = {}; _LOCK = threading.Lock(); PLANS = {}
+_PRICES = {}; _LOCK = threading.Lock(); PLANS = {}              # token -> (name, plan, created, state digest)
+PLAN_TTL = 7200
+
+def _digest(st):
+    return hashlib.sha256(json.dumps(st, sort_keys=True).encode()).hexdigest()
 def _prices(tickers):
     now = dt.datetime.now().timestamp(); key = tuple(sorted(tickers))
     if key in _PRICES and now - _PRICES[key][0] < 600: return _PRICES[key][1]
@@ -328,20 +374,20 @@ def ops_list():
 
 def ops_setup(q):
     """Exact setup checklist + first orders for a strategy, at today's prices (nothing is saved)."""
-    r = BY[q["id"]]; amt = float(q["amount"]); acct = q.get("account", "taxable"); tax = TAX_PROFILE.get(q.get("bracket", "low")) if acct == "taxable" else "IRA"
+    r = BY[q["id"]]; s = situation(q); amt = s["amount"]; acct = s["account"]; tax = TAX_PROFILE[s["bracket"]] if acct == "taxable" else "IRA"
     if not r["op"]: raise ValueError("This one is for comparison only.")
-    if r["loan"] and acct != "taxable": raise ValueError("Loans need a taxable account.")
+    if loan_block(r, s): raise ValueError(loan_block(r, s))
     cfg = op.PRINTERS[r["op"]]; today = dt.date.today().isoformat(); prices = _prices(cfg["targets"]); cpi = _cpi(today)
-    s = situation(dict(amount=amt, age=q.get("age", 60), account=acct, bracket=q.get("bracket", "low"), sex=q.get("sex", "f"))); base = safe_base(r["id"], acct, s["bracket"], s["years"])
+    base = safe_base(r["id"], acct, s["bracket"], s["years"])
     st, p = op.init_state(r["op"], amt, today, prices, cpi, tax if tax in op.TAXP else "IRA", market=_market(today) if r["loan"] else None, base=base)
     ibkr = r["where"] == "Interactive Brokers"; steps = [dict(title="Keep a cash cushion", text="Keep 12 months of living costs in a high-yield savings account. Not in the plan.")]
     if ibkr:
-        steps += [dict(title="Open the account", text="Interactive Brokers: IBKR Pro, individual, margin account, in the retiree's name. Optionally add a trusted advisor as an authorized trader."),
+        steps += [dict(title="Open the account", text="Interactive Brokers: IBKR Pro, individual margin account in the investor's name. If someone helps manage it, arrange authorized trading access with the broker."),
                   dict(title="Ask for two permissions", text="Options trading (spreads) and portfolio margin. Portfolio margin needs $110,000+."),
                   dict(title="Deposit", text=f"${amt:,.0f}.")]
         if r["id"] == "crash": steps.append(dict(title="No loan yet", text="It only borrows after a 20% fall. Today shows when."))
     else:
-        steps += [dict(title="Open the account", text="M1 Finance: individual" + (" IRA (roll the money in)." if acct != "taxable" else " taxable account.")),
+        steps += [dict(title="Open the account", text="M1 Finance: " + {"ira": "traditional IRA.", "roth": "Roth IRA.", "taxable": "individual taxable account."}[acct]),
                   dict(title="Deposit", text=f"${amt:,.0f}."), dict(title="Make a pie", text="Add these six slices with these exact weights. Then press Invest.")]
     steps.append(dict(title="Cash bucket", text="Hold the bonus cash in BOXX. It starts at $0." if acct == "taxable" else "Hold the bonus cash in a Treasury money fund. It starts at $0."))
     steps.append(dict(title="Save your tracker", text="Press Create tracker below. Then open Today on the first trading day of every month."))
@@ -351,9 +397,11 @@ def ops_setup(q):
 def ops_create(q):
     r = BY[q["id"]]; name = q.get("name") or "plan"; path = _path(name)
     if os.path.exists(path): raise ValueError(f"A tracker called {name!r} already exists.")
-    amt = float(q["amount"]); acct = q.get("account", "taxable"); tax = TAX_PROFILE.get(q.get("bracket", "low")) if acct == "taxable" else "IRA"
+    s = situation(q); amt = s["amount"]; acct = s["account"]; tax = TAX_PROFILE[s["bracket"]] if acct == "taxable" else "IRA"
+    if not r["op"]: raise ValueError("This one is for comparison only.")
+    if loan_block(r, s): raise ValueError(loan_block(r, s))
     cfg = op.PRINTERS[r["op"]]; today = q.get("date") or dt.date.today().isoformat(); prices = _prices(cfg["targets"]); cpi = _cpi(today)
-    s = situation(dict(amount=amt, age=q.get("age", 60), account=acct, bracket=q.get("bracket", "low"), sex=q.get("sex", "f"))); base = safe_base(r["id"], acct, s["bracket"], s["years"])
+    base = safe_base(r["id"], acct, s["bracket"], s["years"])
     st, p = op.init_state(r["op"], amt, today, prices, cpi, tax, market=_market(today) if r["loan"] else None, base=base)
     st = op.apply(st, p, today, tax); os.makedirs(OPS_DIR, exist_ok=True); json.dump(st, open(path, "w"), indent=1)
     return dict(name=os.path.basename(path)[:-5])
@@ -361,27 +409,44 @@ def ops_create(q):
 def ops_today(q):
     path = _path(q["name"]); st = json.load(open(path)); today = q.get("date") or dt.date.today().isoformat()
     prices = _prices(st["targets"]); cpi = _cpi(today); market = _market(today) if st.get("loan") else None
-    p = op.plan(st, today, prices, cpi, deposit=float(q.get("deposit") or 0), market=market); token = uuid.uuid4().hex; PLANS[token] = (q["name"], p)
+    dep = _num(q.get("deposit") or 0, 0, 50_000_000, "new money")
+    p = op.plan(st, today, prices, cpi, deposit=dep, market=market); token = uuid.uuid4().hex
+    with _LOCK:
+        now = dt.datetime.now().timestamp()
+        for k in [k for k, v in PLANS.items() if now - v[2] > PLAN_TTL]: PLANS.pop(k, None)
+        while len(PLANS) >= 50: PLANS.pop(next(iter(PLANS)))
+        PLANS[token] = (q["name"], p, now, _digest(st))
     w = p["watch"]; V = w["account_value"]; netv = w.get("net_value", V)
     def dist(line, below=True): return None if not line else round((netv - line) / netv * 100 if below else (line - netv) / netv * 100, 1)
-    triggers = [dict(what="Skim to the cash bucket (January)", line=w["skim_line"], away=dist(w["skim_line"], False), dir="above"),
-                dict(what="Paycheck cut (January)", line=w["guardrail_line"], away=dist(w["guardrail_line"]), dir="below")]
-    if w.get("floor_line"): triggers.append(dict(what="Pay the loan off", line=w["floor_line"], away=dist(w["floor_line"]), dir="below"))
-    if w.get("crash_line"): triggers.append(dict(what="Crash buyer borrows", line=w["crash_line"], away=dist(w["crash_line"]), dir="below"))
-    if w.get("margin_call_line"): triggers.append(dict(what="Broker margin call (funds value)", line=w["margin_call_line"], away=round((V - w["margin_call_line"]) / V * 100, 1), dir="below"))
+    triggers = [dict(what="Pay goes down (checked in January)", line=w["guardrail_line"], away=dist(w["guardrail_line"]), dir="below", kind="warn")]
+    if w.get("floor_line") and (w.get("debt") or 0) > 1: triggers.append(dict(what="Pay the loan off", line=w["floor_line"], away=dist(w["floor_line"]), dir="below", kind="warn"))
+    if w.get("crash_line"): triggers.append(dict(what="Borrow to buy cheap", line=w["crash_line"], away=dist(w["crash_line"]), dir="below", kind="info"))
+    if w.get("margin_call_line"): triggers.append(dict(what="Broker forces a sale (funds value)", line=w["margin_call_line"], away=round((V - w["margin_call_line"]) / V * 100, 1), dir="below", kind="warn"))
+    bonus = dict(line=w["skim_line"], away=dist(w["skim_line"], False))
     holdings = [dict(t=t, shares=round(h["shares"], 4), price=prices[t], value=round(h["shares"] * prices[t], 2), target=st["targets"][t],
                      now=round(h["shares"] * prices[t] / V * 100, 1) if V else 0, valve=st["settings"]["valve"] * st["targets"][t]) for t, h in st["holdings"].items() if t in prices]
     paid = st.get("paid", [])[-12:]
     return dict(token=token, name=q["name"], printer=st["printer"], date=today, actions=_trades(p, st), notes=p["notes"], holdings=holdings,
                 status=dict(value=V, net=netv, debt=w.get("debt"), leverage=w.get("leverage"), bucket=p["bucket_after"], real_pct=w["real_value_pct"], guardrail=p["guardrail"],
                             start_value=st["baseline"]["start_value"], start_date=st["baseline"]["start_date"]),
-                triggers=triggers, calendar=_calendar(st, today), paid=paid, nothing=not p["steps"])
+                triggers=triggers, bonus=bonus, calendar=_calendar(st, today), paid=paid, nothing=not p["steps"])
 
 def ops_commit(q):
-    name, p = PLANS.pop(q["token"]); path = _path(name); st = json.load(open(path))
-    st = op.apply(st, p, p["date"], st.get("tax", "retiree, not working")); json.dump(st, open(path, "w"), indent=1); return dict(ok=True)
+    with _LOCK:
+        item = PLANS.pop(q.get("token", ""), None)
+        if not item: raise ValueError("This plan is old. Press Check again, then save.")
+        name, p, created, digest = item; path = _path(name)
+        with open(path) as f: st = json.load(f)
+        if dt.datetime.now().timestamp() - created > PLAN_TTL or digest != _digest(st):
+            raise ValueError("This plan is old. Press Check again, then save.")
+        st = op.apply(st, p, p["date"], st.get("tax", "retiree, not working"))
+        with open(path, "w") as f: json.dump(st, f, indent=1)
+    return dict(ok=True)
 
 def ops_sync(q):
+    with _LOCK: return _ops_sync(q)
+
+def _ops_sync(q):
     path = _path(q["name"]); st = json.load(open(path)); today = dt.date.today().isoformat(); prices = _prices(st["targets"])
     for t, sh in (q.get("shares") or {}).items():
         t = t.upper(); sh = float(sh); h = st["holdings"].setdefault(t, {"shares": 0.0, "lots": []}); diff = sh - h["shares"]

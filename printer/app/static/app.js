@@ -26,8 +26,8 @@ const ICON = {
   loan: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10 12 4l9 6"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg>',
   jan: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="4.5" width="17" height="16" rx="2"/><path d="M8 2.5v4M16 2.5v4M3.5 9.5h17"/></svg>',
 };
-const STEP = { "MONTHLY PRINT": ["Pay yourself", ICON.cash], "YEAR-END": ["January check", ICON.jan], REBALANCE: ["Rebalance", ICON.swap], DEPOSIT: ["Invest new money", ICON.grow],
-  "BOX LOAN": ["Box loan", ICON.loan], "PAY OFF THE LOAN": ["Pay off the loan", ICON.loan], "INITIAL PURCHASE": ["Buy the funds", ICON.grow] };
+const STEP = { "MONTHLY PRINT": ["Pay yourself", ICON.cash], "YEAR-END": ["January check", ICON.jan], REBALANCE: ["Even out the funds", ICON.swap], DEPOSIT: ["Invest new money", ICON.grow],
+  "BOX LOAN": ["Low-cost loan", ICON.loan], "PAY OFF THE LOAN": ["Pay off the loan", ICON.loan], "INITIAL PURCHASE": ["Buy the funds", ICON.grow] };
 
 // ------------------------------------------------------------------ state + deep links
 const S = { amount: 150000, age: 60, acct: "taxable", br: "low", sex: "f", ids: ["mp21", "box", "6040"], s: "mp21", n: "", battle: "2008",
@@ -37,6 +37,7 @@ function readHash() {
   const [path, qs] = location.hash.replace(/^#\/?/, "").split("?"); const q = new URLSearchParams(qs || "");
   for (const k of ["amount", "age"]) if (q.has(k)) S[k] = num(q.get(k));
   for (const k of ["acct", "br", "s", "n", "battle", "sex"]) if (q.has(k)) S[k] = q.get(k);
+  for (const k of ["goal", "borrow"]) if (q.has(k)) Q[k] = q.get(k);
   if (q.has("ids")) S.ids = q.get("ids").split(",").filter(i => RB[i]).slice(0, 4);
   for (const k of ["bage", "saved", "monthly", "want", "ss", "other", "health", "raise"]) if (q.has(k)) S.b[k === "bage" ? "age" : k] = num(q.get(k));
   for (const [k, f] of [["bacct", "acct"], ["mix", "mix"], ["bsex", "sex"], ["claim", "claim"], ["bbr", "br"], ["pay", "pay"]]) if (q.has(k)) S.b[f] = q.get(k);
@@ -45,6 +46,7 @@ function readHash() {
 function link(view, extra = {}) {
   const sit = { amount: S.amount, age: S.age, acct: S.acct, br: S.br, sex: S.sex }, b = S.b;
   const q = { build: { bage: b.age, saved: b.saved, monthly: b.monthly, want: b.want, ss: b.ss, bacct: b.acct, mix: b.mix, bsex: b.sex, claim: b.claim, other: b.other, bbr: b.br, pay: b.pay, health: b.health, raise: b.raise },
+              "start-result": { ...sit, goal: Q.goal || "steady", borrow: Q.borrow || "no" },
               retire: sit, compare: { ...sit, ids: S.ids.join(","), battle: S.battle }, setup: { ...sit, s: S.s }, today: S.n ? { n: S.n } : {} }[view] || {};
   const p = new URLSearchParams({ ...q, ...extra }).toString(); return `#/${view}${p ? "?" + p : ""}`;
 }
@@ -65,8 +67,8 @@ function situationBar(onchange) {
       <div class="field"><span>You are</span>${seg("s-sex", [["f", "Woman"], ["m", "Man"]], S.sex)}</div></div><p class="hint" id="s-plan" style="margin-top:8px"></p></section>`,
     wire() { moneyInput("s-amount", v => { S.amount = Math.max(5000, v); onchange(); }); moneyInput("s-age", v => { S.age = Math.max(30, Math.min(95, v)); onchange(); });
              onSeg("s-acct", v => { S.acct = v; onchange(); }); onSeg("s-br", v => { S.br = v; onchange(); }); onSeg("s-sex", v => { S.sex = v; onchange(); }); } };
-function planNote(s) { const el = $("#s-plan"); if (el && s) el.textContent = `Plans to age ${s.plan_age} (average life + 1 standard deviation). Paychecks rise with prices.`; }
 }
+function planNote(s) { const el = $("#s-plan"); if (el && s) el.textContent = `Plans to age ${s.plan_age} (average life + 1 standard deviation). Paychecks rise with prices.`; }
 const color = id => `var(--${(RB[id] || {}).color || "s1"})`;
 function badge(kind, text) { const i = { good: "✓", warn: "!", bad: "×" }[kind]; return `<span class="badge ${kind}"><i aria-hidden="true">${i}</i>${text}</span>`; }
 function safety(p) {
@@ -81,13 +83,67 @@ async function home() {
   let mine = []; try { mine = await api("/api/ops/list"); } catch {}
   app.innerHTML = `<section class="view">
     <h1>What do you want to do?</h1>
+    <a class="tile start" href="#/start">${ICON.vs}<b>Start here: make my plan</b><span>8 easy questions. Get a tested plan made for you.</span></a>
     <div class="tiles">
       <a class="tile" href="${link("build")}">${ICON.grow}<b>Grow my money</b><span>Still working. See when you can stop.</span></a>
       <a class="tile" href="${link("retire")}">${ICON.pay}<b>Pay myself</b><span>Turn savings into a monthly paycheck.</span></a>
       <a class="tile" href="${link("compare")}">${ICON.vs}<b>Compare plans</b><span>Side by side, through real crashes.</span></a>
       <a class="tile" href="${link("today", mine[0] ? { n: mine[0].name } : {})}">${ICON.today}<b>Today</b><span>${mine.length ? `Your plan: ${esc(mine[0].name)}. What to do now.` : "Set up a plan first."}</span></a>
     </div>
-    <p class="hint">Simulated on 1972–2026 market history. Not a promise. Not financial, tax or legal advice.</p></section>`;
+    </section>`;
+}
+
+// ------------------------------------------------------------------ START: the quest (one question per screen)
+const Q = { step: 0, working: null, goal: null, borrow: null };
+const QUESTS = [
+  { k: "working", q: "Are you still working?", opts: [["yes", "Yes, still working"], ["no", "No, or stopping soon"]] },
+  { k: "age", q: "How old are you?", input: "age" },
+  { k: "amount", q: "How much money can you use?", input: "money", hint: "Savings you can invest. Not your house." },
+  { k: "acct", q: "Where is that money?", opts: [["taxable", "Regular account or bank"], ["ira", "IRA or 401(k)"], ["roth", "Roth IRA"]] },
+  { k: "br", q: "Your yearly income?", opts: [["low", "Under $50k (couple: $100k)"], ["mid", "More than that"]] },
+  { k: "sex", q: "You are…", opts: [["f", "A woman"], ["m", "A man"]], hint: "Women live longer on average, so the plan lasts longer." },
+  { k: "goal", q: "What matters most?", opts: [["steady", "A paycheck that rarely drops"], ["most", "The biggest paycheck"], ["calm", "Small drops in bad times"], ["legacy", "Money left for family"], ["simple", "Keep it simple"]] },
+  { k: "borrow", q: "Borrow to earn more?", opts: [["no", "No"], ["crash", "Only after a big drop"], ["yes", "Yes"]], hint: "Borrowing raises pay and risk. Needs $110,000+ and age under 75." },
+];
+function start() {
+  const i = Q.step, t = QUESTS[i], bar = `<div class="meter" aria-label="Step ${i + 1} of ${QUESTS.length}"><i style="--w:${(i + 1) / QUESTS.length * 100}%"></i></div>`;
+  const val = t.input === "age" ? S.age : t.input === "money" ? S.amount.toLocaleString("en-US") : "";
+  app.innerHTML = `<section class="view quest">${bar}<p class="label">Question ${i + 1} of ${QUESTS.length}</p><h1>${t.q}</h1>
+    ${t.opts ? `<div class="answers">${t.opts.map(([v, l]) => `<button class="btn answer" data-v="${v}">${l}</button>`).join("")}</div>`
+             : `<label class="field"><span class="sr">${t.q}</span><input id="q-in" inputmode="numeric" value="${val}" style="font-size:28px;min-height:64px"></label><button class="btn go" id="q-next" style="min-height:56px">Next</button>`}
+    ${t.hint ? `<p class="hint">${t.hint}</p>` : ""}
+    <div class="row">${i ? '<button class="btn" id="q-back">Back</button>' : ""}</div></section>`;
+  const next = () => { Q.step++; if (Q.step >= QUESTS.length) { Q.step = 0; location.hash = link("start-result"); } else start(); };
+  if (t.opts) $(".answers").onclick = e => { const b = e.target.closest("button"); if (!b) return; const v = b.dataset.v;
+    if (t.k === "working") { Q.working = v; if (v === "yes") { Q.step = 0; location.hash = link("build"); return; } }
+    else if (t.k === "goal" || t.k === "borrow") Q[t.k] = v; else S[t.k] = v; next(); };
+  else { const go = () => { const el = $("#q-in"), v = Number(el.value.replace(/[$,\s]/g, "")), age = t.input === "age";
+      const valid = Number.isFinite(v) && (age ? Number.isInteger(v) && v >= 30 && v <= 95 : v >= 5000 && v <= 50000000);
+      el.setCustomValidity(valid ? "" : age ? "Enter an age from 30 to 95." : "Enter an amount from $5,000 to $50,000,000.");
+      if (!valid) { el.reportValidity(); return; } S[age ? "age" : "amount"] = v; next(); };
+    $("#q-in").oninput = () => $("#q-in").setCustomValidity("");
+    $("#q-next").onclick = go; $("#q-in").onkeydown = e => { if (e.key === "Enter") go(); }; $("#q-in").focus(); }
+  if (i) $("#q-back").onclick = () => { Q.step--; start(); };
+}
+async function startResult() {
+  app.innerHTML = `<section class="view">${loading("Testing plans on 50 years of markets…")}</section>`; let r;
+  try { r = await api("/api/quest", { ...sit(), goal: Q.goal || "steady", borrow: Q.borrow || "no" }); } catch (e) { app.innerHTML = `<section class="view"><p class="err">${esc(e.message)}</p><a class="btn" href="#/start">Start again</a></section>`; return; }
+  const p = r.profile, m = RB[r.pick]; S.s = r.pick;
+  app.innerHTML = `<section class="view">
+    <section class="card plan" style="--c:${color(r.pick)}"><span class="label">Your class</span><h1>${esc(r.cls)}</h1><p>${esc(r.tagline)}</p>
+      <div><span class="label">Usually pays</span><div class="big">${money(p.life)}<small>/mo</small></div></div>
+      <div class="facts"><div class="fact"><b>${money(p.floor)}</b><span>steady pay (not guaranteed)</span></div><div class="fact"><b>${money(p.first10)}</b><span>first 10 years</span></div><div class="fact"><b>${r.wins} of ${r.battles}</b><span>crashes won vs a 60/40 mix</span></div></div>
+      <div class="stats">${STATS.map(([k, lab, f]) => `<div class="stat"><span class="lab">${lab}</span><span class="meter" aria-hidden="true"><i style="--w:${p.bars[k] * 10}%"></i></span><span class="val">${f(p)}</span></div>`).join("")}</div>
+      ${safety(p)}<ul class="small" style="margin:0;padding-left:18px">${r.why.map(w => `<li>${esc(w)}</li>`).join("")}<li>Plan: ${esc(m.name)} at ${esc(m.where)}. Plans to age ${r.situation.plan_age}.</li></ul>
+      ${r.blocked.length ? `<p class="hint">${r.blocked.map(b => esc(b.why)).filter((x, i, a) => a.indexOf(x) === i).join(" ")}</p>` : ""}
+    </section>
+    <section class="card stack"><h2>Your quests</h2><ol class="steps">
+      <li><div><b>Set it up.</b> Open the account and place the first orders. <a href="${link("setup", { s: r.pick })}">Start this quest</a></div></li>
+      <li><div><b>Save your tracker</b> at the end of setup.</div></li>
+      <li><div><b>Once a month,</b> open <a href="#/today">Today</a> and do what it says. That's it.</div></li>
+      <li><div><b>In a crash, open Today.</b> Check the plan's instructions, especially if you have a loan.</div></li></ol></section>
+    <div class="row"><a class="btn go" href="${link("setup", { s: r.pick })}">Set it up</a><a class="btn" href="${link("compare", { ids: [r.pick, ...r.others.map(o => o.id), "6040"].join(",") })}">See the battles</a><a class="btn" href="#/start">Start again</a></div>
+  </section>`;
 }
 
 // ------------------------------------------------------------------ GROW (saving years)
@@ -152,12 +208,13 @@ async function paintBuild() {
       <li><div><b>Open the account.</b> ${b.acct === "roth" ? "A Roth IRA at M1 Finance." : b.acct === "trad" ? "Your 401(k), or a traditional IRA at M1 Finance." : "A regular account at M1 Finance."}</div></li>
       <li><div><b>Automate ${money(b.monthly)} a month</b> on payday${b.raise ? ", and raise it with prices each year" : ""}.</div></li>
       <li><div><b>Make a pie</b> with these funds at these percents.</div></li>
-      <li><div><b>Once a year,</b> rebalance only if a fund is 6+ points off.</div></li>
+      <li><div><b>Once a year,</b> press Rebalance only if a fund is 6+ points off its target.</div></li>
       <li><div><b>When you stop,</b> <a href="${link("retire", { amount: Math.round(bd.printer || r.need), age: R || age })}">open Pay myself</a>.</div></li>
     </ol></section></div>
   ${ssRows ? `<section class="card stack"><h2>When to start Social Security</h2><p class="hint">If you stop at ${R}. Later = bigger checks for life, but more savings to cover the wait.</p>${ssRows}</section>` : ""}
   <section class="card stack"><h2>Also check</h2><ul class="small" style="margin:0;padding-left:18px">
     <li>Medicare at 65 (already in the health numbers).</li><li>If income is low: Medicare Savings Program, Extra Help with drugs, SNAP (CalFresh in California), utility discounts.</li>
+    <li>Married? The higher earner waiting until 70 raises the check for whoever lives longer.</li>
     <li>Find yours: <a href="https://www.benefitscheckup.org/" target="_blank" rel="noopener">BenefitsCheckUp.org</a>. Most look at income, many at savings too. Add any you will get under More → Other income.</li></ul></section>`;
   const end = Math.min(r.ages.length, Math.max(t.bad || R || 65, 65) + 5 - age + 1), cut = a => a.slice(0, end);
   Charts.lines($("#b-chart"), { x: cut(r.ages), xfmt: v => `${v}`, xint: true, yfmt: kmoney, height: 300,
@@ -179,13 +236,14 @@ async function paintRetire() {
     return `<section class="card plan" style="--c:${color(p.id)}">
       <div class="name"><b>${esc(m.name)}</b><span class="chip">${esc(m.tag)}</span><span class="chip">${esc(m.where)}</span>${hero ? '<span class="chip" style="color:var(--good-ink)">Best for you</span>' : ""}</div>
       <div><span class="label">Usually pays</span><div class="big">${money(p.life)}<small>/mo</small></div></div>
-      <div class="facts"><div class="fact"><b>${money(p.floor)}</b><span>base pay (${p.base_pct.toFixed(2)}%/yr), rises with prices</span></div><div class="fact"><b>${money(p.first10)}</b><span>first 10 years</span></div><div class="fact"><b>${money(p.life_bad)}</b><span>bad luck (1 in 10)</span></div></div>
+      <div class="facts"><div class="fact"><b>${money(p.floor)}</b><span>steady pay, rises with prices (not guaranteed)</span></div><div class="fact"><b>${money(p.first10)}</b><span>first 10 years</span></div><div class="fact"><b>${money(p.life_bad)}</b><span>bad luck (1 in 10)</span></div></div>
       ${safety(p)}${p.needs_pm ? '<p class="hint">Needs $110,000+ for the cheapest loan setup.</p>' : ""}
       ${hero ? `<div class="chart short" id="r-fan"></div>` : `<p class="small muted">${esc(m.blurb)}</p>`}
       <div class="row"><a class="btn go" href="${link("setup", { s: p.id })}">Set it up</a>${hero ? `<a class="btn" href="${link("compare", { ids: ["mp21", "box", "crash", "6040"].filter(i => i === "6040" || by[i]).join(",") })}">Compare</a>` : ""}</div>
     </section>`; };
   out.innerHTML = `<div class="grid two">${card(best, true)}<div class="stack">${others.map(p => card(p, false)).join("")}</div></div>
-    <p class="hint">After tax, in today's dollars. "Usually" = typical over your life. Base pay is cut only if the account falls a lot.</p>`;
+    <p class="hint">After tax, in today's dollars. "Usually" = typical over your life. Steady pay drops only if the account falls a lot.</p>
+    ${S.acct === "ira" ? `<p class="hint">Your IRA may require yearly minimum withdrawals based on your birth year. Ask your provider for the amount and start date. This estimate does not model those withdrawals. <a href="https://www.irs.gov/retirement-plans/retirement-plan-and-ira-required-minimum-distributions-faqs" target="_blank" rel="noopener">IRS rules</a>.</p>` : ""}`;
   const yrs = best.fan.years.map(y => S.age + y), mo = a => a.map(v => v * S.amount / 12);
   Charts.lines($("#r-fan"), { x: yrs.slice(1), xfmt: v => `age ${v}`, xint: true, yfmt: money, height: 230,
     band: { lo: mo(best.fan.pay[0]), hi: mo(best.fan.pay[2]), color: color(bestId).slice(4, -1), label: "Range" },
@@ -205,8 +263,8 @@ async function compare() {
   $("#c-share").onclick = async () => { setHash("compare"); try { await navigator.clipboard.writeText(location.href); toast("Link copied."); } catch { toast(location.href, 6000); } };
   paintCompare();
 }
-const STATS = [["life", "Paycheck", p => money(p.life)], ["floor", "Base pay", p => money(p.floor)], ["never_cut", "Steady", p => `${pct(p.never_cut)} never cut`],
-  ["deep_dip", "Calm", p => `${pct(p.deep_dip)} big drop`], ["stress_life", "Tough", p => `${money(p.stress_life)} if unlucky`], ["left", "Leaves", p => kmoney(p.left)], ["ease", "Easy", p => `${p.ease}/10`]];
+const STATS = [["life", "Paycheck", p => money(p.life)], ["floor", "Steady pay", p => money(p.floor)], ["never_cut", "Rarely cut", p => `${pct(p.never_cut)} never cut`],
+  ["deep_dip", "Calm", p => `${pct(p.deep_dip)} big drop`], ["stress_life", "Tough times", p => `${money(p.stress_life)} if unlucky`], ["left", "Leaves", p => kmoney(p.left)], ["ease", "Easy", p => `${p.ease}/10`]];
 async function paintCompare() {
   const cards = $("#c-cards"), bt = $("#c-battles"); const ids = S.ids.slice();
   cards.innerHTML = loading(); bt.innerHTML = "";
@@ -268,11 +326,11 @@ async function setup() {
 }
 function ordersHTML(actions) {
   return actions.map(a => { const [title, icon] = STEP[a.step] || [a.step, ICON.swap];
-    const box = a.box ? `<div class="boxorder"><b>One combo order: SELL this ${a.box.width}-point box</b>${a.box.legs.map(l => `<code>${esc(l)}</code>`).join("")}
+    const box = a.box ? `<div class="boxorder"><b>One combo order: SELL this ${a.box.width}-point SPX box (this is the loan)</b>${a.box.legs.map(l => `<code>${esc(l)}</code>`).join("")}
       <span>Limit: about <b>${money(a.box.credit)}</b> credit. You owe <b>${money(a.box.face)}</b> on ${a.box.expiry}. Rate ≈ ${(a.box.rate * 100).toFixed(2)}%/yr.</span></div>` : "";
     const tr = a.trades.length ? `<div class="tablewrap"><table><thead><tr><th></th><th>Fund</th><th class="num">Shares</th><th class="num">Price</th><th class="num">Amount</th>${a.trades.some(t => t.tax != null) ? '<th class="num">Est. tax</th>' : ""}</tr></thead><tbody>
       ${a.trades.map(t => `<tr><td class="${t.side === "BUY" ? "trade-buy" : "trade-sell"}">${t.side === "BUY" ? "Buy" : "Sell"}</td><td><b>${esc(t.t)}</b></td><td class="num">${t.shares.toFixed(3)}</td><td class="num">$${t.price.toFixed(2)}</td><td class="num">${money(t.dollars)}</td>${a.trades.some(x => x.tax != null) ? `<td class="num">${t.tax != null ? money(t.tax) : ""}</td>` : ""}</tr>`).join("")}</tbody></table></div>` : "";
-    const spend = a.spend != null ? `<p class="big" style="font-size:40px">${money(a.spend)}<small>→ your bank</small></p><p class="small muted">${money(a.base)} from the sales${a.bucket_draw > 0.5 ? ` + ${money(a.bucket_draw)} from the cash bucket` : ""}.</p>` : "";
+    const spend = a.spend != null ? `<p class="big" style="font-size:40px">${money(a.spend)}<small>→ your bank</small></p><p class="small muted">${money(a.base)} from the sales${a.bucket_draw > 0.5 ? ` + ${money(a.bucket_draw)} from bonus savings` : ""}.</p>` : "";
     return `<section class="card action"><div class="t">${icon}<h2>${title}</h2></div>${spend}${box}${tr}<details><summary>Why</summary><p class="small">${esc(a.why)}</p></details></section>`; }).join("");
 }
 async function paintSetup() {
@@ -309,20 +367,21 @@ async function paintToday(deposit) {
   const st = r.status, next = r.calendar[0];
   const todo = r.nothing ? `<section class="card empty">${ICON.check}<h1>Nothing to do today</h1><p>Next: <b>${esc(next.what)}</b> on ${next.date}.</p></section>`
     : `<section class="stack"><h2>To do today</h2>${ordersHTML(r.actions)}<button class="btn go" id="t-done" style="justify-self:start">I placed these trades — save</button></section>`;
-  const tiles = [[money(st.net), st.debt ? "your money (funds − loan)" : "account value"], [`${Math.round(st.real_pct)}%`, "of what you started with (today's $)"], [money(st.bucket), "cash bucket"]];
-  if (st.debt) tiles.push([money(st.debt), `box loan · ${st.leverage ? st.leverage.toFixed(2) + "x" : ""}`]);
-  if (st.guardrail < 1) tiles.push([`${Math.round(st.guardrail * 100)}%`, "paycheck level (cut)"]);
+  const tiles = [[money(st.net), st.debt ? "your money (funds − loan)" : "account value"], [`${Math.round(st.real_pct)}%`, "of what you started with (today's $)"], [money(st.bucket), "bonus savings"]];
+  if (st.debt) tiles.push([money(st.debt), `loan · you own ${st.leverage ? Math.round((st.leverage - 1) * 100) + "% more" : ""} than your money`]);
+  if (st.guardrail < 1) tiles.push([`${Math.round(st.guardrail * 100)}%`, "pay level for now (lowered)"]);
   out.innerHTML = `${todo}
     <section class="card"><div class="facts">${tiles.map(([b, s]) => `<div class="fact"><b>${b}</b><span>${s}</span></div>`).join("")}</div></section>
     <div class="grid two">
-      <section class="card stack"><h2>How close are the triggers?</h2>${r.triggers.map(t => { const a = t.away; const kind = a == null ? "good" : Math.abs(a) < 5 ? "bad" : Math.abs(a) < 15 ? "warn" : "good";
+      <section class="card stack"><h2>Watch list</h2>${r.bonus ? `<p class="small">Bonus: if your money tops <b>${money(r.bonus.line)}</b> in January, the extra goes to bonus savings (${Math.abs(r.bonus.away).toFixed(0)}% to go).</p>` : ""}
+      ${r.triggers.map(t => { const a = t.away; const kind = t.kind === "info" ? "good" : a == null ? "good" : Math.abs(a) < 5 ? "bad" : Math.abs(a) < 15 ? "warn" : "good";
         return `<div class="trig"><span>${esc(t.what)} <span class="muted">(${t.dir} ${money(t.line)})</span></span><span class="meter" style="--st:var(--${kind === "bad" ? "critical" : kind})"><i style="--w:${Math.max(4, Math.min(100, 100 - Math.abs(a ?? 0) * 3))}%"></i></span><span class="tab">${a == null ? "" : `${Math.abs(a).toFixed(0)}% away`}</span></div>`; }).join("")}
-        <p class="hint">Fuller bar = closer. Check after any big market day.</p></section>
+        <p class="hint">Fuller bar = closer. Look again after any big market day.</p></section>
       <section class="card stack"><h2>Coming up</h2><ul class="cal">${r.calendar.map(c => `<li><b>${c.date}</b><span>${esc(c.what)}</span></li>`).join("")}</ul></section>
     </div>
     <section class="card stack"><h2>What you own</h2><div class="tablewrap"><table><thead><tr><th>Fund</th><th class="num">Shares</th><th class="num">Value</th><th class="num">Now</th><th class="num">Target</th></tr></thead><tbody>
       ${r.holdings.map(h => `<tr><td><b>${esc(h.t)}</b></td><td class="num">${h.shares.toFixed(3)}</td><td class="num">${money(h.value)}</td><td class="num">${h.now.toFixed(1)}%</td><td class="num">${h.target}%</td></tr>`).join("")}</tbody></table></div>
-      <details><summary>My broker shows different numbers</summary><div class="ask" id="t-sync" style="margin-top:10px">${r.holdings.map(h => field("sy-" + h.t, h.t + " shares", h.shares.toFixed(4))).join("")}${field("sy-bucket", "Cash bucket $", Math.round(st.bucket))}${st.debt ? field("sy-debt", "Loan owed $", Math.round(st.debt)) : ""}</div>
+      <details><summary>My broker shows different numbers</summary><div class="ask" id="t-sync" style="margin-top:10px">${r.holdings.map(h => field("sy-" + h.t, h.t + " shares", h.shares.toFixed(4))).join("")}${field("sy-bucket", "Bonus savings $", Math.round(st.bucket))}${st.debt ? field("sy-debt", "Loan owed $", Math.round(st.debt)) : ""}</div>
       <button class="btn" id="t-save" style="margin-top:10px">Save these numbers</button></details></section>
     ${r.paid.length ? `<section class="card stack"><h2>Paid so far</h2><div class="tablewrap"><table><thead><tr><th>Month</th><th class="num">To your bank</th></tr></thead><tbody>${r.paid.slice().reverse().map(p => `<tr><td>${p.month}</td><td class="num">${money(p.spend)}</td></tr>`).join("")}</tbody></table></div></section>` : ""}
     ${r.notes.length ? `<details class="card"><summary>Details</summary><ul>${r.notes.map(n => `<li class="small">${esc(n)}</li>`).join("")}</ul></details>` : ""}`;
@@ -332,7 +391,7 @@ async function paintToday(deposit) {
 }
 
 // ------------------------------------------------------------------ router
-const VIEWS = { "": home, build, retire, compare, setup, today };
+const VIEWS = { "": home, start, "start-result": startResult, build, retire, compare, setup, today };
 async function route() {
   const v = readHash();
   for (const a of document.querySelectorAll("nav.main a[data-v]")) { if (a.dataset.v === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); }

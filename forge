@@ -1,3 +1,15 @@
 #!/usr/bin/env bash
-# Money Printer Forge, hosted locally:  ./forge  [--port 8777]  -> opens http://127.0.0.1:8777
-cd "$(dirname "$0")" && exec python3 printer/app/server.py --open "$@"
+# Money Printer app, hosted locally: ./forge [--port 8777] -> opens http://127.0.0.1:8777
+# If the always-on service is running (deploy/money-printer.service), just open the browser.
+cd "$(dirname "$0")" || exit 1
+port=8777
+args=("$@")
+while (($#)); do
+  case "$1" in
+    --port) [[ $# -ge 2 && "$2" =~ ^[0-9]+$ ]] || exec python3 printer/app/server.py --open "${args[@]}"; port="$2"; shift 2 ;;
+    *) exec python3 printer/app/server.py --open "${args[@]}" ;;
+  esac
+done
+url="http://127.0.0.1:$port"
+if curl -fsS -o /dev/null --max-time 2 "$url/api/roster" 2>/dev/null; then (xdg-open "$url" >/dev/null 2>&1 &); echo "Money Printer: $url"; exit 0; fi
+exec python3 printer/app/server.py --open "${args[@]}"

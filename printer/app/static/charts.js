@@ -51,6 +51,7 @@ const Charts = (() => {
           ctx.restore();
         }] } };
       new uPlot(opts, data, el); el.appendChild(ro); read(null);
+      el.setAttribute("role", "img"); el.setAttribute("aria-label", `Chart. ${o.xfmt(o.x[0])} to ${o.xfmt(o.x[o.x.length - 1])}. ` + S.map(s => `${s.label}: ends at ${o.yfmt(s.data[s.data.length - 1])}`).join(". "));
     });
   }
   return { lines, redraw };

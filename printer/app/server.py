@@ -13,6 +13,7 @@ The redesigned app is at / ; the original Forge (frontier, backtests) is at /cla
 mix = dollars by tax treatment {free, deferred, taxable}; bracket = "low" | "mid" (see atlas_data.BRACKETS).
 Results are cached in memory for the session. Binds to 127.0.0.1 only."""
 import os, sys, json, gzip, argparse, functools, webbrowser, threading
+from urllib.parse import urlsplit
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse, JSONResponse
@@ -54,6 +55,19 @@ def index(): return FileResponse(os.path.join(HERE, "static", "index.html"))
 @app.get("/classic")
 def classic(): return FileResponse(os.path.join(HERE, "static", "classic", "index.html"))
 
+@app.middleware("http")
+async def same_origin(request: Request, call_next):
+    """Only this app's own pages may change trackers: blocks other websites (open in the same browser) from posting to /api/ops."""
+    if request.method == "POST" and request.url.path.startswith("/api/ops/"):
+        o = request.headers.get("origin") or request.headers.get("referer") or ""
+        try:
+            source, target = urlsplit(o), urlsplit(str(request.url))
+            allowed = (source.scheme, source.hostname, source.port) == (target.scheme, target.hostname, target.port)
+        except ValueError:
+            allowed = False
+        if o and not allowed: return JSONResponse({"detail": "Not allowed."}, status_code=403)
+    return await call_next(request)
+
 def _plain(fn, q):
     try: return JSONResponse(fn(q))
     except (ValueError, KeyError, FileNotFoundError) as e: raise HTTPException(400, str(e).strip("'\""))
@@ -65,6 +79,8 @@ def profiles(q: dict): return _plain(plans.profiles, q)
 def battles(q: dict): return _plain(plans.battles, q)
 @app.post("/api/build")
 def build(q: dict): return _plain(plans.build, q)
+@app.post("/api/quest")
+def quest(q: dict): return _plain(plans.quest, q)
 @app.get("/api/ops/list")
 def ops_list(): return plans.ops_list()
 @app.post("/api/ops/setup")

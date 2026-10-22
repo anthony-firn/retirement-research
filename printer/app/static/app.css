@@ -175,3 +175,11 @@ details > summary { cursor: pointer; font-weight: 600; color: var(--ink-2) }
   .card { padding: 16px }
 }
 @media (prefers-reduced-motion: no-preference) { .meter > i { transition: width .35s ease } }
+
+/* quest + accessibility */
+.tile.start { border: 2px solid var(--accent); min-height: 120px }
+.quest { max-width: 640px }
+.answers { display: grid; gap: 12px }
+.btn.answer { font-size: 20px; min-height: 64px; justify-content: flex-start; padding: 14px 20px }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0) }
+.picker button, .tabs button, nav.main a { min-height: 44px; display: inline-flex; align-items: center }

@@ -296,3 +296,13 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
 - **New option, the crash buyer:** no loan normally, a box loan to 1.25× only while ≥ 15–20% below the high. +6.5% vs
   MP-2.1 with the $719 base kept at $150k. At $150k the always-on 1.25× + pay-off rule is still best (+9.4%).
 - From six real market tops, MP-2.1 never cut its base.
+
+
+## 2026-10-21 — finish the local app deployment
+- Added the preferences questionnaire, readable labels, chart descriptions and larger tap targets.
+- Enforced the same loan eligibility limits in recommendations, setup and tracker creation.
+- Fixed comparison-page horizon notes and preserved questionnaire answers in result links.
+- Tracker recording now rejects expired, already-used or changed-state previews; browser writes require the same origin.
+- Installed the login-started `money-printer` user service; the launcher respects its requested port.
+- Verified five guard-rail tests, browser questionnaire/compare/setup/mobile flows, origin rejection and launcher behavior.
+  The GPU simulator regression remains exactly identical. Deployment details: `results/PRINTER_FORGE.md`.
