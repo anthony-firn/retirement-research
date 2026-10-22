@@ -6,6 +6,10 @@ Serves the single-page app (static/) and a small JSON API:
   POST /api/history    {printers, mix, bracket, start, end}           the printers running on real history (paychecks, bucket, brake)
   POST /api/fan        {spec, mix, bracket, years}                    percentiles of balance and paycheck over simulated futures
   POST /api/testfol    {portfolios, start_val, withdraw_month}        a testfol.io share link (deep link) for the portfolios
+  GET  /api/roster, POST /api/profiles | /api/battles | /api/build      the redesigned app (plans.py): strategies, their stats for a
+                                                                     situation, historical and future battles, the saving-years plan
+  /api/ops/list | setup | create | today | commit | sync              operations on printer/operate.py (state files in private/ops/)
+The redesigned app is at / ; the original Forge (frontier, backtests) is at /classic.
 mix = dollars by tax treatment {free, deferred, taxable}; bracket = "low" | "mid" (see atlas_data.BRACKETS).
 Results are cached in memory for the session. Binds to 127.0.0.1 only."""
 import os, sys, json, gzip, argparse, functools, webbrowser, threading
@@ -14,7 +18,7 @@ from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.gzip import GZipMiddleware
-import atlas_data, backtest as bt, share
+import atlas_data, backtest as bt, share, plans
 
 app = FastAPI(title="Money Printer Forge", docs_url=None, redoc_url=None)
 app.add_middleware(GZipMiddleware, minimum_size=2000)
@@ -47,6 +51,32 @@ def run(kind, q):
 
 @app.get("/")
 def index(): return FileResponse(os.path.join(HERE, "static", "index.html"))
+@app.get("/classic")
+def classic(): return FileResponse(os.path.join(HERE, "static", "classic", "index.html"))
+
+def _plain(fn, q):
+    try: return JSONResponse(fn(q))
+    except (ValueError, KeyError, FileNotFoundError) as e: raise HTTPException(400, str(e).strip("'\""))
+@app.get("/api/roster")
+def roster(): return plans.roster()
+@app.post("/api/profiles")
+def profiles(q: dict): return _plain(plans.profiles, q)
+@app.post("/api/battles")
+def battles(q: dict): return _plain(plans.battles, q)
+@app.post("/api/build")
+def build(q: dict): return _plain(plans.build, q)
+@app.get("/api/ops/list")
+def ops_list(): return plans.ops_list()
+@app.post("/api/ops/setup")
+def ops_setup(q: dict): return _plain(plans.ops_setup, q)
+@app.post("/api/ops/create")
+def ops_create(q: dict): return _plain(plans.ops_create, q)
+@app.post("/api/ops/today")
+def ops_today(q: dict): return _plain(plans.ops_today, q)
+@app.post("/api/ops/commit")
+def ops_commit(q: dict): return _plain(plans.ops_commit, q)
+@app.post("/api/ops/sync")
+def ops_sync(q: dict): return _plain(plans.ops_sync, q)
 @app.get("/api/atlas")
 def atlas(request: Request):
     if "gzip" in request.headers.get("accept-encoding", ""): return Response(ATLAS_GZ, media_type="application/json", headers={"Content-Encoding": "gzip", "Cache-Control": "no-cache"})

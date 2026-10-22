@@ -1,5 +1,46 @@
 # Money Printer Forge and the Printer Atlas (2026-10-19)
 
+## The redesigned app (2026-10-21): `./forge` → http://127.0.0.1:8777
+**Goal:** the clearest possible app for growing wealth before retirement and paying yourself in it. Few words, big
+numbers, plain labels. Every view is a deep link: `#/build`, `#/retire`, `#/compare?ids=mp21,box,6040&battle=2008`,
+`#/setup?s=box&amount=150000`, `#/today?n=<tracker>`.
+- **Grow** (saving years):
+  - **Inputs:** age, savings, monthly saving, the monthly income wanted later, and Social Security.
+  - **Answer:** the retirement age (typical, lucky, unlucky, bad luck) and "save $X more → retire at Y".
+  - **Shows:** money by age, what to buy (IRA Steady 30 or Accelerator 40), and setup steps.
+- **Pay myself:**
+  - **Inputs:** amount, age, where the money is (regular / IRA / Roth), income tax.
+  - **Shows:** the best plan, with the usual monthly pay, base pay, first 10 years and bad luck; status badges for
+    pay-cut chance, running out and big drops; and the paycheck range by age.
+  - **Choice:** the box-loan plan is shown only for regular accounts (IRAs can't borrow). It is picked as best from
+    $110k (portfolio margin).
+- **Compare** ("characters"): pick up to 4 of MP-2.1, MP-2.1 Boosted (box loan), Crash Buyer, MP-2, CH-12, Three-Fund,
+  60/40 and All Stocks.
+  - **Cards:** each has bars for paycheck, base pay, steady, calm, tough (trend funds −4%/yr), what it leaves, and
+    how easy it is.
+  - **Battles:** the strategies run on the real path through 1970s inflation, 1987, the dot-com bust, 2008, Covid and
+    2022 (winner, chart, table); plus the future (typical pay and bad-luck money by age) and what-ifs (the
+    forward-scenario shocks, × leverage).
+- **Set it up:** the exact checklist (accounts, permissions, deposit, pie, BOXX bucket) and the first orders at today's
+  prices. For box-loan plans that includes the SPX box combo order (strikes, expiry, limit credit, amount owed).
+  "Create tracker" saves the state to `private/ops/` (gitignored).
+- **Today:**
+  - **What to do:** exact trades (shares, price, estimated tax), the amount to move to the bank, box opens/rolls/
+    closes and the pay-off rule.
+  - **Status:** how close each trigger is, coming dates, holdings, and a "my broker shows different numbers" sync.
+  - "I placed these trades — save" records them.
+- **Engine:** `printer/app/plans.py` on `printer/operate.py` (now with box loans; `printer/replay.py` checks the
+  operator against the simulator: MP-2.1 1.9%, box loan 2.5%, crash buyer 1.6%).
+  - Stats are weekly-step estimates on 1,000 reshuffled histories, consistent with the validated daily results.
+- **Design:**
+  - One plain, readable sans (Atkinson Hyperlegible Next); no display or serif faces.
+  - Fixed colors per strategy, from a validated colorblind-safe palette (light and dark).
+  - Status colors only for good/bad, always with an icon and a label.
+  - Direct labels and tables beside the charts.
+- **The original Forge** (values sliders, frontier explorer, testfol-style backtests) is at `/classic`.
+
+## The original Forge (2026-10-19)
+
 ## The app (local): `./forge` → http://127.0.0.1:8777
 **Its job:** help someone pick the money printer that fits their situation and their values, choosing only among printers
 on the Pareto frontier.

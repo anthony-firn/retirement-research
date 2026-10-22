@@ -1,84 +1,57 @@
-/* Chart helpers on uPlot: themed from the page's CSS tokens, rebuilt on resize and theme change.
-   line(el, {x, series:[{label, data, i}], fmt, log, height})   time-series lines; series i picks --s1..--s4 (the 4th is dashed ink)
-   fan(el, {x, q, rows, fmt, height})                            percentile bands (5-95, 25-75) + median, x = years from now
-   bars(canvas, {groups, series:[{label, data, i}], fmt})        grouped bars (annual returns) with a hover readout */
+/* Charts on uPlot, themed from CSS tokens, rebuilt on resize and theme change.
+   lines(el, {x, xfmt, yfmt, series:[{label, color, data, dash}], band:{lo, hi, color}, ref:{y, label}, height})
+     - one y-axis; 2px lines; direct labels at the line ends; crosshair + live legend on hover. */
 const Charts = (() => {
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-  const color = i => css(`--s${i + 1}`);
-  const dash = i => (i === 3 ? [6, 4] : undefined);
-  const live = new Map();                                                       // el -> {make}
-  const font = () => `11px ${css("--f-data")}`;
-  const axis = (fmt, size = 64, space = 40) => ({ stroke: css("--ink-3"), font: font(), size, space, grid: { stroke: css("--line"), width: 1 }, ticks: { stroke: css("--line"), width: 1 },
-    values: fmt ? (u, s) => s.map(v => (v == null ? "" : fmt(v))) : undefined });
-
+  const live = new Map();
   function mount(el, make) { live.set(el, make); make(); }
-  function redraw() { for (const [el, make] of live) if (el.isConnected) make(); }
+  function redraw() { for (const [el, make] of live) { if (el.isConnected) make(); else live.delete(el); } }
   let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(redraw, 150); });
   matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", redraw);
+  const font = () => `14px ${css("--font")}`;
+  const axis = (fmt, size) => ({ stroke: css("--muted"), font: font(), size, grid: { stroke: css("--grid"), width: 1 }, ticks: { stroke: css("--axis"), width: 1 },
+    values: (u, v) => v.map(x => (x == null ? "" : fmt(x))) });
 
-  function line(el, o) {
+  function lines(el, o) {
     mount(el, () => {
-      el.innerHTML = ""; const W = el.clientWidth || 600, H = o.height || el.clientHeight || 260;
-      const opts = { width: W, height: H, padding: [8, 8, 0, 0], legend: { live: true },
-        scales: { x: { time: o.time !== false }, y: o.log ? { distr: 3 } : { range: o.range } },
-        series: [{ value: o.time !== false ? (u, v) => (v == null ? "" : new Date(v * 1000).toISOString().slice(0, 10)) : undefined },
-          ...o.series.map(s => ({ label: s.label, stroke: color(s.i), width: s.i === 0 ? 2.2 : 1.7, dash: dash(s.i), points: { show: false },
-            value: (u, v) => (v == null ? "–" : o.fmt(v)) }))],
-        axes: [axis(o.xfmt, 36, 60), axis(o.fmt, o.ysize || 70, o.log ? 34 : 30)],
-        cursor: { drag: { x: true, y: false }, points: { size: 7 } } };
-      new uPlot(opts, [o.x, ...o.series.map(s => s.data)], el);
+      el.innerHTML = ""; const W = Math.max(280, el.clientWidth), H = o.height || 300;
+      const S = o.series.map(s => ({ ...s, stroke: css(s.color) }));
+      const data = [o.x]; const series = [{ value: (u, v) => (v == null ? "" : o.xfmt(v)) }]; const bands = [];
+      if (o.band) {
+        data.push(o.band.hi, o.band.lo); const bc = css(o.band.color);
+        series.push({ label: o.band.label || "range", stroke: "transparent", points: { show: false }, value: (u, v) => (v == null ? "" : o.yfmt(v)) },
+                    { label: "", stroke: "transparent", points: { show: false }, value: () => "" });
+        bands.push({ series: [1, 2], fill: bc + "26" });
+      }
+      for (const s of S) { data.push(s.data); series.push({ label: s.label, stroke: s.stroke, width: 2, dash: s.dash, points: { show: false }, value: (u, v) => (v == null ? "–" : o.yfmt(v)) }); }
+      if (o.ref) { data.push(o.x.map(() => o.ref.y)); series.push({ label: o.ref.label, stroke: css("--ink-2"), width: 1.5, dash: [6, 5], points: { show: false }, value: () => o.yfmt(o.ref.y) }); }
+      const first = o.band ? 3 : 1;
+      const ro = document.createElement("div"); ro.className = "readout";
+      const read = i => {                                            // hover readout (and the last point when not hovering)
+        if (i == null) { i = o.x.length - 1; }
+        ro.innerHTML = `<b>${o.xfmt(o.x[i])}</b>` + S.map(s => `<span><i class="dot" style="--c:${s.stroke}"></i>${s.short || s.label} <b>${s.data[i] == null ? "–" : o.yfmt(s.data[i])}</b></span>`).join("")
+          + (o.band ? `<span class="muted">range ${o.yfmt(o.band.lo[i])}–${o.yfmt(o.band.hi[i])}</span>` : "");
+      };
+      const xaxis = axis(o.xfmt, 40); if (o.xint) xaxis.incrs = [1, 2, 5, 10, 20, 50];
+      const opts = { width: W, height: H, padding: [12, 96, 0, 4], legend: { show: false }, scales: { x: { time: false }, y: { range: (u, lo, hi) => [Math.min(0, lo), hi * 1.06] } },
+        series, bands, axes: [xaxis, axis(o.yfmt, 76)], cursor: { points: { size: 9 }, drag: { x: false, y: false } },
+        hooks: { setCursor: [u => read(u.cursor.idx)], draw: [u => {                                       // direct labels at the right end of each line (text in ink, not series color)
+          const ctx = u.ctx, dpr = devicePixelRatio || 1; ctx.save(); ctx.font = `600 ${13 * dpr}px ${css("--font")}`; ctx.textBaseline = "middle";
+          const placed = [];
+          for (let k = first; k < first + S.length; k++) {
+            const d = u.data[k]; let i = d.length - 1; while (i > 0 && d[i] == null) i--;
+            const x = u.valToPos(u.data[0][i], "x", true), y0 = u.valToPos(d[i], "y", true); let y = y0;
+            for (const p of placed) if (Math.abs(p - y) < 16 * dpr) y = p + 16 * dpr;
+            placed.push(y); ctx.fillStyle = S[k - first].stroke; ctx.fillRect(x + 6 * dpr, y - 1.5 * dpr, 10 * dpr, 3 * dpr);
+            ctx.fillStyle = css("--ink"); ctx.fillText(S[k - first].short || S[k - first].label, x + 20 * dpr, y);
+          }
+          if (o.ref) {                                               // the reference line gets its own direct label
+            const y = u.valToPos(o.ref.y, "y", true), x = u.bbox.left + u.bbox.width; ctx.fillStyle = css("--ink-2"); ctx.fillText(o.ref.label, x + 8 * dpr, y);
+          }
+          ctx.restore();
+        }] } };
+      new uPlot(opts, data, el); el.appendChild(ro); read(null);
     });
   }
-
-  function fan(el, o) {
-    mount(el, () => {
-      el.innerHTML = ""; const W = el.clientWidth || 400, H = o.height || 230, r = o.rows;   // rows: [p5, p10, p25, p50, p75, p90, p95]
-      const none = "rgba(0,0,0,0)";
-      const opts = { width: W, height: H, padding: [8, 22, 0, 0], legend: { show: false },
-        scales: { x: { time: false } },
-        series: [{}, ...[1, 2, 3, 4].map(() => ({ stroke: none, points: { show: false } })), { label: "Typical", stroke: css("--accent"), width: 2, points: { show: false } }],
-        bands: [{ series: [2, 1], fill: css("--band1") }, { series: [4, 3], fill: css("--band2") }],
-        axes: [axis(v => `${v} yr`, 32, 50), axis(o.fmt, 70)],
-        cursor: { points: { show: false } },
-        hooks: { setCursor: [u => { const i = u.cursor.idx; if (o.onHover) o.onHover(i == null ? null : i); }] } };
-      new uPlot(opts, [o.x, r[0], r[6], r[2], r[4], r[3]], el);
-    });
-  }
-
-  function bars(cv, o) {
-    const draw = (hover = null) => {
-      const dpr = Math.min(2, devicePixelRatio || 1), W = cv.clientWidth, H = cv.clientHeight, ctx = cv.getContext("2d");
-      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
-      const m = { l: 56, r: 8, t: 10, b: 26 }, n = o.groups.length, k = o.series.length;
-      const all = o.series.flatMap(s => s.data).filter(v => v != null); let lo = Math.min(0, ...all), hi = Math.max(0, ...all); const pad = (hi - lo) * 0.06 || 1; lo -= pad; hi += pad;
-      const Y = v => m.t + (hi - v) / (hi - lo) * (H - m.t - m.b), gw = (W - m.l - m.r) / n, bw = Math.max(1, Math.min(14, (gw * 0.8 - (k - 1) * 2) / k));
-      ctx.font = font(); ctx.fillStyle = css("--ink-3"); ctx.strokeStyle = css("--line"); ctx.textAlign = "right";
-      const step = niceStep(hi - lo, 5);
-      for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) { const y = Y(v); ctx.beginPath(); ctx.moveTo(m.l, y); ctx.lineTo(W - m.r, y); ctx.stroke(); ctx.fillText(o.fmt(v), m.l - 6, y + 3.5); }
-      ctx.strokeStyle = css("--ink-3"); ctx.beginPath(); ctx.moveTo(m.l, Y(0)); ctx.lineTo(W - m.r, Y(0)); ctx.stroke();
-      ctx.textAlign = "center"; const every = Math.ceil(n / Math.max(1, Math.floor((W - m.l) / 44)));
-      o.groups.forEach((g, gi) => {
-        const x0 = m.l + gi * gw + (gw - (k * bw + (k - 1) * 2)) / 2;
-        if (gi === hover) { ctx.fillStyle = css("--accent-soft"); ctx.fillRect(m.l + gi * gw, m.t, gw, H - m.t - m.b); }
-        o.series.forEach((s, si) => {
-          const v = s.data[gi]; if (v == null) return; const x = x0 + si * (bw + 2), y0 = Y(0), y1 = Y(v);
-          ctx.fillStyle = color(s.i); const top = Math.min(y0, y1), h = Math.max(1, Math.abs(y1 - y0)); roundRect(ctx, x, top, bw, h, Math.min(3, bw / 2), v >= 0);
-        });
-        if (gi % every === 0) { ctx.fillStyle = css("--ink-3"); ctx.fillText(String(g), m.l + gi * gw + gw / 2, H - 8); }
-      });
-      return { m, gw };
-    };
-    let geo = draw();
-    cv.onpointermove = e => { const r = cv.getBoundingClientRect(), gi = Math.floor((e.clientX - r.left - geo.m.l) / geo.gw); const ok = gi >= 0 && gi < o.groups.length; geo = draw(ok ? gi : null); o.onHover?.(ok ? gi : null, e); };
-    cv.onpointerleave = () => { geo = draw(); o.onHover?.(null); };
-    live.set(cv, () => { geo = draw(); });
-  }
-  function roundRect(ctx, x, y, w, h, r, up) {
-    ctx.beginPath();
-    if (up) { ctx.moveTo(x, y + h); ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r); ctx.lineTo(x + w, y + h); }
-    else { ctx.moveTo(x, y); ctx.lineTo(x, y + h - r); ctx.quadraticCurveTo(x, y + h, x + r, y + h); ctx.lineTo(x + w - r, y + h); ctx.quadraticCurveTo(x + w, y + h, x + w, y + h - r); ctx.lineTo(x + w, y); }
-    ctx.closePath(); ctx.fill();
-  }
-  function niceStep(span, n) { const s0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(s0))); return [1, 2, 2.5, 5, 10].map(m => m * mag).find(m => span / m <= n) || mag * 10; }
-  return { line, fan, bars, color, dash, niceStep, redraw };
+  return { lines, redraw };
 })();
