@@ -192,6 +192,27 @@ def settings_local(p):                                             # one step in
 def front_load(p):                                                 # higher base early, lower later (the retiree's early years matter most)
     return [replace(p, name=f"{p.name} | base {p.base + up:.2f}% for {yrs}y then {p.base - dn:.2f}%", base=p.base + up, base_years=yrs, base_after=p.base - dn)
             for up in (0.25, 0.5) for yrs in (10, 15) for dn in (0.25, 0.5, 0.75)]
+def trend_more(p):                                                 # more trend (DBMF/KMLM, kept 27:15) from VBR + GDE pro rata; beyond the 42% guard rail
+    out = []
+    t0 = p.alloc.get("DBMFSIM", 0) + p.alloc.get("KMLMSIM", 0); s0 = p.alloc.get("VBRSIM", 0) + p.alloc.get("GDESIM", 0)
+    for tot in (45, 48, 50):
+        x = tot - t0; a = dict(p.alloc)
+        for k in ("VBRSIM", "GDESIM"): a[k] -= x * p.alloc[k] / s0
+        a["DBMFSIM"] += x * 27 / 42; a["KMLMSIM"] += x * 15 / 42
+        out.append(replace(p, name=f"{p.name} | trend {tot}% (from VBR + GDE)", alloc=a))
+    return out
+def crash_lev(p):                                                  # credit track: leverage target that reacts to the account's own drawdown
+    if p.lev <= 1: return []
+    out = [replace(p, name=f"{p.name} | brake: {p.lev}x -> {to}x while >= {int(th * 100)}% below its high", lev_dd=th, lev_dd_to=to) for th in (0.15, 0.25) for to in (1.0, 1.1)]
+    out += [replace(p, name=f"{p.name} | lever more: {p.lev}x -> {to}x while >= {int(th * 100)}% below its high", lev_dd=th, lev_dd_to=to) for th in (0.15, 0.20, 0.25) for to in (1.4, 1.5)]
+    return out
+def phase_in(p):                                                   # simple track: park part in short Treasuries (SHY) for the first year(s)
+    if p.lev > 1: return []
+    out = []
+    for c, yrs in ((33, 1), (50, 1), (50, 2)):
+        a = {k: w * (100 - c) / 100 for k, w in p.alloc.items()}; a["SHYSIM"] = c; g = dict(p.alloc); g["SHYSIM"] = 0
+        out.append(replace(p, name=f"{p.name} | phase in: {c}% in SHY, invested over {yrs}y", alloc=a, glide=g, glide_years=yrs))
+    return out
 FREE = {"cheap_gold", "bucket_tax", "bucket_offset"}               # same holdings, lower cost or tax: any gain counts
 OPS = {"tlh"}                                                      # adds recurring manual work (swaps): must gain >= 0.25%                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
@@ -211,6 +232,9 @@ IDEAS = {
     "climb": climb,
     "settings_local": settings_local,
     "front_load": front_load,
+    "trend_more": trend_more,
+    "crash_lev": crash_lev,
+    "phase_in": phase_in,
     "tlh": lambda p: [replace(p, name=f"{p.name} | harvest losses >= {int(h * 100)}% into twins", harvest=h) for h in (0.05, 0.10)],
 }
 
