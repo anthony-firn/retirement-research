@@ -277,11 +277,12 @@ def apply(state, p, date, profile):
     y = date[:4]; state["realized_gains_by_year"][y] = state["realized_gains_by_year"].get(y, 0.0) + gains
     state.setdefault("log", []).append(log); return state
 
-def init_state(printer, value, date, prices, cpi, tax="retiree, not working", market=None):
+def init_state(printer, value, date, prices, cpi, tax="retiree, not working", market=None, base=None):
     """A new state file and the first-purchase plan. Loan printers buy lev x value of funds and borrow the rest with an SPX box;
     if the start is at least $130k the loan is paid off whenever net value falls below $115k (portfolio-margin minimum ~$100-110k)."""
     cfg = PRINTERS[printer]; lc = cfg.get("loan"); lev = lc["lev"] if lc else 1.0
-    st = dict(printer=printer, targets=cfg["targets"], settings=cfg["settings"], baseline=dict(start_value=value, start_cpi=cpi, start_date=date),
+    settings = dict(cfg["settings"], **({"base": float(base)} if base else {}))          # base: the safe base for this account/bracket/horizon
+    st = dict(printer=printer, targets=cfg["targets"], settings=settings, baseline=dict(start_value=value, start_cpi=cpi, start_date=date),
               holdings={t: {"shares": 0.0, "lots": []} for t in cfg["targets"]}, cash_bucket=0.0, guardrail_mult=1.0, last_rebalance=date,
               last_month_paid=date[:7], last_year_end=int(date[:4]), tax=tax, log=[])
     bp = {t: value * lev * w / 100 for t, w in cfg["targets"].items()}
