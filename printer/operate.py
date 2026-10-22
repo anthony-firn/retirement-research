@@ -26,6 +26,13 @@ PRINTERS = {   # ticker -> target %, and printer settings (from results/PRINTER_
     # and the safety valve at 4x; keep the cash bucket in BOXX (box-spread ETF, taxed as long-term gains)
     "MP-2.1": dict(targets={"DBMF": 27, "VBR": 27, "GDE": 21, "KMLM": 15, "IAUM": 8, "TQQQ": 2},
                    settings=dict(base=5.75, skim=0.40, bucket_months=48, cut_below=0.70, cut_to=0.60, restore_above=0.90, band=6.0, min_days=365, valve=4.0)),
+    # with an SPX box-spread loan at IBKR/Schwab (results/IMPROVE.md, results/CREDIT.md): always 1.25x, or only after a 20% fall
+    "MP-2.1 box loan": dict(targets={"DBMF": 27, "VBR": 27, "GDE": 21, "KMLM": 15, "IAUM": 8, "TQQQ": 2},
+                            settings=dict(base=5.25, skim=0.40, bucket_months=48, cut_below=0.70, cut_to=0.65, restore_above=0.80, band=10.0, min_days=365, valve=3.0),
+                            loan=dict(lev=1.25, dd=0.0, dd_to=1.0, spread=0.6)),
+    "MP-2.1 crash buyer": dict(targets={"DBMF": 27, "VBR": 27, "GDE": 21, "KMLM": 15, "IAUM": 8, "TQQQ": 2},
+                               settings=dict(base=5.75, skim=0.40, bucket_months=48, cut_below=0.70, cut_to=0.60, restore_above=0.90, band=6.0, min_days=365, valve=4.0),
+                               loan=dict(lev=1.0, dd=0.20, dd_to=1.25, spread=0.6)),
     "CH-12": dict(targets={"DBMF": 25, "KMLM": 16, "GLD": 15, "VBR": 15, "XLV": 13, "TYD": 11, "TQQQ": 5},
                   settings=dict(base=4.0, skim=0.25, bucket_months=36, cut_below=0.70, cut_to=0.80, restore_above=0.90, band=6.0, min_days=365, valve=2.0)),
     "MP-Fortress": dict(targets={"KMLM": 22, "VBR": 20, "DBMF": 16, "GLD": 15, "UGL": 8, "XLV": 7, "SPMO": 5, "UUP": 4, "TQQQ": 3},
@@ -93,21 +100,57 @@ def buy_plan(state, prices, amount):
     for t in T: out[t] += T[t] * rest
     return {t: x for t, x in out.items() if x > 0.005}
 
-def rebalance_plan(state, prices):
-    V = value(state, prices); out = {}
+def rebalance_plan(state, prices, total=None):
+    V = value(state, prices) if total is None else total; out = {}
     for t, w in state["targets"].items():
         d = w / 100 * V - state["holdings"].get(t, {"shares": 0})["shares"] * prices[t]
         if abs(d) > 0.005: out[t] = d                              # + buy, - sell
     return out
 
-def plan(state, date, prices, cpi, deposit=0.0, bucket=None):
-    """Everything to do today. Returns a dict of steps; pure (does not modify state)."""
+def third_friday(y, m):
+    d = dt.date(y, m, 15); return d + dt.timedelta(days=(4 - d.weekday()) % 7)
+def box_expiry(today, min_days=80):
+    """The SPX monthly expiry (third Friday) at least `min_days` away: a ~3-month box."""
+    y, m = today.year, today.month
+    while True:
+        e = third_friday(y, m)
+        if (e - today).days >= min_days: return e
+        m += 1; y, m = (y + 1, 1) if m > 12 else (y, m)
+
+def box_order(debt, today, spx, rate):
+    """A short SPX box that borrows about `debt` until a ~3-month expiry: you receive the credit now and owe the face at expiry.
+    Strikes 5 points apart -> face in $500 steps; strikes centred on today's SPX (any strikes work; near the money trades best)."""
+    e = box_expiry(today); T = (e - today).days / 365; face = math.ceil(debt * (1 + rate) ** T / 500) * 500; width = face // 100
+    k1 = int(round((spx - width / 2) / 5) * 5); k2 = k1 + int(width); credit = face / (1 + rate) ** T
+    return dict(expiry=e.isoformat(), face=float(face), width=int(width), k1=k1, k2=k2, credit=float(credit), rate=float(rate), days=(e - today).days,
+                legs=[f"BUY 1 SPX {e:%b %d %Y} {k1} call", f"SELL 1 SPX {e:%b %d %Y} {k2} call", f"SELL 1 SPX {e:%b %d %Y} {k1} put", f"BUY 1 SPX {e:%b %d %Y} {k2} put"])
+
+def live_market():
+    """S&P 500 level and today's ~3-month box-spread rate (boxtrades.com; fallback: 3-month T-bill + 0.6)."""
+    from engine.data import sources as src
+    out = {}
+    try: ts, v = src.yahoo("^GSPC", field="close"); out["spx"] = float(v[-1])
+    except Exception: out["spx"] = None
+    try:
+        import re, urllib.request
+        html = urllib.request.urlopen(urllib.request.Request("https://www.boxtrades.com/", headers={"User-Agent": "Mozilla/5.0"}), timeout=20).read().decode("utf-8", "ignore")
+        ys = [float(x) for x in re.findall(r'"yield":([0-9.]+)', html)]; out["box_rate"] = ys[2] / 100; out["box_source"] = "boxtrades.com (3-month SPX box)"
+    except Exception:
+        try: ts, v = src.yahoo("^IRX", field="close"); out["box_rate"] = float(v[-1]) / 100 + 0.006; out["box_source"] = "3-month T-bill + 0.6 (boxtrades.com unavailable)"
+        except Exception: out["box_rate"] = 0.047; out["box_source"] = "assumed 4.7%"
+    return out
+
+def plan(state, date, prices, cpi, deposit=0.0, bucket=None, market=None):
+    """Everything to do today. Returns a dict of steps; pure (does not modify state). With a box loan (state["loan"]) the net
+    value (funds - loan) drives the skim, guardrail and leverage; `market` = {spx, box_rate} (fetched live when needed)."""
     S = state["settings"]; B = state["baseline"]; d = dt.date.fromisoformat(date); notes = []; steps = []
     work = json.loads(json.dumps(state)); cbucket = state["cash_bucket"] if bucket is None else float(bucket)
     infl = cpi / B["start_cpi"]
     def apply_trades(trades):                                   # update a working copy so later steps see earlier trades
         for t, dollars in trades.items():
             h = work["holdings"].setdefault(t, {"shares": 0.0, "lots": []}); h["shares"] += dollars / prices[t]
+    L = work.get("loan"); debt = 0.0
+    if L: debt = L["balance"] * (1 + L["rate"]) ** (max(0, (d - dt.date.fromisoformat(L["last_accrual"])).days) / 365)
     # 1 deposit
     if deposit > 0:
         bp = buy_plan(work, prices, deposit); apply_trades(bp); B2 = B["start_value"] + deposit / infl
@@ -117,19 +160,20 @@ def plan(state, date, prices, cpi, deposit=0.0, bucket=None):
     mult = state["guardrail_mult"]
     # 2 year-end (first run in a new calendar year)
     if d.year > state["last_year_end"]:
-        V = value(work, prices); line = (1 + S["skim"]) * start_value * infl; skim = max(0.0, V - line)
-        sp = sell_plan(work, prices, skim) if skim > 0 else {}
-        if sp: apply_trades({t: -x for t, x in sp.items()}); cbucket_after = cbucket + skim
-        else: cbucket_after = cbucket
-        real = value(work, prices) / (start_value * infl)
+        V = value(work, prices); line = (1 + S["skim"]) * start_value * infl; skim = max(0.0, V - debt - line)
+        sell = skim if not debt else skim * V / (V - debt)                 # with a loan: sell pro rata and pay the loan down by the same share
+        sp = sell_plan(work, prices, sell) if skim > 0 else {}
+        if sp: apply_trades({t: -x for t, x in sp.items()}); cbucket_after = cbucket + skim; paid_down = sell - skim; debt -= paid_down
+        else: cbucket_after = cbucket; paid_down = 0.0
+        real = (value(work, prices) - debt) / (start_value * infl)
         new_mult = S["cut_to"] if real < S["cut_below"] else (1.0 if real > S["restore_above"] else mult)
-        steps.append(dict(step="YEAR-END", why=f"Skim line ${line:,.0f} (= {1+S['skim']:.2f} x baseline x inflation {infl:.3f}); account ${V:,.0f} -> "
-                          + (f"skim ${skim:,.0f} into the cash bucket" if skim > 0 else "nothing to skim")
+        steps.append(dict(step="YEAR-END", why=f"Skim line ${line:,.0f} (= {1+S['skim']:.2f} x baseline x inflation {infl:.3f}); {'net value' if L else 'account'} ${V - (debt + paid_down):,.0f} -> "
+                          + (f"skim ${skim:,.0f} into the cash bucket" if skim > 0 else "nothing to skim") + (f" and pay the box loan down by ${paid_down:,.0f}" if paid_down > 0.5 else "")
                           + f". Real value {real*100:.0f}% of baseline -> guardrail {'CUT: base print x ' + format(new_mult, '.2f') if new_mult < 1 else 'normal (base print x 1.00)'}",
-                          trades={t: -x for t, x in sp.items()}, skim=skim, bucket_after=cbucket_after, guardrail=new_mult, year=d.year))
+                          trades={t: -x for t, x in sp.items()}, skim=skim, bucket_after=cbucket_after, guardrail=new_mult, year=d.year, paid_down=paid_down))
         cbucket, mult = cbucket_after, new_mult
     # 3 monthly print (first run in a new month)
-    ym = d.strftime("%Y-%m")
+    ym = d.strftime("%Y-%m"); switched = False
     if ym > state["last_month_paid"]:
         ly, lm = map(int, state["last_month_paid"].split("-")); owed = min(3, (d.year - ly) * 12 + d.month - lm)   # missed months are paid too (max 3)
         base_amt = owed * S["base"] / 100 * start_value * infl / 12 * mult; draw = cbucket * (1 - (1 - 1 / S["bucket_months"]) ** owed)
@@ -139,22 +183,61 @@ def plan(state, date, prices, cpi, deposit=0.0, bucket=None):
                           + f"; bonus from the cash bucket ({owed} x 1/{S['bucket_months']}) of ${cbucket:,.0f} = ${draw:,.0f}. SPEND THIS MONTH: ${base_amt + draw:,.0f}",
                           trades={t: -x for t, x in sp.items()}, base=base_amt, bucket_draw=draw, spend=base_amt + draw, month=ym))
         cbucket -= draw
+        if L:                                                          # monthly loan checks (the simulator checks at month ends too)
+            netv = value(work, prices) - debt; nr = netv / (start_value * infl); L["hwm_real"] = max(L.get("hwm_real", 1.0), nr)
+            if L.get("dd", 0) > 0:
+                if not L["dd_on"] and nr < (1 - L["dd"]) * L["hwm_real"]:
+                    L["dd_on"] = True; switched = True; notes.append(f"Net value is {(1 - nr / L['hwm_real']) * 100:.0f}% below its high: the crash-buyer loan switches ON ({L['dd_to']}x)")
+                elif L["dd_on"] and nr > (1 - L["dd"] / 2) * L["hwm_real"]:
+                    L["dd_on"] = False; switched = True; notes.append(f"Net value is back within {L['dd'] * 50:.0f}% of its high: the crash-buyer loan switches OFF")
+            if L.get("floor_usd") and not L["paused"] and debt > 0.5 and netv < L["floor_usd"]:
+                sp2 = sell_plan(work, prices, debt); apply_trades({t: -x for t, x in sp2.items()}); paid = sum(sp2.values())
+                steps.append(dict(step="PAY OFF THE LOAN", why=f"Net value ${netv:,.0f} is below the ${L['floor_usd']:,.0f} floor (portfolio-margin minimum): sell ${paid:,.0f} of funds and pay the box loan off. "
+                                  f"Borrow again once net value is above ${L['resume_usd']:,.0f}", trades={t: -x for t, x in sp2.items()})); debt -= paid; L["paused"] = True
+            elif L.get("paused") and netv > L.get("resume_usd", 0): L["paused"] = False; notes.append(f"Net value ${netv:,.0f} is above ${L['resume_usd']:,.0f}: the loan can be used again (at the next rebalance)")
     # 4/5 rebalancing checks
     w = weights(work, prices); T = {t: x / 100 for t, x in state["targets"].items()}
     valve = [t for t in T if w[t] >= S["valve"] * T[t]]; drift = max(abs(w[t] - T[t]) * 100 for t in T)
     days = (d - dt.date.fromisoformat(state["last_rebalance"])).days
-    if valve or (drift > S["band"] and days >= S["min_days"]):
-        rp = rebalance_plan(work, prices); apply_trades(rp)
-        why = (f"SAFETY VALVE: {', '.join(valve)} reached {S['valve']:.0f}x target" if valve else f"Drift {drift:.1f} points > {S['band']:.0f} and {days} days since the last rebalance")
-        steps.append(dict(step="REBALANCE", why=why + " -> everything back to target weights", trades=rp))
+    lt = 1.0; levdrift = False
+    if L:
+        V = value(work, prices); netv = V - debt; lt = 1.0 if L["paused"] else (L["dd_to"] if L["dd_on"] else L["lev"])
+        levdrift = netv > 0 and abs(V / netv / lt - 1) > 0.15
+    if valve or (drift > S["band"] and days >= S["min_days"]) or (L and ((levdrift and days >= S["min_days"]) or switched)):
+        total = lt * (value(work, prices) - debt) if L else None
+        rp = rebalance_plan(work, prices, total); apply_trades(rp)
+        if L: debt += sum(rp.values())                                  # buying more than you sell is financed by the box loan (and vice versa)
+        why = (f"SAFETY VALVE: {', '.join(valve)} reached {S['valve']:.0f}x target" if valve else f"Drift {drift:.1f} points > {S['band']:.0f} and {days} days since the last rebalance"
+               if drift > S["band"] and days >= S["min_days"] else f"Loan target is now {lt:g}x net value" if switched else f"Leverage drifted more than 15% from {lt:g}x")
+        steps.append(dict(step="REBALANCE", why=why + (f" -> funds back to target weights at {lt:g}x net value; box loan becomes ${max(0, debt):,.0f}" if L else " -> everything back to target weights"), trades=rp))
     else:
         notes.append(f"No rebalance: largest drift {drift:.1f} points (trigger {S['band']:.0f} after {S['min_days']} days; {days} days since last), no fund at {S['valve']:.0f}x target")
+    # 6 the box spread itself: open / roll / close so it matches the loan
+    if L:
+        debt = max(0.0, debt); box = L.get("box"); market = market or live_market(); rate = market.get("box_rate") or L["rate"]
+        due = box and (dt.date.fromisoformat(box["expiry"]) - d).days <= 7
+        box_pv = box["face"] / (1 + box["rate"]) ** (max(0, (dt.date.fromisoformat(box["expiry"]) - d).days) / 365) if box else 0.0
+        if debt < 250 and box:
+            steps.append(dict(step="BOX LOAN", why=f"Close the box: buy it back for about ${box_pv:,.0f} (" + "; ".join(box["legs"]) + " - reverse each leg)", trades={}, box=None)); L["box"] = None
+        elif debt >= 250 and (not box or due or abs(debt - box_pv) > max(500, 0.05 * debt)):
+            if not market.get("spx"): notes.append("S&P 500 level unavailable: cannot size the box today")
+            else:
+                o = box_order(debt, d, market["spx"], rate); L["box"] = o; L["rate"] = rate
+                steps.append(dict(step="BOX LOAN", why=(("Roll: close the current box (buy it back for about $" + format(box_pv, ",.0f") + "), then ") if box else "")
+                                  + f"SELL a {o['width']}-point SPX box expiring {o['expiry']} ({o['days']} days) as ONE combo order at a limit near ${o['credit']:,.0f} credit "
+                                  f"(about {rate*100:.2f}%/yr; {market.get('box_source', '')}). You owe ${o['face']:,.0f} at expiry. Legs: " + "; ".join(o["legs"]), trades={}, box=o))
     # watch levels for the rest of the month/year
-    V = value(work, prices); line = (1 + S["skim"]) * start_value * infl
-    watch = dict(account_value=V, real_value_pct=V / (start_value * infl) * 100, skim_line=line, guardrail_line=S["cut_below"] * start_value * infl,
+    V = value(work, prices); line = (1 + S["skim"]) * start_value * infl; netv = V - debt
+    watch = dict(account_value=V, real_value_pct=netv / (start_value * infl) * 100, skim_line=line, guardrail_line=S["cut_below"] * start_value * infl,
                  restore_line=S["restore_above"] * start_value * infl, bucket=cbucket,
                  valve_levels={t: f">= {S['valve']*T[t]*100:.0f}% (now {w2*100:.1f}%)" for t, w2 in weights(work, prices).items()})
-    return dict(date=date, prices=prices, cpi=cpi, steps=steps, notes=notes, watch=watch, work=work, start_value=start_value, bucket_after=cbucket, guardrail=mult)
+    if L:
+        watch.update(debt=debt, net_value=netv, leverage=V / netv if netv > 0 else None, margin_call_line=debt / 0.70 if debt > 0 else None,
+                     floor_line=L.get("floor_usd"), resume_line=L.get("resume_usd"), loan_target=lt,
+                     crash_line=(1 - L["dd"]) * L.get("hwm_real", 1.0) * start_value * infl if L.get("dd", 0) > 0 and not L["dd_on"] else None,
+                     crash_off_line=(1 - L["dd"] / 2) * L.get("hwm_real", 1.0) * start_value * infl if L.get("dd", 0) > 0 and L["dd_on"] else None)
+    return dict(date=date, prices=prices, cpi=cpi, steps=steps, notes=notes, watch=watch, work=work, start_value=start_value, bucket_after=cbucket, guardrail=mult,
+                debt_after=debt, loan_after=L)
 
 def tax_lots(state, t, dollars, price, date, profile):
     """Pick lots for selling `dollars` of t: long-term highest cost first, then short-term highest cost. Returns lot picks + gain/tax estimate."""
@@ -188,9 +271,31 @@ def apply(state, p, date, profile):
         if s["step"] == "MONTHLY PRINT": state["last_month_paid"] = s["month"]; state.setdefault("paid", []).append(dict(month=s["month"], spend=s["spend"], base=s["base"], bucket=s["bucket_draw"]))
         if s["step"] == "REBALANCE": state["last_rebalance"] = date
         log["steps"].append(dict(step=s["step"], why=s["why"], trades={t: round(x, 2) for t, x in s["trades"].items()}))
+    if p.get("loan_after") is not None:
+        state["loan"] = json.loads(json.dumps(p["loan_after"])); state["loan"]["balance"] = p["debt_after"]; state["loan"]["last_accrual"] = date
     state["cash_bucket"] = p["bucket_after"]; state["realized_gains_by_year"] = state.get("realized_gains_by_year", {})
     y = date[:4]; state["realized_gains_by_year"][y] = state["realized_gains_by_year"].get(y, 0.0) + gains
     state.setdefault("log", []).append(log); return state
+
+def init_state(printer, value, date, prices, cpi, tax="retiree, not working", market=None):
+    """A new state file and the first-purchase plan. Loan printers buy lev x value of funds and borrow the rest with an SPX box;
+    if the start is at least $130k the loan is paid off whenever net value falls below $115k (portfolio-margin minimum ~$100-110k)."""
+    cfg = PRINTERS[printer]; lc = cfg.get("loan"); lev = lc["lev"] if lc else 1.0
+    st = dict(printer=printer, targets=cfg["targets"], settings=cfg["settings"], baseline=dict(start_value=value, start_cpi=cpi, start_date=date),
+              holdings={t: {"shares": 0.0, "lots": []} for t in cfg["targets"]}, cash_bucket=0.0, guardrail_mult=1.0, last_rebalance=date,
+              last_month_paid=date[:7], last_year_end=int(date[:4]), tax=tax, log=[])
+    bp = {t: value * lev * w / 100 for t, w in cfg["targets"].items()}
+    steps = [dict(step="INITIAL PURCHASE", why=f"Invest ${value * lev:,.0f} at target weights" + (f" (${value:,.0f} of your money + ${value * (lev - 1):,.0f} borrowed with the box)" if lev > 1 else ""), trades=bp)]
+    if lc:
+        market = market or live_market(); rate = market.get("box_rate") or 0.047; debt = value * (lev - 1)
+        st["loan"] = dict(lev=lev, dd=lc.get("dd", 0.0), dd_to=lc.get("dd_to", 1.0), spread=lc["spread"], rate=rate, balance=0.0, last_accrual=date, hwm_real=1.0,
+                          dd_on=False, paused=False, floor_usd=115000.0 if value >= 130000 else None, resume_usd=130000.0 if value >= 130000 else None, box=None)
+        if debt > 0 and market.get("spx"):
+            o = box_order(debt, dt.date.fromisoformat(date), market["spx"], rate); st["loan"]["box"] = o
+            steps.insert(0, dict(step="BOX LOAN", why=f"First, SELL a {o['width']}-point SPX box expiring {o['expiry']} ({o['days']} days) as ONE combo order at a limit near ${o['credit']:,.0f} credit "
+                                 f"(about {rate*100:.2f}%/yr; {market.get('box_source', '')}). You owe ${o['face']:,.0f} at expiry. Legs: " + "; ".join(o["legs"]), trades={}, box=o))
+    p = dict(date=date, prices=prices, steps=steps, bucket_after=0.0, debt_after=value * (lev - 1), loan_after=st.get("loan"), notes=[], watch={})
+    return st, p
 
 # ------------------------------------------------------------------ printing
 def sheet(state, p, profile, whole_shares=False):
@@ -213,6 +318,10 @@ def sheet(state, p, profile, whole_shares=False):
         if s["step"] == "MONTHLY PRINT": out.append(f"     -> move ${s['base']:,.0f} (sale proceeds) + ${s['bucket_draw']:,.0f} (from the cash bucket) = ${s['spend']:,.0f} to checking")
         if s["step"] == "YEAR-END" and s["skim"] > 0: out.append(f"     -> move the ${s['skim']:,.0f} of sale proceeds into the cash bucket (T-bills / high-yield savings)")
     w = p["watch"]
+    if w.get("debt") is not None:
+        out.append(f"\nBOX LOAN: owe ${w['debt']:,.0f} | net value ${w['net_value']:,.0f} | leverage {w['leverage'] or 0:.2f}x (target {w['loan_target']:g}x)"
+                   + (f" | pay off if net value < ${w['floor_line']:,.0f}" if w.get("floor_line") else "") + (f" | margin call if funds < ${w['margin_call_line']:,.0f}" if w.get("margin_call_line") else "")
+                   + (f" | crash-buyer loan turns ON if net value < ${w['crash_line']:,.0f}" if w.get("crash_line") else "") + (f" | turns OFF above ${w['crash_off_line']:,.0f}" if w.get("crash_off_line") else ""))
     out += ["\nWATCH LEVELS (for the rest of the period):",
             f"   skim line (checked in January): account above ${w['skim_line']:,.0f}",
             f"   guardrail (checked in January): below ${w['guardrail_line']:,.0f} -> base print x {state['settings']['cut_to']:.2f}; back to normal above ${w['restore_line']:,.0f}",
@@ -233,13 +342,11 @@ def main():
     if a.cmd == "init":
         if os.path.exists(a.state): sys.exit(f"{a.state} exists; refusing to overwrite")
         cfg = PRINTERS[a.printer]; prices = json.loads(a.prices) if a.prices else live_prices(cfg["targets"]); cpi = a.cpi or live_cpi()
-        st = dict(printer=a.printer, targets=cfg["targets"], settings=cfg["settings"], baseline=dict(start_value=a.value, start_cpi=cpi, start_date=a.date),
-                  holdings={t: {"shares": 0.0, "lots": []} for t in cfg["targets"]}, cash_bucket=0.0, guardrail_mult=1.0, last_rebalance=a.date,
-                  last_month_paid=a.date[:7], last_year_end=int(a.date[:4]), tax=a.tax, log=[])
-        bp = {t: a.value * w / 100 for t, w in cfg["targets"].items()}
-        p = dict(date=a.date, prices=prices, steps=[dict(step="INITIAL PURCHASE", why=f"Invest ${a.value:,.0f} at target weights", trades=bp)], bucket_after=0.0)
+        st, p = init_state(a.printer, a.value, a.date, prices, cpi, a.tax)
         print(f"=== INITIAL PURCHASE — {a.printer} — {a.date} ===")
-        for t, x in bp.items(): print(f"   BUY {t:5} {x / prices[t]:10.3f} shares @ ${prices[t]:,.2f} = ${x:,.0f}" + (" [K-1 fund]" if t in K1 else ""))
+        for s_ in p["steps"]:
+            if s_["step"] == "BOX LOAN": print("   " + s_["why"])
+        for t, x in p["steps"][-1]["trades"].items(): print(f"   BUY {t:5} {x / prices[t]:10.3f} shares @ ${prices[t]:,.2f} = ${x:,.0f}" + (" [K-1 fund]" if t in K1 else ""))
         print("First monthly print: next month's 1st trading day. Keep 12 months of expenses in high-yield savings outside the printer.")
         if a.commit: st = apply(st, p, a.date, a.tax); json.dump(st, open(a.state, "w"), indent=1); print(f"saved {a.state}")
         return

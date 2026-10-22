@@ -14,30 +14,36 @@ dates = [dt.datetime.fromtimestamp(x, dt.UTC).date().isoformat() for x in mp.h.C
 lvl = {t: np.cumprod(1 + mp.fund_returns(t + "SIM")) for t in tick}; cpi = np.asarray(mp.h.cpi, float)
 
 # ---- simulator on this exact path
+LC = cfg.get("loan"); V0 = 150000.0 if LC else 100000.0                # loan printers start at $150k (pay off below $115k, re-borrow above $130k)
+loan_kw = dict(lev=LC["lev"], lev_dd=LC.get("dd", 0.0), lev_dd_to=LC.get("dd_to", 1.0), rate_spread=LC["spread"], lev_floor=115000 / V0, lev_resume=130000 / V0) if LC else {}
 pr = mp.Printer(NAME, {t + "SIM": w for t, w in cfg["targets"].items()}, band=S["band"], gap_days=252, valve=S["valve"], base=S["base"], skim=S["skim"],
-                bucket_months=S["bucket_months"], cut_below=S["cut_below"], cut_to=S["cut_to"], restore_above=S["restore_above"], tax="none (IRA/Roth)")
+                bucket_months=S["bucket_months"], cut_below=S["cut_below"], cut_to=S["cut_to"], restore_above=S["restore_above"], tax="none (IRA/Roth)", **loan_kw)
 IDX = torch.tensor((i0 + np.arange(L))[None, :], device=mp.DEV); r = mp.simulate([pr], IDX)
 sim = dict(spend=float(r["spend"][0, 0].sum()), real_end=float(r["real_end"][0, 0] + r["bucket_end"][0, 0]), reb=float(r["reb"][0, 0] * Y), cut=bool(r["cut"][0, 0]))
 
 # ---- operator, day by day
 def run_operator(spread):
-    op.SPREAD = spread; V0 = 100000.0; d0 = dates[i0]
+    op.SPREAD = spread; d0 = dates[i0]; lev = LC["lev"] if LC else 1.0
     st = dict(printer=NAME, targets=cfg["targets"], settings=S, baseline=dict(start_value=V0, start_cpi=cpi[i0], start_date=d0),
-              holdings={t: {"shares": V0 * w / 100 / lvl[t][i0], "lots": [dict(shares=V0 * w / 100 / lvl[t][i0], cost=lvl[t][i0], date=d0)]} for t, w in cfg["targets"].items()},
+              holdings={t: {"shares": V0 * lev * w / 100 / lvl[t][i0], "lots": [dict(shares=V0 * lev * w / 100 / lvl[t][i0], cost=lvl[t][i0], date=d0)]} for t, w in cfg["targets"].items()},
               cash_bucket=0.0, guardrail_mult=1.0, last_rebalance=d0, last_month_paid=d0[:7], last_year_end=int(d0[:4]), log=[])
-    spend_real = 0.0; nreb = 0; cuts = 0; rf = np.asarray(mp.RF)
+    rf = np.asarray(mp.RF); rate = lambda d: (1 + rf[d]) ** 252 - 1 + LC["spread"] / 100 if LC else 0.0
+    if LC: st["loan"] = dict(lev=lev, dd=LC.get("dd", 0.0), dd_to=LC.get("dd_to", 1.0), spread=LC["spread"], rate=rate(i0), balance=V0 * (lev - 1), last_accrual=d0,
+                            hwm_real=1.0, dd_on=False, paused=False, floor_usd=115000.0, resume_usd=130000.0, box=None)
+    spend_real = 0.0; nreb = 0; cuts = 0
     for d in range(i0 + 1, i0 + L):
         st["cash_bucket"] *= 1 + rf[d]                                     # bucket earns T-bills
-        prices = {t: float(lvl[t][d]) for t in tick}; p = op.plan(st, dates[d], prices, float(cpi[d]))
+        if LC: st["loan"]["balance"] *= 1 + rf[d] + LC["spread"] / 100 / 252; st["loan"]["last_accrual"] = dates[d]; st["loan"]["rate"] = rate(d)   # accrues like the simulator
+        prices = {t: float(lvl[t][d]) for t in tick}; p = op.plan(st, dates[d], prices, float(cpi[d]), market=dict(spx=4000.0, box_rate=rate(d), box_source="replay"))
         for s in p["steps"]:
             if s["step"] == "MONTHLY PRINT": spend_real += s["spend"] / (cpi[d] / cpi[i0]) / V0
             if s["step"] == "REBALANCE": nreb += 1
             if s["step"] == "YEAR-END" and s["guardrail"] < 1: cuts += 1
         if p["steps"]: st = op.apply(st, p, dates[d], "IRA"); st["log"] = []
-    V = op.value(st, {t: float(lvl[t][i0 + L - 1]) for t in tick}); real_end = (V + st["cash_bucket"]) / (cpi[i0 + L - 1] / cpi[i0]) / V0
+    V = op.value(st, {t: float(lvl[t][i0 + L - 1]) for t in tick}) - (st["loan"]["balance"] if LC else 0.0); real_end = (V + st["cash_bucket"]) / (cpi[i0 + L - 1] / cpi[i0]) / V0
     return dict(spend=spend_real, real_end=real_end, reb=nreb, cut=cuts > 0)
 o_spread = run_operator(True); o_simple = run_operator(False)
-print(f"Replay {NAME} {dates[i0]} -> {dates[i0 + L - 1]} ({Y} years, IRA, $100k start; amounts as multiples of the starting value, today's dollars)")
+print(f"Replay {NAME} {dates[i0]} -> {dates[i0 + L - 1]} ({Y} years, IRA, ${V0/1000:.0f}k start; amounts as multiples of the starting value, today's dollars)")
 print(f"  {'':42} total spent   ending value   rebalances   guardrail cut ever")
 for lab, x in (("simulator (money_printer.py)", sim), ("operator, simulator-style selling", o_spread), ("operator, practical selling (default)", o_simple)):
     print(f"  {lab:42} {x['spend']:9.2f}x   {x['real_end']:10.2f}x   {x['reb']:8.0f}      {x['cut']}")
