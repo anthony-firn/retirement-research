@@ -167,8 +167,8 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
     any_dd = any(is_l(p) and p.lev_dd > 0 for p in printers)
     if any_dd: ddth = pv(lambda p: p.lev_dd if is_l(p) else 0.0); ddto = pv(lambda p: p.lev_dd_to); ddon = torch.zeros(N, dtype=torch.bool, device=DEV); hwm = torch.ones(N, device=DEV)
     any_c = any(p.credit > 0 for p in printers); any_loan = any_l or any_c
-    any_lf = any(p.lev_floor > 0 and p.lev != 1 and not p.lev_daily for p in printers)
-    if any_lf: lf = pv(lambda p: p.lev_floor if p.lev != 1 and not p.lev_daily else 0.0); lr = pv(lambda p: max(p.lev_resume, p.lev_floor)); paused = torch.zeros(N, dtype=torch.bool, device=DEV)
+    any_lf = any(p.lev_floor > 0 and is_l(p) for p in printers)          # (any printer with an account loan, incl. drawdown-only ones)
+    if any_lf: lf = pv(lambda p: p.lev_floor if is_l(p) else 0.0); lr = pv(lambda p: max(p.lev_resume, p.lev_floor)); paused = torch.zeros(N, dtype=torch.bool, device=DEV)
     any_bt = any(p.bucket_tax != "ordinary" for p in printers); any_bf = any(p.bucket_fill for p in printers); any_nr = any(p.no_raise_after_loss for p in printers)
     if any_bf: bfill = pv(lambda p: p.bucket_fill, torch.bool)
     any_fl = any(p.base_years > 0 for p in printers)

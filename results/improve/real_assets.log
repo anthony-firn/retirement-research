@@ -1,0 +1,28 @@
+IDEA real_assets — 2026-10-21 19:53
+  [simple] reference: MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x; 8 candidates; search 1000 histories x 5 cases
+  [simple] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x            |   $268 /   $536 (+0.0%) | $249 / $240 | $421 / $279 |  87%    8%   17%  0.0% | $227 | yes  no
+             …| GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x | 3 GDE -> XLE |   $267 /   $533 (-0.5%) | $247 / $240 | $417 / $279 |  87%    8%   18%  0.0% | $227 | no   no
+             …| GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x | 3 VBR -> XLE |   $266 /   $532 (-0.6%) | $248 / $240 | $418 / $277 |  87%    8%   17%  0.0% | $224 | yes  no
+             …| GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x | 5 GDE -> XLE |   $266 /   $531 (-0.8%) | $247 / $240 | $412 / $278 |  87%    8%   18%  0.0% | $227 | no   no
+             …| GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x | 5 VBR -> XLE |   $265 /   $530 (-1.1%) | $248 / $240 | $416 / $275 |  86%    8%   19%  0.0% | $221 | no   no
+             …| GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x | 8 VBR -> XLE |   $263 /   $525 (-1.9%) | $247 / $240 | $408 / $276 |  85%    9%   20%  0.0% | $218 | no   no
+             … GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x | 5 GDE -> VXUS |   $260 /   $520 (-3.0%) | $245 / $240 | $408 / $263 |  86%    9%   19%  0.1% | $221 | no   no
+             … GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x | 5 VBR -> VXUS |   $259 /   $519 (-3.1%) | $245 / $240 | $408 / $258 |  85%   10%   20%  0.0% | $217 | no   no
+             …GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x | 10 VBR -> VXUS |   $249 /   $497 (-7.1%) | $243 / $240 | $393 / $239 |  81%   13%   24%  0.2% | $203 | no   no
+  [simple] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x            |   $268 /   $536 (+0.0%) | $250 / $240 | $423 / $277 |  86%    8%   19%  0.1% | $232 | yes  no
+             …| GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x | 3 VBR -> XLE |   $267 /   $533 (-0.5%) | $249 / $240 | $419 / $271 |  86%    8%   19%  0.1% | $231 | no   no
+  [simple] VERDICT: keep the reference
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt; 8 candidates; search 1000 histories x 5 cases
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             … restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt |   $296 /   $592 (+0.0%) | $296 / $219 | $525 / $372 |  93%    5%   13%  0.0% | $249 | yes  no
+             …bucket pays the loan down | leverage 1.25x + band 10pt | 3 GDE -> XLE |   $295 /   $590 (-0.5%) | $290 / $219 | $516 / $371 |  93%    4%   13%  0.0% | $249 | no   no
+             …bucket pays the loan down | leverage 1.25x + band 10pt | 3 VBR -> XLE |   $294 /   $587 (-0.9%) | $292 / $219 | $518 / $367 |  92%    5%   14%  0.0% | $246 | no   no
+             …bucket pays the loan down | leverage 1.25x + band 10pt | 5 GDE -> XLE |   $293 /   $587 (-0.9%) | $289 / $219 | $513 / $369 |  92%    4%   13%  0.0% | $250 | no   no
+             …bucket pays the loan down | leverage 1.25x + band 10pt | 5 VBR -> XLE |   $292 /   $584 (-1.5%) | $291 / $219 | $513 / $360 |  92%    5%   14%  0.0% | $242 | no   no
+             …bucket pays the loan down | leverage 1.25x + band 10pt | 8 VBR -> XLE |   $288 /   $577 (-2.7%) | $290 / $219 | $507 / $356 |  92%    5%   14%  0.0% | $237 | no   no
+             …ucket pays the loan down | leverage 1.25x + band 10pt | 5 GDE -> VXUS |   $288 /   $577 (-2.7%) | $286 / $219 | $506 / $357 |  92%    5%   14%  0.0% | $242 | no   no
+             …ucket pays the loan down | leverage 1.25x + band 10pt | 5 VBR -> VXUS |   $286 /   $573 (-3.4%) | $287 / $219 | $506 / $355 |  91%    6%   14%  0.0% | $236 | no   no
+             …cket pays the loan down | leverage 1.25x + band 10pt | 10 VBR -> VXUS |   $274 /   $549 (-7.4%) | $278 / $219 | $490 / $337 |  89%    7%   17%  0.0% | $219 | no   no
+  [credit] VERDICT: keep the reference

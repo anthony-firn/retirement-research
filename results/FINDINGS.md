@@ -287,3 +287,12 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
 - **Verdict: not added.** In an AI bust where the Fed ends up cutting (2000–01, 2008, 2020), PFIX would likely fall.
   It deepens the deflation-leg weakness. MP-2.1's trend funds already cover the "yields keep rising" path (2022:
   MP-2.1 −1.8% vs TLT −28%).
+
+## 2026-10-21 — crash-ready ideas (batches 10–11, `results/IMPROVE.md`)
+- **No:** more trend (45–50%), cutting leverage in a fall (−3% to −8%), phase-in on random histories (−1.5% to
+  −3.6%), international (−3% to −7%).
+- **Dials:** levering up after a fall (+0.7% to +4.4%, deeper dips); phase-in if convinced it's a top; 3 VBR → XLE
+  (−0.5%, better stagflation/revolt).
+- **New option, the crash buyer:** no loan normally, a box loan to 1.25× only while ≥ 15–20% below the high. +6.5% vs
+  MP-2.1 with the $719 base kept at $150k. At $150k the always-on 1.25× + pay-off rule is still best (+9.4%).
+- From six real market tops, MP-2.1 never cut its base.

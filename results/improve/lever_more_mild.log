@@ -1,0 +1,15 @@
+IDEA lever_more_mild — 2026-10-21 19:58
+  [simple] no candidates
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt; 6 candidates; search 1000 histories x 5 cases
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             … + band 10pt | lever more: 1.25x -> 1.35x while >= 20% below its high |   $302 /   $604 (+1.9%) | $301 / $219 | $558 / $401 |  92%    5%   15%  0.0% | $253 | no   yes
+             … + band 10pt | lever more: 1.25x -> 1.35x while >= 25% below its high |   $302 /   $603 (+1.8%) | $299 / $219 | $553 / $388 |  92%    5%   15%  0.0% | $255 | no   yes
+             … + band 10pt | lever more: 1.25x -> 1.35x while >= 30% below its high |   $300 /   $601 (+1.4%) | $297 / $219 | $545 / $385 |  92%    5%   15%  0.0% | $253 | no   yes
+             …x + band 10pt | lever more: 1.25x -> 1.3x while >= 20% below its high |   $299 /   $598 (+0.9%) | $299 / $219 | $545 / $387 |  92%    5%   14%  0.0% | $252 | no   yes
+             …x + band 10pt | lever more: 1.25x -> 1.3x while >= 30% below its high |   $299 /   $597 (+0.8%) | $297 / $219 | $535 / $380 |  92%    5%   14%  0.0% | $252 | yes  yes
+             …x + band 10pt | lever more: 1.25x -> 1.3x while >= 25% below its high |   $299 /   $597 (+0.8%) | $297 / $219 | $541 / $380 |  91%    5%   15%  0.0% | $251 | no   yes
+             … restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt |   $296 /   $592 (+0.0%) | $296 / $219 | $525 / $372 |  93%    5%   13%  0.0% | $249 | yes  no
+  [credit] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …x + band 10pt | lever more: 1.25x -> 1.3x while >= 30% below its high |   $298 /   $596 (+0.7%) | $297 / $219 | $537 / $373 |  92%    4%   16%  0.0% | $259 | no   yes
+             … restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt |   $296 /   $592 (+0.0%) | $297 / $219 | $524 / $367 |  92%    4%   15%  0.0% | $258 | yes  no
+  [credit] VERDICT: keep the reference

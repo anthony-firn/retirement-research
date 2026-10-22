@@ -1,0 +1,10 @@
+
+$150k, the retiree's taxes, $/month after tax (today's $), 2,000 brand-new histories per case (seeds 1501-1505)
+  printer                                              robust CE   | base | first 10 yrs | 40-yr typ / bad | never cut lose dip dry | worst margin call | trend-4: 40-yr, dry | actual windows | no worse than MP-2.1
+  MP-2.1 (no loan, M1)                                   $804 (+0.0%) | $719 | $745 | $1,273 / $840 | 86% 8% 19% 0.1% | 0.0% | $949, 1.9% | $1,448 | 
+  always-on box loan 1.25x + pay off < $115k             $879 (+9.4%) | $656 | $880 | $1,565 / $1,106 | 91% 5% 14% 0.1% | 0.0% | $1,222, 1.8% | $1,778 | True
+  crash buyer (box, 1.25x after -20%)                    $856 (+6.5%) | $719 | $762 | $1,446 / $979 | 89% 6% 18% 0.1% | 1.1% | $1,091, 1.5% | $1,630 | False
+  crash buyer + pay off < $115k                          $844 (+5.0%) | $719 | $762 | $1,445 / $973 | 88% 6% 18% 0.2% | 0.0% | $1,089, 2.1% | $1,630 | False
+  crash buyer with IBKR margin (+1.5) instead of box     $843 (+4.8%) | $719 | $762 | $1,427 / $958 | 87% 7% 20% 0.1% | 1.5% | $1,071, 1.9% | $1,608 | False
+  crash buyer, 1.25x after -15%                          $864 (+7.5%) | $719 | $781 | $1,483 / $1,011 | 89% 6% 18% 0.1% | 1.1% | $1,123, 1.6% | $1,678 | False
+  crash buyer, 1.25x after -15% + pay off < $115k        $852 (+6.0%) | $719 | $781 | $1,482 / $1,008 | 88% 6% 18% 0.1% | 0.0% | $1,121, 2.1% | $1,678 | False

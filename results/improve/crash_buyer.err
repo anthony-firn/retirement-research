@@ -1,0 +1,28 @@
+IDEA crash_buyer — 2026-10-21 20:00
+  [simple] reference: MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x; 6 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [simple] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …valve 4x | crash buyer: box loan to 1.25x while >= 15% below its high |   $288 /   $575 (+7.4%) | $262 / $240 | $490 / $343 |  90%    6%   17%  0.0% | $244 | no   yes
+             …valve 4x | crash buyer: box loan to 1.25x while >= 20% below its high |   $284 /   $569 (+6.2%) | $256 / $240 | $480 / $329 |  89%    6%   17%  0.0% | $242 | yes  yes
+             …valve 4x | crash buyer: box loan to 1.25x while >= 25% below its high |   $281 /   $562 (+4.9%) | $252 / $240 | $463 / $312 |  89%    7%   18%  0.0% | $237 | no   yes
+             …valve 4x | crash buyer: box loan to 1.15x while >= 15% below its high |   $281 /   $562 (+4.9%) | $259 / $240 | $465 / $321 |  89%    7%   17%  0.0% | $238 | yes  yes
+             …valve 4x | crash buyer: box loan to 1.15x while >= 20% below its high |   $279 /   $558 (+4.2%) | $254 / $240 | $457 / $315 |  88%    7%   16%  0.0% | $237 | no   yes
+             …valve 4x | crash buyer: box loan to 1.15x while >= 25% below its high |   $277 /   $554 (+3.4%) | $251 / $240 | $447 / $303 |  88%    7%   17%  0.0% | $235 | yes  yes
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x            |   $268 /   $536 (+0.0%) | $249 / $240 | $421 / $279 |  87%    8%   17%  0.0% | $227 | yes  no
+  [simple] fresh: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …valve 4x | crash buyer: box loan to 1.25x while >= 20% below its high |   $285 /   $571 (+6.5%) | $256 / $240 | $483 / $326 |  88%    6%   18%  0.0% | $249 | yes  yes
+             …valve 4x | crash buyer: box loan to 1.15x while >= 15% below its high |   $281 /   $563 (+5.0%) | $257 / $240 | $468 / $315 |  88%    6%   17%  0.1% | $244 | yes  yes
+             …valve 4x | crash buyer: box loan to 1.15x while >= 25% below its high |   $277 /   $554 (+3.4%) | $252 / $240 | $450 / $303 |  87%    6%   18%  0.1% | $241 | yes  yes
+             MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x            |   $268 /   $536 (+0.0%) | $250 / $240 | $423 / $277 |  86%    8%   19%  0.1% | $232 | yes  no
+  [simple] VERDICT: ACCEPT MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x | crash buyer: box loan to 1.25x while >= 20% below its high (robust CE +6.5% on fresh histories)
+  [credit] no candidates
+  improve_best.json updated

@@ -73,6 +73,8 @@ MP-2's fund weights are robust; the gains came from **cost, tax and rule setting
 | simple | MP-2 with **IAUM** for GLD, the **cash bucket in BOXX**, the guardrail cutting to **60%** (was 65%), and the safety valve at **4×** (was 2×): DBMF 27 · VBR 27 · GDE 21 · KMLM 15 · IAUM 8 · TQQQ 2; base 5.75%, skim > 140%, 48-month bucket, guardrail below 70% → base × 0.60, restored above 90% | (see confirmation) | batch 7 |
 | credit | the same engine with a **$12.5k box-spread loan (1.25×)**, base 5.25%, **rebalance band 10 points**, **safety valve 3×**, base restored above **80%** of the inflation-adjusted start (was 90%), and the **cash bucket paying the loan down** instead of sitting in cash | $296 / $592 (+3.5% vs start, fresh seed 701) | batch 5 |
 
+| crash (IBKR) | MP-2.1 with **no loan normally**, plus a **box loan to 1.25× while the account is ≥ 20% below its high** (box rate; back to no loan within 10% of the high) | $285 / $571 (+6.5% vs MP-2.1, fresh seed 701) | batch 11 |
+
 ## Queue (passive ideas, roughly by value ÷ effort)
 1. **cheap_gold:** GLD (0.40%) → GLDM (0.10%) or IAUM (0.09%). Same gold, same collectible tax.
 2. **bucket_tax:** hold the cash bucket in a Treasury fund (no California tax), or in BOXX (box-spread ETF, taxed as
@@ -209,3 +211,34 @@ Fresh-history numbers at $50k; robust CE is relative to the reference.
   2. A dedicated engine search with the box loan (long GPU run; the laptop's heat limits it).
   3. A live-fund check of RSST's trend sleeve as more history arrives.
   4. Teach the operator the box-loan mechanics for the credit track.
+
+### Batches 10–11: crash-ready ideas (bubble / rate-shock regime)
+| Idea | Result (robust CE vs current best, fresh histories) | Verdict |
+|---|---|---|
+| More trend: 45 / 48 / 50% (from VBR + GDE) | −0.9% / −2.2% / −3.1%; worse if trend underperforms | no |
+| Crash brake: cut the 1.25× loan to 1.0–1.1× after a 15–25% fall | −3% to −8% (sells low) | no: keep the loan through a crash (the pay-off floor is the only exit) |
+| Lever more after a fall: 1.25× → 1.3–1.5× | +0.7% to +4.4%, but dips < 70% rise 1–5 points | dial, not adopted |
+| Phase in: 33–50% in SHY for 1–2 years | −1.5% to −3.6% on random histories; from real market tops it helped (+$40–140/month in 1987/2000/2007 starts at $150k) | conviction dial |
+| Energy: 3–8 VBR or GDE → XLE | −0.5% to −1.9%; 3 VBR → XLE is about −0.5% with break risk about equal and better stagflation / bond-revolt scenarios | optional regime hedge |
+| International: 5–10 → VXUS | −3% to −7% | no |
+| **Crash buyer:** no loan normally, box loan to 1.15–1.25× while ≥ 15–25% below the high | **+3.4% to +6.5%**, break risk no worse, base unchanged | **accepted as a third track** (needs IBKR) |
+
+**Crash buyer vs the always-on box loan at $150k** (2,000 brand-new histories, `results/improve/crash150.log`):
+
+| Printer | Robust CE | Base | First 10 years | 40-year typical | Margin calls |
+|---|---|---|---|---|---|
+| MP-2.1 | $804 | $719 | $745 | $1,273 | — |
+| **Always-on 1.25× + pay off < $115k** | **$879 (+9.4%)** | $656 | $880 | $1,565 | 0% |
+| Crash buyer (−15%) | $864 (+7.5%) | $719 | $781 | $1,483 | 1.1% |
+| Crash buyer (−15%) + pay off < $115k | $852 (+6.0%) | $719 | $781 | $1,482 | 0% |
+
+- The always-on loan stays the best; break risk is no worse than MP-2.1 in every case.
+- The crash buyer keeps the higher base, but just misses "no worse" on new histories: margin calls 1.1% without the
+  pay-off rule; with it, runs dry 2.1% vs 1.9% when trend funds earn 4%/yr less.
+- A bug fixed along the way: the pay-off floor now also applies to drawdown-only loans (regression identical).
+
+**Bubble-top starts** (`printer/bubble_starts.py`, actual paths from the 1972, 1987, 2000, 2007, 2020 and 2022
+peaks, $150k):
+- MP-2.1 never cut its base from any of them: lowest real value 74–84% of the start, 114–139% today.
+- The 60/40 printer cut in 3 of 6.
+- The always-on box loan averaged $1,003–1,609/month over the long windows, vs $715–1,148 for MP-2.1.
