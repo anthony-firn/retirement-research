@@ -34,3 +34,5 @@ mobile/android/
 *.jks
 *.p12
 *.mobileprovision
+deploy/public-site/
+deploy/evolvetech-public-site.zip
