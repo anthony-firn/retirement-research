@@ -1,0 +1,33 @@
+Forward scenarios (hypothetical one-shot moves, % of the portfolio; rail: every bad scenario >= -8.5%)
+  MP-2.1                                       AI bust  -8.5 | stagflation  +0.7 | bond revolt  -5.0 | deflation -10.1 | dollar crisis  +8.9 | soft landing  +7.1
+  39 of 57 swaps pass the rail
+
+[simple] reference: MP-2 | GLD -> IAUM | bucket in BOXX | cut to 60% | valve 4x; search 1000 histories x 5 cases
+  [simple] search: change                                       | robust CE $50k | first 10 yrs | 40-yr typ / bad | lose dip dry | trend -4% CE | deflation / AI bust / bond revolt / stagflation | break risk no worse
+    MP-2.1 (reference)                           | $268 (+0.0%) | $249 | $421 / $279 | 8% 17% 0.0% | $227 | -10.1 / -8.5 / -5.0 / +0.7 | yes
+    VBR 6 -> IAUM 3 + XLV 3                      | $264 (-1.4%) | $245 | $409 / $265 | 10% 17% 0.1% | $221 | -8.3 / -7.1 / -4.5 / +2.1 | no
+    VBR 5 -> IAUM                                | $264 (-1.6%) | $244 | $410 / $265 | 9% 17% 0.0% | $221 | -8.1 / -6.9 / -4.5 / +2.4 | no
+    VBR 8 -> XLP                                 | $263 (-1.8%) | $243 | $409 / $262 | 9% 18% 0.1% | $220 | -8.1 / -6.9 / -4.3 / +1.9 | no
+    VBR 6 -> IAUM                                | $262 (-2.1%) | $244 | $409 / $264 | 10% 19% 0.1% | $218 | -7.7 / -6.5 / -4.4 / +2.8 | no
+    VBR 5 -> IEI                                 | $260 (-2.9%) | $242 | $400 / $257 | 9% 18% 0.1% | $218 | -8.2 / -7.0 / -4.5 / +1.5 | no
+    TQQQ 2 -> IAUM                               | $260 (-3.0%) | $241 | $394 / $255 | 9% 17% 0.1% | $217 | -8.1 / -6.4 / -3.9 / +2.5 | no
+    VBR 8 -> IAUM                                | $259 (-3.2%) | $242 | $401 / $258 | 10% 20% 0.0% | $213 | -6.9 / -5.9 / -4.2 / +3.5 | no
+    TQQQ 2 -> IAUM + VBR 3 -> XLV                | $259 (-3.4%) | $240 | $389 / $257 | 9% 17% 0.0% | $216 | -7.5 / -6.0 / -3.7 / +2.8 | no
+    VBR 5 -> SHY                                 | $259 (-3.4%) | $242 | $398 / $255 | 9% 18% 0.1% | $217 | -8.5 / -7.2 / -4.3 / +1.7 | no
+    TQQQ 2 -> IEI                                | $258 (-3.5%) | $240 | $390 / $251 | 9% 17% 0.0% | $217 | -8.1 / -6.5 / -3.9 / +2.1 | no
+    VBR 6 -> IEI                                 | $258 (-3.6%) | $241 | $394 / $254 | 10% 18% 0.1% | $216 | -7.8 / -6.7 / -4.4 / +1.7 | no
+
+[credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt; search 1000 histories x 5 cases
+  [credit] search: change                                       | robust CE $50k | first 10 yrs | 40-yr typ / bad | lose dip dry | trend -4% CE | deflation / AI bust / bond revolt / stagflation | break risk no worse
+    MP-2.1 (reference)                           | $296 (+0.0%) | $296 | $525 / $372 | 5% 13% 0.0% | $249 | -10.1 / -8.5 / -5.0 / +0.7 | yes
+    VBR 6 -> IAUM 3 + XLV 3                      | $290 (-2.0%) | $289 | $507 / $362 | 5% 13% 0.0% | $240 | -8.3 / -7.1 / -4.5 / +2.1 | no
+    VBR 8 -> XLP                                 | $290 (-2.2%) | $283 | $504 / $353 | 4% 13% 0.0% | $243 | -8.1 / -6.9 / -4.3 / +1.9 | no
+    VBR 5 -> IAUM                                | $289 (-2.4%) | $287 | $506 / $356 | 5% 13% 0.0% | $237 | -8.1 / -6.9 / -4.5 / +2.4 | no
+    TQQQ 2 -> IAUM                               | $289 (-2.5%) | $278 | $493 / $356 | 4% 12% 0.0% | $239 | -8.1 / -6.4 / -3.9 / +2.5 | no
+    VBR 6 -> IAUM                                | $288 (-2.8%) | $285 | $503 / $350 | 5% 14% 0.0% | $236 | -7.7 / -6.5 / -4.4 / +2.8 | no
+    TQQQ 2 -> IAUM + VBR 3 -> XLV                | $288 (-2.9%) | $273 | $487 / $353 | 4% 12% 0.0% | $240 | -7.5 / -6.0 / -3.7 / +2.8 | no
+    TQQQ 2 -> IEI                                | $287 (-2.9%) | $274 | $488 / $355 | 4% 12% 0.0% | $240 | -8.1 / -6.5 / -3.9 / +2.1 | no
+    VBR 5 -> IEI                                 | $287 (-3.0%) | $280 | $497 / $352 | 4% 12% 0.0% | $239 | -8.2 / -7.0 / -4.5 / +1.5 | no
+    TQQQ 2 -> IAUM + VBR 3 -> XLP                | $287 (-3.2%) | $273 | $486 / $352 | 4% 12% 0.0% | $238 | -7.4 / -5.8 / -3.7 / +2.9 | no
+    VBR 5 -> SHY                                 | $286 (-3.3%) | $278 | $496 / $350 | 4% 12% 0.0% | $239 | -8.5 / -7.2 / -4.3 / +1.7 | no
+    TQQQ 2 + GDE 3 -> IAUM 5                     | $286 (-3.3%) | $272 | $484 / $352 | 3% 12% 0.0% | $237 | -7.4 / -5.6 / -3.5 / +3.1 | no

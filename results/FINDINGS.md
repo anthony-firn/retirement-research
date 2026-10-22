@@ -255,3 +255,24 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
 - **Side finding:** MP-2/MP-2.1's weights lose about −10.1% in the hypothetical deflationary-recession scenario
   (AI bust −8.51%), outside the search's −8.5% guard rail. That was probably introduced when MP-2 was simplified
   after the search.
+
+## 2026-10-21 — improving the deflationary-recession scenario (`printer/deflation_fix.py`; logs `results/deflation_*.log`)
+- **The scenario rail:** MP-2.1 is −10.1% in the hypothetical deflationary recession (rail −8.5%). 39 of 57 small
+  swaps out of VBR/TQQQ into gold, XLV/XLP, IEI or SHY pass the rail. The simplest is TQQQ 2 → IAUM, which also
+  improves the rising-yield cases (bond revolt −5.0 → −3.9, stagflation +0.7 → +2.5).
+- **Real crises** (constant mix): MP-2.1 lost −16.8% in 2007–09 and −22.3% in the 2020 Covid crash, slightly worse
+  than 60/40 in Covid. The fixes soften every crash (2007–09 −8.9% to −12.8%) and do as well or better in 2022 and
+  2023.
+- **But in the printer** (the retiree's taxes, 2,000 brand-new histories × 5 cases) every fix costs lifetime income, and its
+  40-year break risk is slightly worse (lower return, less cushion):
+
+  | Fix | Robust CE |
+  |---|---|
+  | VBR 6 → IAUM 3 + XLV 3 | −1.3% |
+  | TQQQ 2 → IAUM | −2.5% |
+  | VBR 8 → IAUM | −3.0% |
+
+  - At $150k the cheapest fix means 40-year typical $1,226 vs $1,257/month.
+  - Credit track: −2.0% to −3.0%. Note the scenario moves there are × 1.25 (loan).
+- **Verdict:** MP-2.1's weights stay. Shallower crashes cost the printer more than they save. "VBR 6 → IAUM 3 + XLV
+  3" is the cheapest crash-softener if a shallower worst case is wanted for its own sake.
