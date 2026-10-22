@@ -234,3 +234,7 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
 - Batch 9: a front-loaded base is a dial, not a free gain. The credit printer at 5.50% for 15 years, then 5.00%,
   raises the retiree's floor $219 → $229 at +0.4% CE with break risk equal. The loop stopped there: settings have converged
   and the weights are robust.
+- Retiree case at $150k: the box-loan printer (1.25×) with a pay-off rule below $115k (portfolio-margin minimum)
+  prints $897/month in the first decade and $1,581 over 40 years (typical), vs $758 / $1,277 for MP-2.1. Margin calls
+  are 0%, and break risk is no worse than MP-2.1 in every case. The box loan makes sense from ~$110k if someone runs
+  it.

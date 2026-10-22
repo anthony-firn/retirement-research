@@ -68,6 +68,8 @@ class Printer:
     lev: float = 1.0            # BOOST: hold lev x net worth in the funds
     lev_daily: bool = False     #   True: leverage inside the funds (reset daily, like GDE/TQQQ/futures): no loan, no margin call
                                 #   False: an account loan (margin / box spread), re-levered at each rebalance, margin call below 30% equity
+    lev_floor: float = 0.0      # BOOST pause: when the net value falls below lev_floor x the NOMINAL start (e.g. a broker's portfolio-margin
+    lev_resume: float = 0.0     #   minimum), repay the boost loan from the holdings; re-lever at the next rebalance once it is above lev_resume
     credit: float = 0.0         # RUN (can be combined with BOOST; tracked as a separate loan): standby line, share of the inflation-adjusted start. While the real net value is below
     draw_below: float = 1.0     #   draw_below x start, the base print is borrowed instead of sold; the whole loan is repaid at the
     repay_above: float = 1.0    #   first year-end with the real net value above repay_above x start
@@ -159,6 +161,8 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
     spr = pv(lambda p: p.rate_spread / 100 / S)
     any_d = any(p.lev_daily and p.lev != 1 for p in printers); any_l = any(not p.lev_daily and p.lev != 1 for p in printers)
     any_c = any(p.credit > 0 for p in printers); any_loan = any_l or any_c
+    any_lf = any(p.lev_floor > 0 and p.lev != 1 and not p.lev_daily for p in printers)
+    if any_lf: lf = pv(lambda p: p.lev_floor if p.lev != 1 and not p.lev_daily else 0.0); lr = pv(lambda p: max(p.lev_resume, p.lev_floor)); paused = torch.zeros(N, dtype=torch.bool, device=DEV)
     any_bt = any(p.bucket_tax != "ordinary" for p in printers); any_bf = any(p.bucket_fill for p in printers); any_nr = any(p.no_raise_after_loss for p in printers)
     if any_bf: bfill = pv(lambda p: p.bucket_fill, torch.bool)
     any_fl = any(p.base_years > 0 for p in printers)
@@ -238,17 +242,23 @@ def simulate(printers, IDX, trend_haircut=0.0, step=1, drag=None, sell_mode="spr
             if any_bf: draw = draw + torch.where(bfill & (mult < 1), torch.minimum(bucket - draw, (1 - mult) * (bnow if any_fl else base) / 12 * (pinf if any_nr else infl)), torch.zeros_like(draw))
             bucket = bucket - draw
             spend[:, min(mo - 1, M - 1)] = (got + draw) / infl; dead |= val.sum(1) - loan - rloan <= 1e-6
+            if any_lf:                                             # boost pause below the floor (nominal), resume above lev_resume
+                netn = val.sum(1) - loan - rloan; go = (lf > 0) & ~paused & (netn < lf) & (loan > 0) & ~dead
+                if bool(go.any()): loan = loan - sell_amount(torch.where(go, loan, torch.zeros_like(loan)), d); paused |= go
+                paused &= ~(netn > lr)
             if any_loan:
                 val = torch.where(dead[:, None], torch.zeros_like(val), val); loan = torch.where(dead, torch.zeros_like(loan), loan); rloan = torch.where(dead, torch.zeros_like(rloan), rloan)
                 lmax = torch.maximum(lmax, (loan + rloan) / infl)
         V = val.sum(1); w = val / V.clamp(min=1e-12)[:, None]; since = d - last
         rel = torch.where(has, w / Wt.clamp(min=1e-12), torch.zeros_like(w)).max(1).values
         drift = (w - Wt).abs().max(1).values * 100 > band
-        if any_l: drift = drift | (levl & ((V / (V - loan - rloan).clamp(min=1e-12) / lev - 1).abs() > 0.15))      # leverage drifted > 15%
+        if any_l:
+            levt = torch.where(paused, torch.ones_like(lev), lev) if any_lf else lev
+            drift = drift | (levl & ((V / (V - loan - rloan).clamp(min=1e-12) / levt - 1).abs() > 0.15))      # leverage drifted > 15%
         trig = ((drift & (since > gap)) | (rel >= valve) | (yearly & (since >= S))) & ~dead
         if force is not None: trig = trig | (force & ~dead)
         if trig.any():
-            Vt = torch.where(levl, lev * (V - loan - rloan), V) if any_l else V                               # re-lever to lev x net worth
+            Vt = torch.where(levl, levt * (V - loan - rloan), V) if any_l else V                              # re-lever to lev x net worth
             tgt = Wt * Vt[:, None]; over = (val > tgt) & trig[:, None]; under = (val < tgt) & trig[:, None]
             realize(torch.where(over, val - tgt, torch.zeros_like(val)), d)
             buy = torch.where(under, tgt - val, torch.zeros_like(val)); basis = basis + buy

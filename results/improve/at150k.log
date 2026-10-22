@@ -1,0 +1,10 @@
+
+$150k, the retiree's taxes, $/month after tax (today's $); 2,000 new histories per case (seeds 1201-1205)
+printer                                                        | robust CE | base | yrs 1-10 typ/bad | 40-yr typ/bad | never cut lose dip dry | worst margin call | trend-4: 40-yr typ, dry | actual windows 40-yr typ
+MP-2.1 (simple, M1)                                            |     $795 |   $719 | $758 / $719 | $1,277 / $809 |  86%   8%  19% 0.2% | 0.0% | $972, 1.8% | $1,448
+box loan 1.25x                                                 |     $881 |   $656 | $898 / $656 | $1,582 / $1,099 |  92%   4%  14% 0.1% | 0.4% | $1,253, 0.5% | $1,778
+box loan 1.25x + pay off below $115k                           |     $864 |   $656 | $897 / $656 | $1,581 / $1,088 |  91%   4%  15% 0.1% | 0.0% | $1,252, 1.3% | $1,778
+box loan 1.25x + pay off below $115k + base 5.5% x15y then 5.0% |     $864 |   $688 | $908 / $687 | $1,577 / $1,073 |  90%   4%  15% 0.2% | 0.0% | $1,238, 1.7% | $1,773
+  box loan 1.25x + pay off below $115k: break risk no worse than the plain box loan in all 5 cases: False; vs MP-2.1: True
+  box loan 1.25x + pay off below $115k + base 5.5% x15y then 5.0%: break risk no worse than the plain box loan in all 5 cases: False; vs MP-2.1: True
+  box loan vs MP-2.1 break risk no worse in all 5 cases: True

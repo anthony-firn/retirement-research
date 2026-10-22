@@ -126,6 +126,35 @@ trend funds −2%/yr, the 2000–2026 era only, 3-month blocks, and middle-brack
   typical $499 → $523. Break risk no worse in every case; margin calls ≤ 0.4%.
 - **Mechanics:** the loan is one 125-point SPX box.
 
+## Retiree case at $150k: when the box loan makes sense (`results/improve/at150k.log`)
+- **The edge is the same at any size, in percentage terms:** +11% robust CE over MP-2.1.
+- **What changes with size is practical.** IBKR treats a short box as nearly riskless only under **portfolio margin**:
+  $110k to open, about $100k to keep.
+  - Under Reg T the box ties up margin about equal to its width.
+  - So add a rule: **pay the box off if the account falls below ~$115k; re-borrow above ~$130k** (`lev_floor` /
+    `lev_resume`).
+
+$/month after tax, today's $, 2,000 new histories per case:
+
+| At $150k | MP-2.1 (M1, no credit) | Box loan 1.25× | **Box loan 1.25× + pay off below $115k** |
+|---|---|---|---|
+| Robust CE | $795 | $881 | **$864** |
+| Base paycheck | $719 | $656 | $656 (or $688 for 15 years with the front-load dial) |
+| First 10 years, typical | $758 | $898 | **$897** |
+| 40-year average, typical / bad history | $1,277 / $809 | $1,582 / $1,099 | **$1,581 / $1,088** |
+| Base never cut · ends below start · dips < 70% · runs dry | 86% · 8% · 19% · 0.2% | 92% · 4% · 14% · 0.1% | 91% · 4% · 15% · 0.1% |
+| Margin calls (worst case) | — | 0.4% | **0%** |
+| Trend funds −4%/yr: 40-year typical, runs dry | $972, 1.8% | $1,253, 0.5% | $1,252, 1.3% |
+| Actual 40-year windows, 40-year typical | $1,448 | $1,778 | $1,778 |
+
+- With the pay-off rule, break risk is no worse than MP-2.1 in all 5 cases.
+- The rule costs ~$17/month of robust CE. It removes margin calls, but deleverages at lows, so running dry with trend
+  −4%/yr goes 0.5% → 1.3%; that is still under MP-2.1's 1.8%.
+- **Rule of thumb:**
+  - Under ~$50k: not worth the setup.
+  - **From ~$110k (portfolio margin):** worth it if someone runs it.
+  - The bigger the account above $115k, the less often the pay-off rule bites.
+
 ## What credit costs today (2026-10-20)
 Benchmarks: SOFR 3.87%, fed funds 3.88% (target 3.75–4.00%, raised in September), 3-month T-bill 4.09%, 1-year
 Treasury 4.50%, prime 7.00%.
