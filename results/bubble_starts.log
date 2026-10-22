@@ -1,0 +1,43 @@
+Starting at a market top: actual paths, the retiree's taxes, $150,000, $/month after tax (today's $)
+
+1972 Nifty Fifty top (1972-12-11, 25 years)   first 5 yrs avg whole-window avg  lowest real value  real value now  base cut?  margin call?
+  MP-2.1 (no loan)                                          $719           $1,148               78%            139%       no         no
+  box loan 1.25x + pay off below $115k                      $656           $1,609               79%            139%       no         no
+  crash buyer: no loan, 1.25x after a 20% fall              $719           $1,417               79%            139%       no         no
+  phase in: 50% in SHY for the first year                   $719           $1,177               80%            139%       no         no
+  60/40 printer (same rules)                                $541             $452               36%             76%      yes         no
+
+1987 pre-crash top (1987-08-25, 25 years)   first 5 yrs avg whole-window avg  lowest real value  real value now  base cut?  margin call?
+  MP-2.1 (no loan)                                          $719             $870               77%            137%       no         no
+  box loan 1.25x + pay off below $115k                      $656             $982               72%            138%       no         no
+  crash buyer: no loan, 1.25x after a 20% fall              $719             $875               77%            139%       no         no
+  phase in: 50% in SHY for the first year                   $719           $1,011               85%            137%       no         no
+  60/40 printer (same rules)                                $719             $716               61%             77%       no         no
+
+2000 dot-com top (2000-03-24, 25 years)   first 5 yrs avg whole-window avg  lowest real value  real value now  base cut?  margin call?
+  MP-2.1 (no loan)                                          $719             $931               79%            133%       no         no
+  box loan 1.25x + pay off below $115k                      $656           $1,206               81%            131%       no         no
+  crash buyer: no loan, 1.25x after a 20% fall              $719             $856               79%            134%       no         no
+  phase in: 50% in SHY for the first year                   $719             $977               81%            133%       no         no
+  60/40 printer (same rules)                                $599             $463               42%             55%      yes         no
+
+2007 credit top (2007-10-09, 18 years)   first 5 yrs avg whole-window avg  lowest real value  real value now  base cut?  margin call?
+  MP-2.1 (no loan)                                          $719             $715               74%            139%       no         no
+  box loan 1.25x + pay off below $115k                      $656           $1,003               73%            138%       no         no
+  crash buyer: no loan, 1.25x after a 20% fall              $719             $733               72%            139%       no         no
+  phase in: 50% in SHY for the first year                   $719             $757               80%            139%       no         no
+  60/40 printer (same rules)                                $656             $620               58%             85%      yes         no
+
+2020 pre-Covid top (2020-02-19, 6 years)   first 5 yrs avg whole-window avg  lowest real value  real value now  base cut?  margin call?
+  MP-2.1 (no loan)                                          $719             $709               79%            133%       no         no
+  box loan 1.25x + pay off below $115k                      $656             $647               74%            139%       no         no
+  crash buyer: no loan, 1.25x after a 20% fall              $719             $709               78%            139%       no         no
+  phase in: 50% in SHY for the first year                   $719             $709               87%            128%       no         no
+  60/40 printer (same rules)                                $719             $709               73%             88%       no         no
+
+2022 rate-shock top (2022-01-03, 4 years)   first 5 yrs avg whole-window avg  lowest real value  real value now  base cut?  margin call?
+  MP-2.1 (no loan)                                          $704             $704               84%            114%       no         no
+  box loan 1.25x + pay off below $115k                      $643             $643               84%            129%       no         no
+  crash buyer: no loan, 1.25x after a 20% fall              $704             $704               84%            114%       no         no
+  phase in: 50% in SHY for the first year                   $704             $704               83%            114%       no         no
+  60/40 printer (same rules)                                $704             $704               68%             82%       no         no

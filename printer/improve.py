@@ -213,6 +213,21 @@ def phase_in(p):                                                   # simple trac
         a = {k: w * (100 - c) / 100 for k, w in p.alloc.items()}; a["SHYSIM"] = c; g = dict(p.alloc); g["SHYSIM"] = 0
         out.append(replace(p, name=f"{p.name} | phase in: {c}% in SHY, invested over {yrs}y", alloc=a, glide=g, glide_years=yrs))
     return out
+def real_assets(p):                                                # energy (oil/war/inflation regime) or international stocks (outside the US AI bubble)
+    out = []
+    for src_, dst, xs in (("VBRSIM", "XLESIM", (3, 5, 8)), ("GDESIM", "XLESIM", (3, 5)), ("VBRSIM", "VXUSSIM", (5, 10)), ("GDESIM", "VXUSSIM", (5,))):
+        for x in xs:
+            a = dict(p.alloc)
+            if a.get(src_, 0) < x: continue
+            a[src_] -= x; a[dst] = a.get(dst, 0) + x; out.append(replace(p, name=f"{p.name} | {x} {src_[:-3]} -> {dst[:-3]}", alloc=a))
+    return out
+def lever_more_mild(p):
+    if p.lev <= 1: return []
+    return [replace(p, name=f"{p.name} | lever more: {p.lev}x -> {to}x while >= {int(th * 100)}% below its high", lev_dd=th, lev_dd_to=to) for th in (0.20, 0.25, 0.30) for to in (1.3, 1.35)]
+def crash_buyer(p):                                                # simple track: no loan normally, a box loan only after a fall (needs IBKR/Schwab)
+    if p.lev > 1: return []
+    box = dict(rate_spread=0.6, interest_tax="capital")
+    return [replace(p, name=f"{p.name} | crash buyer: box loan to {to}x while >= {int(th * 100)}% below its high", lev_dd=th, lev_dd_to=to, **box) for th in (0.15, 0.20, 0.25) for to in (1.15, 1.25)]
 FREE = {"cheap_gold", "bucket_tax", "bucket_offset"}               # same holdings, lower cost or tax: any gain counts
 OPS = {"tlh"}                                                      # adds recurring manual work (swaps): must gain >= 0.25%                                # same holdings, lower cost or tax: any gain counts (no 0.5% bar)
 IDEAS = {
@@ -235,6 +250,9 @@ IDEAS = {
     "trend_more": trend_more,
     "crash_lev": crash_lev,
     "phase_in": phase_in,
+    "real_assets": real_assets,
+    "lever_more_mild": lever_more_mild,
+    "crash_buyer": crash_buyer,
     "tlh": lambda p: [replace(p, name=f"{p.name} | harvest losses >= {int(h * 100)}% into twins", harvest=h) for h in (0.05, 0.10)],
 }
 

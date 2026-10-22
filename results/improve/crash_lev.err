@@ -1,0 +1,21 @@
+IDEA crash_lev — 2026-10-21 19:49
+  [simple] no candidates
+  [credit] reference: MP-2 + $10k box loan (1.2x), base 5.25% | GLD -> IAUM | bucket in BOXX | valve 3x + restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt; 10 candidates; search 1000 histories x 5 cases
+    base done
+    trend -2%/yr done
+    trend -4%/yr done
+    recent era done
+    3-month blocks done
+  [credit] search: printer                                                                | robust CE $50k / $100k | first 10 yrs typ/bad ($50k) | 40-yr typ/bad ($50k) | never cut  lose  dip  dry | trend -4% CE | safe better
+             …x + band 10pt | lever more: 1.25x -> 1.5x while >= 15% below its high |   $309 /   $619 (+4.4%) | $317 / $219 | $606 / $437 |  90%    6%   18%  0.0% | $254 | no   yes
+             …x + band 10pt | lever more: 1.25x -> 1.5x while >= 20% below its high |   $307 /   $614 (+3.7%) | $309 / $219 | $597 / $430 |  91%    6%   17%  0.0% | $254 | no   yes
+             …x + band 10pt | lever more: 1.25x -> 1.5x while >= 25% below its high |   $306 /   $612 (+3.4%) | $303 / $219 | $583 / $414 |  91%    6%   17%  0.0% | $253 | no   yes
+             …x + band 10pt | lever more: 1.25x -> 1.4x while >= 15% below its high |   $304 /   $609 (+2.8%) | $310 / $219 | $578 / $412 |  91%    5%   16%  0.0% | $252 | no   yes
+             …x + band 10pt | lever more: 1.25x -> 1.4x while >= 20% below its high |   $304 /   $609 (+2.7%) | $305 / $219 | $570 / $414 |  92%    5%   16%  0.0% | $253 | no   yes
+             …x + band 10pt | lever more: 1.25x -> 1.4x while >= 25% below its high |   $303 /   $607 (+2.5%) | $300 / $219 | $565 / $399 |  92%    5%   16%  0.0% | $255 | no   yes
+             … restore 80% | bucket pays the loan down | leverage 1.25x + band 10pt |   $296 /   $592 (+0.0%) | $296 / $219 | $525 / $372 |  93%    5%   13%  0.0% | $249 | yes  no
+             … 1.25x + band 10pt | brake: 1.25x -> 1.1x while >= 25% below its high |   $287 /   $574 (-3.0%) | $291 / $219 | $489 / $345 |  92%    4%   13%  0.0% | $245 | no   no
+             … 1.25x + band 10pt | brake: 1.25x -> 1.1x while >= 15% below its high |   $284 /   $568 (-4.1%) | $282 / $219 | $478 / $334 |  92%    5%   13%  0.0% | $242 | no   no
+             … 1.25x + band 10pt | brake: 1.25x -> 1.0x while >= 25% below its high |   $278 /   $556 (-6.2%) | $288 / $219 | $462 / $319 |  91%    5%   13%  0.0% | $236 | no   no
+             … 1.25x + band 10pt | brake: 1.25x -> 1.0x while >= 15% below its high |   $272 /   $545 (-8.0%) | $272 / $219 | $443 / $304 |  91%    5%   12%  0.0% | $232 | no   no
+  [credit] VERDICT: keep the reference
