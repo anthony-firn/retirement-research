@@ -276,3 +276,14 @@ MP-2 with each kind of credit at today's rates and its own tax treatment. Per $1
   - Credit track: −2.0% to −3.0%. Note the scenario moves there are × 1.25 (loan).
 - **Verdict:** MP-2.1's weights stay. Shallower crashes cost the printer more than they save. "VBR 6 → IAUM 3 + XLV
   3" is the cheapest crash-softener if a shallower worst case is wanted for its own sake.
+
+## 2026-10-21 — PFIX as a crash hedge? (`results/pfix_check.log`, real ETF data 2022-03 → 2026-10)
+- **PFIX (long-dated payer swaptions) is a bet on rising long-term yields, not a crash hedge.**
+  - **Returns:** 2022 +54%, 2024 +36%, 2026 YTD +25%. CAGR +25% in a rising-yield regime, max drawdown −36%.
+  - **Correlation:** −0.86 with TLT, −0.07 with QQQ, −0.03 with MP-2.1.
+- **When stocks fall and yields fall, it loses.**
+  - Aug 2024 selloff −16.6% (QQQ −13.4%). Oct–Dec 2023, as yields fell 5.0% → 3.8%, it lost −34.6%.
+  - On QQQ's 40 worst days it averaged −0.4%; on TLT's 40 best days, −4.1%.
+- **Verdict: not added.** In an AI bust where the Fed ends up cutting (2000–01, 2008, 2020), PFIX would likely fall.
+  It deepens the deflation-leg weakness. MP-2.1's trend funds already cover the "yields keep rising" path (2022:
+  MP-2.1 −1.8% vs TLT −28%).

@@ -1,0 +1,17 @@
+Real ETF data 2022-03-17 -> 2026-10-21 (1154 days)
+
+  year       PFIX      TLT      QQQ      SPY   MP-2.1
+  2022     +54.2%   -22.9%   -22.1%   -11.9%    -2.6%
+  2023      +5.7%    +2.8%   +54.9%   +26.2%   +11.6%
+  2024     +35.9%    -8.1%   +25.6%   +24.9%   +17.6%
+  2025      +0.7%    +4.2%   +20.8%   +17.7%   +25.5%
+  2026     +25.2%    -4.7%   +18.5%   +14.3%   +14.1%
+
+  CAGR / max drawdown: PFIX +25.2% / -36.2% | TLT -6.8% / -35.1% | QQQ +18.4% / -29.6% | MP-2.1 +14.1% / -12.5%
+  daily correlation of PFIX with: TLT -0.86 | QQQ -0.07 | MP-2.1 -0.03
+  on QQQ's 40 worst days (avg QQQ -3.6%): PFIX avg -0.41%, MP-2.1 avg -1.54%
+  on TLT's 40 best days (yields falling, avg TLT +2.3%): PFIX avg -4.12%
+  2022 rate shock                                PFIX  +82.4% | TLT  -28.4% | QQQ  -19.6% | MP-2.1   -1.8%
+  Oct 2023 -> Dec 2023 yields fall 5.0% -> 3.8%  PFIX  -34.6% | TLT  +22.6% | QQQ  +14.6% | MP-2.1   +4.6%
+  Aug 2024 carry-unwind selloff                  PFIX  -16.6% | TLT   +7.0% | QQQ  -13.4% | MP-2.1   -5.8%
+  Feb-Apr 2025 tariff crash                      PFIX   -1.2% | TLT   +0.8% | QQQ  -22.8% | MP-2.1  -12.5%
