@@ -34,7 +34,7 @@ const STEP = { "MONTHLY PRINT": ["Pay yourself", ICON.cash], "YEAR-END": ["Janua
   "BOX LOAN": ["Low-cost loan", ICON.loan], "PAY OFF THE LOAN": ["Pay off the loan", ICON.loan], "INITIAL PURCHASE": ["Buy the funds", ICON.grow] };
 
 // ------------------------------------------------------------------ state + deep links
-const S = { amount: 150000, age: 60, acct: "taxable", br: "low", sex: "f", ids: ["mp21", "box", "6040"], s: "mp21", n: "", battle: "2008",
+const S = { amount: 250000, age: 65, acct: "taxable", br: "low", sex: "f", ids: ["mp21", "box", "6040"], s: "mp21", n: "", battle: "2008",
   b: { age: 35, saved: 20000, monthly: 500, want: 4000, ss: 1500, acct: "roth", mix: "steady", sex: "f", claim: "best", other: 0, br: "low", pay: "mp21", health: 1, raise: 1 } };
 let R = [], RB = {};
 function readHash() {

@@ -42,7 +42,7 @@ const PRESETS = [
 const words = v => v <= 2 ? "Doesn't matter" : v < 25 ? "A little" : v < 50 ? "Somewhat" : v < 75 ? "A lot" : "Most";
 
 /* ---------- state (mirrored in the URL so a link reopens the same pick) ---------- */
-let S = { age: 60, free: 100000, deferred: 150000, taxable: 250000, bracket: "low", imp: PRESETS[1].v.slice(), pin: null, tab: "choose",
+let S = { age: 65, free: 100000, deferred: 150000, taxable: 250000, bracket: "low", imp: PRESETS[1].v.slice(), pin: null, tab: "choose",
           mode: "living", start: "1972", rebal: "Printer rule", real: false, logy: true, roll: 5, compare: ["b0"] };
 function readHash() {
   const h = new URLSearchParams(location.hash.slice(1)); if (!h.has("a")) return;
