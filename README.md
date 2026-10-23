@@ -70,7 +70,7 @@ lab/        scripts + data; run everything from inside lab/
   sim_catalog.csv     testfol.io SIM ticker catalog (coverage, source)
 printer/    money printers: simulator, searches, operator, Printer Atlas, local app (app/, run ./forge)
 results/    findings and portfolio definitions
-private/    personal household inputs, notes and outputs — gitignored, never committed
+private/    personal inputs, notes and outputs — gitignored, never committed
 ```
 
 ## Quick start

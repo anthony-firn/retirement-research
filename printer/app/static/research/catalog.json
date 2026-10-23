@@ -50,6 +50,18 @@
       "review": "legacy-record; publication review required"
     },
     {
+      "path": "lab/ch12_blend.json",
+      "bytes": 190,
+      "sha256": "b17a3086ade99776bbb39fdb49ccbd2703d0cd6d7618bfe252a96b20029ebcf4",
+      "review": "legacy-record; publication review required"
+    },
+    {
+      "path": "lab/ch12_final.json",
+      "bytes": 304,
+      "sha256": "ff66199e86736228f3c2684dd19c5808eed3ae2bb302ba99d53ab4d78cfaf0ca",
+      "review": "legacy-record; publication review required"
+    },
+    {
       "path": "lab/clean_etf_res.json",
       "bytes": 40020,
       "sha256": "d91086bed9dde62a32c8a761a8ad98c10df048fe4f1e0f531a9167a15dd599f2",
@@ -57,8 +69,8 @@
     },
     {
       "path": "lab/common_benchmarks.json",
-      "bytes": 738,
-      "sha256": "728301e3ac555aac6240129ecd284ab6e47d10e43ba1c35b3e235001f65426b6",
+      "bytes": 737,
+      "sha256": "2b9f458da775cb35399fdfe2b7b0434cc8ead9b1e32b616b275763ce5c576621",
       "review": "legacy-record; publication review required"
     },
     {
@@ -75,20 +87,20 @@
     },
     {
       "path": "lab/equilibrium_income.json",
-      "bytes": 1196,
-      "sha256": "978e79dcbd43e8208cd39a26d147f0ddd95e3a5d9398a1036cc6382419458d33",
+      "bytes": 1216,
+      "sha256": "5d487b128799e39764f24fea7be7675e679560a3f57ec70f6faccd2825bd13bb",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "lab/equilibrium_tax.json",
-      "bytes": 1046,
-      "sha256": "27b90fbb890d44644cea79280c78f5ad5065f3b9415123ddbccdea9f3751f935",
+      "bytes": 1054,
+      "sha256": "7af70792e98228a2a8d59ebbc4ffdd1b67b7f8213a858ab2f8144512e7bd5b4f",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "lab/equilibrium_tax_x.json",
-      "bytes": 522,
-      "sha256": "b66de55b1b8be56a7976c7ef5f061ab3716af50fbd5e2a8c603cde29e125f2fd",
+      "bytes": 530,
+      "sha256": "2d8ccbd5ddd949956060d418950ef5d1e3322bfcec0563cde5843a52e77fc38c",
       "review": "legacy-record; publication review required"
     },
     {
@@ -185,120 +197,6 @@
       "path": "lab/greedy_res.json",
       "bytes": 312,
       "sha256": "e77ba6dc37b4af3756042669af6b290c6285e8da7fe95bc1557c54ea2dd1eee4",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ch12_blend.json",
-      "bytes": 190,
-      "sha256": "b17a3086ade99776bbb39fdb49ccbd2703d0cd6d7618bfe252a96b20029ebcf4",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ch12_final.json",
-      "bytes": 304,
-      "sha256": "ff66199e86736228f3c2684dd19c5808eed3ae2bb302ba99d53ab4d78cfaf0ca",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_final2.json",
-      "bytes": 464,
-      "sha256": "cad4a378b15a6c6d7315fbd3d8d489ea566f89dd90a8c4590eea6db560d93a36",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_final2_list.json",
-      "bytes": 390,
-      "sha256": "b225e824bb576064af014875664e4bfb11ec6f495c6f9e4d667bd562d8e1dbeb",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_final3.json",
-      "bytes": 277,
-      "sha256": "61157d82a1f74165c6eb949141f8526ddb8d8893c7282423d78ee9689f24d983",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_final3_list.json",
-      "bytes": 238,
-      "sha256": "c3a5afd0b1a2796c086a2967b5c617e0df5f2dfd80c65f58d19bd3e3d36442a4",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_opt00_both.json",
-      "bytes": 5580,
-      "sha256": "0c4085afb1883e3f0aaed3a86f815237f464c2f8d51dfbfec8c81abfb00a66d9",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_opt00_mod.json",
-      "bytes": 12276,
-      "sha256": "5ee6b75aa3db9b2272e5329e5c31f90c90651bbcc0b3f513773122cb3f0f1b2a",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_opt00_strict.json",
-      "bytes": 12031,
-      "sha256": "3d6da2ce028adc88114f40194c2f2807ffbc52cfc19f588ac4d8298ec71da5a9",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_opt88_115.json",
-      "bytes": 11570,
-      "sha256": "01867c7f75ec253848b424cbec694e3544a0bb63b7909d0fe3d02fda378b0cea",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_opt88_12.json",
-      "bytes": 11576,
-      "sha256": "f3a9770bb3282cdeb7aac3307d5e1d786ca6c53c9aa29e18d2f0e037bdc363f0",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_opt_115.json",
-      "bytes": 10800,
-      "sha256": "50ef3ae332d19416b47d17c5ec6bb776e0bd771bf1c74054eec33fc136c40656",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_opt_12.json",
-      "bytes": 10827,
-      "sha256": "1d049a8afaaf3b3473f128c8392217f617509550fa70f60d1681825632285771",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_stage2.json",
-      "bytes": 15497,
-      "sha256": "6d61e2603ab5fe4b76fe885e6ee145413f40a38ea9439b2064bbe2dc55891d80",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_stage2_00.json",
-      "bytes": 8399,
-      "sha256": "52d9d8ee5f52b18c6e9067d540cf9f96cae177ced3a3b3288965e06f4ff10c05",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_stage2_88_115.json",
-      "bytes": 8485,
-      "sha256": "c3fe40c8c8a7ba7e4b17c4767433c729d12e2329aa1e20aa8aa3917ad6a5fb02",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_stage2_88_12.json",
-      "bytes": 8535,
-      "sha256": "c0fb1d3b2828892afc2a6aaa4b3ccfb6c3dcb19032f5a858ea45a1279e7da55a",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_stage2_final2.json",
-      "bytes": 3001,
-      "sha256": "e2920caba59b50d77672eddd6fa4ae144e0265605e154368bdd1349eb4dbdb43",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "lab/ex_stage2_final3.json",
-      "bytes": 2376,
-      "sha256": "0bd3774549a14853019724009c45b38f0d26619d7d34db0b892ffed09de6bc75",
       "review": "legacy-record; publication review required"
     },
     {
@@ -507,14 +405,14 @@
     },
     {
       "path": "results/CREDIT.md",
-      "bytes": 20353,
-      "sha256": "34551ae1a831af4672a81cc696755b02790d4b3f3aed5076bc6931b04feaab79",
+      "bytes": 20099,
+      "sha256": "6b5e69c463af79dd7224cd3cc0c8df4946deb73cf052ad2df1977579707a4e5c",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/CRISIS_HEDGED_12.md",
-      "bytes": 9726,
-      "sha256": "b30e4bc20de7a02ac2b2af9791f3ef5049c03531ff0b47668c80b2f9b9df9db0",
+      "bytes": 9448,
+      "sha256": "aa94b297e82379a6de662e2372a6613bf632897a83d27d0f54044f562c1245a6",
       "review": "legacy-record; publication review required"
     },
     {
@@ -525,20 +423,20 @@
     },
     {
       "path": "results/FINDINGS.md",
-      "bytes": 25827,
-      "sha256": "3144e50f3e10e49c3ef2c22fafec395b4bc3751615cb7817a9ce48c539846d39",
+      "bytes": 25881,
+      "sha256": "ab79c26dbd941680d93ebcb2c211c893f9841d353649ab0120561371e5192b6f",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/IMPROVE.md",
-      "bytes": 18070,
-      "sha256": "8c5ec80e2f7ec48e7da2127ffbfc10b5da77d5b2882eda8ba0314a12618f31ab",
+      "bytes": 18158,
+      "sha256": "596982c69c14c53a8dcecadfc6fae10de3891153ee7d8a5093d56bbead7271a6",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/IRA_30S.md",
-      "bytes": 5288,
-      "sha256": "31dea0d522ef43d6aaf4a7e17e9e1f01e88bfe798cde14a6437b04f156cb2e08",
+      "bytes": 5298,
+      "sha256": "0206ced9979e0684de8b472d2d60ec3b054254a48452ed411d213544357c056f",
       "review": "legacy-record; publication review required"
     },
     {
@@ -567,8 +465,8 @@
     },
     {
       "path": "results/MONEY_PRINTER.md",
-      "bytes": 7498,
-      "sha256": "a5954266fef2adbd2b0eddcd0132d740d3f617697efe0af577d0b14c0c280e9a",
+      "bytes": 7387,
+      "sha256": "490ac7903949476f91dbd6e51d08da168b35b2d7ee49b0b6dbd72cec0432c524",
       "review": "legacy-record; publication review required"
     },
     {
@@ -579,20 +477,20 @@
     },
     {
       "path": "results/PRINTER_OPERATOR.md",
-      "bytes": 6843,
-      "sha256": "39e5ab68e70b2c8c454f42f62543c9681cb2f85e9d9308330f1bc062ad55ec3d",
+      "bytes": 6897,
+      "sha256": "f36fff3a51db7ec29622f11883c0186875a7f6519c922d2645744c27588ef6b7",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/PRINTER_SEARCH.md",
-      "bytes": 6086,
-      "sha256": "3eb35d710193072e1094571bf8bb04bc446a688bc995cac55920d14cf4dc7e79",
+      "bytes": 6178,
+      "sha256": "b16c09979a10df0a31752a000df319e52fb2f829166019d034704a34c5ad94f8",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/RETIREE_60.md",
-      "bytes": 3339,
-      "sha256": "31d7f47dca126ed1d294093ff7e9f0b4c353447275cf49d60850cc2900e431bb",
+      "bytes": 2993,
+      "sha256": "3d48b4ae30d323a68d1108a27d470dfce6ea1c276bfb97288395c545a80d0b7f",
       "review": "legacy-record; publication review required"
     },
     {
@@ -603,8 +501,8 @@
     },
     {
       "path": "results/TILTS.md",
-      "bytes": 2621,
-      "sha256": "8b82b345395def3bbf3b2f0be116e18f340ab46f9f3ecec6ed6f1a162e4ba379",
+      "bytes": 2631,
+      "sha256": "862bf07530ee5eb6742a2bfbbd1595f20d182cced88b04bd838493667302330c",
       "review": "legacy-record; publication review required"
     },
     {
@@ -741,8 +639,8 @@
     },
     {
       "path": "results/backtest_real_MP-2_2025-10-17.md",
-      "bytes": 4946,
-      "sha256": "c4d6b15b9f278aa5e50054f061f355fa6cb7fae16c67c987aec30e081ff0f7da",
+      "bytes": 4950,
+      "sha256": "793fc366684e6d4d64fa08bf8d6068b6a04b0aba4f3225b2e85e1d95ae055f0c",
       "review": "legacy-record; publication review required"
     },
     {
@@ -759,14 +657,38 @@
     },
     {
       "path": "results/bubble_starts.log",
-      "bytes": 4995,
-      "sha256": "16c08eaa395f8e26cfb5e7fdcbbf5e88582532d31c02a4acf6534db7f8537f64",
+      "bytes": 5005,
+      "sha256": "6af5737dea58d5d62684195726f6fffbf83811276508f1748816f0803211bad8",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/cagr_by_window.log",
       "bytes": 943,
       "sha256": "61092e0b409d4860d827015733b224a22a77990aa47b41fce73ba3e03793a300",
+      "review": "legacy-record; publication review required"
+    },
+    {
+      "path": "results/ch12_blend.log",
+      "bytes": 1706,
+      "sha256": "97f2a0ae0b36b04a7fba6957d327f793f2acf3be51db5b65b1397d72dbf7802a",
+      "review": "legacy-record; publication review required"
+    },
+    {
+      "path": "results/ch12_explain.log",
+      "bytes": 3023,
+      "sha256": "4107966d4a1b4cd8b57e2c68e2aee4a672a176735f9acc9b29d114ece1680d5c",
+      "review": "legacy-record; publication review required"
+    },
+    {
+      "path": "results/ch12_final.log",
+      "bytes": 1020,
+      "sha256": "6f34b74612bdaa865e00fbf1afafea587b391ddfaea4db19b375f435dcb419b4",
+      "review": "legacy-record; publication review required"
+    },
+    {
+      "path": "results/ch12_vs_common.log",
+      "bytes": 1048,
+      "sha256": "9231968eb2e112ed567262ef203db1d4d7b6970820d47a27629f4b97f200b605",
       "review": "legacy-record; publication review required"
     },
     {
@@ -825,8 +747,8 @@
     },
     {
       "path": "results/deflation_fresh.log",
-      "bytes": 1733,
-      "sha256": "f665824aabaede10d5624c591e5b941288f7e6bfbb2f72bc56e25ed4dbee1976",
+      "bytes": 1753,
+      "sha256": "b4320a11d957ec3ddf68dee7d8519e0552f8f1bf16c0ff6a824b1a656ed29669",
       "review": "legacy-record; publication review required"
     },
     {
@@ -843,8 +765,8 @@
     },
     {
       "path": "results/equilibrium_income.log",
-      "bytes": 2587,
-      "sha256": "eb62d61e10013735d0b3df0c04360c6f4818220b50ad032da8bdaecbb405ca70",
+      "bytes": 2607,
+      "sha256": "3dc2e5615ebb6bad4902c36814a3d5b594ce1ee6a29df1bd82b5376449ee201b",
       "review": "legacy-record; publication review required"
     },
     {
@@ -855,14 +777,14 @@
     },
     {
       "path": "results/equilibrium_tax.log",
-      "bytes": 1573,
-      "sha256": "de5d57d44fd2cc73420ee76b8a686e6e805e1dce775444c96389fecb85ca5176",
+      "bytes": 1597,
+      "sha256": "bc5bfb3f31c8b40b35cde9316dbf14fb8412bc5553d5d7101dad45b011e60e0a",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/equilibrium_tax_noUUP.log",
-      "bytes": 965,
-      "sha256": "f38b0b33fe233cb75a2224e59e2f5de610f16166b957a819c796d681da4d01e4",
+      "bytes": 989,
+      "sha256": "bc6c7079dbe2c7e78c49d21648e0bd84a6745c64a8fca1d6b6acc7804f2d9dd9",
       "review": "legacy-record; publication review required"
     },
     {
@@ -879,14 +801,14 @@
     },
     {
       "path": "results/experiments/bucket-tax-smoke/manifest.json",
-      "bytes": 20616,
-      "sha256": "f3a39c8724461131e6daeb8bf497b12f9d42a3b01a3a4c8d8b09725d111f971a",
+      "bytes": 19125,
+      "sha256": "5bed4307a2c3cf3cd4ea5c10b509994f5ee55d39237667e791c0d9e31ec5752a",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/experiments/bucket-tax-smoke/reference.json",
-      "bytes": 2501,
-      "sha256": "f271030fcd2e29363c1f0613af9ed733f94a1b6fdde0883b8f0410e18f603e6b",
+      "bytes": 2513,
+      "sha256": "107cb331ee538f960070909378a18467a878c14b0eeacb4bc2e35fb44d36b407",
       "review": "legacy-record; publication review required"
     },
     {
@@ -915,14 +837,14 @@
     },
     {
       "path": "results/experiments/reproducibility-smoke/manifest.json",
-      "bytes": 20621,
-      "sha256": "1f094fed32f7ded0f4aae6f727b38176c6b7d4fc8dc7398f8a801755dd9c8f1d",
+      "bytes": 19130,
+      "sha256": "51b98124b8d2b46c2ec48689d5e30162c5122e9e4f6925f4ddcb44086aaa1362",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/experiments/reproducibility-smoke/reference.json",
-      "bytes": 2501,
-      "sha256": "f271030fcd2e29363c1f0613af9ed733f94a1b6fdde0883b8f0410e18f603e6b",
+      "bytes": 2513,
+      "sha256": "107cb331ee538f960070909378a18467a878c14b0eeacb4bc2e35fb44d36b407",
       "review": "legacy-record; publication review required"
     },
     {
@@ -980,114 +902,6 @@
       "review": "legacy-record; publication review required"
     },
     {
-      "path": "results/heloc_test.log",
-      "bytes": 2879,
-      "sha256": "aaacd0c5f1fcac4a610fed3e1adc14231cb58321e2e51a61466433d90781e42e",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ch12_blend.log",
-      "bytes": 1707,
-      "sha256": "959e4ed0784dc2a207d461830cab8f1347913ceb7ffc2b9b436c7ed86aa9f752",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ch12_explain.log",
-      "bytes": 3026,
-      "sha256": "f42812ca9dc12433ed1387206ddc9493570763ac559752084081f6340c7d2c8c",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ch12_final.log",
-      "bytes": 1021,
-      "sha256": "112a84d4d2183017f31a61d6e3f76f945c39312e2916bd0ad47b94c6f1621120",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ch12_vs_common.log",
-      "bytes": 1050,
-      "sha256": "e399d14938c0620f63aab349f84bedac73f74bc7998608a3c1608b79a9fd3577",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_mf_robust.log",
-      "bytes": 2130,
-      "sha256": "22006fcd2e617f72f1c0787e94419f4fea3a852b20c04d3e246c105d70fe2e56",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_mf_robust2.log",
-      "bytes": 1734,
-      "sha256": "33922d2e3937d4260a3a5f14cac8d33fe320c20bf3472e463f332c7bbbf5ea5c",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_mf_robust3.log",
-      "bytes": 1322,
-      "sha256": "aa25f61391ac6c4e646706684d6fa630dabea711d79b83b0941e3490aab2014b",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_optimize.log",
-      "bytes": 4619,
-      "sha256": "58e97f233d82f1c0d6c3e78dddf429d1fbce23cc36f7fd9a958dfe440af01341",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_optimize00.log",
-      "bytes": 4851,
-      "sha256": "67eb86b6c9cd32a2fcc13cc8204889407761d66582f19062b9102ffed341db99",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_optimize88.log",
-      "bytes": 4900,
-      "sha256": "c3612df064d86910db71d6821011275d22ccb067b9d56a90de45158c75efac7c",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_stage2.log",
-      "bytes": 4471,
-      "sha256": "502465fe56ada704aa39375fcd7e3dfcef83b66547ac731c0c20b3e56aa3eb07",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_stage2_00.log",
-      "bytes": 2772,
-      "sha256": "a3bbf708bd4bd8d594f71cff2e66c4a90ab9c3e49a4a0557974f8a34d8809657",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_stage2_88_115.log",
-      "bytes": 2778,
-      "sha256": "8d9d9cc937119c1714ec64b86347cf0a54a6b7ce408514f05e37646124e12923",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_stage2_88_12.log",
-      "bytes": 2763,
-      "sha256": "c211afb223d23b0c8a798eccb656cf98e4044501dff3833ab641e967cf716806",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_stage2_final2.log",
-      "bytes": 1394,
-      "sha256": "8cce9ced61ee9f4c77b53d3b7bd18246f6fa43c11653493844e684f948593a89",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_stage2_final3.log",
-      "bytes": 1135,
-      "sha256": "af3713268d622b016070e88abceab20a20040ccecc1606021033332d9789880d",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/ex_stage2_fixed_lineup.log",
-      "bytes": 1897,
-      "sha256": "134c13c29de86074e87faf5ebd8234c769afb2133e03619393220b08cfe455e6",
-      "review": "legacy-record; publication review required"
-    },
-    {
       "path": "results/improve/at150k.json",
       "bytes": 21843,
       "sha256": "2165daddfafa2111f3932731e2e92a5c37a8db81506cfc3fc941fa02ab30505a",
@@ -1095,8 +909,8 @@
     },
     {
       "path": "results/improve/at150k.log",
-      "bytes": 1316,
-      "sha256": "0b98ea49659de85506e73d660dcc9a1f105de4592ad62043b98fd165a5d806cb",
+      "bytes": 1326,
+      "sha256": "d0911a89f239c3e04a3c2d22e6e44196ec97827ffccbeda48002067db123dda3",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1221,8 +1035,8 @@
     },
     {
       "path": "results/improve/crash150.log",
-      "bytes": 1414,
-      "sha256": "8d111934781e7ad2c6330921baf51a9e86e978dd6d68a7d144edce4e18e36c80",
+      "bytes": 1424,
+      "sha256": "c49bc813293ac26f6739f9936a2931bc169aa4fdaff3b0bf84dbeb4e426774e6",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1587,8 +1401,8 @@
     },
     {
       "path": "results/improve_best.json",
-      "bytes": 2501,
-      "sha256": "f271030fcd2e29363c1f0613af9ed733f94a1b6fdde0883b8f0410e18f603e6b",
+      "bytes": 2513,
+      "sha256": "107cb331ee538f960070909378a18467a878c14b0eeacb4bc2e35fb44d36b407",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1640,33 +1454,9 @@
       "review": "legacy-record; publication review required"
     },
     {
-      "path": "results/lineup_vs_plan.log",
-      "bytes": 1682,
-      "sha256": "6fb30b32561b627839d18f94c29693dbe2164f962971b06933d125beafe2630b",
-      "review": "legacy-record; publication review required"
-    },
-    {
       "path": "results/link_C1_C2.txt",
       "bytes": 833,
       "sha256": "fda577bc71a0435e14725df389a28bd40e108e362bbb652adb8e0ff6e9f63f1c",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/link_ch12_vs_common.txt",
-      "bytes": 931,
-      "sha256": "f20e8c010b3c24b5708f6f07d10484e5a9ecf3e4cfc8b6228b5941a1bb5aed13",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/link_frontier.txt",
-      "bytes": 933,
-      "sha256": "ba352e7508059aa40b51f4b9ae76d93e131745bca62cdc69bf01a46ea4289c33",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/link_h12.txt",
-      "bytes": 869,
-      "sha256": "045b43bf5a363a9400f92986dd3df07051691cd1d59aef05fc977a04962e628d",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1682,6 +1472,12 @@
       "review": "legacy-record; publication review required"
     },
     {
+      "path": "results/link_ch12_vs_common.txt",
+      "bytes": 931,
+      "sha256": "f20e8c010b3c24b5708f6f07d10484e5a9ecf3e4cfc8b6228b5941a1bb5aed13",
+      "review": "legacy-record; publication review required"
+    },
+    {
       "path": "results/link_ch12_vs_common_1.txt",
       "bytes": 911,
       "sha256": "c0875330609d6528a66fa07d28193d740381ea871672e116ee41dc06b6ddc8d6",
@@ -1694,9 +1490,15 @@
       "review": "legacy-record; publication review required"
     },
     {
-      "path": "results/link_ex_plan.txt",
-      "bytes": 845,
-      "sha256": "082eec94b7311351b2d59923e72f0fe5ce980fa04a9bf9d02008f62321ff8951",
+      "path": "results/link_frontier.txt",
+      "bytes": 933,
+      "sha256": "ba352e7508059aa40b51f4b9ae76d93e131745bca62cdc69bf01a46ea4289c33",
+      "review": "legacy-record; publication review required"
+    },
+    {
+      "path": "results/link_h12.txt",
+      "bytes": 869,
+      "sha256": "045b43bf5a363a9400f92986dd3df07051691cd1d59aef05fc977a04962e628d",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1785,8 +1587,8 @@
     },
     {
       "path": "results/portfolios.json",
-      "bytes": 28500,
-      "sha256": "94b3dddcfc1a79e770506514cbb9be9940013cd82705acbeb71da07dbfb28f3d",
+      "bytes": 28555,
+      "sha256": "2d49751bce9fd25f070084a0a66c0cf59bdb2428c1a91490fa6f98932bba2796",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1803,8 +1605,8 @@
     },
     {
       "path": "results/printer_atlas.json",
-      "bytes": 4450333,
-      "sha256": "8ac2de3b50c971e32f1b8a6dfc5c7da5ac53d4327047f4d3c953b9172258b386",
+      "bytes": 4450337,
+      "sha256": "dd126df66e3e9f679d0580f655b3d18b18ea552182e2818971582d38dceabfdf",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1827,8 +1629,8 @@
     },
     {
       "path": "results/printer_compare.log",
-      "bytes": 3555,
-      "sha256": "2dbbd47f355aa94f450acc6d0cbaa881820d51325761be9acaca948fb50271d1",
+      "bytes": 3565,
+      "sha256": "46586bc144090142e62389e069fec030f7381b05af8d3b3bc62d28230313c6ed",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1839,8 +1641,8 @@
     },
     {
       "path": "results/printer_credit.log",
-      "bytes": 7668,
-      "sha256": "782bfb1dc34dc4f8ce1a8bab35fbce137f3a38f1c57e0c497c4d7149b4838310",
+      "bytes": 7678,
+      "sha256": "409329524f6d5d19b4aa5a29c5357644d58d2d6040c8174e8587ec3c661bfa57",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1851,8 +1653,8 @@
     },
     {
       "path": "results/printer_credit_sweep.log",
-      "bytes": 12351,
-      "sha256": "fe548e7d38a055bf5c5401cd8f2957ef1aa9b38111ed9a8a50fe546f32b4123e",
+      "bytes": 12381,
+      "sha256": "0e022e289bdd0aeaa42d87b9c32bdf4bcaf20130717346da63ed7106483da501",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1875,8 +1677,8 @@
     },
     {
       "path": "results/printer_grid.log",
-      "bytes": 2959,
-      "sha256": "223e94493be93e5d283c1d0456b151cf924af4c6bf11f5477271ba38a42c6c96",
+      "bytes": 2969,
+      "sha256": "75eb2622528a4f133e8047a7a507294f47a973a252151399ad1ba54bc13dbf7c",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1893,14 +1695,14 @@
     },
     {
       "path": "results/printer_mp2_simplify.json",
-      "bytes": 22943,
-      "sha256": "1b8d4b67d56887eea1a9079669f2f0f580e300ecaa73030c5fe530ba9b3ccc76",
+      "bytes": 22947,
+      "sha256": "9372030c17e66f2f6396016486e7a2f14768ca8d3b1c0a0d10a58981fcb2f621",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/printer_mp2_simplify.log",
-      "bytes": 1040,
-      "sha256": "a2f84ee63e39981ea57481845ee69af2eb5fc4cd009a3a349601610f685b579f",
+      "bytes": 1044,
+      "sha256": "a61bd04602c627812ed49d3281353eacce2f596f27c8ffc6a659429d7d4ab227",
       "review": "legacy-record; publication review required"
     },
     {
@@ -1928,18 +1730,6 @@
       "review": "legacy-record; publication review required"
     },
     {
-      "path": "results/printer_search_retiree.json",
-      "bytes": 17278,
-      "sha256": "9a28c3a95486fae0b51e564e2cc7ba33031b0d38c7e5ea435c36ef31605a8c3f",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/printer_search_retiree.log",
-      "bytes": 13343,
-      "sha256": "249d567893e11bd9b79cce982bf9328203c2ea60edbc5277badc4c3137f28bcb",
-      "review": "legacy-record; publication review required"
-    },
-    {
       "path": "results/printer_search_max_print.json",
       "bytes": 15542,
       "sha256": "d8a4e8f08b14b423839b5c598fdd640a97cc504dff63a4ea9251ef13ab25c0ed",
@@ -1952,69 +1742,69 @@
       "review": "legacy-record; publication review required"
     },
     {
+      "path": "results/printer_search_retiree.json",
+      "bytes": 17278,
+      "sha256": "9a28c3a95486fae0b51e564e2cc7ba33031b0d38c7e5ea435c36ef31605a8c3f",
+      "review": "legacy-record; publication review required"
+    },
+    {
+      "path": "results/printer_search_retiree.log",
+      "bytes": 13353,
+      "sha256": "714253079dd81c1135fb83c0d75e7c4768a4594fa9b02be5eb42280b55a3b22e",
+      "review": "legacy-record; publication review required"
+    },
+    {
       "path": "results/printer_stress.json",
-      "bytes": 12065,
-      "sha256": "eb73ca7c30b2280b3e11692bf2c1ac8de709cb7255599b22fb7b954c62e7c0b0",
+      "bytes": 12105,
+      "sha256": "9975e1897121b699143d3b53bd25112d5e4c351f4cd22fdef49682ea0a391a89",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/printer_stress.log",
-      "bytes": 8969,
-      "sha256": "3809b241bfa77a23addf20ac802a34ae83e01aa47d920eb775d2a5be5ec85205",
+      "bytes": 9009,
+      "sha256": "e305c4a44493bcba11d6d61689da89a6e344d1246c1e3767fff93b918781ba7c",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/printer_validate.json",
-      "bytes": 106950,
-      "sha256": "00d699c393769f85ae70491f4516b8557b8fa943186e25002f79354e1f06d3ae",
+      "bytes": 106962,
+      "sha256": "7cc56f8d5297dbd3735c39f89863159b6748a4c10663cbe5776ba67ec2d4d7f8",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/printer_validate.log",
-      "bytes": 4802,
-      "sha256": "a0cb542506d6f3650049be71078f224d25cb366c2869a852a3dc40d311b4efbb",
+      "bytes": 4814,
+      "sha256": "fd139495624529569fa4480023aacf07215fe8d835a1be66f0cabb433721e375",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/printer_validate_table.md",
-      "bytes": 4657,
-      "sha256": "eb8ec07e82bf7e62a63c0c36ed9e1e0de3eea60411b4243f9565b7c700f85082",
+      "bytes": 4669,
+      "sha256": "a74e0a46aa4777a6cb7f414737dbd032aeae74ae0ee7e8bde948e4d99d57b1be",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/rebal_ch12.log",
-      "bytes": 4507,
-      "sha256": "bce9e40ed5e2bae3b3aedd75fb6fd1bbf024aff21d111cb907f22b2825454c10",
+      "bytes": 4506,
+      "sha256": "7a005b6eeb77362eb84c919acfd36f3a9a58edbf166c0908021e119f0561a72e",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/rebal_ch12_hybrid.log",
-      "bytes": 2886,
-      "sha256": "92e8ac9179dbcc7ddf3ff332227f2590b5dbc3c64b977816045562e3c5eb806e",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/rebal_plan.log",
-      "bytes": 1258,
-      "sha256": "a55705952ec8d5c59a25ee3fed6e389fda8dc106561725b9a5382578cf807a3a",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/rebal_plan_yearly_band.log",
-      "bytes": 508,
-      "sha256": "d1f0803d7c5c3d8dd20aa40a46983f30b7800bc339d8d66b44818faf37b2734d",
+      "bytes": 2885,
+      "sha256": "0a6c19d37a5246dc67c97535ee21f548b3c7a275ec5bac4a8380e250e2248b04",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/rebal_tax.log",
-      "bytes": 1640,
-      "sha256": "203c349a70c329bc2985e3f6e026f99ffc71fc2229d3d895d34b4316c04e3e11",
+      "bytes": 1650,
+      "sha256": "5eb8854228e79f83d0fdc34614c3dbc20bc3264c78187120da11b202736049bb",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/rebal_tax_grid.log",
-      "bytes": 1635,
-      "sha256": "5b63588995d95a60f4175df1889e7368f7991bf8b3cbb4ecc26465d70813f17f",
+      "bytes": 1645,
+      "sha256": "79c18fb128ad8ed3bb69ef45b0f7efa02b4b82b2020d9ede7c54c4d8bd4e09e0",
       "review": "legacy-record; publication review required"
     },
     {
@@ -2031,8 +1821,8 @@
     },
     {
       "path": "results/recent_sharpe.log",
-      "bytes": 3412,
-      "sha256": "b173be54345c32f39708d6729fdbc18401a1cd950c0ddcd1dec72c1fa4460642",
+      "bytes": 3422,
+      "sha256": "709c1e0cdac8938662476af14f62f29ae5e2c55f4922c566b61b6a24cc3d60fd",
       "review": "legacy-record; publication review required"
     },
     {
@@ -2121,14 +1911,14 @@
     },
     {
       "path": "results/shield_vs_mp2.json",
-      "bytes": 32679,
-      "sha256": "7dd9036124cf51a78fc9db188728b28c3d5901a33738170c5b54b3bafe52cf20",
+      "bytes": 32689,
+      "sha256": "b087901be333e64b0c40d5085a3e0e931b21002da71993c0234e29aeebdfa58c",
       "review": "legacy-record; publication review required"
     },
     {
       "path": "results/shield_vs_mp2.log",
-      "bytes": 1394,
-      "sha256": "6708d6df91c272f304d8db20e773db50f7205908714b64d5b2c587f11ccdad06",
+      "bytes": 1424,
+      "sha256": "a6c0345c20f9fb8d60bfdd398bcb1ebdf3bc3af24770aad86ba29bd92ee83a43",
       "review": "legacy-record; publication review required"
     },
     {
@@ -2234,9 +2024,27 @@
       "review": "legacy-record; publication review required"
     },
     {
+      "path": "results/verify_ch12.log",
+      "bytes": 893,
+      "sha256": "ced00c4c7d827debdd0540b0d530167294a883777ef4267057339aa097a2c961",
+      "review": "legacy-record; publication review required"
+    },
+    {
+      "path": "results/verify_ch12T.log",
+      "bytes": 686,
+      "sha256": "5e0662d0bc623d1d81af2254459418808b1982481a7d44e10b5f017258a67e99",
+      "review": "legacy-record; publication review required"
+    },
+    {
       "path": "results/verify_ch12_noUUP.log",
       "bytes": 208,
       "sha256": "afce262187467a6c41093a89c92913b7a531ffc61605e399395499f319bc71bc",
+      "review": "legacy-record; publication review required"
+    },
+    {
+      "path": "results/verify_ch12_nodbmf.log",
+      "bytes": 444,
+      "sha256": "bfa674b1320bbc9dda868b0add26fa3ab2e44721ce6d8ec3af8b4f41d8ff9176",
       "review": "legacy-record; publication review required"
     },
     {
@@ -2249,30 +2057,6 @@
       "path": "results/verify_frontier_hi.log",
       "bytes": 5582,
       "sha256": "f874444d983236de806febf059a9ee947517d88a18badc72522fbbbb4c3a6181",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/verify_ch12.log",
-      "bytes": 893,
-      "sha256": "ced00c4c7d827debdd0540b0d530167294a883777ef4267057339aa097a2c961",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/verify_ch12T.log",
-      "bytes": 688,
-      "sha256": "2d5919c235ae259b16eccb6b06fdfca6b8afc4cd97d7536ad2ede3192126a295",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/verify_ch12_nodbmf.log",
-      "bytes": 449,
-      "sha256": "7c6754018899e5a3b552e44a7b05af55b6c1eeb59314746ddf4b719235958a6e",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/verify_ex_final2.log",
-      "bytes": 813,
-      "sha256": "fb7f0cdda00cbee76a4ebec701e7203e966944dae4b10a1f3c450c7af37b49f5",
       "review": "legacy-record; publication review required"
     },
     {
@@ -2313,8 +2097,8 @@
     },
     {
       "path": "results/verify_s12plus_vs_ch12.log",
-      "bytes": 612,
-      "sha256": "2e662a6fd654e576c23f83d6e715e1e9ff18c5dd2a7c437ae18f9d63c93726ec",
+      "bytes": 609,
+      "sha256": "14582c2665a1d513142263ede066bd7f95755e18dece33c69b78fc7992ed9ebd",
       "review": "legacy-record; publication review required"
     },
     {
@@ -2339,12 +2123,6 @@
       "path": "results/verify_yearly_band_testfol.log",
       "bytes": 975,
       "sha256": "90e40e5a9067fbe39ddb1f2605a9a0ba991de5904e23fba88a191b3cc705e7c4",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "results/retiree_plan.log",
-      "bytes": 9277,
-      "sha256": "d6843e512e6acaad0d566f71cd0d570ae48ebf691874efa426634bf29bb4ad05",
       "review": "legacy-record; publication review required"
     },
     {
@@ -2477,12 +2255,6 @@
       "path": "strategy/v2_guar_wf.json",
       "bytes": 16353,
       "sha256": "5b464ad4449f53c859828f125619bbde04e6bf1a2d78b6b19095577973e03b8d",
-      "review": "legacy-record; publication review required"
-    },
-    {
-      "path": "strategy/retiree_plan.json",
-      "bytes": 26002,
-      "sha256": "7d3af2313bd9d5bbaab4d2d25bae6a71def437f9694b140cb79f4194802c120a",
       "review": "legacy-record; publication review required"
     },
     {

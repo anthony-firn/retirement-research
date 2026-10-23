@@ -22,7 +22,7 @@ Generated native projects are not signed store releases. Physical-device testing
 
 ## Public research release
 
-- Review committed files/history for household details and credentials; keep raw assistant conversations private.
+- Keep household details, credentials and raw assistant conversations out of the repository (history reviewed and rewritten 2026-10-22).
 - Complete the data-provider rights inventory and replace or separate unclear-redistribution historical inputs.
 - Supply a permissioned, versioned fixture and verify clean-checkout reproduction.
 - Collect independent reproductions and publish rejected candidates, uncertainty and sensitivity tests.

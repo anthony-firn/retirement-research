@@ -180,18 +180,6 @@
         "sha256": "3b53d4d82188ca5b7d77313d28942f319ca2397551cf819d198766385841934d",
         "bytes": 3670
       },
-      "lab/ex_mf_robust.py": {
-        "sha256": "c933378da60a1b4e2a8ccf6f482d57c3e856aec0c466ee5fb539e9a3064bdf44",
-        "bytes": 1792
-      },
-      "lab/ex_optimize.py": {
-        "sha256": "f879edb8123e97d71130df57ee1ef3627865da2ef0294994c60576dff7058d1c",
-        "bytes": 5514
-      },
-      "lab/ex_stage2.py": {
-        "sha256": "19e1460b9cc383e77386270d1d05bdd4a52acc2898c3361a2c72cc27586f8187",
-        "bytes": 4297
-      },
       "lab/hist_long.json": {
         "sha256": "963f986eb89075f6f3d69cdf1448b62bd2d8eeeecb19e5e7e908dbc38e7efbd4",
         "bytes": 32264890
@@ -215,10 +203,6 @@
       "lab/probe.py": {
         "sha256": "0d90ad376575baed34352f0375463e9b53e609e783ff72076e9bf5eb528a7071",
         "bytes": 1202
-      },
-      "lab/rebal_plan.py": {
-        "sha256": "7d91d8f350c68f58176a4ccf980b7bd9d7d2dd1be93ed28a6069be21f5956d07",
-        "bytes": 2048
       },
       "lab/rebal_tax.py": {
         "sha256": "3cc7eaa858cd3212b69c22994a09d8c1383f2c7b569a57be32d8d16a4930b3ef",
@@ -287,26 +271,6 @@
       "lab/verify_top.py": {
         "sha256": "95e1999cb4f643c8f28b552b8308edc668628d8adca0afee8d921a4f813e89aa",
         "bytes": 3022
-      },
-      "planner/ex_plan.py": {
-        "sha256": "b91e6ce31c8d52b311dfe775d2d17fbbe022e34affc5826329bc219359750590",
-        "bytes": 10101
-      },
-      "planner/household.py": {
-        "sha256": "995ec3218e89ba02136bd4129cf78050a23553f44db03fab23b4135a818a72ba",
-        "bytes": 701
-      },
-      "planner/keep_home.py": {
-        "sha256": "e753e82779024c5820e72e8fc17201fddee0c57ecc5f6d4c3ab43893f701029f",
-        "bytes": 3359
-      },
-      "planner/no_ss_search.py": {
-        "sha256": "820e266313e4355c15474867784fcb613c732f2e742f2762dac8a24c9de61892",
-        "bytes": 4681
-      },
-      "planner/optimize_ex.py": {
-        "sha256": "2f9d084fe187105bcf57bce8359a91c86136e0eb8fbf30d7f122cfdfd85ddf0c",
-        "bytes": 3397
       },
       "planner/plan.py": {
         "sha256": "2499a6570089023a73ea8dd752268c3ca495630ba030fee1fbfedbbf789f25f2",
@@ -527,10 +491,6 @@
       "strategy/stress70s.py": {
         "sha256": "1bc919451fa4e273a82c1de2ba312519e83d96554b1a6cc5f34f3ae0c962b0b5",
         "bytes": 3481
-      },
-      "strategy/retiree_plan.py": {
-        "sha256": "125b55c1c46004b1350d65c0120a5f6243217b1cf34689d6e8277ebd5346e24c",
-        "bytes": 4386
       },
       "strategy/withdraw_rules.py": {
         "sha256": "af40e1a0149898046bd3898742a97dc4d41681af4026266cc9cfa48bc5f62795",
